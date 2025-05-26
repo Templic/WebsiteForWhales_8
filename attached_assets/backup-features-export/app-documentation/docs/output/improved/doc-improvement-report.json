@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-05-18T00:19:15.775Z",
+  "totalFiles": 1,
+  "improvedFiles": 0,
+  "totalIssues": 1,
+  "filesWithErrors": 0,
+  "mode": "analyze",
+  "files": [
+    {
+      "path": "DOCUMENTATION_STANDARDS.md",
+      "issueCount": 1,
+      "improved": false
+    }
+  ]
+}
