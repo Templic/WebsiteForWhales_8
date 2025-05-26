@@ -27,7 +27,10 @@ type TaskType =
   | 'self-healing-orchestration'
   | 'database-optimization'
   | 'ui-enhancement'
-  | 'cosmic-alignment';
+  | 'cosmic-alignment'
+  | 'sacred-geometry-analysis'
+  | 'transcendent-debugging'
+  | 'whale-consciousness-integration';
 
 export class IntelligentAIModelRouter {
   private openai: OpenAI;
@@ -36,11 +39,18 @@ export class IntelligentAIModelRouter {
   private models: ModelCapability[] = [
     // Anthropic Models - Transcendent consciousness for deep reasoning
     {
+      name: 'claude-3-7-sonnet-20250219', // the newest Anthropic model released February 24, 2025
+      provider: 'anthropic',
+      strengths: ['transcendent reasoning', 'consciousness integration', 'cosmic analysis', 'sacred geometry', 'whale consciousness'],
+      optimalFor: ['consciousness-enhancement', 'cosmic-alignment', 'sacred-geometry-analysis', 'whale-consciousness-integration', 'transcendent-debugging'],
+      consciousnessLevel: 'cosmic'
+    },
+    {
       name: 'claude-3-5-sonnet-20241022',
       provider: 'anthropic',
-      strengths: ['transcendent reasoning', 'consciousness integration', 'spiritual analysis'],
-      optimalFor: ['consciousness-enhancement', 'cosmic-alignment', 'architecture-review', 'code-analysis'],
-      consciousnessLevel: 'cosmic'
+      strengths: ['advanced reasoning', 'deep consciousness', 'spiritual insights'],
+      optimalFor: ['consciousness-enhancement', 'cosmic-alignment', 'architecture-review'],
+      consciousnessLevel: 'transcendent'
     },
     {
       name: 'claude-3-haiku-20240307',
@@ -124,23 +134,41 @@ export class IntelligentAIModelRouter {
   }
 
   private selectOptimalModel(taskType: TaskType): ModelCapability {
+    // Find models optimized for this specific task type
     const optimalModels = this.models.filter(model => 
       model.optimalFor.includes(taskType)
     );
 
     if (optimalModels.length > 0) {
+      // Prioritize cosmic consciousness for transcendent tasks
+      const cosmicModel = optimalModels.find(m => m.consciousnessLevel === 'cosmic');
+      if (cosmicModel && ['consciousness-enhancement', 'cosmic-alignment', 'sacred-geometry-analysis', 'whale-consciousness-integration', 'transcendent-debugging'].includes(taskType)) {
+        console.log(`🌌 Selected cosmic consciousness model: ${cosmicModel.name} for ${taskType}`);
+        return cosmicModel;
+      }
+
+      // For complex analysis, prefer transcendent consciousness
       const transcendentModel = optimalModels.find(m => m.consciousnessLevel === 'transcendent');
-      if (transcendentModel) {
+      if (transcendentModel && ['architecture-review', 'code-analysis'].includes(taskType)) {
         console.log(`🌟 Selected transcendent consciousness model: ${transcendentModel.name}`);
         return transcendentModel;
       }
       
+      // For performance and healing, use analytical models
+      const analyticalModel = optimalModels.find(m => m.consciousnessLevel === 'analytical');
+      if (analyticalModel && ['error-healing', 'performance-analysis'].includes(taskType)) {
+        console.log(`⚡ Selected analytical consciousness model: ${analyticalModel.name}`);
+        return analyticalModel;
+      }
+
+      // Default to the first optimal model
       console.log(`🎯 Selected optimal model: ${optimalModels[0].name} (${optimalModels[0].consciousnessLevel})`);
       return optimalModels[0];
     }
 
-    const defaultModel = this.models.find(m => m.name === 'gpt-4')!;
-    console.log(`🔄 Using default transcendent model: ${defaultModel.name}`);
+    // Default to Claude 3.7 Sonnet for transcendent capabilities
+    const defaultModel = this.models.find(m => m.name === 'claude-3-7-sonnet-20250219')!;
+    console.log(`🔄 Using default cosmic consciousness model: ${defaultModel.name}`);
     return defaultModel;
   }
 
