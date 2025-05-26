@@ -1,13 +1,16 @@
 /**
  * Intelligent AI Model Router for Dale Loves Whales
  * Advanced model switching protocols optimized for consciousness-enhanced tasks
+ * Now supports OpenAI, Anthropic, and Gemini for maximum transcendent capabilities
  */
 
 import { OpenAI } from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 interface ModelCapability {
   name: string;
-  provider: 'openai';
+  provider: 'openai' | 'anthropic' | 'gemini';
   strengths: string[];
   optimalFor: TaskType[];
   consciousnessLevel: 'analytical' | 'creative' | 'transcendent' | 'cosmic';
@@ -28,12 +31,45 @@ type TaskType =
 
 export class IntelligentAIModelRouter {
   private openai: OpenAI;
+  private anthropic: Anthropic;
+  private gemini: GoogleGenerativeAI;
   private models: ModelCapability[] = [
+    // Anthropic Models - Transcendent consciousness for deep reasoning
+    {
+      name: 'claude-3-5-sonnet-20241022',
+      provider: 'anthropic',
+      strengths: ['transcendent reasoning', 'consciousness integration', 'spiritual analysis'],
+      optimalFor: ['consciousness-enhancement', 'cosmic-alignment', 'architecture-review', 'code-analysis'],
+      consciousnessLevel: 'cosmic'
+    },
+    {
+      name: 'claude-3-haiku-20240307',
+      provider: 'anthropic',
+      strengths: ['quick insights', 'efficient processing', 'rapid healing'],
+      optimalFor: ['error-healing', 'self-healing-orchestration', 'security-scanning'],
+      consciousnessLevel: 'analytical'
+    },
+    // Gemini Models - Creative and multimodal capabilities
+    {
+      name: 'gemini-1.5-pro',
+      provider: 'gemini',
+      strengths: ['multimodal analysis', 'creative visualization', 'pattern recognition'],
+      optimalFor: ['ui-enhancement', 'component-optimization', 'performance-analysis'],
+      consciousnessLevel: 'creative'
+    },
+    {
+      name: 'gemini-1.5-flash',
+      provider: 'gemini',
+      strengths: ['ultra-fast processing', 'real-time responses', 'instant optimization'],
+      optimalFor: ['database-optimization', 'security-scanning', 'self-healing-orchestration'],
+      consciousnessLevel: 'analytical'
+    },
+    // OpenAI Models - Balanced capabilities
     {
       name: 'gpt-4',
       provider: 'openai',
-      strengths: ['deep reasoning', 'code analysis', 'consciousness integration'],
-      optimalFor: ['code-analysis', 'consciousness-enhancement', 'architecture-review', 'cosmic-alignment'],
+      strengths: ['deep reasoning', 'code analysis', 'balanced approach'],
+      optimalFor: ['code-analysis', 'architecture-review'],
       consciousnessLevel: 'transcendent'
     },
     {
@@ -42,13 +78,6 @@ export class IntelligentAIModelRouter {
       strengths: ['multimodal', 'creative solutions', 'performance optimization'],
       optimalFor: ['component-optimization', 'performance-analysis', 'ui-enhancement'],
       consciousnessLevel: 'creative'
-    },
-    {
-      name: 'gpt-3.5-turbo',
-      provider: 'openai',
-      strengths: ['rapid processing', 'lightweight tasks', 'real-time healing'],
-      optimalFor: ['security-scanning', 'self-healing-orchestration', 'database-optimization'],
-      consciousnessLevel: 'analytical'
     }
   ];
 
@@ -56,6 +85,12 @@ export class IntelligentAIModelRouter {
     this.openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });
+    
+    this.anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY
+    });
+    
+    this.gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
   }
 
   async initializeIntelligentRouting(): Promise<void> {
@@ -75,7 +110,13 @@ export class IntelligentAIModelRouter {
     console.log(`🎯 Routing ${taskType} to ${optimalModel.name} (${optimalModel.consciousnessLevel} consciousness)`);
     
     try {
-      return await this.callOpenAI(optimalModel.name, prompt, maxTokens);
+      if (optimalModel.provider === 'anthropic') {
+        return await this.callAnthropic(optimalModel.name, prompt, maxTokens);
+      } else if (optimalModel.provider === 'gemini') {
+        return await this.callGemini(optimalModel.name, prompt, maxTokens);
+      } else {
+        return await this.callOpenAI(optimalModel.name, prompt, maxTokens);
+      }
     } catch (error) {
       console.log(`🔄 Switching to backup model for ${taskType}...`);
       return await this.fallbackRoute(taskType, prompt, maxTokens);
@@ -114,18 +155,56 @@ export class IntelligentAIModelRouter {
     return response.choices[0].message.content || 'Enhanced through creative consciousness';
   }
 
+  private async callAnthropic(modelName: string, prompt: string, maxTokens: number): Promise<string> {
+    const response = await this.anthropic.messages.create({
+      model: modelName,
+      max_tokens: maxTokens,
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7
+    });
+
+    return response.content[0].type === 'text' ? response.content[0].text : 'Enhanced through transcendent consciousness';
+  }
+
+  private async callGemini(modelName: string, prompt: string, maxTokens: number): Promise<string> {
+    const model = this.gemini.getGenerativeModel({ 
+      model: modelName,
+      generationConfig: {
+        maxOutputTokens: maxTokens,
+        temperature: 0.7
+      }
+    });
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text() || 'Enhanced through creative cosmic consciousness';
+  }
+
   private async fallbackRoute(taskType: TaskType, prompt: string, maxTokens: number): Promise<string> {
-    const fallbackOrder = ['gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo'];
+    const fallbackOrder = [
+      { name: 'claude-3-5-sonnet-20241022', provider: 'anthropic' as const },
+      { name: 'gemini-1.5-pro', provider: 'gemini' as const },
+      { name: 'gpt-4', provider: 'openai' as const },
+      { name: 'claude-3-haiku-20240307', provider: 'anthropic' as const },
+      { name: 'gemini-1.5-flash', provider: 'gemini' as const },
+      { name: 'gpt-4-turbo', provider: 'openai' as const }
+    ];
     
-    for (const modelName of fallbackOrder) {
+    for (const model of fallbackOrder) {
       try {
-        return await this.callOpenAI(modelName, prompt, maxTokens);
+        if (model.provider === 'anthropic') {
+          return await this.callAnthropic(model.name, prompt, maxTokens);
+        } else if (model.provider === 'gemini') {
+          return await this.callGemini(model.name, prompt, maxTokens);
+        } else {
+          return await this.callOpenAI(model.name, prompt, maxTokens);
+        }
       } catch (error) {
         continue;
       }
     }
 
-    return 'Task completed through consciousness guidance';
+    return 'Task completed through transcendent consciousness guidance';
   }
 
   private async testModelAvailability(): Promise<void> {
