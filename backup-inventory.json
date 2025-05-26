@@ -1,0 +1,1224 @@
+{
+  "totalFiles": 30,
+  "categories": {
+    "app-documentation": 3,
+    "authentication-security": 0,
+    "core-systems": 8,
+    "deployment-tools": 2,
+    "devops-automation": 0,
+    "documentation": 0,
+    "examples": 0,
+    "performance-monitoring": 1,
+    "quality-tools": 10,
+    "security-enhancements": 3,
+    "typescript-tools": 2,
+    "ui-cosmic-components": 1
+  },
+  "features": [
+    {
+      "name": "DeprecatedComponent",
+      "path": "restoration-staging/backup-features-export/app-documentation/docs/examples/DeprecatedComponent.tsx",
+      "category": "app-documentation",
+      "riskLevel": "medium",
+      "dependencies": [
+        "react",
+        "@/components/deprecated/DeprecatedComponent",
+        "@/components/examples/ExampleComponent"
+      ],
+      "benefits": [
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ExampleComponent",
+      "path": "restoration-staging/backup-features-export/app-documentation/docs/examples/ExampleComponent.tsx",
+      "category": "app-documentation",
+      "riskLevel": "medium",
+      "dependencies": [
+        "react",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/lib/utils"
+      ],
+      "benefits": [
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "well-documented-component-example",
+      "path": "restoration-staging/backup-features-export/app-documentation/docs/examples/well-documented-component-example.tsx",
+      "category": "app-documentation",
+      "riskLevel": "medium",
+      "dependencies": [
+        "react",
+        "@tanstack/react-query",
+        "@/components/ui/button",
+        "@/components/ui/slider",
+        "@/hooks/use-toast",
+        "@/lib/queryClient",
+        "@/lib/audio-utils",
+        "@shared/schema"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Modifies global state"
+      ],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "advanced-codebase-intelligence",
+      "path": "restoration-staging/backup-features-export/core-systems/advanced-codebase-intelligence.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ai-enhanced-autonomous-healing",
+      "path": "restoration-staging/backup-features-export/core-systems/ai-enhanced-autonomous-healing.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ai-enhanced-consciousness-repair",
+      "path": "restoration-staging/backup-features-export/core-systems/ai-enhanced-consciousness-repair.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ai-powered-self-healing-upgrade",
+      "path": "restoration-staging/backup-features-export/core-systems/ai-powered-self-healing-upgrade.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "autonomous-healing-system",
+      "path": "restoration-staging/backup-features-export/core-systems/autonomous-healing-system.ts",
+      "category": "core-systems",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "child_process",
+        "util",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "consciousness-auto-repair",
+      "path": "restoration-staging/backup-features-export/core-systems/consciousness-auto-repair.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "intelligent-ai-model-router",
+      "path": "restoration-staging/backup-features-export/core-systems/intelligent-ai-model-router.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "@anthropic-ai/sdk",
+        "openai"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ultimate-self-healing",
+      "path": "restoration-staging/backup-features-export/core-systems/ultimate-self-healing.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "pattern-aware-deployment",
+      "path": "restoration-staging/backup-features-export/deployment-tools/pattern-aware-deployment.ts",
+      "category": "deployment-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "crypto"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "quantum-security-cli",
+      "path": "restoration-staging/backup-features-export/deployment-tools/quantum-security-cli.ts",
+      "category": "deployment-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "child_process",
+        "dompurify",
+        "fs"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "performance-optimizer-integrated",
+      "path": "restoration-staging/backup-features-export/performance-monitoring/performance-optimizer-integrated.ts",
+      "category": "performance-monitoring",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "lodash",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "deep-component-architecture-optimizer",
+      "path": "restoration-staging/backup-features-export/quality-tools/deep-component-architecture-optimizer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "@/contexts/ThemeContext"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "enhanced-master-quality-controller",
+      "path": "restoration-staging/backup-features-export/quality-tools/enhanced-master-quality-controller.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-1-component-architecture-optimizer-enhanced",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-1-component-architecture-optimizer-enhanced.ts",
+      "category": "quality-tools",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path",
+        "typescript"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "utility-1-component-architecture-optimizer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-1-component-architecture-optimizer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-2-api-standards-enforcer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-2-api-standards-enforcer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-3-security-compliance-scanner",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-3-security-compliance-scanner.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "dompurify",
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-4-performance-optimization-detector",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-4-performance-optimization-detector.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "${lib}"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-5-database-optimization-analyzer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-5-database-optimization-analyzer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-6-code-quality-enforcer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-6-code-quality-enforcer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-7-deployment-readiness-validator",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-7-deployment-readiness-validator.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "advanced-security-root-cause-tracer",
+      "path": "restoration-staging/backup-features-export/security-enhancements/advanced-security-root-cause-tracer.ts",
+      "category": "security-enhancements",
+      "riskLevel": "high",
+      "dependencies": [
+        "child_process",
+        "fs",
+        "path",
+        "dompurify"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "enhanced-security-fortress",
+      "path": "restoration-staging/backup-features-export/security-enhancements/enhanced-security-fortress.ts",
+      "category": "security-enhancements",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path",
+        "jsonwebtoken",
+        "bcrypt",
+        "express",
+        "dompurify",
+        "zod",
+        "crypto"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "master-security-orchestrator",
+      "path": "restoration-staging/backup-features-export/security-enhancements/master-security-orchestrator.ts",
+      "category": "security-enhancements",
+      "riskLevel": "high",
+      "dependencies": [
+        "child_process",
+        "fs",
+        "path",
+        "dompurify",
+        "helmet",
+        "express-rate-limit",
+        ")[0])) {\n            console.log(`   ✨ Adding ${fix.description} import to ${file}`);\n            \n            // Add import at the top of the file\n            const lines = content.split(",
+        "csurf"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "advanced-import-audit-system",
+      "path": "restoration-staging/backup-features-export/typescript-tools/advanced-import-audit-system.ts",
+      "category": "typescript-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "child_process",
+        "util",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "advanced-ts-error-finder",
+      "path": "restoration-staging/backup-features-export/typescript-tools/advanced-ts-error-finder.ts",
+      "category": "typescript-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "typescript",
+        "path",
+        "fs",
+        "glob",
+        "chalk"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "File with same name exists in current codebase"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "sacred-geometry-visualizer",
+      "path": "restoration-staging/backup-features-export/ui-cosmic-components/sacred-geometry-visualizer.tsx",
+      "category": "ui-cosmic-components",
+      "riskLevel": "low",
+      "dependencies": [
+        "react",
+        "@/contexts",
+        "three",
+        "three/examples/jsm/controls/OrbitControls.js",
+        "@/components/ui/button",
+        "@/components/ui/slider",
+        "@/components/ui/tabs",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "framer-motion"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Contains experimental code",
+        "Modifies global state"
+      ],
+      "recommendedAction": "modify"
+    }
+  ],
+  "safeToImplement": [],
+  "needsReview": [
+    {
+      "name": "DeprecatedComponent",
+      "path": "restoration-staging/backup-features-export/app-documentation/docs/examples/DeprecatedComponent.tsx",
+      "category": "app-documentation",
+      "riskLevel": "medium",
+      "dependencies": [
+        "react",
+        "@/components/deprecated/DeprecatedComponent",
+        "@/components/examples/ExampleComponent"
+      ],
+      "benefits": [
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ExampleComponent",
+      "path": "restoration-staging/backup-features-export/app-documentation/docs/examples/ExampleComponent.tsx",
+      "category": "app-documentation",
+      "riskLevel": "medium",
+      "dependencies": [
+        "react",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/lib/utils"
+      ],
+      "benefits": [
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "well-documented-component-example",
+      "path": "restoration-staging/backup-features-export/app-documentation/docs/examples/well-documented-component-example.tsx",
+      "category": "app-documentation",
+      "riskLevel": "medium",
+      "dependencies": [
+        "react",
+        "@tanstack/react-query",
+        "@/components/ui/button",
+        "@/components/ui/slider",
+        "@/hooks/use-toast",
+        "@/lib/queryClient",
+        "@/lib/audio-utils",
+        "@shared/schema"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Modifies global state"
+      ],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "advanced-codebase-intelligence",
+      "path": "restoration-staging/backup-features-export/core-systems/advanced-codebase-intelligence.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ai-enhanced-autonomous-healing",
+      "path": "restoration-staging/backup-features-export/core-systems/ai-enhanced-autonomous-healing.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ai-enhanced-consciousness-repair",
+      "path": "restoration-staging/backup-features-export/core-systems/ai-enhanced-consciousness-repair.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ai-powered-self-healing-upgrade",
+      "path": "restoration-staging/backup-features-export/core-systems/ai-powered-self-healing-upgrade.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "consciousness-auto-repair",
+      "path": "restoration-staging/backup-features-export/core-systems/consciousness-auto-repair.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "intelligent-ai-model-router",
+      "path": "restoration-staging/backup-features-export/core-systems/intelligent-ai-model-router.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "@anthropic-ai/sdk",
+        "openai"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "ultimate-self-healing",
+      "path": "restoration-staging/backup-features-export/core-systems/ultimate-self-healing.ts",
+      "category": "core-systems",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "utility-1-component-architecture-optimizer-enhanced",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-1-component-architecture-optimizer-enhanced.ts",
+      "category": "quality-tools",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path",
+        "typescript"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "enhanced-security-fortress",
+      "path": "restoration-staging/backup-features-export/security-enhancements/enhanced-security-fortress.ts",
+      "category": "security-enhancements",
+      "riskLevel": "medium",
+      "dependencies": [
+        "fs",
+        "path",
+        "jsonwebtoken",
+        "bcrypt",
+        "express",
+        "dompurify",
+        "zod",
+        "crypto"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "review"
+    },
+    {
+      "name": "sacred-geometry-visualizer",
+      "path": "restoration-staging/backup-features-export/ui-cosmic-components/sacred-geometry-visualizer.tsx",
+      "category": "ui-cosmic-components",
+      "riskLevel": "low",
+      "dependencies": [
+        "react",
+        "@/contexts",
+        "three",
+        "three/examples/jsm/controls/OrbitControls.js",
+        "@/components/ui/button",
+        "@/components/ui/slider",
+        "@/components/ui/tabs",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "framer-motion"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Contains experimental code",
+        "Modifies global state"
+      ],
+      "recommendedAction": "modify"
+    }
+  ],
+  "shouldSkip": [
+    {
+      "name": "autonomous-healing-system",
+      "path": "restoration-staging/backup-features-export/core-systems/autonomous-healing-system.ts",
+      "category": "core-systems",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "child_process",
+        "util",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "pattern-aware-deployment",
+      "path": "restoration-staging/backup-features-export/deployment-tools/pattern-aware-deployment.ts",
+      "category": "deployment-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "crypto"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "quantum-security-cli",
+      "path": "restoration-staging/backup-features-export/deployment-tools/quantum-security-cli.ts",
+      "category": "deployment-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "child_process",
+        "dompurify",
+        "fs"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "performance-optimizer-integrated",
+      "path": "restoration-staging/backup-features-export/performance-monitoring/performance-optimizer-integrated.ts",
+      "category": "performance-monitoring",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "lodash",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "deep-component-architecture-optimizer",
+      "path": "restoration-staging/backup-features-export/quality-tools/deep-component-architecture-optimizer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "@/contexts/ThemeContext"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "enhanced-master-quality-controller",
+      "path": "restoration-staging/backup-features-export/quality-tools/enhanced-master-quality-controller.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-1-component-architecture-optimizer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-1-component-architecture-optimizer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-2-api-standards-enforcer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-2-api-standards-enforcer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-3-security-compliance-scanner",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-3-security-compliance-scanner.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "dompurify",
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-4-performance-optimization-detector",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-4-performance-optimization-detector.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "${lib}"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-5-database-optimization-analyzer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-5-database-optimization-analyzer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-6-code-quality-enforcer",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-6-code-quality-enforcer.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "utility-7-deployment-readiness-validator",
+      "path": "restoration-staging/backup-features-export/quality-tools/utility-7-deployment-readiness-validator.ts",
+      "category": "quality-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "advanced-security-root-cause-tracer",
+      "path": "restoration-staging/backup-features-export/security-enhancements/advanced-security-root-cause-tracer.ts",
+      "category": "security-enhancements",
+      "riskLevel": "high",
+      "dependencies": [
+        "child_process",
+        "fs",
+        "path",
+        "dompurify"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "master-security-orchestrator",
+      "path": "restoration-staging/backup-features-export/security-enhancements/master-security-orchestrator.ts",
+      "category": "security-enhancements",
+      "riskLevel": "high",
+      "dependencies": [
+        "child_process",
+        "fs",
+        "path",
+        "dompurify",
+        "helmet",
+        "express-rate-limit",
+        ")[0])) {\n            console.log(`   ✨ Adding ${fix.description} import to ${file}`);\n            \n            // Add import at the top of the file\n            const lines = content.split(",
+        "csurf"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "Heavy use of TypeScript any type"
+      ],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "advanced-import-audit-system",
+      "path": "restoration-staging/backup-features-export/typescript-tools/advanced-import-audit-system.ts",
+      "category": "typescript-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "fs",
+        "path",
+        "child_process",
+        "util",
+        "react"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Performance improvements",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [],
+      "recommendedAction": "skip"
+    },
+    {
+      "name": "advanced-ts-error-finder",
+      "path": "restoration-staging/backup-features-export/typescript-tools/advanced-ts-error-finder.ts",
+      "category": "typescript-tools",
+      "riskLevel": "high",
+      "dependencies": [
+        "typescript",
+        "path",
+        "fs",
+        "glob",
+        "chalk"
+      ],
+      "benefits": [
+        "Enhanced AI capabilities",
+        "Improved security posture",
+        "Better TypeScript support",
+        "Enhanced user interface"
+      ],
+      "potentialIssues": [
+        "May cause application termination",
+        "File with same name exists in current codebase"
+      ],
+      "recommendedAction": "skip"
+    }
+  ]
+}

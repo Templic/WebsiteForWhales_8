@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation Standards</title>
+  <style>
+    
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+      }
+      
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        color: #0066cc;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+      }
+      
+      h1 {
+        font-size: 2.2em;
+        border-bottom: 1px solid #eaecef;
+        padding-bottom: 0.3em;
+      }
+      
+      h2 {
+        font-size: 1.8em;
+      }
+      
+      h3 {
+        font-size: 1.5em;
+      }
+      
+      h4 {
+        font-size: 1.3em;
+      }
+      
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+      
+      a:hover {
+        text-decoration: underline;
+      }
+      
+      code {
+        font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+        background-color: #f6f8fa;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+      }
+      
+      pre {
+        background-color: #f6f8fa;
+        padding: 16px;
+        overflow: auto;
+        border-radius: 3px;
+      }
+      
+      pre code {
+        background-color: transparent;
+        padding: 0;
+      }
+      
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1em 0;
+      }
+      
+      table th, table td {
+        border: 1px solid #dfe2e5;
+        padding: 8px 12px;
+      }
+      
+      table th {
+        background-color: #f6f8fa;
+        text-align: left;
+      }
+      
+      blockquote {
+        margin: 0;
+        padding: 0 1em;
+        color: #6a737d;
+        border-left: 0.25em solid #dfe2e5;
+      }
+      
+      img {
+        max-width: 100%;
+      }
+      
+      hr {
+        height: 0.25em;
+        padding: 0;
+        margin: 24px 0;
+        background-color: #e1e4e8;
+        border: 0;
+      }
+      
+      .anchor {
+        visibility: hidden;
+        color: #0366d6;
+        text-decoration: none;
+      }
+      
+      h1:hover .anchor,
+      h2:hover .anchor,
+      h3:hover .anchor,
+      h4:hover .anchor,
+      h5:hover .anchor,
+      h6:hover .anchor {
+        visibility: visible;
+      }
+    
+    
+    /* Print styles */
+    @media print {
+      body {
+        font-size: 12pt;
+      }
+      
+      h1 {
+        page-break-before: always;
+      }
+      
+      h1:first-of-type {
+        page-break-before: avoid;
+      }
+      
+      h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+      }
+      
+      table, figure, pre {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Documentation Standards</h1>
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#documentation-standards">Documentation Standards</a></li>
+</ul>
+<hr>
+<h1>Documentation Standards</h1>
+<h2>Overview</h2>
+<p>This document defines the standards and guidelines for all documentation within the project. By following these standards, we ensure our documentation is consistent, complete, maintainable, and useful to both users and developers.</p>
+<h2>Document Structure</h2>
+<h3>Required Sections</h3>
+<p>Each document must include the following sections in this order:</p>
+<ol>
+<li><strong>Title (H1)</strong> - A clear, descriptive title at the top of the document</li>
+<li><strong>Metadata Block</strong> - Immediately after the title, containing required metadata fields</li>
+<li><strong>Overview</strong> - A brief introduction explaining the document&#39;s purpose and scope</li>
+<li><strong>Main Content Sections</strong> - The primary content organized with appropriate headings</li>
+<li><strong>Related Documents</strong> - Links to related or referenced documentation</li>
+<li><strong>Version History</strong> - A record of document changes over time</li>
+</ol>
+<h3>Heading Structure</h3>
+<p>Organize headings hierarchically without skipping levels:</p>
+<ul>
+<li><code># H1</code> - Document title (only one per document)</li>
+<li><code>## H2</code> - Major sections</li>
+<li><code>### H3</code> - Subsections</li>
+<li><code>#### H4</code> - Lower-level sections</li>
+<li><code>##### H5</code> - Rarely used, but available for deep hierarchies</li>
+</ul>
+<h3>Section Guidelines</h3>
+<ol>
+<li><p><strong>Overview Section</strong></p>
+<ul>
+<li>Provide a concise summary of the document&#39;s purpose</li>
+<li>Explain what readers will learn or achieve</li>
+<li>Keep to 1-3 paragraphs</li>
+</ul>
+</li>
+<li><p><strong>Content Sections</strong></p>
+<ul>
+<li>Use descriptive headings that clearly indicate the section&#39;s content</li>
+<li>Begin each section with an introductory paragraph</li>
+<li>Keep sections focused on a single topic or concept</li>
+<li>Use consistent depth across similar documents</li>
+</ul>
+</li>
+<li><p><strong>Related Documents Section</strong></p>
+<ul>
+<li>Include links to prerequisite documents</li>
+<li>Reference documents that provide additional context</li>
+<li>Link to documents that cover related topics</li>
+<li>Format as a bulleted list with descriptive link text</li>
+</ul>
+</li>
+<li><p><strong>Version History Section</strong></p>
+<ul>
+<li>Format as a table with columns for Version, Date, and Changes</li>
+<li>List entries in reverse chronological order (newest first)</li>
+<li>Include the initial document creation as version 1.0</li>
+</ul>
+</li>
+</ol>
+<h2>Metadata Requirements</h2>
+<h3>Required Metadata Fields</h3>
+<p>Include these metadata fields immediately after the document title:</p>
+<pre><code class="language-markdown">
+</code></pre>
+<h3>Optional Metadata Fields</h3>
+<p>These fields may be included based on document type and purpose:</p>
+<pre><code class="language-markdown">
+</code></pre>
+<h3>Status Values</h3>
+<ul>
+<li><strong>Active</strong>: Current, maintained documentation</li>
+<li><strong>Draft</strong>: Work in progress, not yet complete</li>
+<li><strong>Deprecated</strong>: Still accessible but will be removed/replaced</li>
+<li><strong>Archived</strong>: Historical documentation, no longer maintained</li>
+</ul>
+<h2>Formatting Guidelines</h2>
+<h3>Text Formatting</h3>
+<ul>
+<li>Use <strong>bold</strong> for emphasis and UI elements</li>
+<li>Use <em>italic</em> for introducing new terms or light emphasis</li>
+<li>Use <code>code formatting</code> for code, commands, file names, and technical values</li>
+<li>Use &gt; blockquotes for important notes or callouts</li>
+</ul>
+<h3>Lists</h3>
+<ul>
+<li>Use ordered lists (1., 2., 3.) for sequential steps or prioritized items</li>
+<li>Use unordered lists (-) for non-sequential items</li>
+<li>Maintain consistent list formatting throughout the document</li>
+<li>Indent sublists consistently (4 spaces)</li>
+</ul>
+<h3>Code Blocks</h3>
+<ul>
+<li>Always specify the language for syntax highlighting:</li>
+</ul>
+<pre><code class="language-javascript">// Example JavaScript code block
+function example() {
+  console.log(&quot;Hello, world!&quot;);
+}
+</code></pre>
+<ul>
+<li>For configuration files or output, specify the format:</li>
+</ul>
+<pre><code class="language-yaml"># Example YAML configuration
+name: example
+version: 1.0
+enabled: true
+</code></pre>
+<ul>
+<li>For terminal commands, use the <code>bash</code> language identifier and prefix commands with <code>$</code>:</li>
+</ul>
+<pre><code class="language-bash">$ npm install
+$ npm run build
+</code></pre>
+<h3>Tables</h3>
+<ul>
+<li>Use tables for structured data and comparisons</li>
+<li>Always include a header row</li>
+<li>Align columns consistently</li>
+<li>Keep tables simple and readable</li>
+</ul>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>string</td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>User-friendly name</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>boolean</td>
+<td>Whether the feature is enabled</td>
+</tr>
+</tbody></table>
+<h3>Links</h3>
+<ul>
+<li>Use descriptive link text that indicates the destination</li>
+<li>Prefer relative links for internal documentation</li>
+<li>Include title text for external links</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>Internal: <code>[Authentication Guide](../security/authentication.md)</code></li>
+<li>External: <code>[MDN Web Docs](https://developer.mozilla.org/ &quot;Mozilla Developer Network&quot;)</code></li>
+</ul>
+<h3>Images</h3>
+<ul>
+<li>Include alt text for all images</li>
+<li>Keep images reasonably sized</li>
+<li>Provide captions for complex images</li>
+<li>Store images in an <code>/images</code> directory within the documentation folder</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-markdown">![System architecture diagram showing the relationship between components](./images/system-architecture.png)
+</code></pre>
+<h2>Content Guidelines</h2>
+<h3>Language and Style</h3>
+<ul>
+<li>Use clear, concise language</li>
+<li>Write in present tense</li>
+<li>Use active voice when possible</li>
+<li>Address the reader directly using &quot;you&quot;</li>
+<li>Avoid jargon, slang, and colloquialisms</li>
+<li>Define acronyms on first use</li>
+</ul>
+<h3>Technical Content</h3>
+<ul>
+<li>Provide context before diving into technical details</li>
+<li>Include examples for complex concepts</li>
+<li>Explain why, not just how</li>
+<li>Include error messages and troubleshooting steps where appropriate</li>
+<li>Keep code examples concise and focused on the topic</li>
+</ul>
+<h3>Document Types</h3>
+<h4>READMEs</h4>
+<ul>
+<li>Place at the root of a directory or project</li>
+<li>Provide an overview of the directory/project contents</li>
+<li>Include quick start information</li>
+<li>Link to more detailed documentation</li>
+</ul>
+<h4>How-To Guides</h4>
+<ul>
+<li>Focus on achieving specific tasks</li>
+<li>Use step-by-step instructions</li>
+<li>Include prerequisites and expected outcomes</li>
+<li>Provide complete working examples</li>
+</ul>
+<h4>Reference Documentation</h4>
+<ul>
+<li>Organize alphabetically or by logical grouping</li>
+<li>Be comprehensive and precise</li>
+<li>Include parameter/return types and descriptions</li>
+<li>Link to related references</li>
+</ul>
+<h4>Conceptual Documentation</h4>
+<ul>
+<li>Explain the &quot;why&quot; behind designs and approaches</li>
+<li>Include diagrams where helpful</li>
+<li>Connect concepts to implementation</li>
+<li>Reference relevant external resources or research</li>
+</ul>
+<h2>Cross-Referencing</h2>
+<h3>Internal References</h3>
+<ul>
+<li>Use relative links for cross-references between documents</li>
+<li>Prefer linking to specific sections when referencing part of a document</li>
+<li>Use consistent terminology when referring to other documents</li>
+</ul>
+<h3>External References</h3>
+<ul>
+<li>Include the full URL for external references</li>
+<li>Provide context for why the external reference is relevant</li>
+<li>Consider including a brief summary of the external content</li>
+<li>Verify external links periodically</li>
+</ul>
+<h2>Document Lifecycle</h2>
+<h3>Creation</h3>
+<ol>
+<li>Start with a template appropriate for the document type</li>
+<li>Complete required metadata fields</li>
+<li>Structure according to the guidelines in this document</li>
+<li>Request review from relevant stakeholders</li>
+</ol>
+<h3>Maintenance</h3>
+<ol>
+<li>Update when related features or processes change</li>
+<li>Review at least every 6 months</li>
+<li>Update the &quot;Last Updated&quot; metadata when changes are made</li>
+<li>Increment the version number for significant changes</li>
+<li>Record changes in the Version History section</li>
+</ol>
+<h3>Deprecation</h3>
+<ol>
+<li>Mark status as &quot;Deprecated&quot; in metadata</li>
+<li>Add deprecation notice at the top of the document</li>
+<li>Link to replacement documentation if available</li>
+<li>Set an expiration date if known</li>
+</ol>
+<h3>Archiving</h3>
+<ol>
+<li>Mark status as &quot;Archived&quot; in metadata</li>
+<li>Move to an archive location or repository</li>
+<li>Update any references to point to current documentation</li>
+</ol>
+<h2>Quality Metrics</h2>
+<p>Documentation should meet these quality metrics:</p>
+<h3>Completeness</h3>
+<ul>
+<li>All required sections are present</li>
+<li>All necessary topics are covered</li>
+<li>Examples are provided for complex concepts</li>
+<li>No &quot;TODO&quot; items or incomplete sections</li>
+</ul>
+<h3>Structure</h3>
+<ul>
+<li>Follows the required document structure</li>
+<li>Uses headings appropriately and hierarchically</li>
+<li>Includes proper metadata</li>
+<li>Organized logically</li>
+</ul>
+<h3>Readability</h3>
+<ul>
+<li>Clear, concise language</li>
+<li>Appropriate for the target audience</li>
+<li>Free of grammatical and spelling errors</li>
+<li>Well-formatted and visually scannable</li>
+</ul>
+<h3>Technical Accuracy</h3>
+<ul>
+<li>Code examples are correct and functional</li>
+<li>Technical details are accurate and current</li>
+<li>Commands and parameters are correct</li>
+<li>Links work and point to appropriate targets</li>
+</ul>
+<h3>Maintainability</h3>
+<ul>
+<li>Follows version control best practices</li>
+<li>Includes comprehensive version history</li>
+<li>Structured for easy updates</li>
+<li>Includes proper cross-references</li>
+</ul>
+<h2>Templates</h2>
+<p>Standard templates are available for common document types:</p>
+<ul>
+<li><a href="./templates/README_TEMPLATE.md">README Template</a></li>
+<li><a href="./templates/HOWTO_TEMPLATE.md">How-To Guide Template</a></li>
+<li><a href="./templates/REFERENCE_TEMPLATE.md">Reference Documentation Template</a></li>
+<li><a href="./templates/CONCEPTUAL_TEMPLATE.md">Conceptual Documentation Template</a></li>
+<li><a href="./templates/API_TEMPLATE.md">API Documentation Template</a></li>
+</ul>
+<h2>Related Documents</h2>
+<ul>
+<li><a href="./DOCUMENTATION_IMPROVEMENT_PLAN.md">Documentation Improvement Plan</a></li>
+<li><a href="./documentation-architecture/README.md">Documentation Architecture</a></li>
+<li><a href="./documentation-lifecycle/README.md">Documentation Lifecycle</a></li>
+<li><a href="./feedback-integration/README.md">Feedback Integration</a></li>
+</ul>
+<h2>Version History</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>2025-05-17</td>
+<td>Initial document</td>
+</tr>
+</tbody></table>
+
+  </div>
+  
+  <script>
+    // Add anchor links to headings
+    document.querySelectorAll('h2, h3, h4, h5, h6').forEach(heading => {
+      const id = heading.id || heading.textContent.toLowerCase().replace(/[^\w]+/g, '-');
+      heading.id = id;
+      
+      const anchor = document.createElement('a');
+      anchor.href = '#' + id;
+      anchor.className = 'anchor';
+      anchor.textContent = '#';
+      
+      heading.appendChild(document.createTextNode(' '));
+      heading.appendChild(anchor);
+    });
+  </script>
+</body>
+</html>

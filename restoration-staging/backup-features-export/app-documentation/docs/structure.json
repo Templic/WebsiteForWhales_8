@@ -1,0 +1,111 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-05-17",
+  "categories": [
+    {
+      "id": "overview",
+      "name": "Overview",
+      "description": "General information about the project, its objectives, and structure.",
+      "keywords": ["Project Overview", "Objectives"],
+      "subcategories": []
+    },
+    {
+      "id": "documentation-architecture",
+      "name": "Documentation Architecture",
+      "description": "Information about how documentation is structured and organized.",
+      "keywords": ["Structure", "Types", "Directory Structure"],
+      "subcategories": []
+    },
+    {
+      "id": "documentation-lifecycle",
+      "name": "Documentation Lifecycle",
+      "description": "Guidelines for the lifecycle of documentation from creation to archiving.",
+      "keywords": ["Creation", "Maintenance", "Archiving"],
+      "subcategories": []
+    },
+    {
+      "id": "documentation-planning",
+      "name": "Documentation Planning Process",
+      "description": "How to plan documentation for new features and projects.",
+      "keywords": ["Documentation Needs", "Responsibility", "Review Cycles"],
+      "subcategories": []
+    },
+    {
+      "id": "code-documentation-sync",
+      "name": "Code and Documentation Synchronization",
+      "description": "Guidelines for keeping code and documentation in sync.",
+      "keywords": ["Code Comments", "API Documentation"],
+      "subcategories": []
+    },
+    {
+      "id": "continuous-documentation",
+      "name": "Continuous Documentation",
+      "description": "Implementing documentation as part of the CI/CD process.",
+      "keywords": ["Documentation as Code", "CI Integration"],
+      "subcategories": []
+    },
+    {
+      "id": "tools-resources",
+      "name": "Tools and Resources",
+      "description": "Documentation tools and resources for the project.",
+      "keywords": ["Documentation Tools", "Validation Tools"],
+      "subcategories": []
+    },
+    {
+      "id": "feedback-integration",
+      "name": "Feedback Integration",
+      "description": "How to collect and integrate user feedback into documentation.",
+      "keywords": ["User Feedback", "Document Improvements"],
+      "subcategories": []
+    },
+    {
+      "id": "deprecation-archiving",
+      "name": "Deprecation and Archiving",
+      "description": "Process for deprecating and archiving documentation.",
+      "keywords": ["Deprecated Documentation", "Archive Processes"],
+      "subcategories": []
+    },
+    {
+      "id": "security-documentation",
+      "name": "Security Documentation",
+      "description": "Documentation related to security practices and measures.",
+      "keywords": ["Security Practices", "Security Protocols"],
+      "subcategories": []
+    },
+    {
+      "id": "technical-reports",
+      "name": "Technical Reports",
+      "description": "Technical reports on various aspects of the system.",
+      "keywords": ["Performance Reports", "Security Audits"],
+      "subcategories": []
+    },
+    {
+      "id": "error-management",
+      "name": "Error Management",
+      "description": "Guidelines on handling and documenting errors.",
+      "keywords": ["Error Handling", "TypeScript Errors"],
+      "subcategories": []
+    }
+  ],
+  "recommendedPath": [
+    "overview",
+    "documentation-architecture",
+    "documentation-lifecycle",
+    "documentation-planning",
+    "code-documentation-sync",
+    "continuous-documentation",
+    "tools-resources",
+    "feedback-integration",
+    "deprecation-archiving"
+  ],
+  "keywordMap": {
+    "Documentation": ["documentation-architecture", "documentation-lifecycle", "documentation-planning", "continuous-documentation"],
+    "Code Quality": ["code-documentation-sync", "error-management"],
+    "Review Process": ["documentation-planning", "feedback-integration"],
+    "Security Practices": ["security-documentation"],
+    "Performance Optimization": ["technical-reports"],
+    "Component Documentation": ["documentation-architecture"],
+    "Automated Validation": ["continuous-documentation", "tools-resources"],
+    "User Experience": ["feedback-integration"]
+  }
+}
