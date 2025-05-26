@@ -818,13 +818,14 @@ export class PostgresStorage implements IStorage {
 
   async getAlbums(): Promise<Album[]> {
     try {
-      // Define albums table schema if not imported from schema.ts
+      // Define albums table schema to match actual database structure
       const albumsTable = pgTable('albums', {
         id: serial('id').primaryKey(),
         title: text('title').notNull(),
         artist: text('artist').notNull(),
-        coverArt: text('cover_art'),
-        releaseDate: timestamp('release_date').notNull(),
+        coverImage: text('cover_image'), // Fixed: matches actual database column
+        releaseDate: timestamp('release_date'),
+        description: text('description'),
         createdAt: timestamp('created_at').notNull().defaultNow(),
         updatedAt: timestamp('updated_at').notNull().defaultNow()
       });
