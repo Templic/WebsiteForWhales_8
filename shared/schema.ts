@@ -824,6 +824,7 @@ export const contentItems = pgTable('content_items', {
   metadata: json('metadata'),
   tags: text('tags').array(), // Array of tags for better content organization
   localeCode: text('locale_code').default('en-US'), // Internationalization support
+  timezone: text('timezone').default('UTC'), // Timezone for content scheduling
   isActive: boolean('is_active').notNull().default(true)
 });
 
