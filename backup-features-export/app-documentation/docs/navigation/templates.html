@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>templates Documentation</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      border-bottom: 2px solid #0066cc;
+      padding-bottom: 10px;
+      color: #0066cc;
+    }
+    .doc-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .doc-card {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .doc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .doc-card h3 {
+      margin-top: 0;
+      color: #0066cc;
+    }
+    .doc-card p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .back-link {
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .keyword {
+      background-color: #f0f0f0;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link">← Back to Navigation Index</a>
+  
+  <h1>templates Documentation</h1>
+  
+  <div class="doc-list">
+    
+      <div class="doc-card">
+        <h3><a href="../templates/API_TEMPLATE.md">API Documentation</a></h3>
+        <p>This document provides API documentation.</p>
+        <div class="keyword-list">
+          <span class="keyword">api</span><span class="keyword">format</span><span class="keyword">documentation</span><span class="keyword">version:</span><span class="keyword">1.0</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/ARCHITECTURE_DECISION_TEMPLATE.md">Architecture Decision Record: [Title]</a></h3>
+        <p>[Brief summary of the architectural decision and its rationale for AI processing]</p>
+        <div class="keyword-list">
+          <span class="keyword">debt</span><span class="keyword">decision</span><span class="keyword">[brief</span><span class="keyword">technical</span><span class="keyword">any</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/COMPONENT_TEMPLATE.md">Component Documentation</a></h3>
+        <p>This document provides component documentation.</p>
+        <div class="keyword-list">
+          <span class="keyword">component</span><span class="keyword">documentation</span><span class="keyword">version:</span><span class="keyword">1.0</span><span class="keyword">last</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/CONCEPTUAL_TEMPLATE.md">[Concept/Architecture/System] Overview</a></h3>
+        <p>[Concise summary explaining that this document provides a conceptual overview of a system, architecture, design pattern, or approach, what it covers, and why it's important]</p>
+        <div class="keyword-list">
+          <span class="keyword">[name]</span><span class="keyword">concept</span><span class="keyword">how</span><span class="keyword">[description</span><span class="keyword">[explain</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/DASHBOARD_TEMPLATE.md">Document Title</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">dashboard</span><span class="keyword">purpose</span><span class="keyword">document</span><span class="keyword">element</span><span class="keyword">usage</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/DOCUMENTATION_TEMPLATE.md">Document Title</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">document</span><span class="keyword">problem</span><span class="keyword">related</span><span class="keyword">should</span><span class="keyword">section</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/GENERAL_TEMPLATE.md">Document Title</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">best</span><span class="keyword">brief</span><span class="keyword">document</span><span class="keyword">section</span><span class="keyword">description</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/HOWTO_TEMPLATE.md">How to [Perform Task/Achieve Goal]</a></h3>
+        <p>[Concise summary explaining that this is a step-by-step guide for accomplishing a specific task, what the task is, and what the reader will learn]</p>
+        <div class="keyword-list">
+          <span class="keyword">task</span><span class="keyword">related</span><span class="keyword">instructions</span><span class="keyword">what</span><span class="keyword">steps</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/READABILITY_IMPROVEMENT_TEMPLATE.md">Readability Improvement Guide</a></h3>
+        <p>This guide provides techniques and best practices for improving document readability with concrete before/after examples. It focuses on plain language, sentence structure, active voice, paragraph organization, and visual formatting to address the low readability scores (14.7/100) identified in our documentation quality analysis.</p>
+        <div class="keyword-list">
+          <span class="keyword">readability</span><span class="keyword">documentation</span><span class="keyword">before:</span><span class="keyword">after:</span><span class="keyword">guide</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/README_TEMPLATE.md">Title</a></h3>
+        <p>This document provides information about the project.</p>
+        <div class="keyword-list">
+          <span class="keyword">title</span><span class="keyword">version:</span><span class="keyword">1.0</span><span class="keyword">last</span><span class="keyword">updated:</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/REFERENCE_TEMPLATE.md">[Component/API/Module] Reference</a></h3>
+        <p>[Concise summary explaining that this is a reference document providing comprehensive technical details about a specific component, API, module, or feature]</p>
+        <div class="keyword-list">
+          <span class="keyword">description</span><span class="keyword">[description</span><span class="keyword">1.0</span><span class="keyword">type</span><span class="keyword">string</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/RELEASE_NOTES_TEMPLATE.md">Release Notes: [Product/Feature Name]</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">[description</span><span class="keyword">what</span><span class="keyword">issue</span><span class="keyword">users.</span><span class="keyword">feature</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/SECURITY_ASSESSMENT_TEMPLATE.md">Security Assessment Report: [Component/Feature Name]</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">assessment</span><span class="keyword">[list</span><span class="keyword">security</span><span class="keyword">gaps]</span><span class="keyword">[recommendations]</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/SECURITY_FEATURE_TEMPLATE.md">[Security Feature Name]</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">how</span><span class="keyword">security</span><span class="keyword">description</span><span class="keyword">feature</span><span class="keyword">configuration</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/SECURITY_TEMPLATE.md">Document Title</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">security</span><span class="keyword">document</span><span class="keyword">purpose</span><span class="keyword">consideration</span><span class="keyword">setting</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/STANDARD_DOCUMENT_TEMPLATE.md">Document Title</a></h3>
+        <p>[AI-friendly summary of document content - will be generated automatically]</p>
+        <div class="keyword-list">
+          <span class="keyword">document</span><span class="keyword">content</span><span class="keyword">brief</span><span class="keyword">information</span><span class="keyword">item</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/TABLE_OF_CONTENTS_TEMPLATE-enhanced.md">Documentation Table of Contents **Version:** 1.0 **Last Updated:** 2025-05-18 **Status:** Active **Author:** Documentation Team **AI-Index:** This document provides a complete hierarchical organization of all documentation in the system, categorized by type, purpose, and audience. It serves as the primary navigation point and central index for finding documentation in our system. ## Overview This table of contents provides a complete map of all documentation in our system. It organizes documents into logical categories and provides direct links to each document. ## Getting Started These documents help new users and developers get up to speed quickly: - [Project Overview](../README.md) - Introduction to the project and its main features</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">documentation</span><span class="keyword">guide</span><span class="keyword">template</span><span class="keyword">documents</span><span class="keyword">api</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/TABLE_OF_CONTENTS_TEMPLATE.md">Documentation Table of Contents</a></h3>
+        <p>This document provides a complete hierarchical organization of all documentation in the system, categorized by type, purpose, and audience. It serves as the primary navigation point and central index for finding documentation in our system.</p>
+        <div class="keyword-list">
+          <span class="keyword">documentation</span><span class="keyword">guide</span><span class="keyword">template</span><span class="keyword">documents</span><span class="keyword">api</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/TROUBLESHOOTING_TEMPLATE.md">Troubleshooting Guide: [Component/Feature Name]</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">issue</span><span class="keyword">troubleshooting</span><span class="keyword">issues</span><span class="keyword">[link</span><span class="keyword">general</span>
+        </div>
+      </div>
+    
+      <div class="doc-card">
+        <h3><a href="../templates/TYPESCRIPT_TEMPLATE.md">Document Title</a></h3>
+        <p>No description available</p>
+        <div class="keyword-list">
+          <span class="keyword">type</span><span class="keyword">document</span><span class="keyword">guideline</span><span class="keyword">related</span><span class="keyword">link</span>
+        </div>
+      </div>
+    
+  </div>
+</body>
+</html>
+    
