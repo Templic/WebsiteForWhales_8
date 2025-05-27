@@ -71,6 +71,95 @@ export const users = pgTable("users", {
   updatedAt: timestamp("updated_at")
 });
 
+// ===================================================================
+// Phase 4: Security Enhancement Schema
+// ===================================================================
+
+// Security consciousness profiles for users
+export const securityProfiles = pgTable("security_profiles", {
+  userId: varchar("user_id", { length: 255 }).primaryKey().references(() => users.id),
+  consciousnessLevel: integer("consciousness_level").notNull().default(50),
+  whaleWisdomTrust: integer("whale_wisdom_trust").notNull().default(50),
+  riskAssessment: json("risk_assessment").$type<{
+    level: 'low' | 'medium' | 'high';
+    factors: string[];
+    lastCalculated: string;
+  }>().default({ level: 'low', factors: [], lastCalculated: new Date().toISOString() }),
+  securityPreferences: json("security_preferences").$type<{
+    mfaEnabled: boolean;
+    emailNotifications: boolean;
+    securityAlerts: boolean;
+    whaleWisdomGuidance: boolean;
+  }>().default({ mfaEnabled: false, emailNotifications: true, securityAlerts: true, whaleWisdomGuidance: true }),
+  lastAssessment: timestamp("last_assessment").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+
+// Multi-factor authentication configurations
+export const mfaConfigurations = pgTable("mfa_configurations", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id", { length: 255 }).notNull().references(() => users.id),
+  totpSecret: text("totp_secret"), // Encrypted TOTP secret
+  backupCodes: text("backup_codes").array(), // Array of encrypted backup codes
+  securityQuestions: json("security_questions").$type<{
+    question1: { question: string; answer: string };
+    question2: { question: string; answer: string };
+    question3: { question: string; answer: string };
+  }>(),
+  enabledMethods: text("enabled_methods").array().default(['password']),
+  isActive: boolean("is_active").notNull().default(false),
+  lastUsed: timestamp("last_used"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+
+// Security events and threat monitoring
+export const securityEvents = pgTable("security_events", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id", { length: 255 }).references(() => users.id),
+  eventType: varchar("event_type", { length: 100 }).notNull(),
+  threatLevel: varchar("threat_level", { length: 20 }).default('low'),
+  geometricSignature: varchar("geometric_signature", { length: 255 }), // Sacred geometry pattern
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  location: json("location").$type<{
+    country?: string;
+    region?: string;
+    city?: string;
+  }>(),
+  metadata: json("metadata").$type<Record<string, any>>(),
+  resolved: boolean("resolved").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow()
+});
+
+// Device registrations for enhanced security
+export const deviceRegistrations = pgTable("device_registrations", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id", { length: 255 }).notNull().references(() => users.id),
+  deviceFingerprint: varchar("device_fingerprint", { length: 255 }).notNull(),
+  deviceName: varchar("device_name", { length: 100 }),
+  deviceType: varchar("device_type", { length: 50 }), // 'desktop', 'mobile', 'tablet'
+  geometricPattern: text("geometric_pattern"), // Sacred geometry device signature
+  lastSeen: timestamp("last_seen").defaultNow(),
+  isTrusted: boolean("is_trusted").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow()
+});
+
+// Whale wisdom trust network
+export const whaleWisdomTrust = pgTable("whale_wisdom_trust", {
+  id: serial("id").primaryKey(),
+  fromUserId: varchar("from_user_id", { length: 255 }).notNull().references(() => users.id),
+  toUserId: varchar("to_user_id", { length: 255 }).notNull().references(() => users.id),
+  trustLevel: integer("trust_level").notNull().default(50), // 0-100
+  wisdomShared: integer("wisdom_shared").notNull().default(0),
+  collaborations: integer("collaborations").notNull().default(0),
+  cosmicResonance: numeric("cosmic_resonance", { precision: 5, scale: 2 }).default('0.50'),
+  lastInteraction: timestamp("last_interaction").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+
 // Existing subscribers table
 export const subscribers = pgTable("subscribers", {
   id: serial("id").primaryKey(),
@@ -1257,20 +1346,7 @@ export const securitySettings = pgTable("security_settings", {
   updatedBy: varchar("updated_by", { length: 255 }).references(() => users.id)
 });
 
-// Security events table
-export const securityEvents = pgTable("security_events", {
-  id: serial("id").primaryKey(),
-  eventType: text("event_type").notNull(),
-  severity: text("severity", { enum: ["info", "low", "medium", "high", "critical"] }).notNull(),
-  timestamp: timestamp("timestamp").notNull().defaultNow(),
-  userId: varchar("user_id", { length: 255 }).references(() => users.id),
-  ipAddress: text("ip_address"),
-  userAgent: text("user_agent"),
-  details: json("details"),
-  acknowledged: boolean("acknowledged").notNull().default(false),
-  acknowledgedBy: varchar("acknowledged_by", { length: 255 }).references(() => users.id),
-  acknowledgedAt: timestamp("acknowledged_at")
-});
+// Enhanced security events table (Phase 4) - replaced basic version with cosmic consciousness features
 
 // Security scans table
 export const securityScans = pgTable("security_scans", {

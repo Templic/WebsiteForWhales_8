@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { ChartBar, LogOut, Users, FileText, AlertCircle, ShieldCheck, Gauge, RefreshCw, Settings } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import CosmicSecurityDashboard from "@/components/security/CosmicSecurityDashboard";
 
 interface AdminStats {
   totalUsers: number;
@@ -262,6 +263,7 @@ export default function AdminPortalPage() {
           <TabsTrigger value="users">User Management</TabsTrigger>
           <TabsTrigger value="content">Content Review</TabsTrigger>
           <TabsTrigger value="cosmic-content">Cosmic Content</TabsTrigger>
+          <TabsTrigger value="cosmic-security">🔮 Cosmic Security</TabsTrigger>
           <TabsTrigger value="database">Database</TabsTrigger>
           <TabsTrigger value="subscribers">Newsletter</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
@@ -345,6 +347,12 @@ export default function AdminPortalPage() {
         <TabsContent value="content">
           <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
             <ContentReviewComponent />
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="cosmic-security">
+          <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+            <CosmicSecurityDashboard />
           </Suspense>
         </TabsContent>
 
