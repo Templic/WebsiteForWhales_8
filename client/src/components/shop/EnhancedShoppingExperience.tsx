@@ -96,7 +96,7 @@ const EnhancedShoppingExperience: React.FC<EnhancedShoppingExperienceProps> = ({
       {/* Feature cards (Quality Guarantee section) - Moved to top as requested */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 md:px-6">
         {shoppingFeatures.map((feature) => (
-          <div className="relative">
+          <div key={feature.id} className="relative">
             {/* Octagonal background with improved clipping */}
             <div 
               className="absolute inset-0 -z-10 bg-gradient-to-b from-indigo-950/30 to-purple-950/20 backdrop-blur-sm border border-purple-500/20"
@@ -107,7 +107,7 @@ const EnhancedShoppingExperience: React.FC<EnhancedShoppingExperienceProps> = ({
             />
             
             {/* Card content without clipping */}
-            <Card key={feature.id} className="p-4 md:p-6 cosmic-glass-card bg-transparent border-0 shadow-none"> 
+            <Card className="p-4 md:p-6 cosmic-glass-card bg-transparent border-0 shadow-none"> 
               <div className="flex flex-col items-center text-center mt-4">
                 <div className="mb-4 bg-primary/10 p-3 rounded-full">
                   {feature.icon}
