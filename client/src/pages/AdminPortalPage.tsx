@@ -429,6 +429,12 @@ export default function AdminPortalPage() {
             <CosmicContentManagerComponent />
           </Suspense>
         </TabsContent>
+
+        <TabsContent value="cosmic-security">
+          <Suspense fallback={<div className="text-center py-8">Loading Cosmic Security Dashboard...</div>}>
+            <CosmicSecurityDashboard />
+          </Suspense>
+        </TabsContent>
       </Tabs>
     </div>
   );
