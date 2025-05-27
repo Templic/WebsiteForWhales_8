@@ -258,12 +258,12 @@ export default function AdminPortalPage() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-        <TabsList className="mb-6">
+        <TabsList className="mb-6 flex-wrap h-auto">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="users">User Management</TabsTrigger>
-          <TabsTrigger value="content">Content Review</TabsTrigger>
-          <TabsTrigger value="cosmic-content">Cosmic Content</TabsTrigger>
-          <TabsTrigger value="cosmic-security">🔮 Cosmic Security</TabsTrigger>
+          <TabsTrigger value="users">Users</TabsTrigger>
+          <TabsTrigger value="content">Content</TabsTrigger>
+          <TabsTrigger value="cosmic-content">Cosmic</TabsTrigger>
+          <TabsTrigger value="cosmic-security">🔮 Security</TabsTrigger>
           <TabsTrigger value="database">Database</TabsTrigger>
           <TabsTrigger value="subscribers">Newsletter</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
