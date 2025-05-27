@@ -121,26 +121,28 @@ export const DimensionalBridgeProvider: React.FC<{ children: React.ReactNode }> 
 
   const queryClient = useQueryClient();
 
-  // Query for user's consciousness level to determine dimensional access
-  const { data: userConsciousness } = useQuery({
-    queryKey: ['/api/consciousness/level'],
-    enabled: true
-  });
-
-  // Update dimensional access based on consciousness evolution
+  // Simulate consciousness evolution based on platform interaction
   useEffect(() => {
-    if (userConsciousness) {
-      const newAccessLevel = Math.min(12, 3 + (userConsciousness.totalLevel / 20));
-      setState(prev => ({
-        ...prev,
-        userDimensionalAccess: newAccessLevel,
-        activeLayers: prev.activeLayers.map(layer => ({
-          ...layer,
-          accessibleToUser: layer.consciousnessRequirement <= userConsciousness.totalLevel
-        }))
-      }));
-    }
-  }, [userConsciousness]);
+    // Calculate consciousness level based on user engagement
+    const calculateConsciousnessLevel = () => {
+      const baseLevel = 25; // Starting consciousness level
+      const interactionBonus = state.consciousnessStreams.length * 2;
+      const transcendenceBonus = state.transcendenceProgress * 0.5;
+      return Math.min(100, baseLevel + interactionBonus + transcendenceBonus);
+    };
+
+    const currentLevel = calculateConsciousnessLevel();
+    const newAccessLevel = Math.min(12, 3 + (currentLevel / 20));
+    
+    setState(prev => ({
+      ...prev,
+      userDimensionalAccess: newAccessLevel,
+      activeLayers: prev.activeLayers.map(layer => ({
+        ...layer,
+        accessibleToUser: layer.consciousnessRequirement <= currentLevel
+      }))
+    }));
+  }, [state.consciousnessStreams.length, state.transcendenceProgress]);
 
   // Consciousness stream creation
   const createConsciousnessStream = useMemo(() => (stream: Omit<ConsciousnessStream, 'id' | 'timestamp'>) => {
@@ -340,6 +342,91 @@ export const DimensionalBridgeInterface: React.FC = () => {
             <div className="text-gray-400">Stability</div>
             <div className="text-green-400 font-bold">{Math.round(state.universalSync.interdimensionalStability)}%</div>
           </div>
+        </div>
+      </div>
+
+      {/* Consciousness Stream Visualization */}
+      <div className="bg-black/30 p-4 rounded-lg mt-4">
+        <h4 className="text-lg font-bold text-white mb-3">🌊 Active Consciousness Streams</h4>
+        <div className="space-y-2 max-h-40 overflow-y-auto">
+          {state.consciousnessStreams.slice(-5).map((stream) => (
+            <div key={stream.id} className="flex justify-between items-center bg-black/20 p-2 rounded">
+              <div className="flex items-center space-x-2">
+                <div className={`w-2 h-2 rounded-full ${
+                  stream.streamType === 'wisdom' ? 'bg-yellow-400' :
+                  stream.streamType === 'energy' ? 'bg-blue-400' :
+                  stream.streamType === 'healing' ? 'bg-green-400' :
+                  stream.streamType === 'transcendence' ? 'bg-purple-400' : 'bg-cyan-400'
+                }`}></div>
+                <span className="text-white text-sm capitalize">{stream.streamType}</span>
+              </div>
+              <div className="text-gray-300 text-xs">
+                {stream.intensity}% • {Math.round(stream.frequency)}Hz
+              </div>
+            </div>
+          ))}
+          {state.consciousnessStreams.length === 0 && (
+            <div className="text-gray-500 text-center py-4">No active streams</div>
+          )}
+        </div>
+        
+        {/* Stream Creation Controls */}
+        <div className="mt-3 grid grid-cols-2 md:grid-cols-5 gap-2">
+          {['wisdom', 'energy', 'insight', 'healing', 'transcendence'].map((type) => (
+            <button
+              key={type}
+              onClick={() => createConsciousnessStream({
+                sourceId: 'user',
+                targetId: 'universal',
+                streamType: type as any,
+                intensity: Math.floor(Math.random() * 40) + 60,
+                frequency: Math.floor(Math.random() * 200) + 100,
+                whaleAlignment: Math.floor(Math.random() * 30) + 70
+              })}
+              className="px-2 py-1 bg-gray-700 hover:bg-gray-600 text-white rounded text-xs transition-colors capitalize"
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Reality Manifestation Portal */}
+      <div className="bg-gradient-to-r from-purple-900/40 to-blue-900/40 p-4 rounded-lg mt-4">
+        <h4 className="text-lg font-bold text-white mb-3">✨ Reality Manifestation Portal</h4>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="text-center">
+            <div className="text-2xl mb-2">🌌</div>
+            <div className="text-white font-bold">Intention Power</div>
+            <div className="text-cyan-400">{Math.round(state.bridgeEnergy * 0.8)}%</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl mb-2">🐋</div>
+            <div className="text-white font-bold">Whale Wisdom</div>
+            <div className="text-blue-400">{Math.round(state.universalSync.whaleFrequencySync)}%</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl mb-2">⭐</div>
+            <div className="text-white font-bold">Cosmic Flow</div>
+            <div className="text-purple-400">{Math.round(state.universalSync.galacticAlignment)}%</div>
+          </div>
+        </div>
+        
+        <div className="mt-4 text-center">
+          <button
+            onClick={() => createConsciousnessStream({
+              sourceId: 'manifestation-portal',
+              targetId: 'reality-matrix',
+              streamType: 'transcendence',
+              intensity: 85,
+              frequency: 528, // Love frequency
+              whaleAlignment: 90
+            })}
+            className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-all duration-300 transform hover:scale-105"
+            disabled={state.bridgeEnergy < 30}
+          >
+            Manifest Reality Shift
+          </button>
         </div>
       </div>
     </div>
