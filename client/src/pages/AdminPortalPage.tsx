@@ -35,6 +35,7 @@ const UserManagementComponent = lazy(() => import('@/components/admin/UserManage
 const ContentReviewComponent = lazy(() => import('@/components/admin/ContentReview'));
 const DatabaseMonitorComponent = lazy(() => import('@/components/admin/DatabaseMonitor'));
 const PerformanceMonitoringComponent = lazy(() => import('@/components/admin/PerformanceMonitoringDashboard'));
+const CosmicContentManagerComponent = lazy(() => import('@/components/admin/CosmicContentManager'));
 
 export default function AdminPortalPage() {
   const { user, logoutMutation } = useAuth();
@@ -260,6 +261,7 @@ export default function AdminPortalPage() {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="users">User Management</TabsTrigger>
           <TabsTrigger value="content">Content Review</TabsTrigger>
+          <TabsTrigger value="cosmic-content">Cosmic Content</TabsTrigger>
           <TabsTrigger value="database">Database</TabsTrigger>
           <TabsTrigger value="subscribers">Newsletter</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
@@ -412,6 +414,12 @@ export default function AdminPortalPage() {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="cosmic-content">
+          <Suspense fallback={<div className="text-center py-8">Loading Cosmic Content Manager...</div>}>
+            <CosmicContentManagerComponent />
+          </Suspense>
         </TabsContent>
       </Tabs>
     </div>
