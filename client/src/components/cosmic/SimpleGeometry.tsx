@@ -188,6 +188,89 @@ export const SimpleOctagon: React.FC<GeometryProps> = ({ className = "", glowCol
   );
 };
 
+export const SimpleInvertedTriangle: React.FC<GeometryProps> = ({ className = "", glowColor = "rgba(34, 197, 94, 0.6)", children }) => {
+  return (
+    <div className={`relative ${className}`}>
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      >
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <defs>
+            <filter id="invTriGlow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <polygon 
+            points="50,90 15,20 85,20"
+            fill="none"
+            stroke={glowColor}
+            strokeWidth="1"
+            filter="url(#invTriGlow)"
+            className="opacity-70"
+          />
+        </svg>
+      </motion.div>
+      
+      {children && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center p-4">
+            {children}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const SimpleStarburst: React.FC<GeometryProps> = ({ className = "", glowColor = "rgba(255, 215, 0, 0.6)", children }) => {
+  return (
+    <div className={`relative ${className}`}>
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      >
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <defs>
+            <filter id="starGlow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          {/* Star rays */}
+          <g filter="url(#starGlow)" className="opacity-80">
+            <line x1="50" y1="10" x2="50" y2="90" stroke={glowColor} strokeWidth="1"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke={glowColor} strokeWidth="1"/>
+            <line x1="21" y1="21" x2="79" y2="79" stroke={glowColor} strokeWidth="0.8"/>
+            <line x1="79" y1="21" x2="21" y2="79" stroke={glowColor} strokeWidth="0.8"/>
+            <line x1="35" y1="15" x2="65" y2="85" stroke={glowColor} strokeWidth="0.6"/>
+            <line x1="65" y1="15" x2="35" y2="85" stroke={glowColor} strokeWidth="0.6"/>
+            <line x1="15" y1="35" x2="85" y2="65" stroke={glowColor} strokeWidth="0.6"/>
+            <line x1="85" y1="35" x2="15" y2="65" stroke={glowColor} strokeWidth="0.6"/>
+          </g>
+          {/* Center star */}
+          <circle cx="50" cy="50" r="3" fill={glowColor} className="opacity-90"/>
+        </svg>
+      </motion.div>
+      
+      {children && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center p-4">
+            {children}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // Additional geometric patterns for consciousness work
 export const FlowerOfLife: React.FC<GeometryProps> = ({ className = "", glowColor = "rgba(168, 85, 247, 0.4)" }) => {
   return (
