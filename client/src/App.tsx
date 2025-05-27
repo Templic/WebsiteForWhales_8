@@ -91,6 +91,8 @@ import AudioComponentsDemo from "@/pages/test/AudioComponentsDemo";
 import { NewComponentsDemo } from "@/pages/test/NewComponentsDemo";
 import ComponentsCatalog from "@/pages/test/demo/ComponentsCatalog";
 
+// Phase 7: Quantum Consciousness Pages
+import QuantumConsciousnessPage from "@/pages/QuantumConsciousnessPage";
 
 // Admin Pages
 import UsersPage from "@/pages/admin/UsersPage";
@@ -171,6 +173,11 @@ function AppRouter() {
           <Route path="/cosmic-immersive" component={CosmicImmersivePage} />
           <Route path="/cosmic-immersive-experience" component={CosmicImmersivePage} />
           <Route path="/cosmic-experience-immersive" component={CosmicImmersivePage} />
+          
+          {/* Phase 7: Quantum Consciousness */}
+          <Route path="/quantum-consciousness" component={QuantumConsciousnessPage} />
+          <Route path="/whale-communication" component={QuantumConsciousnessPage} />
+          <Route path="/consciousness-evolution" component={QuantumConsciousnessPage} />
           {/* Archived Page - /archive */}
           {/* <Route path="/archive" component={ArchivePage} /> */}
 
