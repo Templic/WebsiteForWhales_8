@@ -314,26 +314,11 @@ export default function AdminPortalPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activities</CardTitle>
+              <CardTitle>🔮 Cosmic Security Dashboard</CardTitle>
+              <CardDescription>Whale wisdom security with consciousness awareness</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {statsLoading ? (
-                  Array(3).fill(0).map((_, i) => (
-                    <Skeleton key={i} className="h-12 w-full" />
-                  ))
-                ) : (
-                  adminStats?.recentActivities.map(activity => (
-                    <div key={activity.id} className="flex justify-between items-center">
-                      <div>
-                        <p className="text-sm font-medium">{activity.action}</p>
-                        <p className="text-sm text-muted-foreground">{activity.user}</p>
-                      </div>
-                      <p className="text-sm text-muted-foreground">{activity.timestamp}</p>
-                    </div>
-                  ))
-                )}
-              </div>
+              <CosmicSecurityDashboard />
             </CardContent>
           </Card>
         </TabsContent>
