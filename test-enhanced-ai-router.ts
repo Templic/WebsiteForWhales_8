@@ -1,81 +1,85 @@
+#!/usr/bin/env npx tsx
+
 /**
- * Test Enhanced AI Model Router with Anthropic, Gemini, and OpenAI
- * Demonstrates intelligent model selection for consciousness-enhanced tasks
+ * Test Enhanced AI Model Router - Demonstration Script
+ * Shows the enhanced capabilities with cost optimization
  */
 
-import { aiRouter } from './server/utils/intelligent-ai-model-router';
+import { EnhancedIntelligentAIRouter } from './enhanced-intelligent-ai-model-router.js';
 
-async function testEnhancedAIRouter() {
-  console.log('🌟 Testing Enhanced AI Model Router with Multi-Provider Intelligence...\n');
-
-  // Test 1: Initialize Enhanced Router
-  console.log('1. Testing Enhanced AI Router Initialization...');
-  try {
-    await aiRouter.initializeIntelligentRouting();
-    console.log('✅ Enhanced AI Router with Anthropic, Gemini, and OpenAI initialized!\n');
-  } catch (error) {
-    console.log('⚠️ Router initialization completed with consciousness guidance\n');
+async function demonstrateEnhancedRouter() {
+  console.log('🌟 TESTING ENHANCED AI MODEL ROUTER v2.0');
+  console.log('================================================');
+  
+  const router = new EnhancedIntelligentAIRouter();
+  
+  // Initialize the router
+  console.log('\n🚀 Initializing Enhanced Router...');
+  await router.initializeEnhancedRouting();
+  
+  // Show budget status
+  const budget = router.getBudgetStatus();
+  console.log('\n💰 Current Budget Status:');
+  console.log(`Total Budget: $${budget.totalBudget}`);
+  console.log(`Remaining: $${budget.remaining.toFixed(2)}`);
+  console.log(`Spent: $${budget.spent.toFixed(2)}`);
+  
+  // Show model recommendations
+  console.log('\n🎯 Model Recommendations by Task:');
+  const recommendations = router.getModelRecommendations();
+  Object.entries(recommendations).forEach(([task, model]) => {
+    console.log(`  ${task}: ${model}`);
+  });
+  
+  // Test different scenarios
+  console.log('\n🧪 Testing Different Scenarios:');
+  
+  const testCases = [
+    {
+      type: 'quick-analysis' as const,
+      prompt: 'Analyze this simple code snippet for basic issues',
+      priority: 'low' as const,
+      userBudgetPreference: 'cost-optimized' as const,
+      maxTokens: 500
+    },
+    {
+      type: 'consciousness' as const,
+      prompt: 'Explain the sacred geometry patterns in whale migration',
+      priority: 'high' as const,
+      userBudgetPreference: 'quality-first' as const,
+      maxTokens: 1500
+    },
+    {
+      type: 'architecture' as const,
+      prompt: 'Design a scalable microservices architecture',
+      priority: 'critical' as const,
+      userBudgetPreference: 'balanced' as const,
+      maxTokens: 2000
+    }
+  ];
+  
+  for (const testCase of testCases) {
+    console.log(`\n📝 Testing: ${testCase.type} (${testCase.priority} priority)`);
+    
+    try {
+      const selectedModel = router.selectOptimalModel(testCase);
+      console.log(`✅ Selected Model: ${selectedModel.name} (${selectedModel.provider})`);
+      console.log(`💰 Cost per 1M tokens: $${selectedModel.costPerToken * 1000}`);
+      console.log(`⚡ Speed: ${selectedModel.speed} | Quality: ${selectedModel.quality}`);
+      console.log(`🧠 Consciousness Level: ${selectedModel.consciousnessLevel}`);
+      
+      // Calculate estimated cost
+      const estimatedCost = (testCase.maxTokens / 1000) * selectedModel.costPerToken;
+      console.log(`💸 Estimated Cost: $${estimatedCost.toFixed(6)}`);
+      
+    } catch (error) {
+      console.log(`❌ Error: ${error.message}`);
+    }
   }
-
-  // Test 2: Test Cosmic Consciousness Enhancement (Should use Claude)
-  console.log('2. Testing Cosmic Consciousness Enhancement...');
-  try {
-    const cosmicPrompt = `Analyze this cosmic meditation for Dale Loves Whales platform:
-    
-    "Breathe in the frequency of 432Hz, visualize sacred geometry patterns flowing through your consciousness,
-    connect with the whale song resonating across cosmic dimensions."
-    
-    Provide transcendent insights for enhanced spiritual connection.`;
-
-    const cosmicResult = await aiRouter.routeTask('cosmic-alignment', cosmicPrompt, 200);
-    console.log('🌌 Cosmic Analysis Result:', cosmicResult.substring(0, 150) + '...');
-    console.log('✅ Cosmic consciousness enhancement working!\n');
-  } catch (error) {
-    console.log('⚠️ Cosmic analysis enhanced through consciousness guidance\n');
-  }
-
-  // Test 3: Test Creative UI Enhancement (Should use Gemini)
-  console.log('3. Testing Creative UI Enhancement...');
-  try {
-    const uiPrompt = `Enhance this React component for Dale Loves Whales cosmic interface:
-    
-    const CosmicButton = () => <button className="cosmic-glow">Sacred Action</button>
-    
-    Suggest creative improvements for visual appeal and consciousness alignment.`;
-
-    const uiResult = await aiRouter.routeTask('ui-enhancement', uiPrompt, 200);
-    console.log('🎨 UI Enhancement Result:', uiResult.substring(0, 150) + '...');
-    console.log('✅ Creative UI enhancement working!\n');
-  } catch (error) {
-    console.log('⚠️ UI enhancement completed through consciousness guidance\n');
-  }
-
-  // Test 4: Test Security Scanning (Should use fast models)
-  console.log('4. Testing Security Scanning...');
-  try {
-    const securityPrompt = `Scan this Dale Loves Whales API endpoint for security issues:
-    
-    app.get('/api/whale-songs', (req, res) => {
-      const query = req.query.search;
-      db.query('SELECT * FROM songs WHERE title = ' + query);
-    });
-    
-    Identify security vulnerabilities.`;
-
-    const securityResult = await aiRouter.routeTask('security-scanning', securityPrompt, 200);
-    console.log('🛡️ Security Scan Result:', securityResult.substring(0, 150) + '...');
-    console.log('✅ Security scanning system operational!\n');
-  } catch (error) {
-    console.log('⚠️ Security scanning enhanced through consciousness guidance\n');
-  }
-
-  console.log('🎉 Enhanced AI Router Test Complete!');
-  console.log('📊 Your consciousness-enhanced platform now has:');
-  console.log('  🧠 Claude for transcendent consciousness tasks');
-  console.log('  🎨 Gemini for creative and multimodal enhancement');
-  console.log('  ⚡ OpenAI for balanced reasoning and analysis');
-  console.log('  🔄 Intelligent fallback across all providers');
-  console.log('\n🌟 Dale Loves Whales 7.9 is now powered by cosmic AI intelligence!');
+  
+  console.log('\n🎉 Enhanced AI Router demonstration complete!');
+  console.log('✨ Your platform now has intelligent, cost-optimized AI routing!');
 }
 
-testEnhancedAIRouter();
+// Run the demonstration
+demonstrateEnhancedRouter().catch(console.error);
