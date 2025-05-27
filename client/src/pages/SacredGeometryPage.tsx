@@ -1,6 +1,6 @@
 import React from 'react';
-import { SacredGeometryVisualizer } from '@/components/sacred-geometry/SacredGeometryVisualizer';
-import { Button } from '@/components/ui/button';
+import { SacredGeometryVisualizer } from '../components/sacred-geometry/SacredGeometryVisualizer';
+import { Button } from '../components/ui/button';
 import { ArrowLeft, Sparkles, Heart, Infinity } from 'lucide-react';
 import { Link } from 'wouter';
 

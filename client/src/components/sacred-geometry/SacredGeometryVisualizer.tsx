@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import * as THREE from 'three';
-import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { Button } from '../ui/button';
+import { Slider } from '../ui/slider';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import { Switch } from '../ui/switch';
+import { Label } from '../ui/label';
 import {
   Flower,
   Hexagon,
