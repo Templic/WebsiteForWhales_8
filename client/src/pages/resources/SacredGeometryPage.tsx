@@ -1,22 +1,146 @@
 
-import { useEffect, useRef } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { CosmicBackground } from "@/components/cosmic/CosmicBackground";
-import SacredGeometry from "@/components/cosmic/SacredGeometry";
-import { Hexagon, Boxes, Building, Sparkles, Shapes } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from "wouter";
+import { 
+  SimpleHexagon, 
+  SimpleTriangle,
+  SimpleCircle,
+  SimpleOctagon
+} from '../components/cosmic/SimpleGeometry';
+
+interface GeometryPattern {
+  id: string;
+  name: string;
+  type: 'flower-of-life' | 'metatron-cube' | 'sri-yantra' | 'merkaba' | 'torus' | 'vesica-piscis';
+  description: string;
+  spiritualMeaning: string;
+  whaleConnection: string;
+  meditationBenefit: string;
+  resonanceFrequency: string;
+  effectiveness: number;
+  consciousnessLevel: number;
+  usageCount: number;
+}
 
 export default function SacredGeometryPage() {
-  const pageTopRef = useRef<HTMLDivElement>(null);
-  
+  const [selectedPattern, setSelectedPattern] = useState<GeometryPattern | null>(null);
+  const [activeSession, setActiveSession] = useState(false);
+  const [sessionDuration, setSessionDuration] = useState(0);
+
   useEffect(() => {
-    document.title = "Sacred Geometry - Dale Loves Whales";
-    // Scroll to top of page when component mounts
-    pageTopRef.current?.scrollIntoView({ behavior: 'auto' });
-  }, []);
+    document.title = "Sacred Geometry Consciousness - Dale Loves Whales";
+    
+    // Session timer
+    let interval: NodeJS.Timeout;
+    if (activeSession) {
+      interval = setInterval(() => {
+        setSessionDuration(prev => prev + 1);
+      }, 1000);
+    }
+    
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [activeSession]);
+
+  const geometryPatterns: GeometryPattern[] = [
+    {
+      id: '1',
+      name: 'Flower of Life',
+      type: 'flower-of-life',
+      description: 'Ancient symbol representing the interconnectedness of all life and consciousness.',
+      spiritualMeaning: 'Universal pattern of creation, divine proportion, and cosmic unity.',
+      whaleConnection: 'Resonates with humpback whale songs at 40-80 Hz frequencies.',
+      meditationBenefit: 'Enhances spiritual awareness and connection to universal consciousness.',
+      resonanceFrequency: '528 Hz (Love Frequency)',
+      effectiveness: 94,
+      consciousnessLevel: 89,
+      usageCount: 2847
+    },
+    {
+      id: '2',
+      name: 'Metatron\'s Cube',
+      type: 'metatron-cube',
+      description: 'Sacred geometry containing all five Platonic solids, representing cosmic order.',
+      spiritualMeaning: 'Divine protection, balance of all elements, and spiritual transformation.',
+      whaleConnection: 'Aligns with blue whale deep frequencies for profound consciousness work.',
+      meditationBenefit: 'Provides spiritual protection and enhances dimensional awareness.',
+      resonanceFrequency: '741 Hz (Intuition)',
+      effectiveness: 91,
+      consciousnessLevel: 95,
+      usageCount: 1923
+    },
+    {
+      id: '3',
+      name: 'Sri Yantra',
+      type: 'sri-yantra',
+      description: 'Ancient tantric symbol representing the cosmos and divine feminine energy.',
+      spiritualMeaning: 'Manifestation power, divine abundance, and cosmic consciousness.',
+      whaleConnection: 'Harmonizes with orca pod communication patterns for collective wisdom.',
+      meditationBenefit: 'Amplifies manifestation abilities and spiritual abundance.',
+      resonanceFrequency: '852 Hz (Third Eye)',
+      effectiveness: 96,
+      consciousnessLevel: 92,
+      usageCount: 1654
+    },
+    {
+      id: '4',
+      name: 'Merkaba',
+      type: 'merkaba',
+      description: 'Light-spirit-body vehicle for interdimensional travel and consciousness expansion.',
+      spiritualMeaning: 'Divine protection, astral projection, and multidimensional awareness.',
+      whaleConnection: 'Syncs with gray whale migration patterns for spiritual journeying.',
+      meditationBenefit: 'Facilitates out-of-body experiences and higher dimensional access.',
+      resonanceFrequency: '963 Hz (Crown Chakra)',
+      effectiveness: 88,
+      consciousnessLevel: 97,
+      usageCount: 1234
+    },
+    {
+      id: '5',
+      name: 'Torus Field',
+      type: 'torus',
+      description: 'Self-sustaining energy field pattern found throughout nature and cosmos.',
+      spiritualMeaning: 'Energy circulation, life force flow, and self-generating consciousness.',
+      whaleConnection: 'Matches oceanic current patterns and whale breathing rhythms.',
+      meditationBenefit: 'Balances energy fields and enhances vital life force circulation.',
+      resonanceFrequency: '396 Hz (Root Chakra)',
+      effectiveness: 87,
+      consciousnessLevel: 84,
+      usageCount: 2156
+    },
+    {
+      id: '6',
+      name: 'Vesica Piscis',
+      type: 'vesica-piscis',
+      description: 'Sacred intersection of two circles representing divine creation and birth.',
+      spiritualMeaning: 'Sacred feminine, divine creation, and the birth of consciousness.',
+      whaleConnection: 'Echoes whale breaching patterns and birth consciousness.',
+      meditationBenefit: 'Connects to divine feminine energy and creative consciousness.',
+      resonanceFrequency: '417 Hz (Sacral Chakra)',
+      effectiveness: 85,
+      consciousnessLevel: 86,
+      usageCount: 1789
+    }
+  ];
+
+  const startGeometrySession = (pattern: GeometryPattern) => {
+    setSelectedPattern(pattern);
+    setActiveSession(true);
+    setSessionDuration(0);
+  };
+
+  const endSession = () => {
+    setActiveSession(false);
+    setSessionDuration(0);
+    setSelectedPattern(null);
+  };
 
   return (
-    <div className="relative min-h-screen bg-[#050f28] text-[#e8e6e3]" ref={pageTopRef}>
-      {/* Cosmic Background */}
+    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-950 to-blue-950 text-white relative overflow-hidden">
+      {/* Cosmic background effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
       <CosmicBackground opacity={0.5} color="purple" nebulaEffect={true} />
       
       {/* Sacred geometry elements in page margins */}
