@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CosmicBackground } from "@/components/features/cosmic/CosmicBackground";
 import { SacredGeometryDemo } from "@/components/cosmic/SacredGeometryDemo";
 import { SacredGeometryVisualizer } from "@/components/cosmic/SacredGeometryVisualizer";
@@ -8,6 +9,10 @@ import { MultidimensionalSoundJourney } from "@/components/immersive/Multidimens
 import { BreathSyncPlayer } from "@/components/features/audio/BreathSyncPlayer";
 import { BinauralBeatGenerator } from "@/components/features/audio/BinauralBeatGenerator";
 import { CosmicButton } from "@/components/features/cosmic/CosmicButton";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -19,22 +24,151 @@ import {
   Globe,
   Zap,
   Star,
+  Play,
+  Pause,
+  Volume2,
 } from "lucide-react";
+
+interface WhaleSpecies {
+  id: string;
+  name: string;
+  frequency: string;
+  wisdom: string;
+  resonance: number;
+  consciousness: string;
+  currentWisdom: string;
+  effectiveness: number;
+}
+
+interface ConsciousnessSession {
+  isActive: boolean;
+  species: string;
+  duration: number;
+  resonanceLevel: number;
+  wisdomReceived: string;
+  frequency: number;
+}
 
 export default function CosmicConnectivityPage() {
   const [tracks, setTracks] = useState<any[]>([]);
   const { toast } = useToast();
+  
+  // Enhanced whale wisdom state
+  const [selectedWhale, setSelectedWhale] = useState<string>('');
+  const [consciousnessSession, setConsciousnessSession] = useState<ConsciousnessSession>({
+    isActive: false,
+    species: '',
+    duration: 0,
+    resonanceLevel: 0,
+    wisdomReceived: '',
+    frequency: 0
+  });
+  
+  const [whaleSpecies] = useState<WhaleSpecies[]>([
+    {
+      id: 'humpback',
+      name: 'Humpback Whale',
+      frequency: '20-9000 Hz',
+      wisdom: 'Communication & Song Mastery',
+      resonance: 87,
+      consciousness: 'Ancient ocean melodies that bridge dimensions',
+      currentWisdom: 'Trust the currents of change, for they carry you toward your deepest purpose',
+      effectiveness: 94
+    },
+    {
+      id: 'blue',
+      name: 'Blue Whale',
+      frequency: '10-40 Hz',
+      wisdom: 'Deep Ocean Consciousness',
+      resonance: 91,
+      consciousness: 'Profound depths of infinite awareness',
+      currentWisdom: 'In the silence between heartbeats lies the wisdom of eternity',
+      effectiveness: 89
+    },
+    {
+      id: 'orca',
+      name: 'Orca Whale',
+      frequency: '500-25000 Hz',
+      wisdom: 'Family & Community Bonds',
+      resonance: 83,
+      consciousness: 'Collective intelligence and social harmony',
+      currentWisdom: 'Together we are stronger than the sum of our individual gifts',
+      effectiveness: 91
+    },
+    {
+      id: 'gray',
+      name: 'Gray Whale',
+      frequency: '20-200 Hz',
+      wisdom: 'Ancient Migration Memory',
+      resonance: 79,
+      consciousness: 'Timeless wisdom of countless journeys',
+      currentWisdom: 'Every ending is a doorway to a more magnificent beginning',
+      effectiveness: 86
+    }
+  ]);
+
+  const [sessionHistory, setSessionHistory] = useState([
+    { species: 'Humpback', duration: 28, effectiveness: 94, timestamp: '2 hours ago' },
+    { species: 'Blue Whale', duration: 35, effectiveness: 89, timestamp: '1 day ago' },
+    { species: 'Orca', duration: 22, effectiveness: 91, timestamp: '3 days ago' }
+  ]);
+
+  const startWhaleSession = (whaleId: string) => {
+    const whale = whaleSpecies.find(w => w.id === whaleId);
+    if (!whale) return;
+
+    setSelectedWhale(whaleId);
+    setConsciousnessSession({
+      isActive: true,
+      species: whale.name,
+      duration: 0,
+      resonanceLevel: whale.resonance,
+      wisdomReceived: whale.currentWisdom,
+      frequency: parseFloat(whale.frequency.split('-')[0])
+    });
+
+    toast({
+      title: `🐋 Connecting with ${whale.name}`,
+      description: `Tuning to ${whale.frequency} consciousness frequency`,
+      duration: 3000,
+    });
+  };
+
+  const endWhaleSession = () => {
+    setConsciousnessSession(prev => ({ ...prev, isActive: false }));
+    setSelectedWhale('');
+    
+    toast({
+      title: "🌊 Session Complete",
+      description: "Whale wisdom integrated into your consciousness",
+      duration: 3000,
+    });
+  };
 
   useEffect(() => {
     setTracks([]);
 
     toast({
-      title: "Welcome to Cosmic Connectivity",
-      description:
-        "Experience the fusion of sound healing and cosmic consciousness technologies.",
+      title: "🌊 Welcome to Whale Consciousness Portal",
+      description: "Connect with ancient marine wisdom and expand your awareness",
       duration: 5000,
     });
   }, [toast]);
+
+  // Simulate session timer
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (consciousnessSession.isActive) {
+      interval = setInterval(() => {
+        setConsciousnessSession(prev => ({
+          ...prev,
+          duration: prev.duration + 1,
+          resonanceLevel: Math.min(100, prev.resonanceLevel + Math.random() * 0.5)
+        }));
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [consciousnessSession.isActive]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-indigo-950/20 to-purple-950/30 text-white relative">
@@ -85,24 +219,199 @@ export default function CosmicConnectivityPage() {
           </div>
         </div>
 
-        {/* Sacred Geometry Visualizer Section */}
+        {/* Whale Consciousness Portal Header */}
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1 className="text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-cyan-300">
+            🐋 Whale Consciousness Portal 🌊
+          </h1>
+          <p className="text-gray-300 max-w-3xl mx-auto text-xl">
+            Connect with ancient marine wisdom through authentic whale frequencies. 
+            Experience consciousness expansion guided by the ocean's most profound teachers.
+          </p>
+        </motion.div>
+
+        {/* Active Session Status */}
+        <AnimatePresence>
+          {consciousnessSession.isActive && (
+            <motion.div
+              className="max-w-4xl mx-auto mb-8"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+            >
+              <div className="bg-gradient-to-br from-blue-900/40 via-purple-900/40 to-teal-900/40 backdrop-blur-md rounded-xl p-6 border border-cyan-500/30">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-cyan-300 mb-2">
+                    🌊 Active Connection: {consciousnessSession.species}
+                  </h3>
+                  <p className="text-gray-300">Session Duration: {Math.floor(consciousnessSession.duration / 60)}:{(consciousnessSession.duration % 60).toString().padStart(2, '0')}</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-blue-400">{consciousnessSession.frequency}Hz</div>
+                    <p className="text-sm text-gray-400">Frequency</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-purple-400">{consciousnessSession.resonanceLevel.toFixed(1)}%</div>
+                    <p className="text-sm text-gray-400">Resonance</p>
+                  </div>
+                  <div className="text-center">
+                    <motion.div 
+                      className="text-3xl font-bold text-teal-400"
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      ACTIVE
+                    </motion.div>
+                    <p className="text-sm text-gray-400">Status</p>
+                  </div>
+                </div>
+
+                {consciousnessSession.wisdomReceived && (
+                  <div className="bg-white/10 rounded-lg p-4 mb-6">
+                    <p className="text-cyan-300 italic text-lg text-center">
+                      "{consciousnessSession.wisdomReceived}"
+                    </p>
+                  </div>
+                )}
+
+                <div className="text-center">
+                  <Button 
+                    onClick={endWhaleSession}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  >
+                    Complete Session 🌊
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Whale Species Selection */}
+        {!consciousnessSession.isActive && (
+          <motion.div 
+            className="max-w-6xl mx-auto mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400">
+                🐋 Choose Your Whale Consciousness Guide
+              </h2>
+              <p className="text-gray-300 max-w-3xl mx-auto">
+                Each whale species offers unique wisdom and frequency patterns. Select the consciousness that resonates with your current spiritual journey.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {whaleSpecies.map((whale, index) => (
+                <motion.div
+                  key={whale.id}
+                  className="bg-gradient-to-br from-black/60 via-purple-900/20 to-black/60 backdrop-blur-md rounded-xl p-6 border border-cyan-500/20 cursor-pointer hover:border-cyan-400/50 transition-all duration-300"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => startWhaleSession(whale.id)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-cyan-300 mb-2">{whale.name}</h3>
+                      <p className="text-gray-400 text-sm mb-2">{whale.wisdom}</p>
+                      <p className="text-purple-400 text-sm">Frequency: {whale.frequency}</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-teal-400">{whale.resonance}%</div>
+                      <p className="text-xs text-gray-400">Resonance</p>
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <Progress value={whale.resonance} className="h-2 mb-2" />
+                    <p className="text-sm text-gray-300 italic">"{whale.consciousness}"</p>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <Badge className="bg-blue-100 text-blue-800">
+                      {whale.effectiveness}% Effective
+                    </Badge>
+                    <div className="text-cyan-400 text-sm">
+                      🎵 Click to Connect
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Sacred Geometry Whale Synchronization */}
         <div className="max-w-6xl mx-auto mb-12">
           <div className="bg-gradient-to-br from-black/80 via-purple-900/30 to-black/80 backdrop-blur-md rounded-xl p-8 shadow-xl border border-cyan-500/20">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-cyan-300">
-                Sacred Geometry Meditation
+                🔯 Sacred Geometry Whale Synchronization
               </h2>
               <p className="text-gray-300 max-w-3xl mx-auto text-lg">
-                Experience interactive 3D sacred geometry patterns that harmonize with cosmic consciousness. 
-                Each pattern carries ancient wisdom and healing frequencies to enhance your whale journey.
+                Watch sacred patterns respond to whale frequencies in real-time. 
+                The geometry harmonizes with consciousness energy, creating profound spiritual resonance.
               </p>
             </div>
             <SacredGeometryVisualizer className="mx-auto max-w-5xl" />
-            <div className="text-center mt-6 text-sm text-cyan-400">
-              🐋 Use controls to explore different sacred patterns • Each geometry carries unique healing properties 🐋
+            <div className="text-center mt-6">
+              <div className="text-sm text-cyan-400 mb-2">
+                🐋 Patterns sync with whale consciousness frequencies • Geometry responds to your spiritual resonance 🌊
+              </div>
+              {consciousnessSession.isActive && (
+                <div className="text-purple-400 font-semibold">
+                  Currently synchronized with {consciousnessSession.species} at {consciousnessSession.frequency}Hz
+                </div>
+              )}
             </div>
           </div>
         </div>
+
+        {/* Session History & Analytics */}
+        <motion.div 
+          className="max-w-4xl mx-auto mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="bg-gradient-to-br from-black/60 via-indigo-900/20 to-black/60 backdrop-blur-md rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-2xl font-bold text-purple-400 mb-6 text-center">
+              🌊 Recent Whale Wisdom Sessions
+            </h3>
+            
+            <div className="space-y-4">
+              {sessionHistory.map((session, index) => (
+                <div key={index} className="bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                  <div>
+                    <div className="font-semibold text-cyan-300">{session.species}</div>
+                    <div className="text-sm text-gray-400">{session.timestamp}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-bold text-purple-400">{session.duration}min</div>
+                    <div className="text-xs text-gray-400">Duration</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-bold text-teal-400">{session.effectiveness}%</div>
+                    <div className="text-xs text-gray-400">Effectiveness</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
         {/* Main Cosmic Tabs */}
         <Tabs defaultValue="frequency" className="max-w-6xl mx-auto">
