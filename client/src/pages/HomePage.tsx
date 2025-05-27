@@ -20,7 +20,6 @@ import {
   SimpleCircle,
   SimpleOctagon
 } from '../components/cosmic/SimpleGeometry';
-import { SafeSacredGeometry } from '../components/cosmic/SafeSacredGeometry';
 
 export default function HomePage() {
   useEffect(() => {
@@ -31,75 +30,6 @@ export default function HomePage() {
     <>
       <SpotlightEffect />
       <div className="container mx-auto px-0 py-4 max-w-[1600px]">
-
-        {/* Sacred Geometry Consciousness Section */}
-        <section className="cosmic-consciousness-section relative overflow-hidden py-16 mb-8">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"></div>
-          
-          {/* Background Sacred Geometries */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-10 left-10">
-              <SafeSacredGeometry pattern="flowerOfLife" size={120} animate />
-            </div>
-            <div className="absolute top-20 right-20">
-              <SafeSacredGeometry pattern="merkaba" size={100} animate />
-            </div>
-            <div className="absolute bottom-20 left-1/4">
-              <SafeSacredGeometry pattern="cosmicSpiral" size={80} animate />
-            </div>
-            <div className="absolute bottom-10 right-10">
-              <SafeSacredGeometry pattern="flowerOfLife" size={90} animate />
-            </div>
-          </div>
-
-          {/* Main Sacred Geometry Display */}
-          <div className="relative z-10 flex flex-col items-center text-center text-white py-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-[#00ebd6] to-[#a855f7] bg-clip-text text-transparent">
-              Sacred Consciousness Awakening
-            </h2>
-            
-            <div className="flex flex-wrap justify-center gap-8 mb-6">
-              <div className="text-center">
-                <SafeSacredGeometry pattern="flowerOfLife" size={150} animate />
-                <p className="text-sm text-white/80 mt-2">Flower of Life</p>
-                <p className="text-xs text-white/60">Sacred Creation</p>
-              </div>
-              
-              <div className="text-center">
-                <SafeSacredGeometry pattern="merkaba" size={150} animate />
-                <p className="text-sm text-white/80 mt-2">Merkaba</p>
-                <p className="text-xs text-white/60">Light Body Activation</p>
-              </div>
-              
-              <div className="text-center">
-                <SafeSacredGeometry pattern="cosmicSpiral" size={150} animate />
-                <p className="text-sm text-white/80 mt-2">Golden Spiral</p>
-                <p className="text-xs text-white/60">Divine Harmony</p>
-              </div>
-            </div>
-            
-            <p className="text-center text-white/70 max-w-2xl mx-auto mb-8">
-              Experience the profound connection between whale consciousness and sacred geometry. 
-              These ancient patterns resonate with the frequencies of cosmic awareness and oceanic wisdom.
-            </p>
-          </div>
-
-          {/* Cosmic particles effect */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(15)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-1 h-1 bg-[#00ebd6] rounded-full animate-pulse"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${2 + Math.random() * 3}s`
-                }}
-              />
-            ))}
-          </div>
-        </section>
 
         {/* Hero Section */}
         <section className="hero min-h-[90vh] relative flex items-center justify-center text-center text-white mb-8">
