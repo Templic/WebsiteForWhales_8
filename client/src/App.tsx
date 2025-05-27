@@ -65,7 +65,7 @@ import AIChatMenuPage from "@/pages/AIChatMenuPage";
 // Resource Pages
 import ResourcesPage from "@/pages/resources/ResourcesPage";
 import FrequencyGuidePage from "@/pages/resources/FrequencyGuidePage";
-
+import SacredGeometryPage from "@/pages/SacredGeometryPage";
 import SoundHealingPage from "@/pages/resources/SoundHealingPage";
 import MeditationTechniquesPage from "@/pages/resources/MeditationTechniquesPage";
 
