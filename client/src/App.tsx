@@ -60,6 +60,7 @@ import ButtonDemo from "@/pages/test/ButtonDemo";
 import CommunityPage from "@/pages/community/CommunityPage";
 import EnhancedCommunityPage from "@/pages/community/EnhancedCommunityPage";
 import RevampedCommunityPage from "@/pages/community/RevampedCommunityPage";
+import WhaleWisdomCommunity from "@/pages/CommunityPage";
 import AIChatMenuPage from "@/pages/AIChatMenuPage";
 
 // Resource Pages
@@ -153,7 +154,8 @@ function AppRouter() {
           <Route path="/collaboration" component={CollaborationPage} />
           <Route path="/search" component={SearchPage} />
           {/* Community Pages */}
-          <Route path="/community" component={RevampedCommunityPage} />
+          <Route path="/community" component={WhaleWisdomCommunity} />
+          <Route path="/community/revamped" component={RevampedCommunityPage} />
           <Route path="/community/legacy" component={CommunityPage} />
           <Route path="/enhanced-community" component={EnhancedCommunityPage} />
 
