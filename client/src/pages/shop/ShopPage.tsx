@@ -290,6 +290,20 @@ const ShopPage: React.FC = () => {
 
   return (
     <div className="min-h-screen relative bg-[#121b35] text-[#f1f0ee]">
+      <ComingSoonNotice 
+        pageName="Cosmic Shop"
+        features={[
+          "Sacred Geometry Merchandise",
+          "Sound Healing Instruments",
+          "Digital Music Downloads",
+          "Meditation Accessories",
+          "Crystal Collections",
+          "Collaborative Shopping Experience",
+          "Secure Payment Processing",
+          "Order Tracking & Management"
+        ]}
+        estimatedCompletion="Q2 2025"
+      />
       {/* Adjusted background with higher brightness */}
       <CosmicBackground opacity={0.35} color="indigo" nebulaEffect={true} />
 
@@ -386,22 +400,6 @@ const ShopPage: React.FC = () => {
           <div className="mt-16">
             <EnhancedShoppingExperience />
           </div>
-
-          
-          <ComingSoonNotice 
-            pageName="Cosmic Shop"
-            features={[
-              "Sacred Geometry Merchandise",
-              "Sound Healing Instruments",
-              "Digital Music Downloads",
-              "Meditation Accessories",
-              "Crystal Collections",
-              "Collaborative Shopping Experience",
-              "Secure Payment Processing",
-              "Order Tracking & Management"
-            ]}
-            estimatedCompletion="Q2 2025"
-          />
         </div>
 
         {/* Floating Shopping Cart */}
