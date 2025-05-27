@@ -537,6 +537,7 @@ export class EnhancedIntelligentAIRouter {
 
 // Export for use in other modules
 export const aiRouter = new EnhancedIntelligentAIRouter();
+export const enhancedAIRouter = aiRouter; // Alias for consistency
 
 // CLI execution
 if (import.meta.url === `file://${process.argv[1]}`) {
