@@ -11,12 +11,25 @@ import {
   users 
 } from '../../../shared/schema';
 import { eq, and, desc, asc, sql, like, not, gt, lt, isNotNull, isNull } from 'drizzle-orm';
-import { authenticateJWT } from '../../../server/security/jwt';
+import { verifyAccessToken, extractTokenFromHeader } from '../../../server/security/jwt';
 
 const router = express.Router();
 
-// Use JWT authentication instead of legacy authentication  
-const requireAdmin = authenticateJWT;
+// JWT authentication middleware for admin routes
+const requireAdmin = (req: any, res: any, next: any) => {
+  const token = extractTokenFromHeader(req.headers.authorization);
+  if (!token) {
+    return res.status(401).json({ error: 'Authentication required' });
+  }
+  
+  const payload = verifyAccessToken(token);
+  if (!payload) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+  
+  req.user = payload;
+  next();
+};
 
 /**
  * GET /api/admin/notifications/system
