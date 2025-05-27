@@ -65,7 +65,7 @@ import AIChatMenuPage from "@/pages/AIChatMenuPage";
 // Resource Pages
 import ResourcesPage from "@/pages/resources/ResourcesPage";
 import FrequencyGuidePage from "@/pages/resources/FrequencyGuidePage";
-import SacredGeometryPage from "@/pages/resources/SacredGeometryPage";
+
 import SoundHealingPage from "@/pages/resources/SoundHealingPage";
 import MeditationTechniquesPage from "@/pages/resources/MeditationTechniquesPage";
 
@@ -237,7 +237,7 @@ function AppRouter() {
           {/* Resource Pages */}
           <Route path="/resources" component={ResourcesPage} />
           <Route path="/resources/frequency-guide" component={FrequencyGuidePage} />
-          <Route path="/resources/sacred-geometry" component={SacredGeometryPage} />
+
           <Route path="/resources/sound-healing" component={SoundHealingPage} />
           <Route path="/resources/meditation" component={MeditationTechniquesPage} />
           
