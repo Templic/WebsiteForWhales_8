@@ -29,7 +29,27 @@ export function initJwtSecrets(): void {
     JWT_REFRESH_SECRET = randomBytes(64).toString('hex');
   }
   
-  console.log('JWT secrets initialized');
+  console.log('JWT secrets initialized successfully');
+}
+
+/**
+ * Get the current JWT secret, ensuring it's initialized
+ */
+function getJwtSecret(): string {
+  if (!JWT_SECRET) {
+    initJwtSecrets();
+  }
+  return JWT_SECRET;
+}
+
+/**
+ * Get the current JWT refresh secret, ensuring it's initialized
+ */
+function getJwtRefreshSecret(): string {
+  if (!JWT_REFRESH_SECRET) {
+    initJwtSecrets();
+  }
+  return JWT_REFRESH_SECRET;
 }
 
 // Store of revoked token JTIs (for logout/blacklisting)
@@ -71,7 +91,7 @@ export function generateAccessToken(user, additionalClaims = {}): string {
   
   return jwt.sign(
     claims,
-    JWT_SECRET,
+    getJwtSecret(),
     {
       expiresIn: DEFAULT_ACCESS_TOKEN_EXPIRY,
       algorithm: DEFAULT_ALGORITHM,
@@ -92,7 +112,7 @@ export function generateRefreshToken(userId: string | number): string {
       jti,
       type: 'refresh'
     },
-    JWT_REFRESH_SECRET,
+    getJwtRefreshSecret(),
     {
       expiresIn: DEFAULT_REFRESH_TOKEN_EXPIRY,
       algorithm: DEFAULT_ALGORITHM
@@ -105,7 +125,7 @@ export function generateRefreshToken(userId: string | number): string {
  */
 export function verifyAccessToken(token: string): jwt.JwtPayload | null {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET, {
+    const decoded = jwt.verify(token, getJwtSecret(), {
       algorithms: [DEFAULT_ALGORITHM],
       complete: false
     });
@@ -135,7 +155,7 @@ export function verifyAccessToken(token: string): jwt.JwtPayload | null {
  */
 export function verifyRefreshToken(token: string): jwt.JwtPayload | null {
   try {
-    const decoded = jwt.verify(token, JWT_REFRESH_SECRET, {
+    const decoded = jwt.verify(token, getJwtRefreshSecret(), {
       algorithms: [DEFAULT_ALGORITHM],
       complete: false
     });
