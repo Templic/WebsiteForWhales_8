@@ -62,108 +62,204 @@ export default function HomePage() {
       <SpotlightEffect />
       <div className="container mx-auto px-4 py-4 max-w-[1600px]">
 
-        {/* Enhanced Hero Section with Consciousness Integration */}
-        <section className="hero min-h-[90vh] relative flex items-center justify-center text-center mb-8">
+        {/* Restored Cosmic Hero Section */}
+        <section className="hero min-h-[90vh] relative flex items-center justify-center text-center text-white mb-8">
           <div className="w-full max-w-[1200px] mx-auto">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <SimpleHexagon className="w-full max-w-[800px] mx-auto" glowColor="rgba(0, 235, 214, 0.6)">
-                <motion.h1 
-                  className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 bg-clip-text text-transparent leading-tight px-4"
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  🌊 Consciousness Evolution Platform ✨
-                </motion.h1>
-                
-                <motion.p 
-                  className="text-xl mb-8 max-w-[700px] mx-auto text-white leading-relaxed px-4"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  Connect with whale wisdom, manifest your reality, and explore sacred geometry 
-                  in the most advanced consciousness development platform ever created
-                </motion.p>
+            <SimpleHexagon className="w-full max-w-[800px] mx-auto" glowColor="rgba(255, 65, 105, 0.6)">
+              <motion.h1 
+                className="cosmic-heading-responsive-lg mb-6 text-shadow shadow-[#fe0064] animate-cosmic font-almendra leading-tight px-4 whitespace-normal text-[#e15554]"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                🌊 Consciousness Evolution Portal 🌌
+              </motion.h1>
+              
+              <motion.p 
+                className="cosmic-text-responsive mb-8 max-w-[800px] mx-auto leading-relaxed font-cormorant px-4 whitespace-normal text-[#00ebd6]"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                🐋 Where Ancient Ocean Wisdom Meets Modern Consciousness Evolution 🎵 
+                Experience deep whale frequencies, manifest your reality, and explore sacred geometry ✨
+              </motion.p>
 
-                {/* Consciousness Status Bar */}
-                <motion.div 
-                  className="bg-white/20 backdrop-blur-sm rounded-lg p-4 mb-8 max-w-[600px] mx-auto"
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.7 }}
-                >
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-bold text-blue-300">{consciousnessData.currentLevel.toFixed(1)}%</div>
-                      <div className="text-sm text-blue-200">Consciousness Level</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-purple-300">{consciousnessData.activeManifestations}</div>
-                      <div className="text-sm text-purple-200">Active Manifestations</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-teal-300">{consciousnessData.whaleWisdomLevel.toFixed(0)}%</div>
-                      <div className="text-sm text-teal-200">Whale Wisdom</div>
-                    </div>
-                  </div>
-                </motion.div>
-
+              {/* Interactive Consciousness Orb */}
+              <motion.div
+                className="relative inline-block mb-8"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
+              >
                 <motion.div
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.9 }}
-                  className="space-y-4"
+                  className="w-24 h-24 mx-auto bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 rounded-full flex items-center justify-center text-white font-bold text-lg cursor-pointer shadow-lg"
+                  whileHover={{ scale: 1.1, boxShadow: "0 0 30px rgba(0, 235, 214, 0.8)" }}
+                  whileTap={{ scale: 0.95 }}
+                  animate={{ 
+                    boxShadow: [
+                      "0 0 20px rgba(0, 235, 214, 0.5)",
+                      "0 0 30px rgba(255, 65, 105, 0.5)",
+                      "0 0 20px rgba(0, 235, 214, 0.5)"
+                    ]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
                 >
-                  <Link href="/consciousness-dashboard">
-                    <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-lg px-8 py-3 rounded-full mr-4">
-                      🧠 Enter Consciousness Dashboard
-                    </Button>
-                  </Link>
-                  <Link href="/cosmic-connectivity">
-                    <Button variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8 py-3 rounded-full">
-                      🐋 Connect with Whales
-                    </Button>
-                  </Link>
+                  {consciousnessData.currentLevel.toFixed(0)}%
                 </motion.div>
-              </SimpleHexagon>
-            </motion.div>
+                <p className="text-sm mt-2 text-[#00ebd6]">Consciousness Level</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.9 }}
+                className="space-x-4"
+              >
+                <button 
+                  onClick={() => window.location.href = '/cosmic-connectivity'} 
+                  className="bg-[#00ebd6] text-[#303436] hover:bg-[#fe0064] hover:text-white rounded px-6 py-3 font-semibold transition-all duration-300"
+                >
+                  🐋 Begin Consciousness Journey
+                </button>
+              </motion.div>
+            </SimpleHexagon>
           </div>
         </section>
 
-        {/* Recent Whale Wisdom Section */}
-        <motion.section 
-          className="mb-12"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-        >
-          <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200 shadow-xl max-w-4xl mx-auto">
-            <CardHeader>
-              <CardTitle className="text-center text-blue-800 text-2xl flex items-center justify-center">
-                🐋 Latest Whale Wisdom
-                <Badge className="ml-3 bg-blue-100 text-blue-800">82% Effectiveness</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <p className="text-xl italic text-blue-700 mb-4 leading-relaxed">
-                  "{consciousnessData.recentWisdom}"
-                </p>
-                <p className="text-blue-600">- Humpback Whale Consciousness • 52.3 Hz</p>
-                <Link href="/cosmic-connectivity" className="inline-block mt-4">
-                  <Button className="bg-blue-600 hover:bg-blue-700">
-                    🌊 Receive More Wisdom
-                  </Button>
-                </Link>
+        {/* How Consciousness Evolution Works */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent mb-4">
+              ✨ How Consciousness Evolution Works ✨
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Ancient wisdom meets quantum science in three transformative practices
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
+            {/* Whale Wisdom Explanation */}
+            <div className="w-full">
+              <SimpleTriangle className="w-full max-w-[350px] mx-auto">
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-5xl mb-4">🐋</div>
+                  <h3 className="text-2xl font-bold text-blue-800 mb-4">Whale Wisdom</h3>
+                  <p className="text-blue-600 mb-6 leading-relaxed">
+                    Ancient ocean frequencies carry transformative wisdom to expand your awareness. 
+                    Connect with humpback, blue whale, orca, and gray whale consciousness.
+                  </p>
+                  <div className="space-y-2 text-sm text-blue-500">
+                    <div>🎵 Real whale song frequencies</div>
+                    <div>🧠 Consciousness expansion</div>
+                    <div>💫 Ancient marine wisdom</div>
+                  </div>
+                </motion.div>
+              </SimpleTriangle>
+            </div>
+
+            {/* Manifestation Explanation */}
+            <div className="w-full">
+              <SimpleOctagon className="w-full max-w-[350px] mx-auto">
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-5xl mb-4">✨</div>
+                  <h3 className="text-2xl font-bold text-purple-800 mb-4">Reality Manifestation</h3>
+                  <p className="text-purple-600 mb-6 leading-relaxed">
+                    Quantum intention aligns cosmic energies with your deepest desires. 
+                    Track your manifestation journey with evidence-based progress.
+                  </p>
+                  <div className="space-y-2 text-sm text-purple-500">
+                    <div>⚡ Quantum energy alignment</div>
+                    <div>📈 Evidence tracking</div>
+                    <div>🎯 Intention optimization</div>
+                  </div>
+                </motion.div>
+              </SimpleOctagon>
+            </div>
+
+            {/* Sacred Geometry Explanation */}
+            <div className="w-full">
+              <SimpleCircle className="w-full max-w-[350px] mx-auto">
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-5xl mb-4">🔯</div>
+                  <h3 className="text-2xl font-bold text-teal-800 mb-4">Sacred Geometry</h3>
+                  <p className="text-teal-600 mb-6 leading-relaxed">
+                    Divine patterns harmonize consciousness with universal frequencies, 
+                    creating profound spiritual resonance and visual meditation.
+                  </p>
+                  <div className="space-y-2 text-sm text-teal-500">
+                    <div>🌸 Flower of Life patterns</div>
+                    <div>🔺 Merkaba meditation</div>
+                    <div>🎼 Frequency synchronization</div>
+                  </div>
+                </motion.div>
+              </SimpleCircle>
+            </div>
+          </div>
+        </section>
+
+        {/* Interactive Consciousness Preview */}
+        <section className="mb-16">
+          <div className="max-w-4xl mx-auto">
+            <motion.div 
+              className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 backdrop-blur-sm rounded-3xl p-8 border border-purple-300/30"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <h3 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                🌊 Your Consciousness Journey Preview
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <motion.div 
+                  className="text-center p-4 rounded-lg bg-white/10 backdrop-blur-sm"
+                  whileHover={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                >
+                  <div className="text-2xl font-bold text-blue-400 mb-2">Latest Wisdom</div>
+                  <p className="text-sm text-blue-300 italic">
+                    "{consciousnessData.recentWisdom.substring(0, 60)}..."
+                  </p>
+                  <p className="text-xs text-blue-200 mt-2">- Humpback • 52.3 Hz</p>
+                </motion.div>
+
+                <motion.div 
+                  className="text-center p-4 rounded-lg bg-white/10 backdrop-blur-sm"
+                  whileHover={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                >
+                  <div className="text-2xl font-bold text-purple-400 mb-2">Manifestations</div>
+                  <p className="text-sm text-purple-300">
+                    {consciousnessData.activeManifestations} active intentions
+                  </p>
+                  <p className="text-xs text-purple-200 mt-2">Energy: {consciousnessData.manifestationEnergy.toFixed(0)}%</p>
+                </motion.div>
+
+                <motion.div 
+                  className="text-center p-4 rounded-lg bg-white/10 backdrop-blur-sm"
+                  whileHover={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                >
+                  <div className="text-2xl font-bold text-teal-400 mb-2">Sacred Flow</div>
+                  <p className="text-sm text-teal-300">
+                    Geometric resonance active
+                  </p>
+                  <p className="text-xs text-teal-200 mt-2">Patterns: Flower of Life</p>
+                </motion.div>
               </div>
-            </CardContent>
-          </Card>
-        </motion.section>
+            </motion.div>
+          </div>
+        </section>
 
         {/* Main Content */}
         <main className="max-w-[1200px] mx-auto px-4 py-8">
