@@ -1,19 +1,20 @@
 /**
- * HomePage.tsx
- * 
- * Migrated as part of the repository reorganization.
- * Updated to use the new responsive geometric shapes.
+ * Enhanced HomePage with Advanced Consciousness Platform Integration
+ * Showcasing whale wisdom, manifestation tools, and sacred geometry
  */
+import React, { useState, useEffect } from 'react';
 import { Link } from "wouter";
+import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { UsersRound, BarChart3, Sparkles } from "lucide-react";
-import { useEffect } from "react";
 import { SpotlightEffect } from "@/components/SpotlightEffect";
 import { DynamicContent } from "@/components/content";
 import { createDynamicComponent } from "@/lib/bundle-optimization";
-import { SacredGeometryVisualizer } from "@/components/cosmic/SacredGeometryVisualizer";
 
-// Import geometric shape components from the responsive demo
+// Import geometric shape components
 import { 
   SimpleHexagon, 
   SimpleTriangle,
@@ -22,50 +23,147 @@ import {
   SimpleOctagon
 } from '../components/cosmic/SimpleGeometry';
 
+interface ConsciousnessOverview {
+  currentLevel: number;
+  whaleWisdomLevel: number;
+  manifestationEnergy: number;
+  activeManifestations: number;
+  recentWisdom: string;
+  breakthroughProbability: number;
+}
+
 export default function HomePage() {
+  const [consciousnessData, setConsciousnessData] = useState<ConsciousnessOverview>({
+    currentLevel: 78.6,
+    whaleWisdomLevel: 82.3,
+    manifestationEnergy: 75.8,
+    activeManifestations: 3,
+    recentWisdom: "Trust the currents of change, for they carry you toward your deepest purpose",
+    breakthroughProbability: 68
+  });
+
   useEffect(() => {
-    document.title = "Home - Dale Loves Whales";
+    document.title = "Home - Dale Loves Whales | Consciousness Platform";
+    
+    // Simulate real-time consciousness updates
+    const interval = setInterval(() => {
+      setConsciousnessData(prev => ({
+        ...prev,
+        currentLevel: Math.min(100, Math.max(0, prev.currentLevel + (Math.random() - 0.5) * 0.1)),
+        manifestationEnergy: Math.min(100, Math.max(0, prev.manifestationEnergy + (Math.random() - 0.5) * 0.2))
+      }));
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <>
       <SpotlightEffect />
-      <div className="container mx-auto px-0 py-4 max-w-[1600px]">
+      <div className="container mx-auto px-4 py-4 max-w-[1600px]">
 
-        {/* Hero Section */}
-        <section className="hero min-h-[90vh] relative flex items-center justify-center text-center text-white mb-8">
+        {/* Enhanced Hero Section with Consciousness Integration */}
+        <section className="hero min-h-[90vh] relative flex items-center justify-center text-center mb-8">
           <div className="w-full max-w-[1200px] mx-auto">
-            <SimpleHexagon className="w-full max-w-[800px] mx-auto" glowColor="rgba(255, 65, 105, 0.6)">
-              <h1 className="cosmic-heading-responsive-lg mb-6 text-shadow shadow-[#fe0064] animate-cosmic font-almendra leading-tight px-4 whitespace-normal text-[#e15554]">
-                <DynamicContent 
-                  contentKey="home-hero-heading" 
-                  fallback="🌊 Ride the Cosmic Wave 🌌"
-                  page="home"
-                  section="hero" 
-                />
-              </h1>
-              <p className="cosmic-text-responsive mb-8 max-w-[800px] mx-auto leading-relaxed font-cormorant px-4 whitespace-normal text-[#00ebd6]">
-                <DynamicContent 
-                  contentKey="home-hero-description" 
-                  fallback="🐋 Immerse yourself in the sonic universe of Dale Loves Whales 🎵 Experience the vibe, explore the depths, and join us on a journey through sound and consciousness ✨"
-                  page="home"
-                  section="hero" 
-                />
-              </p>
-              <button 
-                onClick={() => window.location.href = '/archived-music'} 
-                className="bg-[#00ebd6] text-[#303436] hover:bg-[#fe0064] hover:text-white rounded"
-              >
-                <DynamicContent 
-                  contentKey="home-hero-cta" 
-                  fallback="Explore Music"
-                  page="home"
-                  section="hero" 
-                />
-              </button>
-            </SimpleHexagon>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <SimpleHexagon className="w-full max-w-[800px] mx-auto" glowColor="rgba(0, 235, 214, 0.6)">
+                <motion.h1 
+                  className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 bg-clip-text text-transparent leading-tight px-4"
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  🌊 Consciousness Evolution Platform ✨
+                </motion.h1>
+                
+                <motion.p 
+                  className="text-xl mb-8 max-w-[700px] mx-auto text-white leading-relaxed px-4"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  Connect with whale wisdom, manifest your reality, and explore sacred geometry 
+                  in the most advanced consciousness development platform ever created
+                </motion.p>
+
+                {/* Consciousness Status Bar */}
+                <motion.div 
+                  className="bg-white/20 backdrop-blur-sm rounded-lg p-4 mb-8 max-w-[600px] mx-auto"
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-blue-300">{consciousnessData.currentLevel.toFixed(1)}%</div>
+                      <div className="text-sm text-blue-200">Consciousness Level</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-purple-300">{consciousnessData.activeManifestations}</div>
+                      <div className="text-sm text-purple-200">Active Manifestations</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-teal-300">{consciousnessData.whaleWisdomLevel.toFixed(0)}%</div>
+                      <div className="text-sm text-teal-200">Whale Wisdom</div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.9 }}
+                  className="space-y-4"
+                >
+                  <Link href="/consciousness-dashboard">
+                    <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-lg px-8 py-3 rounded-full mr-4">
+                      🧠 Enter Consciousness Dashboard
+                    </Button>
+                  </Link>
+                  <Link href="/cosmic-connectivity">
+                    <Button variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8 py-3 rounded-full">
+                      🐋 Connect with Whales
+                    </Button>
+                  </Link>
+                </motion.div>
+              </SimpleHexagon>
+            </motion.div>
           </div>
         </section>
+
+        {/* Recent Whale Wisdom Section */}
+        <motion.section 
+          className="mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.1 }}
+        >
+          <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200 shadow-xl max-w-4xl mx-auto">
+            <CardHeader>
+              <CardTitle className="text-center text-blue-800 text-2xl flex items-center justify-center">
+                🐋 Latest Whale Wisdom
+                <Badge className="ml-3 bg-blue-100 text-blue-800">82% Effectiveness</Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center">
+                <p className="text-xl italic text-blue-700 mb-4 leading-relaxed">
+                  "{consciousnessData.recentWisdom}"
+                </p>
+                <p className="text-blue-600">- Humpback Whale Consciousness • 52.3 Hz</p>
+                <Link href="/cosmic-connectivity" className="inline-block mt-4">
+                  <Button className="bg-blue-600 hover:bg-blue-700">
+                    🌊 Receive More Wisdom
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.section>
 
         {/* Main Content */}
         <main className="max-w-[1200px] mx-auto px-4 py-8">
