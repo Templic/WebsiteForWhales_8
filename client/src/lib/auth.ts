@@ -8,7 +8,7 @@ interface JWTAuthResponse {
 
 export const authHelper = {
   async login(username: string, password: string): Promise<JWTAuthResponse> {
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/api/jwt/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
