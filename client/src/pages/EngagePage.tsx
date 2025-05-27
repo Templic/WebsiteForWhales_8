@@ -13,6 +13,7 @@ import { SpotlightEffect } from "@/components/SpotlightEffect";
 import SocialMediaLinks from "@/components/common/SocialMediaLinks";
 import FanReactions from "@/components/common/FanReactions";
 import FeaturedMerchandise from "@/components/common/FeaturedMerchandise";
+import { ComingSoonNotice } from '@/components/common/ComingSoonNotice';
 
 import SacredGeometry from "@/components/ui/sacred-geometry";
 import { FaYoutube, FaInstagram, FaSpotify, FaPodcast, FaMusic, FaEnvelope, FaPhone, FaCalendarAlt, FaUsers } from 'react-icons/fa';
@@ -223,7 +224,7 @@ export default function EngagePage() {
       comments: 0,
       commentsList: []
     };
-    
+
     setFeedbackItems([newFeedback, ...feedbackItems]);
   };
 
@@ -239,7 +240,7 @@ export default function EngagePage() {
           likes: 0,
           userLiked: false
         };
-        
+
         return {
           ...item,
           comments: item.comments + 1,
@@ -273,7 +274,7 @@ export default function EngagePage() {
   return (
     <>
       <SpotlightEffect />
-      
+
       {/* Sacred geometry elements in page margins - reduced and optimized */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Left margin sacred geometry - one at top, one at bottom */}
@@ -283,13 +284,13 @@ export default function EngagePage() {
         <div className="absolute bottom-40 left-5 opacity-10 hidden md:block">
           <SacredGeometry variant="dodecahedron" size={120} animated={true} />
         </div>
-        
+
         {/* Right margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 right-5 opacity-10 hidden md:block">
           <SacredGeometry variant="icosahedron" size={120} animated={true} />
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 py-8 relative z-10">
         <h1 className="text-5xl font-bold text-[#00ebd6] mb-6 cosmic-float font-nebula tracking-wider">Engage</h1>
         <div className="space-y-8">
@@ -312,7 +313,7 @@ export default function EngagePage() {
                 </button>
               </a>
             </div>
-            
+
             {/* Sacred geometry element on bottom right */}
             <div className="absolute -bottom-6 -right-6 opacity-30">
               <SacredGeometry variant="hexagon" size={120} animated={true} intensity="subtle" />
@@ -344,13 +345,13 @@ export default function EngagePage() {
               <div className="absolute -top-8 left-4 opacity-10 z-0 hidden md:block">
                 <SacredGeometry variant="pentagon" size={60} animated={false} intensity="subtle" />
               </div>
-              
+
               <img 
                 src="/assets/Orca Sunrise Cove by Dale The Whale on etsy.jpg" 
                 alt="Orca Sunrise Cove" 
                 className="w-full h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] object-contain rounded-lg shadow-xl z-10 relative" 
               />
-              
+
               <div className="absolute -bottom-8 right-4 opacity-10 z-0 hidden md:block">
                 <SacredGeometry variant="octagon" size={60} animated={false} intensity="subtle" />
               </div>
@@ -368,7 +369,7 @@ export default function EngagePage() {
                 <SacredGeometry variant="octagon" size={160} animated={false} />
               </div>
             </div>
-            
+
             <div className="relative z-10">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#00ebd6] mb-4 text-center">Dive Into Our Cosmic Ocean</h2>
               <div className="text-center mb-8">
@@ -391,13 +392,13 @@ export default function EngagePage() {
                     {/* Octagon shape container with clip-path */}
                     <div className="absolute inset-0 bg-[#00ebd6]/10 backdrop-blur-sm transform transition-all 
                          clip-path-octagon border-2 border-[#00ebd6]/30 z-0"></div>
-                    
+
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
                         <SacredGeometry variant="octagon" size={60} animated={false} />
                       </div>
-                      
+
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Cosmic Social Channels</h4>
                       <div className="space-y-3 w-full">
                         <a href="https://www.youtube.com/@DiamondOrca777/featured" target="_blank" rel="noopener noreferrer" 
@@ -430,13 +431,13 @@ export default function EngagePage() {
                     {/* Octagon shape container with clip-path */}
                     <div className="absolute inset-0 bg-[#00ebd6]/10 backdrop-blur-sm transform transition-all 
                          clip-path-octagon border-2 border-[#00ebd6]/30 z-0"></div>
-                    
+
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
                         <SacredGeometry variant="octagon" size={60} animated={false} />
                       </div>
-                      
+
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Ethereal Sounds & Words</h4>
                       <div className="space-y-3 w-full">
                         <a href="https://youtu.be/jzpvkq3Krjg" target="_blank" rel="noopener noreferrer"
@@ -474,13 +475,13 @@ export default function EngagePage() {
                     {/* Octagon shape container with clip-path */}
                     <div className="absolute inset-0 bg-[#00ebd6]/10 backdrop-blur-sm transform transition-all 
                          clip-path-octagon border-2 border-[#00ebd6]/30 z-0"></div>
-                    
+
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
                         <SacredGeometry variant="octagon" size={60} animated={false} />
                       </div>
-                      
+
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Celestial Productions</h4>
                       <div className="space-y-3 w-full">
                         <a href="https://www.youtube.com/channel/UCewdO8AO3aBVzgWzeMG5paQ" target="_blank" rel="noopener noreferrer"
@@ -505,13 +506,13 @@ export default function EngagePage() {
                     {/* Octagon shape container with clip-path */}
                     <div className="absolute inset-0 bg-[#00ebd6]/10 backdrop-blur-sm transform transition-all 
                          clip-path-octagon border-2 border-[#00ebd6]/30 z-0"></div>
-                    
+
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
                         <SacredGeometry variant="octagon" size={60} animated={false} />
                       </div>
-                      
+
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Universal Connections</h4>
                       <div className="space-y-3 w-full">
                         <div className="block text-white space-y-2 text-center">
