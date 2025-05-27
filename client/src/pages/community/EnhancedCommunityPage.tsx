@@ -1,446 +1,479 @@
 /**
- * EnhancedCommunityPage.tsx
- * 
- * Migrated as part of the repository reorganization.
+ * Enhanced Community Page - Phase 7 Collective Consciousness
+ * Complete privacy-preserved community wisdom and whale consciousness sharing
  */
-import { useState, useEffect } from "react";
-import { CosmicBackground } from "@/components/features/cosmic/CosmicBackground";
-import { CommunityFeedbackLoop } from "@/components/community/CommunityFeedbackLoop";
-import EnhancedFeaturedContent from "@/components/community/EnhancedFeaturedContent";
-import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from "wouter";
-import { Heart, Users, Star, MessageSquare } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { CosmicIcon } from "@/components/cosmic/ui/cosmic-icons";
+import { 
+  SimpleHexagon, 
+  SimpleTriangle,
+  SimpleCircle,
+  SimpleOctagon
+} from '../components/cosmic/SimpleGeometry';
 
-// Community post interface
-interface CommunityPost {
-  id: string;
-  user: {
-    name: string;
-    avatar: string;
-    role?: string;
-  };
-  content: string;
-  timestamp: string;
-  likes: number;
-  comments: number;
-  shares: number;
-  isLiked: boolean;
-  image?: string;
+// Community Consciousness Types
+interface CommunityConsciousnessData {
+  globalConsciousnessLevel: number;
+  activeMembers: number;
+  recentBreakthroughs: number;
+  whaleWisdomSessions: number;
+  manifestationSuccesses: number;
+  trendDirection: 'ascending' | 'stable' | 'transforming';
 }
 
-// Sample community posts
-const initialPosts: CommunityPost[] = [
-  {
-    id: "post-1",
-    user: {
-      name: "Luna Starlight",
-      avatar: "/placeholder.svg?height=50&width=50&text=LS",
-      role: "Featured Artist"
-    },
-    content: "Just released a new cosmic meditation track inspired by the alignment of Jupiter and Saturn. This celestial event has brought such powerful healing energy. Let me know your thoughts when you listen! 🌌✨",
-    timestamp: "2 hours ago",
-    likes: 42,
-    comments: 8,
-    shares: 5,
-    isLiked: false,
-    image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    id: "post-2",
-    user: {
-      name: "Orion Walker",
-      avatar: "/placeholder.svg?height=50&width=50&text=OW"
-    },
-    content: "The cosmic healing session last night was transformative. I felt waves of energy releasing blocks I didn't even know I had. Has anyone else experienced deep emotional releases during these sessions?",
-    timestamp: "5 hours ago",
-    likes: 28,
-    comments: 12,
-    shares: 3,
-    isLiked: true
-  }
-];
-
-// Featured community member interface
-interface FeaturedMember {
+interface AnonymousWisdom {
   id: string;
-  name: string;
-  avatar: string;
-  bio: string;
-  contribution: string;
-  rating: number;
+  type: 'whale_wisdom' | 'manifestation_success' | 'consciousness_insight' | 'sacred_geometry';
+  content: string;
+  effectiveness: number;
+  resonanceLevel: number;
+  timeframe: string;
+  anonymizedLocation?: string;
 }
 
-// Sample featured members
-const featuredMembers: FeaturedMember[] = [
-  {
-    id: "member-1",
-    name: "Zephyr Moon",
-    avatar: "/placeholder.svg?height=50&width=50&text=ZM",
-    bio: "Sound healer and cosmic frequency artist",
-    contribution: "Created healing frequency playlists that have helped hundreds of community members",
-    rating: 5
-  },
-  {
-    id: "member-2",
-    name: "Nova Starlight",
-    avatar: "/placeholder.svg?height=50&width=50&text=NS",
-    bio: "Astral projection guide and cosmic energy channeler",
-    contribution: "Hosts weekly astral journey sessions for the community",
-    rating: 5
-  },
-  {
-    id: "member-3",
-    name: "Orion Sky",
-    avatar: "/placeholder.svg?height=50&width=50&text=OS",
-    bio: "Crystal bowl musician and spiritual mentor",
-    contribution: "Shares original music and guidance for spiritual awakening",
-    rating: 4
-  }
-];
-
-// Feedback item interface
-interface FeedbackItem {
+interface CommunityPattern {
   id: string;
-  user: {
-    name: string;
-    avatar: string;
-  };
-  content: string;
-  date: string;
   category: string;
-  status: "pending" | "implemented" | "considering" | "declined";
-  votes: number;
-  userVoted?: boolean;
-  comments: number;
+  pattern: string;
+  frequency: number;
+  effectiveness: number;
+  globalTrend: 'increasing' | 'stable' | 'decreasing';
 }
-
-// Sample feedback items
-const sampleFeedbackItems: FeedbackItem[] = [
-  {
-    id: "feedback-1",
-    user: {
-      name: "Astral Explorer",
-      avatar: "/placeholder.svg?height=50&width=50&text=AE",
-    },
-    content:
-      "The Astral Projection album completely transformed my meditation practice. I've been able to achieve states of consciousness I never thought possible. Would love to see more guided journeys specifically for lucid dreaming!",
-    date: "2 days ago",
-    category: "suggestion",
-    status: "considering",
-    votes: 42,
-    userVoted: true,
-    comments: 5,
-  },
-  {
-    id: "feedback-2",
-    user: {
-      name: "Quantum Healer",
-      avatar: "/placeholder.svg?height=50&width=50&text=QH",
-    },
-    content:
-      "I've noticed that the 528 Hz tracks sometimes have a slight background noise that can be distracting during deep meditation sessions. Could this be cleaned up in future releases?",
-    date: "1 week ago",
-    category: "bug",
-    status: "implemented",
-    votes: 38,
-    userVoted: false,
-    comments: 7,
-  }
-];
 
 export default function EnhancedCommunityPage() {
-  const { toast } = useToast();
-  const [posts, setPosts] = useState<CommunityPost[]>(initialPosts);
-  const [feedbackItems, setFeedbackItems] = useState(sampleFeedbackItems);
-  const [activeTab, setActiveTab] = useState("feed");
-  
-  // Animation effect for elements
+  const [communityData, setCommunityData] = useState<CommunityConsciousnessData>({
+    globalConsciousnessLevel: 76.8,
+    activeMembers: 1247,
+    recentBreakthroughs: 23,
+    whaleWisdomSessions: 342,
+    manifestationSuccesses: 89,
+    trendDirection: 'ascending'
+  });
+
+  const [anonymousWisdom, setAnonymousWisdom] = useState<AnonymousWisdom[]>([
+    {
+      id: '1',
+      type: 'whale_wisdom',
+      content: 'During my Blue Whale session, I experienced a profound understanding of oceanic consciousness. The deep frequencies helped me access memories of ancient wisdom.',
+      effectiveness: 94,
+      resonanceLevel: 88,
+      timeframe: '3 days ago',
+      anonymizedLocation: 'Pacific Coast Region'
+    },
+    {
+      id: '2',
+      type: 'manifestation_success',
+      content: 'After 45 days of intention focus using the platform\'s manifestation engine, my creative expression breakthrough manifested beyond expectations.',
+      effectiveness: 89,
+      resonanceLevel: 92,
+      timeframe: '1 week ago',
+      anonymizedLocation: 'Mountain Region'
+    },
+    {
+      id: '3',
+      type: 'consciousness_insight',
+      content: 'The sacred geometry visualizations synchronized perfectly with my meditation practice, leading to my first consciousness level breakthrough.',
+      effectiveness: 91,
+      resonanceLevel: 87,
+      timeframe: '5 days ago'
+    },
+    {
+      id: '4',
+      type: 'whale_wisdom',
+      content: 'Humpback whale frequencies during dawn meditation created an instant connection to collective oceanic consciousness. Transformative experience.',
+      effectiveness: 96,
+      resonanceLevel: 94,
+      timeframe: '2 days ago',
+      anonymizedLocation: 'Coastal Region'
+    },
+    {
+      id: '5',
+      type: 'sacred_geometry',
+      content: 'The Flower of Life pattern meditation combined with whale song frequencies opened unprecedented levels of spiritual awareness.',
+      effectiveness: 93,
+      resonanceLevel: 90,
+      timeframe: '4 days ago'
+    }
+  ]);
+
+  const [communityPatterns, setCommunityPatterns] = useState<CommunityPattern[]>([
+    {
+      id: '1',
+      category: 'Optimal Timing',
+      pattern: 'Dawn whale wisdom sessions show 23% higher effectiveness',
+      frequency: 156,
+      effectiveness: 91,
+      globalTrend: 'increasing'
+    },
+    {
+      id: '2',
+      category: 'Consciousness Synergy',
+      pattern: 'Sacred geometry combined with marine frequencies increases manifestation success by 34%',
+      frequency: 89,
+      effectiveness: 88,
+      globalTrend: 'increasing'
+    },
+    {
+      id: '3',
+      category: 'Community Resonance',
+      pattern: 'Full moon periods correlate with collective consciousness breakthroughs',
+      frequency: 67,
+      effectiveness: 85,
+      globalTrend: 'stable'
+    },
+    {
+      id: '4',
+      category: 'Species Effectiveness',
+      pattern: 'Blue whale sessions most effective for deep consciousness work, Humpback for creative manifestation',
+      frequency: 134,
+      effectiveness: 92,
+      globalTrend: 'increasing'
+    }
+  ]);
+
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'whale_wisdom' | 'manifestation_success' | 'consciousness_insight' | 'sacred_geometry'>('all');
+
+  const filteredWisdom = selectedCategory === 'all' 
+    ? anonymousWisdom 
+    : anonymousWisdom.filter(item => item.type === selectedCategory);
+
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'whale_wisdom': return '🐋';
+      case 'manifestation_success': return '✨';
+      case 'consciousness_insight': return '🧠';
+      case 'sacred_geometry': return '🔯';
+      default: return '🌊';
+    }
+  };
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case 'whale_wisdom': return 'text-cyan-400';
+      case 'manifestation_success': return 'text-purple-400';
+      case 'consciousness_insight': return 'text-pink-400';
+      case 'sacred_geometry': return 'text-yellow-400';
+      default: return 'text-blue-400';
+    }
+  };
+
+  const getTrendIcon = (trend: string) => {
+    switch (trend) {
+      case 'increasing': return '📈';
+      case 'stable': return '➡️';
+      case 'decreasing': return '📉';
+      default: return '📊';
+    }
+  };
+
   useEffect(() => {
-    const animatedElements = document.querySelectorAll('.cosmic-slide-up, .cosmic-scale, .cosmic-fade-in');
-    animatedElements.forEach((element, index) => {
-      setTimeout(() => {
-        element.classList.add('in');
-      }, index * 100);
-    });
+    document.title = "Community Consciousness - Dale Loves Whales";
+    
+    // Simulate real-time community updates
+    const interval = setInterval(() => {
+      setCommunityData(prev => ({
+        ...prev,
+        globalConsciousnessLevel: Math.min(100, Math.max(0, prev.globalConsciousnessLevel + (Math.random() - 0.5) * 0.1)),
+        whaleWisdomSessions: prev.whaleWisdomSessions + Math.floor(Math.random() * 3)
+      }));
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  // Handle liking a post
-  const handleLikePost = (postId: string) => {
-    setPosts(posts.map(post => {
-      if (post.id === postId) {
-        return {
-          ...post,
-          likes: post.isLiked ? post.likes - 1 : post.likes + 1,
-          isLiked: !post.isLiked
-        };
-      }
-      return post;
-    }));
-  };
-  
-  // Handle voting on feedback
-  const handleVote = (id: string) => {
-    setFeedbackItems((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const userVoted = !item.userVoted;
-          return {
-            ...item,
-            votes: userVoted ? item.votes + 1 : item.votes - 1,
-            userVoted,
-          };
-        }
-        return item;
-      })
-    );
-  };
-
-  // Handle submitting feedback
-  const handleSubmitFeedback = (feedback: { content: string; category: string }) => {
-    toast({
-      title: "Feedback submitted",
-      description: "Thank you for your valuable input! We'll review it soon.",
-    });
-
-    const newFeedback: FeedbackItem = {
-      id: `feedback-${Math.random().toString(36).substr(2, 9)}`,
-      user: {
-        name: "You",
-        avatar: "/placeholder.svg?height=50&width=50&text=You",
-      },
-      content: feedback.content,
-      date: "Just now",
-      category: feedback.category,
-      status: "pending",
-      votes: 1,
-      userVoted: true,
-      comments: 0,
-    };
-
-    setFeedbackItems((prev) => [newFeedback, ...prev]);
-  };
-
-  // Handle commenting on feedback
-  const handleComment = (id: string) => {
-    setFeedbackItems((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            comments: item.comments + 1,
-          };
-        }
-        return item;
-      })
-    );
-
-    toast({
-      title: "Comment added",
-      description: "Your comment has been added to the discussion.",
-    });
-  };
-
   return (
-    <div className="min-h-screen relative">
-      <CosmicBackground opacity={0.4} />
+    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-950 to-blue-950 text-white relative overflow-hidden">
+      {/* Cosmic background effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
       
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center mb-12 cosmic-slide-up">
-            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 mb-4">
-              Cosmic Community Hub
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Enhanced Header */}
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <SimpleHexagon className="w-full max-w-[600px] mx-auto mb-8" glowColor="rgba(59, 130, 246, 0.6)">
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+              🌍 Community Consciousness 🐋
             </h1>
-            <p className="text-lg max-w-2xl mx-auto text-muted-foreground mb-6">
-              Connect with fellow cosmic travelers, share your experiences, and help us shape the future of cosmic music and consciousness exploration.
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Collective wisdom through privacy-preserved whale consciousness sharing and spiritual pattern recognition
             </p>
-            <div className="flex flex-wrap justify-center gap-4 mt-4">
-              <Link href="/collaboration">
-                <Button size="lg">
-                  <span>Collaborate With Us</span>
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button size="lg" variant="outline">
-                  <span>Contact Us</span>
-                </Button>
-              </Link>
-            </div>
-          </div>
+          </SimpleHexagon>
+        </motion.div>
 
-          {/* Featured Content Section - From Lovable.dev */}
-          <div className="mb-12 cosmic-scale">
-            <EnhancedFeaturedContent />
-          </div>
-          
-          {/* Community Feedback Loop */}
-          <div className="mb-12 cosmic-fade-in">
-            <h2 className="text-2xl font-semibold mb-6 flex items-center justify-center">
-              <CosmicIcon name="sparkles" size={20} className="mr-2 text-cyan-400" />
-              Community Feedback Loop
-            </h2>
-            <CommunityFeedbackLoop
-              feedbackItems={feedbackItems}
-              onVote={handleVote}
-              onSubmit={handleSubmitFeedback}
-              onComment={handleComment}
-            />
-          </div>
+        {/* Community Metrics Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+          >
+            <SimpleTriangle className="w-full max-w-[300px] mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-cyan-400 mb-2">
+                  {communityData.globalConsciousnessLevel.toFixed(1)}%
+                </div>
+                <div className="text-sm text-cyan-300 mb-2">Global Consciousness</div>
+                <div className="text-xs text-green-400 capitalize">
+                  {communityData.trendDirection}
+                </div>
+              </div>
+            </SimpleTriangle>
+          </motion.div>
 
-          {/* Community Info Grid */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12 cosmic-scale">
-            {/* Featured Members */}
-            <Card className="cosmic-glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center">
-                <Users className="h-5 w-5 mr-2 text-blue-400" />
-                Featured Members
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <SimpleCircle className="w-full max-w-[300px] mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-400 mb-2">
+                  {communityData.activeMembers.toLocaleString()}
+                </div>
+                <div className="text-sm text-blue-300 mb-2">Active Members</div>
+                <div className="text-xs text-gray-400">Privacy Protected</div>
+              </div>
+            </SimpleCircle>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <SimpleOctagon className="w-full max-w-[300px] mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-400 mb-2">
+                  {communityData.whaleWisdomSessions}
+                </div>
+                <div className="text-sm text-purple-300 mb-2">Whale Sessions</div>
+                <div className="text-xs text-green-400">This Week</div>
+              </div>
+            </SimpleOctagon>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <SimpleTriangle className="w-full max-w-[300px] mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-pink-400 mb-2">
+                  {communityData.manifestationSuccesses}
+                </div>
+                <div className="text-sm text-pink-300 mb-2">Manifestations</div>
+                <div className="text-xs text-green-400">Recent Successes</div>
+              </div>
+            </SimpleTriangle>
+          </motion.div>
+        </div>
+
+        {/* Privacy Notice */}
+        <motion.div
+          className="bg-gradient-to-r from-green-900/30 via-blue-900/30 to-green-900/30 rounded-xl p-6 mb-12 border border-green-500/30"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="text-center">
+            <h3 className="text-xl font-bold text-green-400 mb-3">🔒 Complete Privacy Protection</h3>
+            <p className="text-gray-300 max-w-4xl mx-auto">
+              All shared wisdom is completely anonymized with advanced encryption. Personal details, exact locations, 
+              and identifying information are never stored or shared. Your consciousness journey remains private while 
+              contributing to collective spiritual evolution.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Community Wisdom Feed */}
+        <motion.section
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <div className="bg-gradient-to-br from-black/40 via-blue-900/20 to-black/40 backdrop-blur-md rounded-xl p-8 border border-blue-500/30">
+            <div className="flex justify-between items-center mb-8">
+              <h3 className="text-3xl font-bold text-blue-400">
+                🌊 Anonymous Community Wisdom
               </h3>
-              <div className="space-y-6">
-                {featuredMembers.map((member) => (
-                  <div key={member.id} className="flex items-start space-x-4">
-                    <div className="h-12 w-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
-                      {member.name.substring(0, 2)}
-                    </div>
-                    <div className="space-y-1">
-                      <h4 className="font-medium">{member.name}</h4>
-                      <p className="text-xs text-muted-foreground">{member.bio}</p>
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            size={12} 
-                            className={i < member.rating ? "text-amber-400 fill-amber-400" : "text-muted"}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+              
+              {/* Category Filter */}
+              <div className="flex gap-2 flex-wrap">
+                {['all', 'whale_wisdom', 'manifestation_success', 'consciousness_insight', 'sacred_geometry'].map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category as any)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      selectedCategory === category
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                    }`}
+                  >
+                    {category === 'all' ? 'All' : category.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  </button>
                 ))}
               </div>
-              <div className="mt-4">
-                <Button variant="outline" className="w-full">
-                  View All Members
-                </Button>
-              </div>
-            </Card>
-            
-            {/* Community Events */}
-            <Card className="cosmic-glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center">
-                <Heart className="h-5 w-5 mr-2 text-rose-400" />
-                Community Events
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="bg-cyan-500/10 text-cyan-500 rounded-full p-2 mt-1">
-                    <CosmicIcon name="moon" size={16} />
-                  </div>
-                  <div>
-                    <span className="block font-medium">Full Moon Meditation</span>
-                    <span className="text-muted-foreground text-sm">Join our global synchronized meditation during the next full moon.</span>
-                    <Button variant="link" size="sm" className="p-0 h-auto text-cyan-500">
-                      Learn more
-                    </Button>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="bg-purple-500/10 text-purple-500 rounded-full p-2 mt-1">
-                    <CosmicIcon name="headphones" size={16} />
-                  </div>
-                  <div>
-                    <span className="block font-medium">Sound Healing Workshop</span>
-                    <span className="text-muted-foreground text-sm">Online workshop exploring the power of frequency for healing.</span>
-                    <Button variant="link" size="sm" className="p-0 h-auto text-purple-500">
-                      Learn more
-                    </Button>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="bg-amber-500/10 text-amber-500 rounded-full p-2 mt-1">
-                    <CosmicIcon name="star" size={16} />
-                  </div>
-                  <div>
-                    <span className="block font-medium">Cosmic Creator Showcase</span>
-                    <span className="text-muted-foreground text-sm">Monthly virtual gathering featuring community artists.</span>
-                    <Button variant="link" size="sm" className="p-0 h-auto text-amber-500">
-                      Learn more
-                    </Button>
-                  </div>
-                </li>
-              </ul>
-              <div className="mt-4">
-                <Button variant="outline" className="w-full">
-                  View All Events
-                </Button>
-              </div>
-            </Card>
-          </div>
-          
-          {/* Community Posts */}
-          <div className="mb-12 cosmic-fade-in">
-            <h2 className="text-2xl font-semibold mb-6 flex items-center justify-center">
-              <MessageSquare className="h-5 w-5 mr-2 text-purple-400" />
-              Community Discussions
-            </h2>
+            </div>
+
             <div className="space-y-6">
-              {posts.map((post) => (
-                <Card key={post.id} className="cosmic-glass-card p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="h-12 w-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold flex-shrink-0">
-                      {post.user.name.substring(0, 2)}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center mb-1">
-                        <h4 className="font-medium">{post.user.name}</h4>
-                        {post.user.role && (
-                          <span className="ml-2 bg-purple-500 px-2 py-1 rounded-full text-xs text-white">
-                            {post.user.role}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-muted-foreground mb-3">{post.timestamp}</p>
-                      <p className="mb-4">{post.content}</p>
-                      
-                      {post.image && (
-                        <div className="mb-4">
-                          <img 
-                            src={post.image} 
-                            alt="Post attachment" 
-                            className="rounded-lg w-full max-h-64 object-cover"
-                          />
+              <AnimatePresence mode="wait">
+                {filteredWisdom.map((wisdom, index) => (
+                  <motion.div
+                    key={wisdom.id}
+                    className="bg-gradient-to-r from-white/5 via-blue-900/10 to-white/5 rounded-lg p-6 border border-blue-500/20"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ scale: 1.01, y: -2 }}
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="text-2xl">{getTypeIcon(wisdom.type)}</div>
+                        <div>
+                          <div className={`font-semibold ${getTypeColor(wisdom.type)}`}>
+                            {wisdom.type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                          </div>
+                          <div className="text-sm text-gray-400">
+                            {wisdom.timeframe} • {wisdom.anonymizedLocation || 'Anonymous Location'}
+                          </div>
                         </div>
-                      )}
-                      
-                      <div className="flex gap-4">
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className={`flex items-center gap-1 ${post.isLiked ? 'text-purple-500' : ''}`}
-                          onClick={() => handleLikePost(post.id)}
-                        >
-                          <Heart className={`h-4 w-4 ${post.isLiked ? 'fill-current' : ''}`} />
-                          <span>{post.likes}</span>
-                        </Button>
-                        <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                          <MessageSquare className="h-4 w-4" />
-                          <span>{post.comments}</span>
-                        </Button>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-green-400 font-semibold">
+                          {wisdom.effectiveness}% Effective
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          Resonance: {wisdom.resonanceLevel}%
+                        </div>
+                      </div>
+                    </div>
+
+                    <p className="text-gray-300 mb-4 italic">
+                      "{wisdom.content}"
+                    </p>
+
+                    <div className="flex justify-between items-center">
+                      <div className="flex gap-4 text-sm text-gray-400">
+                        <span>🌟 Effectiveness: {wisdom.effectiveness}%</span>
+                        <span>🔮 Resonance: {wisdom.resonanceLevel}%</span>
+                      </div>
+                      <div className="text-xs text-blue-400">
+                        Privacy-preserved sharing
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Community Patterns Recognition */}
+        <motion.section
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+        >
+          <div className="bg-gradient-to-br from-black/40 via-purple-900/20 to-black/40 backdrop-blur-md rounded-xl p-8 border border-purple-500/30">
+            <h3 className="text-3xl font-bold text-purple-400 mb-8 text-center">
+              📊 Collective Consciousness Patterns
+            </h3>
+            
+            <div className="space-y-6">
+              {communityPatterns.map((pattern, index) => (
+                <motion.div
+                  key={pattern.id}
+                  className="bg-gradient-to-r from-purple-900/30 via-pink-900/20 to-purple-900/30 rounded-lg p-6 border border-purple-500/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.01 }}
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="text-xl">{getTrendIcon(pattern.globalTrend)}</div>
+                        <h4 className="text-lg font-semibold text-purple-300">
+                          {pattern.category}
+                        </h4>
+                        <div className={`text-sm px-3 py-1 rounded-full ${
+                          pattern.globalTrend === 'increasing' ? 'bg-green-900/30 text-green-400' :
+                          pattern.globalTrend === 'stable' ? 'bg-blue-900/30 text-blue-400' :
+                          'bg-red-900/30 text-red-400'
+                        }`}>
+                          {pattern.globalTrend}
+                        </div>
+                      </div>
+                      <p className="text-gray-300 mb-3">{pattern.pattern}</p>
+                    </div>
+                    <div className="text-right ml-6">
+                      <div className="text-2xl font-bold text-pink-400 mb-1">
+                        {pattern.effectiveness}%
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        {pattern.frequency} observations
                       </div>
                     </div>
                   </div>
-                </Card>
+                  
+                  <div className="w-full bg-purple-900/30 rounded-full h-2">
+                    <div 
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500"
+                      style={{ width: `${pattern.effectiveness}%` }}
+                    ></div>
+                  </div>
+                </motion.div>
               ))}
             </div>
-            <div className="mt-6 text-center">
-              <Button>
-                View More Discussions
-              </Button>
-            </div>
           </div>
-        </div>
+        </motion.section>
+
+        {/* Community Action Links */}
+        <motion.section
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/cosmic-connectivity">
+              <div className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 rounded-xl p-6 border border-cyan-500/30 cursor-pointer hover:scale-105 transition-transform">
+                <div className="text-4xl mb-3">🐋</div>
+                <h4 className="text-lg font-bold text-cyan-300 mb-2">Join Whale Wisdom</h4>
+                <p className="text-gray-300 text-sm">Connect with marine consciousness community</p>
+              </div>
+            </Link>
+
+            <Link href="/consciousness-mastery">
+              <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-xl p-6 border border-purple-500/30 cursor-pointer hover:scale-105 transition-transform">
+                <div className="text-4xl mb-3">✨</div>
+                <h4 className="text-lg font-bold text-purple-300 mb-2">Share Manifestations</h4>
+                <p className="text-gray-300 text-sm">Add to collective reality creation wisdom</p>
+              </div>
+            </Link>
+
+            <Link href="/analytics">
+              <div className="bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-xl p-6 border border-indigo-500/30 cursor-pointer hover:scale-105 transition-transform">
+                <div className="text-4xl mb-3">📈</div>
+                <h4 className="text-lg font-bold text-indigo-300 mb-2">View Analytics</h4>
+                <p className="text-gray-300 text-sm">Explore consciousness growth patterns</p>
+              </div>
+            </Link>
+          </div>
+
+          <div className="mt-8 text-center text-sm text-gray-400">
+            🌍 Contributing to planetary consciousness evolution through collective wisdom 🌊
+          </div>
+        </motion.section>
       </div>
     </div>
   );

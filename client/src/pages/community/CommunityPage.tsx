@@ -1,32 +1,44 @@
 /**
- * CommunityPage.tsx
- * 
- * Migrated as part of the repository reorganization.
+ * Enhanced Community Page - Phase 7 Collective Consciousness
+ * Privacy-preserved community wisdom and whale consciousness sharing
  */
-import { CosmicBackground } from "@/components/features/cosmic/CosmicBackground";
-import { CommunityFeedbackLoop } from "@/components/community/CommunityFeedbackLoop";
-import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from "wouter";
-import { ChevronRight, Heart, Users, Star, MessageSquare } from "lucide-react";
-import { CosmicIcon } from "@/components/cosmic/ui/cosmic-icons";
-import { ComingSoonNotice } from '@/components/common/ComingSoonNotice';
+import { 
+  SimpleHexagon, 
+  SimpleTriangle,
+  SimpleCircle,
+  SimpleOctagon
+} from '../cosmic/SimpleGeometry';
 
-// Define the feedback item type to match the component's expectations
-interface FeedbackItem {
+// Community Consciousness Types
+interface CommunityConsciousnessData {
+  globalConsciousnessLevel: number;
+  activeMembers: number;
+  recentBreakthroughs: number;
+  whaleWisdomSessions: number;
+  manifestationSuccesses: number;
+  trendDirection: 'ascending' | 'stable' | 'transforming';
+}
+
+interface AnonymousWisdom {
   id: string;
-  user: {
-    name: string;
-    avatar: string;
-  };
+  type: 'whale_wisdom' | 'manifestation_success' | 'consciousness_insight' | 'sacred_geometry';
   content: string;
-  date: string;
+  effectiveness: number;
+  resonanceLevel: number;
+  timeframe: string;
+  anonymizedLocation?: string;
+}
+
+interface CommunityPattern {
+  id: string;
   category: string;
-  status: "pending" | "implemented" | "considering" | "declined";
-  votes: number;
-  userVoted?: boolean;
-  comments: number;
+  pattern: string;
+  frequency: number;
+  effectiveness: number;
+  globalTrend: 'increasing' | 'stable' | 'decreasing';
 }
 
 // Sample data for feedback items

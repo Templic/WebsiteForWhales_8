@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-import { useAuth } from "@/hooks/use-auth";
-import { useQuery } from "@tanstack/react-query";
-import { Loader2, RefreshCw, ArrowLeft, Calendar as CalendarIcon, Download } from "lucide-react";
-import { Redirect, Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
-import { DateRange } from "react-day-picker";
-import { cn } from "@/lib/utils";
-import { queryClient } from "@/lib/queryClient";
-import { toast } from "@/hooks/use-toast";
-import { trackEvent } from "@/lib/analytics";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from "wouter";
+import { 
+  SimpleHexagon, 
+  SimpleTriangle,
+  SimpleCircle,
+  SimpleOctagon
+} from '../components/cosmic/SimpleGeometry';
 import { 
   Chart as ChartJS, 
   CategoryScale, 
@@ -25,7 +20,7 @@ import {
   ArcElement,
   Filler
 } from 'chart.js';
-import { Line, Bar, Pie } from 'react-chartjs-2';
+import { Line, Bar, Doughnut } from 'react-chartjs-2';
 
 // Register ChartJS components
 ChartJS.register(
@@ -41,13 +36,45 @@ ChartJS.register(
   Filler
 );
 
-// Define types for analytics data
-interface AnalyticsData {
-  activeUsers: number;
-  activeUsersOverTime: number[];
-  newRegistrations: number;
-  newRegistrationsOverTime: number[];
-  contentReports: number;
+// Consciousness Analytics Types
+interface ConsciousnessAnalyticsData {
+  consciousnessGrowth: {
+    currentLevel: number;
+    growthVelocity: number;
+    historicalData: Array<{ date: string; level: number }>;
+    breakthroughProbability: number;
+  };
+  whaleWisdomMetrics: {
+    totalSessions: number;
+    averageEffectiveness: number;
+    speciesPreferences: Array<{ species: string; sessions: number; effectiveness: number }>;
+    frequencyResonance: Array<{ frequency: string; resonance: number }>;
+  };
+  manifestationAnalytics: {
+    activeIntentions: number;
+    successRate: number;
+    energyLevels: Array<{ date: string; energy: number }>;
+    evidenceTracking: Array<{ intention: string; evidence: number; progress: number }>;
+  };
+  sacredGeometryInsights: {
+    patternUsage: Array<{ pattern: string; usage: number; effectiveness: number }>;
+    resonanceLevels: Array<{ date: string; resonance: number }>;
+    consciousnessCorrelation: number;
+  };
+  communityConsciousness: {
+    globalLevel: number;
+    trendDirection: 'ascending' | 'stable' | 'transforming';
+    collectiveInsights: string[];
+    anonymizedPatterns: Array<{ metric: string; value: number; trend: string }>;
+  };
+  platformPerformance: {
+    uptime: number;
+    responseTime: number;
+    memoryUsage: number;
+    securityStatus: string;
+    optimizationLevel: number;
+  };
+}
   contentDistribution: {
     posts: number;
     comments: number;
