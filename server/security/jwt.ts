@@ -11,8 +11,11 @@ import { logSecurityEvent } from './security';
 
 // Secret keys for JWT signing
 // In production, these should be stored in environment variables or a secure key vault
-let JWT_SECRET: string = process.env.JWT_SECRET || '';
-let JWT_REFRESH_SECRET: string = process.env.JWT_REFRESH_SECRET || '';
+let JWT_SECRET: string = process.env.JWT_SECRET || randomBytes(64).toString('hex');
+let JWT_REFRESH_SECRET: string = process.env.JWT_REFRESH_SECRET || randomBytes(64).toString('hex');
+
+// Log the initialization
+console.log('JWT secrets auto-initialized on module load');
 
 /**
  * Initialize JWT secrets if not provided in environment variables
@@ -37,8 +40,10 @@ export function initJwtSecrets(): void {
  */
 function getJwtSecret(): string {
   if (!JWT_SECRET) {
+    console.log('JWT_SECRET is empty, initializing...');
     initJwtSecrets();
   }
+  console.log('JWT_SECRET length:', JWT_SECRET ? JWT_SECRET.length : 'null/undefined');
   return JWT_SECRET;
 }
 
