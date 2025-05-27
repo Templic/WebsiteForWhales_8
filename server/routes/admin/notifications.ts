@@ -11,22 +11,12 @@ import {
   users 
 } from '../../../shared/schema';
 import { eq, and, desc, asc, sql, like, not, gt, lt, isNotNull, isNull } from 'drizzle-orm';
+import { authenticateJWT } from '../../../server/security/jwt';
 
 const router = express.Router();
 
-// Authentication middleware for admin-only access
-const requireAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  if (!req.user) {
-    return res.status(401).json({ error: 'Authentication required' });
-  }
-  
-  // @ts-ignore: User role property should exist
-  if (req.user.role !== 'admin' && req.user.role !== 'super_admin') {
-    return res.status(403).json({ error: 'Admin role required' });
-  }
-  
-  next();
-};
+// Use JWT authentication instead of legacy authentication  
+const requireAdmin = authenticateJWT;
 
 /**
  * GET /api/admin/notifications/system
