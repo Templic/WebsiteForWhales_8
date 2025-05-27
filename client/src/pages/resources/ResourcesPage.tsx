@@ -6,7 +6,7 @@ import {
   SimpleTriangle,
   SimpleCircle,
   SimpleOctagon
-} from '../components/cosmic/SimpleGeometry';
+} from '../../components/cosmic/SimpleGeometry';
 
 interface ConsciousnessResource {
   id: string;

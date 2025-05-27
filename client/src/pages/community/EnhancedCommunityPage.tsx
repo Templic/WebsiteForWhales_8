@@ -10,7 +10,7 @@ import {
   SimpleTriangle,
   SimpleCircle,
   SimpleOctagon
-} from '../components/cosmic/SimpleGeometry';
+} from '../../components/cosmic/SimpleGeometry';
 
 // Community Consciousness Types
 interface CommunityConsciousnessData {
