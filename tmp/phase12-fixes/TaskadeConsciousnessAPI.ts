@@ -182,7 +182,7 @@ export class TaskadeConsciousnessAPI {
     }
 
     return {
-      selectedModel,
+      selectedModel: selectedModel as 'gpt-4o' | 'claude-3-7-sonnet-20250219' | 'gemini-flash',
       reasoning: `Optimal for ${request.taskType} tasks at ${request.complexity} level with ${request.chakraAlignment} chakra alignment`,
       consciousnessCompatibility: selectedModel === 'claude-3-7-sonnet-20250219' ? 100 : 85,
       whaleWisdomAlignment: selectedModel === 'claude-3-7-sonnet-20250219' ? 100 : 75
