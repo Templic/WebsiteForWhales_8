@@ -94,6 +94,9 @@ import ComponentsCatalog from "@/pages/test/demo/ComponentsCatalog";
 // Phase 7: Quantum Consciousness Pages
 import QuantumConsciousnessPage from "@/pages/QuantumConsciousnessPage";
 
+// Phase 11: Consciousness Mastery Pages
+import ConsciousnessMasteryPage from "@/pages/ConsciousnessMasteryPage";
+
 // Admin Pages
 import UsersPage from "@/pages/admin/UsersPage";
 import PostsPage from "@/pages/admin/PostsPage";
@@ -178,6 +181,11 @@ function AppRouter() {
           <Route path="/quantum-consciousness" component={QuantumConsciousnessPage} />
           <Route path="/whale-communication" component={QuantumConsciousnessPage} />
           <Route path="/consciousness-evolution" component={QuantumConsciousnessPage} />
+          
+          {/* Phase 11: Consciousness Mastery */}
+          <Route path="/consciousness-mastery" component={ConsciousnessMasteryPage} />
+          <Route path="/whale-wisdom" component={ConsciousnessMasteryPage} />
+          <Route path="/reality-manifestation" component={ConsciousnessMasteryPage} />
           {/* Archived Page - /archive */}
           {/* <Route path="/archive" component={ArchivePage} /> */}
 
