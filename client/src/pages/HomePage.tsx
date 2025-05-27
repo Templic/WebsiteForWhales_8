@@ -126,26 +126,7 @@ export default function HomePage() {
               </SimpleOctagon>
             </div>
 
-            {/* Sacred Geometry Visualizer Section */}
-            <div className="w-full col-span-full mb-8">
-              <div className="bg-gradient-to-br from-purple-900/30 to-cyan-900/30 rounded-2xl p-6 border border-cyan-300/20 backdrop-blur-sm">
-                <div className="text-center mb-6">
-                  <h3 className="text-3xl font-bold text-cyan-300 mb-3 flex items-center justify-center gap-2">
-                    <Sparkles className="w-8 h-8" />
-                    Sacred Geometry Meditation
-                    <Sparkles className="w-8 h-8" />
-                  </h3>
-                  <p className="text-gray-300 max-w-2xl mx-auto">
-                    Experience interactive 3D sacred geometry patterns that harmonize with cosmic consciousness. 
-                    Each pattern carries ancient wisdom and healing frequencies to enhance your whale journey.
-                  </p>
-                </div>
-                <SacredGeometryVisualizer className="mx-auto max-w-4xl" />
-                <div className="text-center mt-4 text-sm text-cyan-400">
-                  🐋 Use controls to explore different sacred patterns • Each geometry carries unique healing properties 🐋
-                </div>
-              </div>
-            </div>
+
 
             {/* Journey Section */}
             <div className="w-full">

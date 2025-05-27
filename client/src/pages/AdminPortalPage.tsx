@@ -34,6 +34,7 @@ interface AdminStats {
 const UserManagementComponent = lazy(() => import('@/components/admin/UserManagement'));
 const ContentReviewComponent = lazy(() => import('@/components/admin/ContentReview'));
 const DatabaseMonitorComponent = lazy(() => import('@/components/admin/DatabaseMonitor'));
+const PerformanceMonitoringComponent = lazy(() => import('@/components/admin/PerformanceMonitoringDashboard'));
 
 export default function AdminPortalPage() {
   const { user, logoutMutation } = useAuth();

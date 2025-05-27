@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CosmicBackground } from "@/components/features/cosmic/CosmicBackground";
 import { SacredGeometryDemo } from "@/components/cosmic/SacredGeometryDemo";
+import { SacredGeometryVisualizer } from "@/components/cosmic/SacredGeometryVisualizer";
 import { FrequencyAttunementChamber } from "@/components/immersive/FrequencyAttunementChamber";
 import { BreathSynchronizationCeremony } from "@/components/immersive/BreathSynchronizationCeremony";
 import { MultidimensionalSoundJourney } from "@/components/immersive/MultidimensionalSoundJourney";
@@ -80,6 +81,25 @@ export default function CosmicConnectivityPage() {
                 Immerse yourself in the healing vibrations of Dale the Whale's
                 consciousness-expanding soundscapes
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Sacred Geometry Visualizer Section */}
+        <div className="max-w-6xl mx-auto mb-12">
+          <div className="bg-gradient-to-br from-black/80 via-purple-900/30 to-black/80 backdrop-blur-md rounded-xl p-8 shadow-xl border border-cyan-500/20">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-cyan-300">
+                Sacred Geometry Meditation
+              </h2>
+              <p className="text-gray-300 max-w-3xl mx-auto text-lg">
+                Experience interactive 3D sacred geometry patterns that harmonize with cosmic consciousness. 
+                Each pattern carries ancient wisdom and healing frequencies to enhance your whale journey.
+              </p>
+            </div>
+            <SacredGeometryVisualizer className="mx-auto max-w-5xl" />
+            <div className="text-center mt-6 text-sm text-cyan-400">
+              🐋 Use controls to explore different sacred patterns • Each geometry carries unique healing properties 🐋
             </div>
           </div>
         </div>
