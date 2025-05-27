@@ -160,7 +160,6 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen relative">
-      <CosmicBackground opacity={0.4} />
       <ComingSoonNotice 
           pageName="Community Hub"
           features={[
@@ -175,6 +174,7 @@ export default function CommunityPage() {
           ]}
           estimatedCompletion="Q1 2025"
         />
+      <CosmicBackground opacity={0.4} />
     </div>
   );
 }

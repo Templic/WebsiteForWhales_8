@@ -274,6 +274,11 @@ export default function EngagePage() {
   return (
     <>
       <SpotlightEffect />
+      <ComingSoonNotice
+        pageName="Engage"
+        features={['Live Interactive Sessions', 'Community Challenges', 'Real-time Chat', 'User-generated Content']}
+        estimatedCompletion="Q2 2025"
+      />
 
       {/* Sacred geometry elements in page margins - reduced and optimized */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
