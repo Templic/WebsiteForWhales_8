@@ -28,6 +28,7 @@ import http2OptimizationMiddleware from './lib/http2-optimization';
 import { AdvancedAPIValidation } from './security/advanced/apiValidation_new';
 import { RASPCore } from './security/advanced/rasp/RASPCore';
 import { SecurityMonitor } from './security/advanced/monitoring/SecurityMonitor';
+import { initJwtSecrets } from './security/jwt';
 
 // Start time tracking
 const startTime = Date.now();
@@ -61,6 +62,10 @@ async function initializeServer() {
 
   try {
     // === STAGE 1: Essential Services ===
+    // Initialize JWT secrets first
+    initJwtSecrets();
+    log('JWT secrets initialized', 'server');
+    
     // Connect to database (critical)
     const dbStartTime = Date.now();
     await initializeDatabase();
