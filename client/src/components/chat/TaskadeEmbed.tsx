@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Send, Bot, User, Loader2, MessageSquare } from 'lucide-react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiClient, type APIResponse } from '@/lib/api-client';
 
 interface TaskadeEmbedProps {
   chatOnly?: boolean;
@@ -18,15 +18,6 @@ interface Message {
   timestamp: Date;
 }
 
-interface TaskadeResponse {
-  success: boolean;
-  response?: {
-    message: string;
-    conversation_id?: string;
-  };
-  error?: string;
-}
-
 const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className = '' }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -38,63 +29,83 @@ const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [conversationId, setConversationId] = useState<string | null>(null);
-  const queryClient = useQueryClient();
+  const [apiStatus, setApiStatus] = useState<APIResponse | null>(null);
+  const [apiLoading, setApiLoading] = useState(true);
+  const [isSending, setIsSending] = useState(false);
 
   // Test Taskade API connection
-  const { data: apiStatus, isLoading: apiLoading } = useQuery({
-    queryKey: ['/api/taskade/test'],
-    retry: false,
-  });
+  useEffect(() => {
+    const testConnection = async () => {
+      setApiLoading(true);
+      try {
+        const result = await apiClient.testTaskade();
+        setApiStatus(result);
+      } catch (error) {
+        setApiStatus({
+          success: false,
+          error: 'Failed to connect to Taskade API'
+        });
+      } finally {
+        setApiLoading(false);
+      }
+    };
 
-  // Send message mutation
-  const sendMessageMutation = useMutation({
-    mutationFn: async (message: string): Promise<TaskadeResponse> => {
-      const response = await fetch('/api/taskade/agents/default/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message,
-          conversation_id: conversationId
-        })
-      });
-      return response.json();
-    },
-    onSuccess: (data) => {
-      if (data.success && data.response) {
+    testConnection();
+  }, []);
+
+  // Send message function
+  const sendMessage = async (message: string) => {
+    setIsSending(true);
+    try {
+      const result = await apiClient.chatWithAgent('default', message);
+      
+      if (result.success && result.data?.response) {
         // Add AI response to messages
         const aiMessage: Message = {
           id: Date.now().toString() + '_ai',
-          content: data.response.message,
+          content: result.data.response.message,
           sender: 'ai',
           timestamp: new Date()
         };
         setMessages(prev => [...prev, aiMessage]);
         
         // Update conversation ID if provided
-        if (data.response.conversation_id) {
-          setConversationId(data.response.conversation_id);
+        if (result.data.response.conversation_id) {
+          setConversationId(result.data.response.conversation_id);
         }
+      } else {
+        throw new Error(result.error || 'Failed to get response from AI');
       }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      // Add error message
+      const errorMessage: Message = {
+        id: Date.now().toString() + '_error',
+        content: 'Sorry, I encountered an error processing your message. Please try again.',
+        sender: 'ai',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsSending(false);
     }
-  });
+  };
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return;
-
-    // Add user message immediately
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      content: inputMessage,
-      sender: 'user',
-      timestamp: new Date()
-    };
-    setMessages(prev => [...prev, userMessage]);
-    
-    // Send to API
-    sendMessageMutation.mutate(inputMessage);
-    setInputMessage('');
+    if (inputMessage.trim() && !isSending) {
+      // Add user message to messages
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        content: inputMessage.trim(),
+        sender: 'user',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, userMessage]);
+      
+      // Send to API
+      await sendMessage(inputMessage.trim());
+      setInputMessage('');
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -132,7 +143,20 @@ const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className
               {apiStatus?.error || 'Setting up your AI assistant connection...'}
             </p>
           </div>
-          <Button onClick={() => queryClient.invalidateQueries({ queryKey: ['/api/taskade/test'] })}>
+          <Button onClick={async () => {
+            setApiLoading(true);
+            try {
+              const result = await apiClient.testTaskade();
+              setApiStatus(result);
+            } catch (error) {
+              setApiStatus({
+                success: false,
+                error: 'Failed to connect to Taskade API'
+              });
+            } finally {
+              setApiLoading(false);
+            }
+          }}>
             Retry Connection
           </Button>
         </CardContent>
@@ -141,21 +165,15 @@ const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className
   }
 
   return (
-    <Card className={`h-96 flex flex-col ${className}`}>
-      <CardHeader className="pb-3">
+    <Card className={`h-96 ${className}`}>
+      <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <Bot className="h-5 w-5 text-blue-600" />
-          <span>Whale Consciousness AI Assistant</span>
-          <div className="ml-auto flex items-center space-x-1">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-xs text-green-600">Connected</span>
-          </div>
+          <MessageSquare className="h-5 w-5" />
+          <span>AI Assistant</span>
         </CardTitle>
       </CardHeader>
-      
-      <CardContent className="flex-1 flex flex-col space-y-4 p-4">
-        {/* Messages Area */}
-        <ScrollArea className="flex-1 border rounded-lg p-3 bg-gray-50">
+      <CardContent className="flex flex-col h-full p-0">
+        <ScrollArea className="flex-1 p-4">
           <div className="space-y-4">
             {messages.map((message) => (
               <div
@@ -163,54 +181,65 @@ const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className
                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
-                    message.sender === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border shadow-sm'
+                  className={`flex items-start space-x-2 max-w-[80%] ${
+                    message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''
                   }`}
                 >
-                  <div className="flex items-start space-x-2">
-                    {message.sender === 'ai' && (
-                      <Bot className="h-4 w-4 mt-0.5 text-blue-600 flex-shrink-0" />
+                  <div className="flex-shrink-0">
+                    {message.sender === 'user' ? (
+                      <User className="h-6 w-6 text-blue-600" />
+                    ) : (
+                      <Bot className="h-6 w-6 text-green-600" />
                     )}
-                    {message.sender === 'user' && (
-                      <User className="h-4 w-4 mt-0.5 text-blue-100 flex-shrink-0" />
-                    )}
-                    <div className="text-sm">{message.content}</div>
+                  </div>
+                  <div
+                    className={`rounded-lg p-3 ${
+                      message.sender === 'user'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
+                  >
+                    <p className="text-sm">{message.content}</p>
+                    <p className="text-xs mt-1 opacity-70">
+                      {message.timestamp.toLocaleTimeString()}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
-            {sendMessageMutation.isPending && (
+            {isSending && (
               <div className="flex justify-start">
-                <div className="bg-white border shadow-sm rounded-lg p-3">
-                  <div className="flex items-center space-x-2">
-                    <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                    <span className="text-sm text-gray-600">AI is thinking...</span>
+                <div className="flex items-start space-x-2">
+                  <Bot className="h-6 w-6 text-green-600" />
+                  <div className="bg-gray-100 rounded-lg p-3">
+                    <div className="flex items-center space-x-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span className="text-sm text-gray-600">Thinking...</span>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
           </div>
         </ScrollArea>
-
-        {/* Input Area */}
-        <div className="flex space-x-2">
-          <Input
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Ask about whale consciousness, manifestation, or cosmic insights..."
-            className="flex-1"
-            disabled={sendMessageMutation.isPending}
-          />
-          <Button
-            onClick={handleSendMessage}
-            disabled={!inputMessage.trim() || sendMessageMutation.isPending}
-            size="icon"
-          >
-            <Send className="h-4 w-4" />
-          </Button>
+        <div className="p-4 border-t">
+          <div className="flex space-x-2">
+            <Input
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Ask me anything about whale consciousness..."
+              disabled={isSending}
+              className="flex-1"
+            />
+            <Button
+              onClick={handleSendMessage}
+              disabled={!inputMessage.trim() || isSending}
+              size="sm"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

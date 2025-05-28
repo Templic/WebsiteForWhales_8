@@ -158,10 +158,11 @@ export async function apiRequest(
   }
 }
 
-// Create and configure QueryClient
+// Create and configure QueryClient with default query function
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      queryFn: getQueryFn(),
       refetchOnWindowFocus: false,
       retry: false,
       staleTime: 1000 * 60 * 5, // 5 minutes
