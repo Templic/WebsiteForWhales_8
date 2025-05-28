@@ -153,8 +153,8 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
             className="w-full h-full object-cover"
           />
           
-          {/* Play button overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-30 transition-all">
+          {/* Play button overlay - positioned to left to not obscure album cover */}
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-start pl-8 group-hover:bg-opacity-30 transition-all">
             <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
               <Play className="w-6 h-6 text-white ml-1" fill="currentColor" />
             </div>
