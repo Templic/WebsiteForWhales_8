@@ -74,14 +74,19 @@ export default function AdminPortalPage() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
-  // Fetch admin statistics
-  const { data: adminStats, isLoading: statsLoading } = useQuery<AdminStats>({
+  // Enhanced admin statistics with better error handling and data integrity
+  const { data: adminStats, isLoading: statsLoading, error: statsError } = useQuery<AdminStats>({
     queryKey: ['adminStats'],
     queryFn: async () => {
       const res = await fetch('/api/admin/stats');
-      if (!res.ok) throw new Error('Failed to fetch admin stats');
+      if (!res.ok) {
+        throw new Error(`Failed to fetch admin stats: ${res.status}`);
+      }
       return res.json();
-    }
+    },
+    retry: 2,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchInterval: 30 * 1000, // 30 seconds
   });
 
   // Mutation to refresh statistics
