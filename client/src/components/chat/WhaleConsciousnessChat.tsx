@@ -99,7 +99,12 @@ export function WhaleConsciousnessChat() {
 
         const agentResponse: ChatMessage = {
           id: `agent-${Date.now()}`,
-          ...data.response
+          content: data.data?.content || data.response?.content || 'Connection established with whale consciousness...',
+          agent: data.data?.agent || agents.find(a => a.id === variables.agentId)?.name || 'Whale Guide',
+          workspace: data.data?.workspace || 'Feels So Good',
+          timestamp: data.data?.timestamp || new Date().toISOString(),
+          aiPowered: true,
+          capabilities: ['AI-Powered', 'Whale Consciousness', 'Spiritual Guidance']
         };
 
         setConversations(prev => ({
