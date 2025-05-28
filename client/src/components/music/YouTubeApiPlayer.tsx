@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Play, ExternalLink } from 'lucide-react';
+import { Play, ExternalLink, Eye, ThumbsUp } from 'lucide-react';
 
 interface YouTubeVideoData {
-  title: string;
-  description: string;
-  thumbnails: {
-    high: { url: string; width: number; height: number };
-    medium: { url: string; width: number; height: number };
-    default: { url: string; width: number; height: number };
+  id: string;
+  snippet: {
+    title: string;
+    description: string;
+    thumbnails: {
+      high?: { url: string; width: number; height: number };
+      medium?: { url: string; width: number; height: number };
+      default?: { url: string; width: number; height: number };
+      standard?: { url: string; width: number; height: number };
+      maxres?: { url: string; width: number; height: number };
+    };
+    channelTitle: string;
+    publishedAt: string;
   };
-  channelTitle: string;
-  publishedAt: string;
-  duration: string;
-  viewCount: string;
+  contentDetails: {
+    duration: string;
+  };
+  statistics: {
+    viewCount: string;
+    likeCount: string;
+  };
 }
 
 interface YouTubeApiPlayerProps {
@@ -29,22 +39,26 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
 }) => {
   const [videoData, setVideoData] = useState<YouTubeVideoData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchVideoData = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`/api/youtube/video/${videoId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch video data');
         }
         const result = await response.json();
-        if (!result.success) {
-          throw new Error(result.error || 'Failed to fetch video data');
+        
+        if (result.success && result.video) {
+          setVideoData(result.video);
+          setError('');
+        } else {
+          throw new Error(result.error || 'Video not found');
         }
-        const data = result.video;
-        setVideoData(data);
       } catch (err) {
+        console.error('Error fetching video data:', err);
         setError(err instanceof Error ? err.message : 'Failed to load video');
       } finally {
         setLoading(false);
@@ -57,86 +71,119 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
   }, [videoId]);
 
   const handleWatchOnYouTube = () => {
-    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+  };
+
+  const formatViewCount = (count: string) => {
+    const num = parseInt(count);
+    if (num >= 1000000) {
+      return `${(num / 1000000).toFixed(1)}M`;
+    } else if (num >= 1000) {
+      return `${(num / 1000).toFixed(1)}K`;
+    }
+    return count;
+  };
+
+  const formatDuration = (duration: string) => {
+    // Convert PT3M33S to 3:33 format
+    const match = duration.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
+    if (match) {
+      const minutes = match[1] || '0';
+      const seconds = match[2] || '0';
+      return `${minutes}:${seconds.padStart(2, '0')}`;
+    }
+    return duration;
   };
 
   if (loading) {
     return (
-      <div className="w-full aspect-video rounded-lg bg-gray-900 border border-[#00ebd6]/20 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00ebd6] mx-auto mb-2"></div>
-          <p className="text-[#00ebd6] text-sm">Loading video data...</p>
-        </div>
+      <div className="w-full aspect-video bg-gray-800 rounded-lg flex items-center justify-center">
+        <div className="text-white">Loading video...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="w-full aspect-video rounded-lg bg-gray-900 border border-red-500/20 flex items-center justify-center">
-        <div className="text-center p-6">
-          <p className="text-red-400 mb-4">Error loading video: {error}</p>
-          <Button 
-            onClick={handleWatchOnYouTube}
-            className="bg-[#FF0000] hover:bg-[#CC0000] text-white"
-          >
-            <ExternalLink className="w-4 h-4 mr-2" />
-            Watch on YouTube
-          </Button>
-        </div>
+      <div className="w-full aspect-video bg-gray-800 rounded-lg flex flex-col items-center justify-center p-6">
+        <div className="text-red-400 mb-4">Error loading video: {error}</div>
+        <Button onClick={handleWatchOnYouTube} className="bg-red-600 hover:bg-red-700">
+          <ExternalLink className="w-4 h-4 mr-2" />
+          Watch on YouTube
+        </Button>
       </div>
     );
   }
 
   if (!videoData) {
     return (
-      <div className="w-full aspect-video rounded-lg bg-gray-900 border border-[#00ebd6]/20 flex items-center justify-center">
-        <p className="text-gray-400">No video data available</p>
+      <div className="w-full aspect-video bg-gray-800 rounded-lg flex items-center justify-center">
+        <div className="text-white">No video data available</div>
       </div>
     );
   }
 
+  // Get the best available thumbnail
+  const getThumbnail = () => {
+    const thumbnails = videoData.snippet.thumbnails;
+    return thumbnails.maxres?.url || 
+           thumbnails.standard?.url || 
+           thumbnails.high?.url || 
+           thumbnails.medium?.url || 
+           thumbnails.default?.url || 
+           '';
+  };
+
   return (
-    <div className="w-full aspect-video rounded-lg overflow-hidden bg-gray-900 border border-[#00ebd6]/20 relative group">
-      {/* Video Thumbnail */}
+    <div className="w-full">
       <div 
-        className="w-full h-full bg-cover bg-center relative cursor-pointer"
-        style={{ 
-          backgroundImage: `url(${videoData.thumbnails.high?.url || videoData.thumbnails.medium?.url})` 
-        }}
+        className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
         onClick={handleWatchOnYouTube}
       >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
+        {/* Thumbnail */}
+        <img 
+          src={getThumbnail()} 
+          alt={videoData.snippet.title}
+          className="w-full h-full object-cover"
+        />
         
-        {/* Play Button */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-[#FF0000] hover:bg-[#CC0000] rounded-full p-4 transform group-hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <Play className="w-8 h-8 text-white fill-current ml-1" />
+        {/* Play button overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-30 transition-all">
+          <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+            <Play className="w-6 h-6 text-white ml-1" fill="currentColor" />
           </div>
         </div>
 
-        {/* Video Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-          <h3 className="text-white font-medium text-sm mb-1">{videoData.title}</h3>
-          <p className="text-gray-300 text-xs">{videoData.channelTitle}</p>
-          {videoData.viewCount && (
-            <p className="text-gray-400 text-xs mt-1">
-              {parseInt(videoData.viewCount).toLocaleString()} views
-            </p>
-          )}
+        {/* Duration badge */}
+        <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white px-2 py-1 rounded text-sm">
+          {formatDuration(videoData.contentDetails.duration)}
         </div>
       </div>
 
-      {/* External Link Button */}
-      <div className="absolute top-4 right-4">
-        <Button
-          size="sm"
+      {/* Video info */}
+      <div className="mt-4 space-y-2">
+        <h3 className="text-lg font-semibold text-white">{videoData.snippet.title}</h3>
+        <p className="text-gray-400 text-sm">by {videoData.snippet.channelTitle}</p>
+        
+        {/* Stats */}
+        <div className="flex items-center space-x-4 text-sm text-gray-400">
+          <div className="flex items-center space-x-1">
+            <Eye className="w-4 h-4" />
+            <span>{formatViewCount(videoData.statistics.viewCount)} views</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <ThumbsUp className="w-4 h-4" />
+            <span>{formatViewCount(videoData.statistics.likeCount)} likes</span>
+          </div>
+        </div>
+
+        {/* Watch button */}
+        <Button 
           onClick={handleWatchOnYouTube}
-          className="bg-black/50 hover:bg-black/70 text-white border-none backdrop-blur-sm"
+          className="w-full bg-red-600 hover:bg-red-700 mt-4"
         >
-          <ExternalLink className="w-3 h-3 mr-1" />
-          YouTube
+          <ExternalLink className="w-4 h-4 mr-2" />
+          Watch on YouTube
         </Button>
       </div>
     </div>
