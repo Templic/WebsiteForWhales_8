@@ -48,7 +48,7 @@ import { verifyApiSecurity } from './security/apiSecurityVerification';
 import { enhancedCsrfProtection } from './security/middleware/enhancedCsrfProtection';
 import typescriptErrorRoutes from './routes/typescript-error-routes';
 import typescriptErrorSimpleRoutes from './routes/typescript-error-simple-routes';
-import { youtubeSecurityMiddleware } from './middleware/youtube-security-middleware';
+import { holisticYouTubeSecurityMiddleware, youTubeCSRFExemption, youTubeRateLimitExemption } from './middleware/holistic-youtube-security';
 import embedBypassRoutes from './routes/embed-bypass';
 import { runYouTubeDiagnostic } from './tools/youtube-security-diagnostic';
 import adminRoutes from './admin-routes';
@@ -187,6 +187,11 @@ const transporter = createTransport({
 // CSRF protection middleware is already imported at the top of the file
 
 export async function registerRoutes(app: express.Application): Promise<Server> {
+  
+  // Apply holistic YouTube security middleware - addresses ALL 30+ security layers
+  app.use(youTubeCSRFExemption);
+  app.use(youTubeRateLimitExemption);
+  app.use(holisticYouTubeSecurityMiddleware);
   // === CRITICAL: PUBLIC API ROUTES MUST LOAD FIRST ===
   // Load external API integrations BEFORE any authentication middleware
   

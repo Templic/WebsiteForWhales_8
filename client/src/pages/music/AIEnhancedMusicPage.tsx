@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { SecureYouTubePlayer } from '@/components/music/SecureYouTubePlayer';
+import { ConsciousnessYouTubePlayer } from '@/components/music/ConsciousnessYouTubePlayer';
 
 
 
