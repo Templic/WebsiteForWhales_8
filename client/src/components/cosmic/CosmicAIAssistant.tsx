@@ -173,7 +173,9 @@ export function CosmicAIAssistant({ className = '', embedded = false }: CosmicAI
               )}
               
               {selectedMode === 'taskade' && (
-                <TaskadeWidget embedded={true} />
+                <div className="bg-black/30 rounded-lg border border-purple-500/20 p-4">
+                  <TaskadeWidget embedded={true} />
+                </div>
               )}
               
               {selectedMode === 'basic' && (
