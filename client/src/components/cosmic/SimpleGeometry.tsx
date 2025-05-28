@@ -12,46 +12,54 @@ interface GeometryProps {
 }
 
 export const SimpleHexagon: React.FC<GeometryProps> = ({ className = "", glowColor = "rgba(168, 85, 247, 0.6)", children }) => {
+  // Golden ratio φ = 1.618... for sacred geometry proportions
+  const phi = 1.618033988749;
+  const goldenAngle = 360 / phi; // ~222.5 degrees
+  
   return (
-    <div className={`relative ${className}`}>
-      {/* Hexagon Shape */}
+    <div className={`relative aspect-square ${className}`} style={{ minWidth: '120px', minHeight: '120px' }}>
+      {/* Hexagon Shape with Sacred Geometry Proportions */}
       <motion.div
-        className="relative"
+        className="absolute inset-0"
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       >
-        <svg viewBox="0 0 100 100" className="w-full h-full">
+        <svg viewBox="0 0 100 100" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
           <defs>
-            <filter id="hexGlow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <filter id="hexGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
               <feMerge> 
                 <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
           </defs>
+          {/* Outer hexagon using golden ratio proportions */}
           <polygon 
-            points="50,5 85,25 85,75 50,95 15,75 15,25"
+            points="50,8 78.66,25 78.66,75 50,92 21.34,75 21.34,25"
             fill="none"
             stroke={glowColor}
-            strokeWidth="1"
+            strokeWidth="1.5"
             filter="url(#hexGlow)"
-            className="opacity-60"
+            className="opacity-80"
           />
+          {/* Inner hexagon at phi ratio */}
           <polygon 
-            points="50,10 80,28 80,72 50,90 20,72 20,28"
+            points={`50,${8 + (92-8)*(1-1/phi)/2} ${78.66 - (78.66-21.34)*(1-1/phi)/2},${25 + (75-25)*(1-1/phi)/2} ${78.66 - (78.66-21.34)*(1-1/phi)/2},${75 - (75-25)*(1-1/phi)/2} 50,${92 - (92-8)*(1-1/phi)/2} ${21.34 + (78.66-21.34)*(1-1/phi)/2},${75 - (75-25)*(1-1/phi)/2} ${21.34 + (78.66-21.34)*(1-1/phi)/2},${25 + (75-25)*(1-1/phi)/2}`}
             fill="none"
             stroke={glowColor}
-            strokeWidth="0.5"
-            className="opacity-40"
+            strokeWidth="0.8"
+            className="opacity-50"
           />
+          {/* Center point for sacred geometry focus */}
+          <circle cx="50" cy="50" r="1.5" fill={glowColor} className="opacity-90"/>
         </svg>
       </motion.div>
       
-      {/* Content Container */}
+      {/* Content Container with Golden Ratio Positioning */}
       {children && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center p-4">
+          <div className="text-center px-3 py-2 max-w-[80%]" style={{ fontSize: 'clamp(0.75rem, 2vw, 1rem)' }}>
             {children}
           </div>
         </div>
@@ -271,33 +279,52 @@ export const SimpleStarburst: React.FC<GeometryProps> = ({ className = "", glowC
   );
 };
 
-// Additional geometric patterns for consciousness work
+// Sacred Geometry patterns using musical proportion principles
 export const FlowerOfLife: React.FC<GeometryProps> = ({ className = "", glowColor = "rgba(168, 85, 247, 0.4)" }) => {
+  // Sacred ratios from musical harmony: Perfect 5th (3:2), Perfect 4th (4:3), Octave (2:1)
+  const phi = 1.618033988749; // Golden ratio
+  const perfectFifth = 3/2; // 1.5 - creates harmonic resonance
+  const perfectFourth = 4/3; // 1.333... - complementary harmony
+  
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative aspect-square ${className}`} style={{ minWidth: '200px', minHeight: '200px' }}>
       <motion.div
+        className="absolute inset-0"
         animate={{ rotate: 360 }}
         transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
       >
-        <svg viewBox="0 0 200 200" className="w-full h-full">
+        <svg viewBox="0 0 200 200" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
           <defs>
-            <filter id="flowerGlow">
-              <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+            <filter id="flowerGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
               <feMerge> 
                 <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
           </defs>
-          {/* Central circle */}
-          <circle cx="100" cy="100" r="20" fill="none" stroke={glowColor} strokeWidth="0.5" filter="url(#flowerGlow)" />
-          {/* Surrounding circles */}
-          <circle cx="100" cy="65" r="20" fill="none" stroke={glowColor} strokeWidth="0.5" filter="url(#flowerGlow)" />
-          <circle cx="130" cy="82.5" r="20" fill="none" stroke={glowColor} strokeWidth="0.5" filter="url(#flowerGlow)" />
-          <circle cx="130" cy="117.5" r="20" fill="none" stroke={glowColor} strokeWidth="0.5" filter="url(#flowerGlow)" />
-          <circle cx="100" cy="135" r="20" fill="none" stroke={glowColor} strokeWidth="0.5" filter="url(#flowerGlow)" />
-          <circle cx="70" cy="117.5" r="20" fill="none" stroke={glowColor} strokeWidth="0.5" filter="url(#flowerGlow)" />
-          <circle cx="70" cy="82.5" r="20" fill="none" stroke={glowColor} strokeWidth="0.5" filter="url(#flowerGlow)" />
+          
+          {/* Central circle - fundamental frequency */}
+          <circle cx="100" cy="100" r="20" fill="none" stroke={glowColor} strokeWidth="1.2" filter="url(#flowerGlow)" className="opacity-90" />
+          
+          {/* First ring - Perfect 5th harmonic (60-degree spacing) */}
+          <circle cx="100" cy="65.36" r="20" fill="none" stroke={glowColor} strokeWidth="0.8" filter="url(#flowerGlow)" className="opacity-70" />
+          <circle cx={100 + 20 * Math.cos(Math.PI/6)} cy={65.36 + 20 * Math.sin(Math.PI/6)} r="20" fill="none" stroke={glowColor} strokeWidth="0.8" filter="url(#flowerGlow)" className="opacity-70" />
+          <circle cx={100 + 20 * Math.cos(Math.PI/6)} cy={134.64 - 20 * Math.sin(Math.PI/6)} r="20" fill="none" stroke={glowColor} strokeWidth="0.8" filter="url(#flowerGlow)" className="opacity-70" />
+          <circle cx="100" cy="134.64" r="20" fill="none" stroke={glowColor} strokeWidth="0.8" filter="url(#flowerGlow)" className="opacity-70" />
+          <circle cx={100 - 20 * Math.cos(Math.PI/6)} cy={134.64 - 20 * Math.sin(Math.PI/6)} r="20" fill="none" stroke={glowColor} strokeWidth="0.8" filter="url(#flowerGlow)" className="opacity-70" />
+          <circle cx={100 - 20 * Math.cos(Math.PI/6)} cy={65.36 + 20 * Math.sin(Math.PI/6)} r="20" fill="none" stroke={glowColor} strokeWidth="0.8" filter="url(#flowerGlow)" className="opacity-70" />
+          
+          {/* Second ring - Perfect 4th harmonic (phi-scaled radius) */}
+          <circle cx="100" cy={100 - 20 * perfectFourth} r={20 / phi} fill="none" stroke={glowColor} strokeWidth="0.5" className="opacity-50" />
+          <circle cx={100 + 20 * perfectFourth * Math.cos(Math.PI/6)} cy={100 - 20 * perfectFourth * Math.sin(Math.PI/6)} r={20 / phi} fill="none" stroke={glowColor} strokeWidth="0.5" className="opacity-50" />
+          <circle cx={100 + 20 * perfectFourth * Math.cos(Math.PI/6)} cy={100 + 20 * perfectFourth * Math.sin(Math.PI/6)} r={20 / phi} fill="none" stroke={glowColor} strokeWidth="0.5" className="opacity-50" />
+          <circle cx="100" cy={100 + 20 * perfectFourth} r={20 / phi} fill="none" stroke={glowColor} strokeWidth="0.5" className="opacity-50" />
+          <circle cx={100 - 20 * perfectFourth * Math.cos(Math.PI/6)} cy={100 + 20 * perfectFourth * Math.sin(Math.PI/6)} r={20 / phi} fill="none" stroke={glowColor} strokeWidth="0.5" className="opacity-50" />
+          <circle cx={100 - 20 * perfectFourth * Math.cos(Math.PI/6)} cy={100 - 20 * perfectFourth * Math.sin(Math.PI/6)} r={20 / phi} fill="none" stroke={glowColor} strokeWidth="0.5" className="opacity-50" />
+          
+          {/* Harmonic center point */}
+          <circle cx="100" cy="100" r="2" fill={glowColor} className="opacity-100"/>
         </svg>
       </motion.div>
     </div>
