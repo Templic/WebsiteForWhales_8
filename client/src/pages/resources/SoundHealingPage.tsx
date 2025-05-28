@@ -25,29 +25,29 @@ export default function SoundHealingPage() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Left margin sacred geometry - multiple layers */}
         <div className="absolute top-40 left-5 opacity-15 hidden md:block">
-          <SacredGeometry type="vesica-piscis" size={120} animate={true} color="rgba(100, 150, 255, 0.5)" />
+          <SacredGeometry variant="merkaba" size={120} animated={true} />
           <div className="absolute -left-10 -top-10">
-            <SacredGeometry type="flower-of-life" size={60} animate={true} color="rgba(120, 170, 255, 0.4)" />
+            <SacredGeometry variant="flower-of-life" size={60} animated={true} />
           </div>
         </div>
         <div className="absolute bottom-40 left-5 opacity-15 hidden md:block">
-          <SacredGeometry type="sri-yantra" size={120} animate={true} color="rgba(140, 90, 255, 0.5)" />
+          <SacredGeometry variant="dodecahedron" size={120} animated={true} />
           <div className="absolute -left-5 bottom-20">
-            <SacredGeometry type="seed-of-life" size={40} animate={true} color="rgba(160, 120, 255, 0.4)" />
+            <SacredGeometry variant="hexagon" size={40} animated={true} />
           </div>
         </div>
         
         {/* Right margin sacred geometry - multiple layers */}
         <div className="absolute top-40 right-5 opacity-15 hidden md:block">
-          <SacredGeometry type="hexagon" size={120} animate={true} color="rgba(90, 140, 255, 0.5)" />
+          <SacredGeometry variant="hexagon" size={120} animated={true} />
           <div className="absolute right-10 top-20">
-            <SacredGeometry type="torus" size={50} animate={true} color="rgba(100, 180, 255, 0.4)" />
+            <SacredGeometry variant="octahedron" size={50} animated={true} />
           </div>
         </div>
         <div className="absolute bottom-40 right-5 opacity-15 hidden md:block">
-          <SacredGeometry type="metatron-cube" size={120} animate={true} color="rgba(110, 90, 255, 0.5)" />
+          <SacredGeometry variant="icosahedron" size={120} animated={true} />
           <div className="absolute right-5 bottom-30">
-            <SacredGeometry type="tree-of-life" size={50} animate={true} color="rgba(120, 100, 255, 0.4)" />
+            <SacredGeometry variant="tetrahedron" size={50} animated={true} />
           </div>
         </div>
         
