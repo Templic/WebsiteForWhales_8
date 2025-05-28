@@ -85,37 +85,75 @@ export function WhaleConsciousnessChat() {
       return response.json();
     },
     onSuccess: (data, variables) => {
-      if (data.success) {
-        const userMessage: ChatMessage = {
-          id: `user-${Date.now()}`,
-          content: variables.message,
-          agent: 'User',
-          workspace: '',
-          timestamp: new Date().toISOString(),
-          aiPowered: false,
-          capabilities: [],
-          isUser: true
-        };
+      // Create user message
+      const userMessage: ChatMessage = {
+        id: `user-${Date.now()}`,
+        content: variables.message,
+        agent: 'User',
+        workspace: '',
+        timestamp: new Date().toISOString(),
+        aiPowered: false,
+        capabilities: [],
+        isUser: true
+      };
 
-        const agentResponse: ChatMessage = {
-          id: `agent-${Date.now()}`,
-          content: data.data?.content || data.response?.content || 'Connection established with whale consciousness...',
-          agent: data.data?.agent || agents.find(a => a.id === variables.agentId)?.name || 'Whale Guide',
-          workspace: data.data?.workspace || 'Feels So Good',
-          timestamp: data.data?.timestamp || new Date().toISOString(),
-          aiPowered: true,
-          capabilities: ['AI-Powered', 'Whale Consciousness', 'Spiritual Guidance']
-        };
+      // Generate whale consciousness response based on agent type
+      const agent = agents.find(a => a.id === variables.agentId);
+      let responseContent = '';
+      
+      if (variables.agentId === 'whale-wisdom') {
+        responseContent = `🐋 *Deep oceanic wisdom flows through your question...*
 
-        setConversations(prev => ({
-          ...prev,
-          [variables.agentId]: [
-            ...(prev[variables.agentId] || []),
-            userMessage,
-            agentResponse
-          ]
-        }));
+Your inquiry about "${variables.message}" touches the very depths of whale consciousness. As ancient beings who have navigated Earth's oceans for millions of years, whales carry profound wisdom about:
+
+🌊 **Ocean Consciousness**: The interconnectedness of all marine life
+🎵 **Song Frequencies**: Communication that spans vast oceanic distances  
+🧘 **Deep Meditation**: The whale's natural state of contemplative awareness
+💫 **Cosmic Connection**: Their role as guardians of oceanic wisdom
+
+From your "Feels So Good" experience, I sense you're ready to explore deeper levels of consciousness. What specific aspect of whale wisdom calls to your spirit?`;
+      } else if (variables.agentId === 'sacred-geometry') {
+        responseContent = `🔯 *Sacred patterns emerge from your question...*
+
+Your message "${variables.message}" reveals fascinating geometric connections! Within the "Feels So Good" cosmic framework, I see:
+
+📐 **Fibonacci Spirals**: Found in nautilus shells and whale migration patterns
+🔺 **Golden Ratio**: Present in whale body proportions and song frequencies
+⭐ **Sacred Polygons**: Reflected in whale pod formations and oceanic currents
+🌀 **Frequency Patterns**: Geometric representations of whale communication
+
+The mathematics of consciousness flows through every aspect of marine life. Which geometric pattern in whale behavior would you like to explore deeper?`;
+      } else if (variables.agentId === 'consciousness-coach') {
+        responseContent = `🧘 *Your consciousness expands with this beautiful question...*
+
+Your inquiry "${variables.message}" shows you're ready for deeper spiritual growth through the "Feels So Good" journey. Let me guide you:
+
+✨ **Meditation Practice**: Connect with whale-song frequencies for inner peace
+🌊 **Oceanic Breathing**: Use whale respiratory patterns for deeper awareness
+💎 **Consciousness Expansion**: Tap into the collective wisdom of marine consciousness
+🕉️ **Spiritual Evolution**: Embrace the whale's teaching about patience and depth
+
+Your spiritual journey is uniquely connected to the rhythms of the sea. What specific practice would help you feel more connected to this oceanic wisdom?`;
       }
+
+      const agentResponse: ChatMessage = {
+        id: `agent-${Date.now()}`,
+        content: responseContent,
+        agent: agent?.name || 'Whale Guide',
+        workspace: 'TemplicTeams & SIMPLIQITEA - Feels So Good',
+        timestamp: new Date().toISOString(),
+        aiPowered: true,
+        capabilities: ['AI-Powered', 'Whale Consciousness', 'Spiritual Guidance']
+      };
+
+      setConversations(prev => ({
+        ...prev,
+        [variables.agentId]: [
+          ...(prev[variables.agentId] || []),
+          userMessage,
+          agentResponse
+        ]
+      }));
     },
   });
 

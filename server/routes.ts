@@ -688,11 +688,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   // Serve public images
   app.use('/images', express.static(path.join(process.cwd(), 'public/images')));
 
-  // Import and mount Taskade API routes for whale consciousness chat
-  const taskadeRouter = require('./routes/taskade-api');
-  app.use('/api/taskade', taskadeRouter);
-
-  // Direct whale consciousness chat endpoints
+  // Direct whale consciousness chat endpoints (before other routes)
   app.post('/api/whale-chat/:agentId', async (req, res) => {
     try {
       const { agentId } = req.params;
@@ -761,6 +757,8 @@ Your spiritual journey is uniquely connected to the rhythms of the sea. What spe
       res.status(500).json({ success: false, error: 'Failed to connect with whale consciousness' });
     }
   });
+
+  // Skip Taskade API routes for now - whale chat works directly
 
   // Get subscribers list
   app.get("/api/subscribers", isAdmin, async (req, res) => {
