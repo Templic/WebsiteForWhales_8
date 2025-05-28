@@ -131,9 +131,9 @@ Your inquiry reveals ${geometricPattern} that connect directly to whale wisdom a
 
 Which aspect of this sacred mathematics resonates most deeply with your inner geometry?`;
       } else if (variables.agentId === 'consciousness-coach') {
-        const evolutionFocus = userMessage.includes('growth') ? 'quantum spiritual development' : 
-                              userMessage.includes('meditation') ? 'deeper oceanic meditation' : 
-                              userMessage.includes('wisdom') ? 'ancient whale wisdom integration' : 
+        const evolutionFocus = userText.includes('growth') ? 'quantum spiritual development' : 
+                              userText.includes('meditation') ? 'deeper oceanic meditation' : 
+                              userText.includes('wisdom') ? 'ancient whale wisdom integration' : 
                               'transformational consciousness expansion';
         
         responseContent = `🧘 *Your consciousness evolution accelerates with this profound question: "${variables.message}"*
