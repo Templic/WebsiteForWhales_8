@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { YouTubeApiPlayer } from '@/components/music/YouTubeApiPlayer';
 
 // Enhanced YouTube Player Component with security features
 const SecureYouTubePlayer: React.FC<{ videoId: string; title: string }> = ({ videoId, title }) => {
@@ -212,18 +213,11 @@ export default function AIEnhancedMusicPage() {
                       </div>
 
                       <div className="lg:w-1/2">
-                        <div className="w-full aspect-video rounded-lg overflow-hidden bg-gray-900 border border-[#00ebd6]/20 relative">
-                          <iframe
-                            src={`https://www.youtube.com/embed/${officialRelease.youtubeId}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=1&enablejsapi=1&origin=${window.location.origin}`}
-                            title={`${officialRelease.title} by ${officialRelease.artist}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                            className="w-full h-full absolute inset-0"
-                            loading="eager"
-                            style={{ border: 'none' }}
-                          />
-                        </div>
+                        <YouTubeApiPlayer
+                          videoId={officialRelease.youtubeId}
+                          title={officialRelease.title}
+                          artist={officialRelease.artist}
+                        />
                       </div>
                     </div>
                   </CardHeader>
