@@ -330,12 +330,12 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   app.use('/api/deadlinks', deadlinksRoutes);
 
   // External API integration routes (public, no authentication required)
-  const externalApiRoutes = require('./routes/external-api').default;
-  app.use('/api/external', externalApiRoutes);
+  const externalApiRoutes = await import('./routes/external-api');
+  app.use('/api/external', externalApiRoutes.default);
 
   // Taskade API integration routes
-  const taskadeApiRoutes = require('./routes/taskade-api').default;
-  app.use('/api/taskade', taskadeApiRoutes);
+  const taskadeApiRoutes = await import('./routes/taskade-api');
+  app.use('/api/taskade', taskadeApiRoutes.default);
 
   // Custom embed pages following documented architecture
   app.get('/taskade-embed', (req, res) => {
