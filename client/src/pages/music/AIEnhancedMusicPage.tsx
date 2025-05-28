@@ -12,53 +12,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CleanYouTubePlayer } from '@/components/music/CleanYouTubePlayer';
+import { SecureYouTubePlayer } from '@/components/music/SecureYouTubePlayer';
 
-// Enhanced YouTube Player Component with security features
-const SecureYouTubePlayer: React.FC<{ videoId: string; title: string }> = ({ videoId, title }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Validate YouTube video ID format for security
-    const youtubeIdPattern = /^[a-zA-Z0-9_-]{11}$/;
-    if (!youtubeIdPattern.test(videoId)) {
-      setError('Invalid video ID format');
-      return;
-    }
-    setIsLoaded(true);
-  }, [videoId]);
-
-  if (error) {
-    return (
-      <div className="w-full aspect-video bg-gray-900 rounded-lg flex items-center justify-center">
-        <p className="text-red-400">Error loading video: {error}</p>
-      </div>
-    );
-  }
-
-  if (!isLoaded) {
-    return (
-      <div className="w-full aspect-video bg-gray-900 rounded-lg flex items-center justify-center">
-        <p className="text-[#00ebd6]">Loading video...</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="w-full aspect-video rounded-lg overflow-hidden bg-gray-900">
-      <iframe
-        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&showinfo=0`}
-        title={title}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        className="w-full h-full"
-        loading="lazy"
-      />
-    </div>
-  );
-};
 
 // Official release data - authentic information
 const officialRelease = {
@@ -213,7 +169,7 @@ export default function AIEnhancedMusicPage() {
                       </div>
 
                       <div className="lg:w-1/2">
-                        <CleanYouTubePlayer
+                        <SecureYouTubePlayer
                           videoId={officialRelease.youtubeId}
                         />
                       </div>
