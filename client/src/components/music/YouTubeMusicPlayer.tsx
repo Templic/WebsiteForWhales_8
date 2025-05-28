@@ -40,7 +40,7 @@ interface YouTubeMusicPlayerProps {
 export default function YouTubeMusicPlayer({ 
   searchQuery = "Dale Loves Whales FEELS SO GOOD",
   maxResults = 6,
-  featuredVideoId,
+  featuredVideoId = "jzpvkq3Krjg",
   title = "Consciousness-Transforming Music",
   description = "Explore our collection of consciousness-transforming music, healing frequencies, and guided meditations designed to elevate your vibration."
 }: YouTubeMusicPlayerProps) {
