@@ -168,12 +168,14 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
       ) : (
         <div className="w-full aspect-video rounded-lg overflow-hidden bg-black">
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&fs=1&enablejsapi=1`}
+            src={`https://www.youtube.com/embed/${videoId}?controls=1&rel=0&modestbranding=1&fs=1&cc_load_policy=0&iv_load_policy=3`}
             title={videoData.snippet.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
             allowFullScreen
             className="w-full h-full border-0"
             loading="eager"
+            frameBorder="0"
+            sandbox="allow-scripts allow-same-origin allow-presentation"
           />
         </div>
       )}
