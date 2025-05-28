@@ -112,7 +112,7 @@ export default function ArchivedMusic({}: ArchivedMusicProps) {
             <div className="w-full md:w-1/2 bg-gray-900 rounded-lg shadow-xl relative overflow-hidden">
               <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
                 <iframe
-                  src="https://www.youtube.com/embed/jzpvkq3Krjg?enablejsapi=1&origin=${window.location.origin}"
+                  src="https://www.youtube.com/embed/jzpvkq3Krjg"
                   title="FEELS SO GOOD - Dale The Whale"
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
