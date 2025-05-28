@@ -167,11 +167,14 @@ export function MainHeader() {
       id="main-navigation"
       className={`
         sticky top-0 z-[51] transition-all duration-300
-        bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95
-        backdrop-blur-lg border-b border-cyan-400/20
         ${isScrolled ? 'py-1' : 'py-3'}
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
+      style={{
+        background: 'linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95), rgba(88, 28, 135, 0.95)) !important',
+        backdropFilter: 'blur(16px) !important',
+        borderBottom: '1px solid rgba(34, 197, 94, 0.2) !important'
+      }}
     >
       {/* Background Elements with Sacred Geometry - Centered and sides */}
       <div className="absolute inset-0 overflow-hidden z-0">
