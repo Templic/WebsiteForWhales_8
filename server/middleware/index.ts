@@ -48,6 +48,7 @@ export function setupMiddleware(app: express.Application, sessionSecret: string)
         'Content-Security-Policy',
         "default-src 'self'; " +
         "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://auth.util.repl.co https://www.youtube.com https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://*.taskade.com; " +
+        "script-src-attr 'unsafe-inline'; " +
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
         "img-src 'self' data: blob: https://i.ytimg.com https://www.google-analytics.com; " +
         "connect-src 'self' wss: ws: https://api.stripe.com https://*.googleapis.com https://maps.googleapis.com https://www.google-analytics.com https://www.youtube.com https://youtubei.googleapis.com https://*.taskade.com https://api.taskade.com; " +

@@ -1,0 +1,58 @@
+Error: E353: csPostMessage: timeout 60000 ms content_script.js:2:218505
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:8748
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:20051
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:24468
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:30791
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:35970
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:4376
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:9481
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:21324
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:29437
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:35560
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:41700
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:70023
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:4376
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:9481
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:21324
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:29437
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:35560
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:41700
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:1:70176
+Error in parsing value for ‘width’.  Declaration dropped. taskade-embed:1:8
+Expected color but found ‘text’.  Error in parsing value for ‘color’.  Declaration dropped. taskade-embed:1:6237
+Content-Security-Policy: The page’s settings blocked an event handler (script-src-attr) from being executed because it violates the following directive: “script-src-attr 'none'”
+Source: parent.postMessage({event:'error',payloa… taskade-embed
+The resource at “https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/assets/icons/icon-192x192.svg” preloaded with link preload was not used within a few seconds. Make sure all attributes of the preload tag are set correctly. taskade-embed
+[vite] connecting... Console.js:61:14
+[vite] connected. Console.js:61:14
+Error in parsing value for ‘-webkit-text-size-adjust’.  Declaration dropped. taskade-embed:2759:29
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:3137:27
+Unknown property ‘-moz-column-break-inside’.  Declaration dropped. taskade-embed:6813:28
+Unknown property ‘-moz-column-gap’.  Declaration dropped. taskade-embed:6922:19
+Unknown property ‘-moz-column-gap’.  Declaration dropped. taskade-embed:6926:19
+Unknown property ‘-moz-column-gap’.  Declaration dropped. taskade-embed:6930:19
+Ruleset ignored due to bad selector. taskade-embed:299:27
+Error in parsing value for ‘-webkit-text-size-adjust’.  Declaration dropped. taskade-embed:2699:29
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. taskade-embed:3003:27
+Unknown property ‘-moz-column-break-inside’.  Declaration dropped. taskade-embed:6679:28
+Unknown property ‘-moz-column-gap’.  Declaration dropped. taskade-embed:6788:19
+Unknown property ‘-moz-column-gap’.  Declaration dropped. taskade-embed:6792:19
+Unknown property ‘-moz-column-gap’.  Declaration dropped. taskade-embed:6796:19
+[Orientation] Orientation detection initialized Console.js:61:14
+Analytics disabled: No GA Measurement ID Console.js:61:14
+[Orientation] Orientation detection initialized Console.js:61:14
+[Orientation] Orientation detection cleaned up 2 Console.js:61:14
+[Orientation] Orientation detection initialized Console.js:61:14
+Analytics disabled: No GA Measurement ID Console.js:61:14
+[Orientation] Orientation detection initialized Console.js:61:14
+Service Worker registration failed: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+Service Worker error: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+Service Worker registration failed: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+Service Worker error: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+CSRF token acquired for auth check (may be disabled): csrf-disabled-for-replit-auth 2 Console.js:61:14
+Error in parsing value for ‘transform’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:4:25
+Scam Warning: Take care when pasting things you don’t understand. This could allow attackers to steal your identity or take control of your computer. Please type ‘allow pasting’ below (no need to press enter) to allow pasting.
+
+allow
+
+ReferenceError: allow is not defined
