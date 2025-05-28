@@ -133,76 +133,73 @@ export default function YouTubeMusicPlayer({
           </div>
         </CardHeader>
         <CardContent>
-          {isLoading ? (
-            <div className="animate-pulse space-y-4">
-              <div className="aspect-video bg-cosmic-muted rounded-lg"></div>
-              <div className="h-4 bg-cosmic-muted rounded w-3/4"></div>
-              <div className="h-3 bg-cosmic-muted rounded w-1/2"></div>
-            </div>
-          ) : selectedVideo ? (
-            <div className="space-y-4">
-              {/* Video Player */}
-              <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
-                {isPlaying ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${selectedVideo.id.videoId}?autoplay=1`}
-                    title={selectedVideo.snippet.title}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+          {/* Always show your FEELS SO GOOD video */}
+          <div className="space-y-4">
+            {/* Video Player with your specific video */}
+            <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
+              {isPlaying ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/jzpvkq3Krjg?autoplay=1`}
+                  title="FEELS SO GOOD - Dale The Whale"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <div className="relative w-full h-full group cursor-pointer" onClick={togglePlayPause}>
+                  <img
+                    src="https://i.ytimg.com/vi/jzpvkq3Krjg/hqdefault.jpg"
+                    alt="FEELS SO GOOD - Dale The Whale"
+                    className="w-full h-full object-cover"
                   />
-                ) : (
-                  <div className="relative w-full h-full group cursor-pointer" onClick={togglePlayPause}>
-                    <img
-                      src={selectedVideo.snippet.thumbnails.high.url}
-                      alt={selectedVideo.snippet.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                      <Button
-                        size="lg"
-                        className="h-16 w-16 rounded-full bg-cosmic-primary hover:bg-cosmic-vivid"
-                      >
-                        <Play className="h-8 w-8 ml-1" />
-                      </Button>
-                    </div>
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                    <Button
+                      size="lg"
+                      className="h-16 w-16 rounded-full bg-cosmic-primary hover:bg-cosmic-vivid"
+                    >
+                      <Play className="h-8 w-8 ml-1" />
+                    </Button>
                   </div>
-                )}
-              </div>
-
-              {/* Video Info */}
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold text-cosmic-text">
-                  {selectedVideo.snippet.title}
-                </h3>
-                <p className="text-cosmic-text/70 text-sm">
-                  Released: {formatDate(selectedVideo.snippet.publishedAt)}
-                </p>
-                <p className="text-cosmic-text/80 line-clamp-3">
-                  {selectedVideo.snippet.description}
-                </p>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex space-x-3">
-                <Button
-                  onClick={togglePlayPause}
-                  className="bg-cosmic-primary hover:bg-cosmic-vivid"
-                >
-                  {isPlaying ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
-                  {isPlaying ? 'Pause' : 'Play'}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => openInYouTube(selectedVideo.id.videoId)}
-                  className="border-cosmic-primary text-cosmic-primary hover:bg-cosmic-primary hover:text-white"
-                >
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Open in YouTube
-                </Button>
-              </div>
+                </div>
+              )}
             </div>
-          ) : null}
+
+            {/* Video Info for your FEELS SO GOOD release */}
+            <div className="space-y-2">
+              <h3 className="text-xl font-semibold text-cosmic-text">
+                FEELS SO GOOD
+              </h3>
+              <p className="text-cosmic-text/70 text-sm">
+                Release Date: March 14, 2025
+              </p>
+              <p className="text-cosmic-text/80">
+                Genre: R&B, Soulful, Cosmic, Conscious
+              </p>
+              <p className="text-cosmic-text/80">
+                Artist: Dale The Whale<br/>
+                Featuring: AC3-2085
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex space-x-3">
+              <Button
+                onClick={togglePlayPause}
+                className="bg-cosmic-primary hover:bg-cosmic-vivid"
+              >
+                {isPlaying ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
+                {isPlaying ? 'Pause' : 'Play'}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => openInYouTube('jzpvkq3Krjg')}
+                className="border-cosmic-primary text-cosmic-primary hover:bg-cosmic-primary hover:text-white"
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Open in YouTube
+              </Button>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

@@ -50,15 +50,15 @@ const WhaleWatchingMap: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      {/* Interactive Map Container */}
-      <div className="relative w-full h-96 bg-black/20 rounded-lg overflow-hidden">
+      {/* Interactive Tour Map Container */}
+      <div className="relative w-full h-96 bg-cosmic-card rounded-lg overflow-hidden border border-cosmic-primary/20">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2663525.3112356835!2d-161.67382492051866!3d21.476153723897597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sus!4v1682970147321!5m2!1sen!2sus"
+          src={`https://www.google.com/maps/embed/v1/search?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'demo'}&q=Hawaii+concert+venues+Waikiki+Hilo+Bay`}
           className="w-full h-full border-0"
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Hawaiian Islands Whale Watching Map"
+          title="Dale's Hawaiian Islands Tour Locations"
         />
         
         <div className="absolute top-4 right-4">
@@ -66,7 +66,7 @@ const WhaleWatchingMap: React.FC = () => {
             onClick={loadWhaleLocations}
             variant="secondary"
             size="sm"
-            className="bg-white/90 text-gray-800 hover:bg-white"
+            className="bg-cosmic-primary/90 text-white hover:bg-cosmic-primary"
           >
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh Locations
