@@ -398,6 +398,108 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   // Use our comprehensive theme management routes
   app.use('/api/themes', themeRoutes);
   
+  // Music API endpoints for enhanced pages
+  app.get('/api/music/tracks', async (req, res) => {
+    try {
+      res.json({
+        success: true,
+        featured: {
+          id: '1',
+          title: 'FEELS SO GOOD',
+          artist: 'Dale The Whale',
+          album: 'Cosmic Consciousness',
+          duration: '4:32',
+          releaseDate: '2024',
+          youtubeId: 'jzpvkq3Krjg',
+          streamingLinks: {
+            youtube: 'https://www.youtube.com/watch?v=jzpvkq3Krjg',
+            spotify: 'https://open.spotify.com/artist/dalethewhale',
+            apple: 'https://music.apple.com/artist/dalethewhale'
+          }
+        },
+        recent: [{
+          id: '1',
+          title: 'FEELS SO GOOD',
+          artist: 'Dale The Whale',
+          album: 'Cosmic Consciousness',
+          duration: '4:32',
+          releaseDate: '2024',
+          youtubeId: 'jzpvkq3Krjg',
+          streamingLinks: {
+            youtube: 'https://www.youtube.com/watch?v=jzpvkq3Krjg'
+          }
+        }]
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to fetch music tracks' });
+    }
+  });
+
+  app.get('/api/music/archived', async (req, res) => {
+    try {
+      res.json({
+        success: true,
+        tracks: [{
+          id: '1',
+          title: 'FEELS SO GOOD',
+          artist: 'Dale The Whale',
+          album: 'Cosmic Consciousness',
+          releaseYear: 2024,
+          duration: '4:32',
+          genre: 'Cosmic Consciousness',
+          description: 'A transcendent journey through whale wisdom and cosmic frequencies',
+          youtubeId: 'jzpvkq3Krjg',
+          streamingLinks: {
+            youtube: 'https://www.youtube.com/watch?v=jzpvkq3Krjg',
+            spotify: 'https://open.spotify.com/artist/dalethewhale'
+          }
+        }]
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to fetch archived music' });
+    }
+  });
+
+  app.get('/api/tour/events', async (req, res) => {
+    try {
+      res.json({
+        success: true,
+        events: [
+          {
+            id: '1',
+            title: 'Cosmic Consciousness Concert',
+            venue: 'Hawaiian Cultural Center',
+            location: 'Honolulu, Hawaii',
+            date: '2024-07-15',
+            time: '7:00 PM HST',
+            description: 'An immersive journey through cosmic soundscapes and whale wisdom',
+            ticketUrl: 'https://example.com/tickets',
+            venueWebsite: 'https://example.com/venue',
+            capacity: 500,
+            price: '$35-75',
+            status: 'upcoming',
+            coordinates: { lat: 21.3099, lng: -157.8581 }
+          },
+          {
+            id: '2',
+            title: 'Whale Song Meditation',
+            venue: 'Mauna Kea Beach',
+            location: 'Big Island, Hawaii',
+            date: '2024-07-20',
+            time: '6:00 AM HST',
+            description: 'Dawn meditation with live whale song recordings',
+            capacity: 50,
+            price: '$25',
+            status: 'upcoming',
+            coordinates: { lat: 19.8968, lng: -155.5828 }
+          }
+        ]
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to fetch tour events' });
+    }
+  });
+
   // Use deadlinks routes for link checking functionality
   app.use('/api/deadlinks', deadlinksRoutes);
 
