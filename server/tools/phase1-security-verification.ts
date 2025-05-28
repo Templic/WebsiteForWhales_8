@@ -59,7 +59,7 @@ export class Phase1SecurityVerification {
     const phase1Complete = criticalIssues.length === 0 && remainingBlocks <= 2;
     const readyForPhase2 = phase1Complete && totalAddressed >= 12;
 
-    const implementationSummary = this.generateImplementationSummary(
+    const implementationSummary = Phase1SecurityVerification.generateImplementationSummary(
       totalAddressed, 
       allLayers.length, 
       addressedLayers
