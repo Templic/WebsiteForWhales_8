@@ -167,6 +167,8 @@ export function MainHeader() {
       id="main-navigation"
       className={`
         sticky top-0 z-[51] transition-all duration-300
+        bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95
+        backdrop-blur-lg border-b border-cyan-400/20
         ${isScrolled ? 'py-1' : 'py-3'}
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
