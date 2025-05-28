@@ -173,6 +173,7 @@ function AppRouter() {
           <Route path="/cosmic-portal" component={CosmicPortalPage} />
 
           {/* Music & Experience */}
+          <Route path="/music" component={PublicMusicPage} />
           <Route path="/music-release" component={ArchivedMusicPage} />
           <Route path="/archived-music" component={ArchivedMusicPage} />
           <Route path="/music-archive" component={ArchivedMusicPage} />
