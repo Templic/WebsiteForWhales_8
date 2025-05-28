@@ -1,0 +1,299 @@
+sts in content_items table
+Initializing patrons...
+[2025-05-28T17:11:05.350Z] [INFO] recurring_schedule column already exists in content_items table
+Error initializing patrons: error: insert or update on table "patrons" violates foreign key constraint "patrons_user_id_users_id_fk"
+    at file:///home/runner/workspace/node_modules/@neondatabase/serverless/index.mjs:1345:74
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async initializeTable (/home/runner/workspace/server/storage.ts:1016:11)
+    at async PostgresStorage.initializeSampleData (/home/runner/workspace/server/storage.ts:1268:7) {
+  length: 299,
+  severity: 'ERROR',
+  code: '23503',
+  detail: 'Key (user_id)=(78aec3eb-1ba9-4a4a-bd68-9381bffc1199) is not present in table "users".',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'patrons',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'patrons_user_id_users_id_fk',
+  file: 'ri_triggers.c',
+  line: '2608',
+  routine: 'ri_ReportViolation'
+}
+[2025-05-28T17:11:05.410Z] [INFO] last_schedule_run column already exists in content_items table
+[2025-05-28T17:11:05.410Z] [INFO] Migration completed successfully: Added recurring schedule fields to content_items table
+[2025-05-28T17:11:05.410Z] [INFO] All migrations completed successfully
+5:11:05 PM [server] Database migrations completed successfully
+⚠️ Advanced API validation temporarily disabled to resolve Invalid request errors
+5:11:05 PM [server] Generated dynamic session secret for this instance
+Generated dynamic session secret for this instance
+⚠️ CSRF Protection temporarily disabled to fix routing issues
+[API-PROTECTION] Advanced API protection temporarily disabled due to missing modules
+5:11:05 PM [server] Setting up Vite in development mode...
+[SECURITY] WARNING: Test API routes enabled - these bypass CSRF protection
+tour_dates already contains data, skipping initialization
+Server initialization complete in 509ms
+=== Server Startup Performance ===
+Total startup time: 509ms
+Startup priority: full
+Database optimization: enabled
+Background services: enabled
+Security scans: enabled
+Security mode: MAXIMUM (All shields up)
+Non-critical services deferred: no
+=================================
+5:11:05 PM [server] Initializing all services immediately (non-deferred mode)
+5:11:05 PM [server] Initializing database optimization...
+5:11:05 PM [db-maintenance] Initial database maintenance run scheduled
+5:11:05 PM [db-maintenance] Starting intelligent database maintenance...
+5:11:05 PM [server] Server successfully listening on port 5000
+5:11:05 PM [express] Server listening on port 5000
+5:11:05 PM [db-maintenance] Found 0 tables needing VACUUM
+5:11:05 PM [db-maintenance] Found 0 tables needing ANALYZE
+5:11:05 PM [db-maintenance] Database maintenance completed in 413ms
+5:11:05 PM [db-maintenance] No tables required maintenance at this time
+5:11:05 PM [db-maintenance] Scheduled regular database maintenance every 24 hours
+5:11:05 PM [server] Initializing background services...
+5:11:05 PM [background] Initializing background services...
+5:11:05 PM [background] Initializing database maintenance service...
+5:11:05 PM [db-maintenance] Scheduled regular database maintenance every 24 hours
+5:11:05 PM [background] Database maintenance service initialized successfully
+5:11:05 PM [background] Initializing security scanning service...
+5:11:05 PM [background] Security scanning service initialized with 12 hour interval
+5:11:05 PM [background] Initializing content scheduler service...
+[Background] Starting content scheduler (interval: 5 minute(s))
+[2025-05-28T17:11:05.965Z] [INFO] Running content scheduler
+[2025-05-28T17:11:05.965Z] [INFO] Processing recurring schedules
+5:11:05 PM [background] Content scheduler service initialized with 5 minute interval
+5:11:05 PM [background] Initializing data cleanup service...
+5:11:05 PM [background] Data cleanup service initialized successfully
+5:11:05 PM [background] Initializing metrics collection service...
+5:11:05 PM [background] Metrics collection service initialized successfully
+5:11:05 PM [background] Active background services: Database Maintenance, Security Scanning, Metrics Collection, Data Cleanup, Content Scheduler
+5:11:05 PM [server] Initializing security scans...
+5:11:05 PM [security] Activating MAXIMUM security scan mode
+[SECURITY] Enabling maximum security mode
+[2025-05-28T17:11:05.968Z] [INFO] [Security:system] Security features updated {"features":{"quantumResistance":true,"mlAnomalyDetection":true,"blockchainLogging":true,"mfa":true,"csrf":true,"inputValidation":true,"apiSecurity":true,"realTimeMonitoring":true,"bruteForceProtection":true,"rateLimiting":true,"deepScanning":true}}
+[IMMUTABLE-LOGS] Genesis block created
+[IMMUTABLE-LOGS] Immutable security logs initialized
+[2025-05-28T17:11:05.969Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"e26fe10d-4065-4195-9eac-7dd65241c90a","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:11:05.969Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"c06b6463-efce-4269-8e26-0f5e74f40126","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:11:05.969Z] [INFO] [Security:system] Security metrics collection started {"intervalMs":30000}
+[2025-05-28T17:11:05.969Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"01745c39-634f-4f48-8ddf-c91a0cb8629c","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:11:05.970Z] [INFO] [Security:system] Security events collector initialized {"initialEventsCount":8}
+[2025-05-28T17:11:05.970Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"133d03fb-bbcf-4232-985b-6a7f109b54dd","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:11:05.970Z] [INFO] [Security:system] Security fabric initialized in maximum security mode {}
+[2025-05-28T17:11:05.970Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"e0d83763-9ad6-402b-951a-7f2dd86e55ff","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:11:05.970Z] [INFO] [Security:system] Maximum security mode activated {"features":{"quantumResistance":true,"mlAnomalyDetection":true,"blockchainLogging":true,"mfa":true,"csrf":true,"inputValidation":true,"apiSecurity":true,"realTimeMonitoring":true,"bruteForceProtection":true,"rateLimiting":true,"deepScanning":true}}
+[2025-05-28T17:11:05.970Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"a480dbb0-ff9b-4be9-82ef-6ad4118d2422","type":"system_startup","source":"security_logger","severity":"low"}
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[2025-05-28T17:11:06.045Z] [INFO] Found 0 items with recurring schedules to process
+[2025-05-28T17:11:06.045Z] [INFO] Processed 0 recurring schedules
+[2025-05-28T17:11:06.093Z] [INFO] Found 0 items to publish
+[2025-05-28T17:11:06.352Z] [INFO] Found 0 items to archive due to expiration
+[2025-05-28T17:11:06.416Z] [INFO] Found 0 items expiring soon
+[2025-05-28T17:11:06.416Z] [INFO] Content scheduler completed: Published 0, Failed 0, Archived 0, Archived Failed 0, Retry Attempts 0, Retry Successes 0
+[Background] Initial content scheduling run complete: 0 published, 0 archived
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[2025-05-28T17:11:35.970Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"86f0139d-dd19-43b3-a6e9-c2860611807a","type":"system_startup","source":"security_logger","severity":"low"}
+5:11:40 PM [vite] hmr update /src/pages/music/AIEnhancedMusicPage.tsx, /src/index.css?v=5zLdANWNEoUQmOp2kjisN
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[IMMUTABLE-LOGS] New block created: #1 with 7 logs
+[2025-05-28T17:12:05.978Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"fd4b84ad-3d06-4412-9bad-f004600850b7","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:12:35.979Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"3f3984d5-fba6-459e-a747-474ae38f51f5","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #2 with 2 logs
+[2025-05-28T17:13:05.978Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"967dc222-13d3-45be-9d07-1ff692f69b14","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:13:35.978Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"d252c4c9-b967-48d2-80f3-ca375db17855","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #3 with 2 logs
+[2025-05-28T17:14:05.979Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"0b7022bb-e2f6-405b-bdc6-d3867f17e1fe","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:14:35.979Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"bca1b229-50f4-40e6-874d-ec73cfa37614","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #4 with 2 logs
+[2025-05-28T17:15:05.979Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"d57e1298-1f78-424f-a4a7-85d863e14370","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:15:35.978Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"ea8d77be-d62e-4f1b-bc9a-5d477576d47e","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:16:05.966Z] [INFO] Running content scheduler
+[2025-05-28T17:16:05.967Z] [INFO] Processing recurring schedules
+5:16:05 PM [metrics] Collecting performance metrics...
+5:16:05 PM [metrics] Memory Usage: RSS 484MB, Heap Total 291MB, Heap Used 271MB
+5:16:05 PM [metrics] CPU Usage: User 39613.293ms, System 2512.781ms
+[IMMUTABLE-LOGS] New block created: #5 with 2 logs
+[2025-05-28T17:16:05.982Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"caae197f-b3a7-4d09-b173-d476c750b344","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:16:06.604Z] [INFO] Found 0 items with recurring schedules to process
+[2025-05-28T17:16:06.605Z] [INFO] Processed 0 recurring schedules
+[2025-05-28T17:16:06.650Z] [INFO] Found 0 items to publish
+[2025-05-28T17:16:06.691Z] [INFO] Found 0 items to archive due to expiration
+[2025-05-28T17:16:06.733Z] [INFO] Found 0 items expiring soon
+[2025-05-28T17:16:06.734Z] [INFO] Content scheduler completed: Published 0, Failed 0, Archived 0, Archived Failed 0, Retry Attempts 0, Retry Successes 0
+[2025-05-28T17:16:35.982Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"2edccea5-b7eb-4a3b-9f44-7d879669f22a","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #6 with 2 logs
+[2025-05-28T17:17:05.982Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"ff36f3e5-6da5-435a-8332-de4959bbfdb6","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:17:35.982Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"d5e2058f-98a8-488d-9c10-b0fbc21a1bcc","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #7 with 2 logs
+[2025-05-28T17:18:05.985Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"903d6391-c7cc-49c2-85dd-d902163fdfe6","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:18:35.985Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"aa872edd-5201-4db3-bbd2-68d60a2443df","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #8 with 2 logs
+[2025-05-28T17:19:05.985Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"b416e364-152d-47b5-aa44-97aebcffe4f4","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:19:35.987Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"a32cc812-e582-4630-95e5-b8879f5e0df3","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #9 with 2 logs
+[2025-05-28T17:20:05.986Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"e56723cd-b383-4531-9890-81fcea4cec0c","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:20:35.987Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"de64e50e-a6b4-48d6-9911-5f764cb7f033","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:21:05.966Z] [INFO] Running content scheduler
+[2025-05-28T17:21:05.966Z] [INFO] Processing recurring schedules
+5:21:05 PM [metrics] Collecting performance metrics...
+5:21:05 PM [metrics] Memory Usage: RSS 481MB, Heap Total 285MB, Heap Used 271MB
+5:21:05 PM [metrics] CPU Usage: User 39815.108ms, System 2528.715ms
+[IMMUTABLE-LOGS] New block created: #10 with 2 logs
+[2025-05-28T17:21:05.993Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"02b8b716-7303-429c-82ec-6b7e9366b1e9","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:21:06.787Z] [INFO] Found 0 items with recurring schedules to process
+[2025-05-28T17:21:06.787Z] [INFO] Processed 0 recurring schedules
+[2025-05-28T17:21:06.835Z] [INFO] Found 0 items to publish
+[2025-05-28T17:21:06.880Z] [INFO] Found 0 items to archive due to expiration
+[2025-05-28T17:21:06.924Z] [INFO] Found 0 items expiring soon
+[2025-05-28T17:21:06.924Z] [INFO] Content scheduler completed: Published 0, Failed 0, Archived 0, Archived Failed 0, Retry Attempts 0, Retry Successes 0
+[2025-05-28T17:21:35.993Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"de7ebc9f-3810-47e2-9370-4022e48cfc3c","type":"system_startup","source":"security_logger","severity":"low"}
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[IMMUTABLE-LOGS] New block created: #11 with 2 logs
+[2025-05-28T17:22:05.994Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"a9c6517e-d90f-4227-b750-1f63b6214a67","type":"system_startup","source":"security_logger","severity":"low"}
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /music
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/AIEnhancedMusicPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/pages/music/MusicSearchPage.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/ConsciousnessYouTubePlayer.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /src/components/music/MusicSearchComponent.tsx
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[Holistic YouTube Security] Configuring all security layers for: /api/youtube/video/jzpvkq3Krjg
+[Holistic YouTube Security] All security layers configured for YouTube compatibility
+[2025-05-28T17:22:35.995Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"fde3c698-83f0-419b-949b-212be41e7e8f","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #12 with 2 logs
+[2025-05-28T17:23:05.995Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"c6d953cc-0482-41d1-b627-c38f36c8364f","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:23:35.996Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"4b785383-799c-46ce-9942-3ad06812fa69","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #13 with 2 logs
+[2025-05-28T17:24:05.997Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"39b8c582-6386-4834-96d6-a609e2d26bc8","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:24:35.997Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"841a51e1-f95f-4369-9898-f4f744a2dc50","type":"system_startup","source":"security_logger","severity":"low"}
+[IMMUTABLE-LOGS] New block created: #14 with 2 logs
+[2025-05-28T17:25:05.997Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"8ae90c18-6463-4b6d-9435-ab49067e7683","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:25:35.998Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"78990326-625d-4075-a6b8-4acfbc96cd7f","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:26:05.966Z] [INFO] Running content scheduler
+[2025-05-28T17:26:05.966Z] [INFO] Processing recurring schedules
+5:26:05 PM [metrics] Collecting performance metrics...
+5:26:05 PM [metrics] Memory Usage: RSS 448MB, Heap Total 251MB, Heap Used 234MB
+5:26:05 PM [metrics] CPU Usage: User 42128.721ms, System 2698.519ms
+[IMMUTABLE-LOGS] New block created: #15 with 2 logs
+[2025-05-28T17:26:05.999Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"064fbafe-b350-429c-84cf-1818e8ba9115","type":"system_startup","source":"security_logger","severity":"low"}
+[2025-05-28T17:26:06.718Z] [INFO] Found 0 items with recurring schedules to process
+[2025-05-28T17:26:06.718Z] [INFO] Processed 0 recurring schedules
+[2025-05-28T17:26:06.767Z] [INFO] Found 0 items to publish
+[2025-05-28T17:26:06.811Z] [INFO] Found 0 items to archive due to expiration
+[2025-05-28T17:26:06.854Z] [INFO] Found 0 items expiring soon
+[2025-05-28T17:26:06.855Z] [INFO] Content scheduler completed: Published 0, Failed 0, Archived 0, Archived Failed 0, Retry Attempts 0, Retry Successes 0
+[2025-05-28T17:26:35.998Z] [INFO] [SECURITY-EVENT] system_startup {"eventId":"77375344-1712-4c86-b549-1240f13ffb91","type":"system_startup","source":"security_logger","severity":"low"}
