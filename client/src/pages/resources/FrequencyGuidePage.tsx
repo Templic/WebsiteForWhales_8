@@ -49,12 +49,12 @@ export default function FrequencyGuidePage() {
               <Waves className="h-10 w-10 text-cyan-400" />
             </div>
             <h1 className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-              Frequency Guide
+              Consciousness Soundscapes
             </h1>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto mb-6"></div>
             <p className="text-lg text-blue-100/90 max-w-2xl mx-auto">
-              A detailed breakdown of sound frequencies and their unique impacts on the body, mind, and energy field. 
-              Frequencies are commonly used in healing practices and music therapy to promote balance and well-being.
+              Experience consciousness-enhanced soundscapes that transcend traditional frequency analysis. 
+              Dale's whale wisdom guides these cosmic audio journeys for profound spiritual alignment and consciousness expansion.
             </p>
           </div>
         </div>

@@ -15,8 +15,9 @@ import { useToast } from "@/hooks/use-toast";
 import { useEffect, useRef } from "react";
 import { CosmicBackground } from "@/components/cosmic/CosmicBackground";
 import SacredGeometry from "@/components/cosmic/SacredGeometry";
-import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Send } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Mail, Send, Waves, Construction, Clock, Star } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
