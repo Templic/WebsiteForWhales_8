@@ -262,7 +262,8 @@ function AppRouter() {
           {/* Resource Pages */}
           <Route path="/resources" component={ResourcesPage} />
           <Route path="/resources/frequency-guide" component={FrequencyGuidePage} />
-
+          <Route path="/sacred-geometry" component={SacredGeometryPage} />
+          <Route path="/resources/sacred-geometry" component={SacredGeometryPage} />
           <Route path="/resources/sound-healing" component={SoundHealingPage} />
           <Route path="/resources/meditation" component={MeditationTechniquesPage} />
           
