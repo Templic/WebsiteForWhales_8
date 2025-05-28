@@ -62,6 +62,7 @@ import EnhancedCommunityPage from "@/pages/community/EnhancedCommunityPage";
 import RevampedCommunityPage from "@/pages/community/RevampedCommunityPage";
 import WhaleWisdomCommunity from "@/pages/CommunityPage";
 import AIChatMenuPage from "@/pages/AIChatMenuPage";
+import WhaleConsciousnessPage from "@/pages/WhaleConsciousnessPage";
 
 // Resource Pages
 import ResourcesPage from "@/pages/resources/ResourcesPage";
@@ -163,6 +164,10 @@ function AppRouter() {
           <Route path="/community/revamped" component={RevampedCommunityPage} />
           <Route path="/community/legacy" component={CommunityPage} />
           <Route path="/enhanced-community" component={EnhancedCommunityPage} />
+          
+          {/* AI Chat & Consciousness */}
+          <Route path="/whale-consciousness" component={WhaleConsciousnessPage} />
+          <Route path="/ai-chat" component={AIChatMenuPage} />
 
           {/* Music & Experience */}
           <Route path="/music-release" component={ArchivedMusicPage} />
