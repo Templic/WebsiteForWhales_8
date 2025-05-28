@@ -48,6 +48,7 @@ import { verifyApiSecurity } from './security/apiSecurityVerification';
 import { enhancedCsrfProtection } from './security/middleware/enhancedCsrfProtection';
 import typescriptErrorRoutes from './routes/typescript-error-routes';
 import typescriptErrorSimpleRoutes from './routes/typescript-error-simple-routes';
+import { runYouTubeDiagnostic } from './tools/youtube-security-diagnostic';
 import adminRoutes from './admin-routes';
 import adminApiRoutes from './routes/admin';
 import aiThemeGeneratorRoutes from './routes/ai-theme-generator';
@@ -2734,6 +2735,55 @@ app.post("/api/posts/comments/:id/reject", isAdmin, async (req, res) => {
       });
     });
   }
+
+  // YouTube API Security Diagnostic endpoint
+  app.get("/api/youtube-diagnostic", async (req, res) => {
+    await runYouTubeDiagnostic(req, res);
+  });
+
+  // YouTube API test endpoint to check connectivity
+  app.get("/api/youtube-test", async (req, res) => {
+    try {
+      const apiKey = process.env.YOUTUBE_API_KEY;
+      
+      if (!apiKey) {
+        return res.json({
+          success: false,
+          error: "YouTube API key not found",
+          message: "Please provide YOUTUBE_API_KEY in environment variables"
+        });
+      }
+
+      // Test basic YouTube API connectivity
+      const testUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=test&type=video&maxResults=1&key=${apiKey}`;
+      
+      const response = await fetch(testUrl);
+      const data = await response.json();
+      
+      if (response.ok) {
+        res.json({
+          success: true,
+          message: "YouTube API is working correctly",
+          apiStatus: "connected",
+          testResult: data
+        });
+      } else {
+        res.json({
+          success: false,
+          message: "YouTube API returned an error",
+          error: data.error || "Unknown error",
+          apiStatus: "error"
+        });
+      }
+    } catch (error) {
+      res.json({
+        success: false,
+        message: "Network error connecting to YouTube API",
+        error: error.message,
+        apiStatus: "blocked"
+      });
+    }
+  });
 
   return httpServer;
 }
