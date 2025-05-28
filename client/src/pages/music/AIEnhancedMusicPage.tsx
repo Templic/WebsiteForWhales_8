@@ -212,10 +212,17 @@ export default function AIEnhancedMusicPage() {
                       </div>
 
                       <div className="lg:w-1/2">
-                        <SecureYouTubePlayer 
-                          videoId={officialRelease.youtubeId} 
-                          title={`${officialRelease.title} by ${officialRelease.artist}`}
-                        />
+                        <div className="w-full aspect-video rounded-lg overflow-hidden bg-gray-900 border border-[#00ebd6]/20">
+                          <iframe
+                            src={`https://www.youtube.com/embed/${officialRelease.youtubeId}?rel=0&modestbranding=1&showinfo=0`}
+                            title={`${officialRelease.title} by ${officialRelease.artist}`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="w-full h-full"
+                            loading="lazy"
+                          />
+                        </div>
                       </div>
                     </div>
                   </CardHeader>
