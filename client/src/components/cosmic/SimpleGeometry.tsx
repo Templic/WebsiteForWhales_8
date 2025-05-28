@@ -56,11 +56,17 @@ export const SimpleHexagon: React.FC<GeometryProps> = ({ className = "", glowCol
         </svg>
       </motion.div>
       
-      {/* Content Container with Golden Ratio Positioning */}
+      {/* Stable Text Container - Independent of Shape Rotation */}
       {children && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-3 py-2 max-w-[80%]" style={{ fontSize: 'clamp(0.75rem, 2vw, 1rem)' }}>
-            {children}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="text-center px-3 py-2 max-w-[80%] bg-black/20 backdrop-blur-sm rounded-lg border border-white/20" 
+               style={{ 
+                 fontSize: 'clamp(0.75rem, 2vw, 1rem)',
+                 textShadow: '0 0 8px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.9)'
+               }}>
+            <div className="text-white font-medium">
+              {children}
+            </div>
           </div>
         </div>
       )}
@@ -70,14 +76,15 @@ export const SimpleHexagon: React.FC<GeometryProps> = ({ className = "", glowCol
 
 export const SimpleTriangle: React.FC<GeometryProps> = ({ className = "", glowColor = "rgba(34, 197, 94, 0.6)", children }) => {
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative aspect-square ${className}`} style={{ minWidth: '120px', minHeight: '120px' }}>
       <motion.div
+        className="absolute inset-0"
         animate={{ rotate: 360 }}
         transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
       >
-        <svg viewBox="0 0 100 100" className="w-full h-full">
+        <svg viewBox="0 0 100 100" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
           <defs>
-            <filter id="triGlow">
+            <filter id="triGlow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
               <feMerge> 
                 <feMergeNode in="coloredBlur"/>
@@ -89,17 +96,23 @@ export const SimpleTriangle: React.FC<GeometryProps> = ({ className = "", glowCo
             points="50,10 85,80 15,80"
             fill="none"
             stroke={glowColor}
-            strokeWidth="1"
+            strokeWidth="1.5"
             filter="url(#triGlow)"
-            className="opacity-70"
+            className="opacity-80"
           />
         </svg>
       </motion.div>
       
       {children && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center p-4">
-            {children}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="text-center px-3 py-2 max-w-[80%] bg-black/20 backdrop-blur-sm rounded-lg border border-white/20" 
+               style={{ 
+                 fontSize: 'clamp(0.75rem, 2vw, 1rem)',
+                 textShadow: '0 0 8px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.9)'
+               }}>
+            <div className="text-white font-medium">
+              {children}
+            </div>
           </div>
         </div>
       )}
