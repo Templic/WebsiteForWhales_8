@@ -69,7 +69,7 @@ const officialRelease = {
   releaseDate: '2025-03-28',
   label: 'AC3 PRODUCTIONS LLC',
   copyright: '℗ 2025 AC3 PRODUCTIONS LLC',
-  youtubeId: 'jzpvkq3Krjg',
+  youtubeId: 'V7dg8vRDM68',
   description: 'The latest sonic journey exploring consciousness through whale wisdom and cosmic connectivity.',
   genre: ['Ambient', 'Electronic', 'Consciousness'],
   duration: '4:32',
