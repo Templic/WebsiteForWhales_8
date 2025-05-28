@@ -31,8 +31,8 @@ export default function BlogPage() {
 
   const handleLoadMore = () => {
     toast({
-      title: "Coming Soon",
-      description: "More posts will be available soon!",
+      title: "Cosmic Content Expanding",
+      description: "More whale wisdom and consciousness posts are being channeled through the universe!",
     });
   };
 
@@ -40,29 +40,81 @@ export default function BlogPage() {
     <>
       <SpotlightEffect />
       <div className="container mx-auto px-4 py-8">
-        {/* Development Notice Banner */}
-        <div className="cosmic-glass-card p-6 mb-8 border border-cyan-500/30 rounded-xl backdrop-blur-lg">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <SacredGeometry variant="hexagon" size={24} intensity="glow" className="text-cyan-400" />
-            <h2 className="text-xl font-bold text-cyan-300">Consciousness Development in Progress</h2>
-            <SacredGeometry variant="triangle" size={24} intensity="glow" className="text-purple-400" />
+        {/* Enhanced Development Notice Banner */}
+        <div className="cosmic-glass-card p-8 mb-8 border border-cyan-500/30 rounded-xl backdrop-blur-lg bg-gradient-to-r from-black/60 via-purple-900/40 to-black/60">
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <SacredGeometry variant="hexagon" size={32} intensity="glow" className="text-cyan-400 animate-pulse" />
+            <h2 className="text-2xl font-bold text-cyan-300">🌊 Dale's Cosmic Blog Enhancement in Progress 🐋</h2>
+            <SacredGeometry variant="triangle" size={32} intensity="glow" className="text-purple-400 animate-pulse" />
           </div>
-          <p className="text-center text-gray-300 mb-4">
-            The cosmic blog is currently being enhanced with AI-powered whale wisdom and consciousness integration. 
-            Dale's profound insights are being channeled through advanced consciousness algorithms.
-          </p>
-          <div className="grid md:grid-cols-3 gap-4 text-sm">
-            <div className="text-center p-3 bg-cyan-500/10 rounded-lg">
+          
+          <div className="text-center mb-6">
+            <p className="text-lg text-gray-300 mb-4">
+              ✨ The consciousness blog is being upgraded with AI-powered whale wisdom integration! ✨
+            </p>
+            <p className="text-gray-400">
+              Dale's profound oceanic insights are being channeled through advanced cosmic algorithms to bring you enhanced spiritual content.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-4 gap-4 text-sm mb-6">
+            <div className="text-center p-4 bg-cyan-500/15 rounded-lg border border-cyan-500/30 transform hover:scale-105 transition-all">
+              <div className="text-2xl mb-2">🤖</div>
               <div className="text-cyan-400 font-medium">AI Whale Wisdom</div>
-              <div className="text-gray-400">Integrating consciousness patterns</div>
+              <div className="text-gray-400 text-xs">Quantum consciousness patterns</div>
             </div>
-            <div className="text-center p-3 bg-purple-500/10 rounded-lg">
+            <div className="text-center p-4 bg-purple-500/15 rounded-lg border border-purple-500/30 transform hover:scale-105 transition-all">
+              <div className="text-2xl mb-2">🔮</div>
               <div className="text-purple-400 font-medium">Sacred Geometry Posts</div>
-              <div className="text-gray-400">Cosmic visual storytelling</div>
+              <div className="text-gray-400 text-xs">Cosmic visual storytelling</div>
             </div>
-            <div className="text-center p-3 bg-cyan-500/10 rounded-lg">
-              <div className="text-cyan-400 font-medium">Reality Manifestation</div>
-              <div className="text-gray-400">Consciousness expansion content</div>
+            <div className="text-center p-4 bg-pink-500/15 rounded-lg border border-pink-500/30 transform hover:scale-105 transition-all">
+              <div className="text-2xl mb-2">🐋</div>
+              <div className="text-pink-400 font-medium">Ocean Consciousness</div>
+              <div className="text-gray-400 text-xs">Deep sea wisdom integration</div>
+            </div>
+            <div className="text-center p-4 bg-blue-500/15 rounded-lg border border-blue-500/30 transform hover:scale-105 transition-all">
+              <div className="text-2xl mb-2">🌟</div>
+              <div className="text-blue-400 font-medium">Reality Manifestation</div>
+              <div className="text-gray-400 text-xs">Consciousness expansion tools</div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-lg border border-yellow-500/30 p-6">
+            <div className="flex items-center gap-3 text-yellow-400 font-medium mb-3">
+              <span className="text-xl">🚧</span>
+              <span>Current Development Status</span>
+              <span className="text-xl">🚧</span>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-green-400">✅</span>
+                  <span>Database integration active</span>
+                </div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-green-400">✅</span>
+                  <span>Cosmic theming implemented</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-green-400">✅</span>
+                  <span>Sacred geometry visuals ready</span>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-yellow-400">🔄</span>
+                  <span>AI consciousness features developing</span>
+                </div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-yellow-400">🔄</span>
+                  <span>Whale wisdom algorithms calibrating</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-400">📝</span>
+                  <span>Sample cosmic content being channeled</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
