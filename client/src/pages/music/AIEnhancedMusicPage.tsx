@@ -212,15 +212,16 @@ export default function AIEnhancedMusicPage() {
                       </div>
 
                       <div className="lg:w-1/2">
-                        <div className="w-full aspect-video rounded-lg overflow-hidden bg-gray-900 border border-[#00ebd6]/20">
+                        <div className="w-full aspect-video rounded-lg overflow-hidden bg-gray-900 border border-[#00ebd6]/20 relative">
                           <iframe
-                            src={`https://www.youtube.com/embed/${officialRelease.youtubeId}?rel=0&modestbranding=1&showinfo=0`}
+                            src={`https://www.youtube.com/embed/${officialRelease.youtubeId}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=1&enablejsapi=1&origin=${window.location.origin}`}
                             title={`${officialRelease.title} by ${officialRelease.artist}`}
                             frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
-                            className="w-full h-full"
-                            loading="lazy"
+                            className="w-full h-full absolute inset-0"
+                            loading="eager"
+                            style={{ border: 'none' }}
                           />
                         </div>
                       </div>
