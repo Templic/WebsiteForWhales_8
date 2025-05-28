@@ -333,22 +333,53 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   const externalApiRoutes = require('./routes/external-api').default;
   app.use('/api/external', externalApiRoutes);
 
-  // Embed proxy routes with security bypass (fixes X-Frame-Options blocking)
-  app.use('/api/embed', (req, res, next) => {
-    // Mark request to bypass security checks
-    (req as any).__skipCSRF = true;
-    (req as any).__skipSecurity = true;
-    (req as any).isIntegration = true;
+  // Custom embed pages following documented architecture
+  app.get('/taskade-embed', (req, res) => {
+    const { id, view = 'agent', theme = 'system', memory = '1', style = 'taskade', toolbar = '1' } = req.query;
     
-    // Remove blocking headers
-    res.removeHeader('X-Frame-Options');
-    res.removeHeader('Content-Security-Policy');
+    // Security validation
+    if (!id || typeof id !== 'string') {
+      return res.status(400).send('Invalid Taskade ID');
+    }
     
-    next();
+    // Generate secure embed page HTML
+    const embedHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Taskade AI</title>
+        <style>
+          body { margin: 0; padding: 0; overflow: hidden; font-family: system-ui; }
+          iframe { width: 100%; height: 100vh; border: 0; }
+          .loading { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            background: #f8fafc;
+            color: #64748b;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="loading" id="loading">Loading Taskade AI...</div>
+        <iframe 
+          src="https://www.taskade.com/a/${id}?view=${view}&theme=${theme}&memory=${memory}&toolbar=${toolbar}"
+          title="Taskade AI Assistant"
+          onload="document.getElementById('loading').style.display='none'"
+          allow="clipboard-read; clipboard-write; microphone; camera">
+        </iframe>
+      </body>
+      </html>
+    `;
+    
+    // Set secure headers
+    res.setHeader('Content-Security-Policy', "frame-ancestors 'self'");
+    res.setHeader('Content-Type', 'text/html');
+    res.send(embedHtml);
   });
-  
-  const embedProxyRoutes = require('./routes/embed-proxy-routes').default;
-  app.use('/api/embed', embedProxyRoutes);
 
   // Google Analytics configuration endpoint (bypasses all security layers)
   app.get('/api/analytics/config', (req, res) => {

@@ -12,8 +12,8 @@ const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [loading, setLoading] = useState(true);
   
-  // Use proxy route to bypass X-Frame-Options blocking
-  const taskadeUrl = '/api/embed/taskade/01JRV02MYWJW6VJS9XGR1VB5J4';
+  // Use custom embed page following documented architecture
+  const taskadeUrl = '/taskade-embed?id=01JRV02MYWJW6VJS9XGR1VB5J4';
   
   // Handle iframe load event
   const handleIframeLoad = () => {
