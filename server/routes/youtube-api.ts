@@ -83,7 +83,7 @@ router.get('/video/:videoId', async (req, res) => {
       return res.status(404).json({ success: false, error: 'Video not found' });
     }
     
-    res.json({ success: true, video: data.items[0] });
+    res.json({ success: true, data: data.items[0] });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
   }

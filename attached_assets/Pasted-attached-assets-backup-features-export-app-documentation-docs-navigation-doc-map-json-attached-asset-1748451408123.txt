@@ -1,0 +1,59 @@
+attached_assets/backup-features-export/app-documentation/docs/navigation/doc-map.json
+attached_assets/backup-features-export/app-documentation/docs/security/SECURITY.md
+backup-features-export/app-documentation/docs/navigation/doc-map.json
+backup-features-export/app-documentation/docs/security/SECURITY.md
+config/security_settings.json
+docs/API_SECURITY_GUIDELINES.md
+docs/SECURITY.md
+README.md
+restoration-staging/backup-features-export/app-documentation/docs/navigation/doc-map.json
+restoration-staging/backup-features-export/app-documentation/docs/security/SECURITY.md
+security-holistic-diagnosis.ts
+server/security.ts
+server/tools/security-layer-analyzer.ts
+Based on the security documentation and codebase analysis, here are the main security layers currently implemented in your application:
+
+1. Network Security Layer
+HTTPS Enforcement: Automatic HTTP to HTTPS redirection in production
+Content Security Policy (CSP): Strict CSP headers to prevent XSS attacks
+CORS Configuration: Cross-origin resource sharing controls
+Security Headers: Helmet middleware setting various HTTP security headers
+2. Application Security Layer
+Authentication Middleware: Multiple authentication systems including Replit Auth, JWT, and consciousness-based auth
+Authorization Controls: Role-based access control (RBAC) with permissions for USER, ADMIN, and SUPER_ADMIN
+CSRF Protection: Cross-Site Request Forgery protection (currently disabled globally but configurable)
+Rate Limiting: API endpoint rate limiting to prevent abuse
+Input Validation: Zod-based request validation and sanitization
+3. Data Security Layer
+SQL Injection Prevention: Parameterized queries and Drizzle ORM protection
+XSS Prevention: Output encoding and content sanitization
+Database Security: Encrypted connections and access controls
+Session Security: Secure session management and monitoring
+4. Advanced Security Systems
+Quantum-Resistant Cryptography: Advanced encryption methods
+Anomaly Detection: AI-powered threat detection
+Blockchain Security Logs: Immutable security event logging
+Zero Trust Architecture: Zero trust security principles
+Multi-Factor Authentication (MFA): Additional authentication layer
+5. Infrastructure Security Layer
+File Upload Security: Secure file handling and validation
+Payment Security: PCI compliance for payment processing
+Container Security: Docker security configurations
+API Security: Comprehensive API protection and validation
+6. Monitoring & Intelligence Layer
+Security Scanning: Automated vulnerability detection
+Real-time Monitoring: Continuous security event monitoring
+Threat Intelligence: Advanced threat detection and prevention
+Security Metrics: Performance and security analytics
+7. Consciousness Security Framework
+Whale Wisdom Protection: Spiritual data access controls
+Sacred Geometry Access: Consciousness-gated features
+Manifestation Privacy: Privacy controls for spiritual features
+Current Security Status
+From the logs, I can see that:
+
+Maximum Security Mode is currently active
+CSRF Protection is temporarily disabled
+Advanced API validation is temporarily disabled
+YouTube Security Middleware is active for media content
+The security system uses a comprehensive approach with multiple overlapping layers to provide defense-in-depth protection for your cosmic consciousness platform.
