@@ -202,3 +202,18 @@ function parseCSP(csp: string): Record<string, string> {
 
 // Export the configured middleware
 export const holisticYouTubeSecurityMiddleware = createHolisticYouTubeSecurityMiddleware();
+
+// Export additional middleware functions for routes.ts
+export const youTubeCSRFExemption = (req: Request, res: Response, next: NextFunction) => {
+  if (isYouTubeRoute(req.path) || isYouTubeAPIRoute(req.path)) {
+    res.locals.csrfExempt = true;
+  }
+  next();
+};
+
+export const youTubeRateLimitExemption = (req: Request, res: Response, next: NextFunction) => {
+  if (isYouTubeAPIRoute(req.path)) {
+    res.locals.rateLimitExempt = true;
+  }
+  next();
+};

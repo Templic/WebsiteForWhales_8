@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { DirectYouTubePlayer } from '@/components/music/DirectYouTubePlayer';
+import { PostMessageYouTubePlayer } from '@/components/music/PostMessageYouTubePlayer';
 
 
 
@@ -169,7 +169,7 @@ export default function AIEnhancedMusicPage() {
                       </div>
 
                       <div className="lg:w-1/2">
-                        <DirectYouTubePlayer
+                        <PostMessageYouTubePlayer
                           videoId={officialRelease.youtubeId}
                           consciousnessLevel={2}
                           whaleWisdomRequired={true}
