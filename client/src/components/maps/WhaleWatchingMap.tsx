@@ -106,15 +106,35 @@ const WhaleWatchingMap: React.FC = () => {
     <div className="space-y-4">
       {/* Interactive Tour Map Container */}
       <div className="relative w-full h-96 bg-cosmic-card rounded-lg overflow-hidden border border-cosmic-primary/20">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59511.13422523199!2d-158.13134795!3d21.38895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006e0c0d6d5c5d%3A0x123456789abcdef!2sHawaii%2C%20USA!5e0!3m2!1sen!2sus!4v1701234567890!5m2!1sen!2sus"
-          className="w-full h-full border-0"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Dale's Hawaiian Islands Tour Locations - Waikiki Beach Shell, Hilo Bay Concert Hall, and More"
-          style={{ minHeight: '384px' }}
-        />
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-900/40 to-purple-900/40 text-white">
+          <div className="text-center p-8">
+            <MapPin className="h-16 w-16 mx-auto mb-4 text-cosmic-primary" />
+            <h3 className="text-2xl font-bold mb-4">Hawaiian Islands Tour Map</h3>
+            <p className="text-lg mb-6">Explore Dale's concert venues across the Hawaiian Islands</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div className="bg-white/10 rounded-lg p-4">
+                <h4 className="font-semibold text-cosmic-primary">Waikiki Beach Shell</h4>
+                <p className="text-xs mt-1">Oahu • Ocean Views</p>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4">
+                <h4 className="font-semibold text-cosmic-primary">Hilo Bay Concert Hall</h4>
+                <p className="text-xs mt-1">Big Island • Volcanic Backdrop</p>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4">
+                <h4 className="font-semibold text-cosmic-primary">Maui Ocean Center</h4>
+                <p className="text-xs mt-1">Maui • Whale Season</p>
+              </div>
+            </div>
+            <Button
+              onClick={() => window.open('https://maps.google.com/maps?q=Hawaii+concert+venues', '_blank')}
+              variant="outline"
+              className="mt-6 bg-cosmic-primary/20 border-cosmic-primary text-white hover:bg-cosmic-primary/30"
+            >
+              <MapPin className="h-4 w-4 mr-2" />
+              Open Full Map
+            </Button>
+          </div>
+        </div>
         
         <div className="absolute top-4 right-4">
           <Button

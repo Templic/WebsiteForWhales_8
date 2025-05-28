@@ -43,48 +43,30 @@ const EnhancedYouTubePlayer: React.FC<EnhancedYouTubePlayerProps> = ({
   }
 
   return (
-    <div className={`relative aspect-video rounded-lg overflow-hidden bg-black ${className}`}>
-      <iframe
-        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1`}
-        title={`${title} - ${artist}`}
-        className="w-full h-full border-0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        loading="lazy"
-        onLoad={() => setError(false)}
-        onError={() => setError(true)}
-      />
-      
-      {error && (
-        <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
-          <div className="text-center text-white p-6">
-            <h3 className="text-lg font-semibold mb-2">{title}</h3>
-            <p className="text-sm opacity-75 mb-4">by {artist}</p>
+    <div className={`relative aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-purple-900/80 to-blue-900/80 ${className}`}>
+      <div className="w-full h-full flex flex-col items-center justify-center text-white p-8">
+        <div className="text-center">
+          <Play className="h-16 w-16 mx-auto mb-4 text-cosmic-primary" />
+          <h3 className="text-2xl font-bold mb-2">{title}</h3>
+          <p className="text-lg opacity-75 mb-6">by {artist}</p>
+          <div className="space-y-4">
             <Button
               onClick={handleDirectLink}
               variant="outline"
-              size="sm"
-              className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+              className="bg-cosmic-primary/20 border-cosmic-primary text-white hover:bg-cosmic-primary/30"
             >
-              <ExternalLink className="h-4 w-4 mr-2" />
+              <Play className="h-4 w-4 mr-2" />
               Watch on YouTube
             </Button>
+            <div className="text-sm opacity-60">
+              <p>New Release • Available Now</p>
+            </div>
           </div>
         </div>
-      )}
-
-      {/* Overlay controls for enhanced UX */}
-      <div className="absolute bottom-4 right-4 opacity-0 hover:opacity-100 transition-opacity">
-        <Button
-          onClick={handleDirectLink}
-          variant="outline"
-          size="sm"
-          className="bg-black/50 border-white/20 text-white hover:bg-black/70"
-        >
-          <ExternalLink className="h-3 w-3 mr-1" />
-          YouTube
-        </Button>
       </div>
+      
+      {/* Album artwork background effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cosmic-primary/20 to-transparent pointer-events-none" />
     </div>
   );
 };
