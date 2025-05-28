@@ -139,18 +139,23 @@ export default function YouTubeMusicPlayer({
             <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
               {isPlaying ? (
                 <iframe
-                  src={`https://www.youtube.com/embed/jzpvkq3Krjg?autoplay=1`}
+                  src={`https://www.youtube.com/embed/jzpvkq3Krjg?autoplay=1&enablejsapi=1&origin=${window.location.origin}`}
                   title="FEELS SO GOOD - Dale The Whale"
                   className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
+                  frameBorder="0"
                 />
               ) : (
                 <div className="relative w-full h-full group cursor-pointer" onClick={togglePlayPause}>
                   <img
-                    src="https://i.ytimg.com/vi/jzpvkq3Krjg/hqdefault.jpg"
+                    src="https://i.ytimg.com/vi/jzpvkq3Krjg/maxresdefault.jpg"
                     alt="FEELS SO GOOD - Dale The Whale"
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://i.ytimg.com/vi/jzpvkq3Krjg/hqdefault.jpg";
+                    }}
                   />
                   <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                     <Button

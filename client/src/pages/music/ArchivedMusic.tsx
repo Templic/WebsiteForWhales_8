@@ -105,35 +105,20 @@ export default function ArchivedMusic({}: ArchivedMusicProps) {
           </p>
         </div>
 
-        {/* New Music Feature - From MusicReleasePage */}
+        {/* New Music Feature - Your FEELS SO GOOD Release */}
         <div className="mb-12 bg-black/30 backdrop-blur-sm border border-cyan-500/20 rounded-xl p-6">
           <h2 className="text-3xl font-bold text-[#00ebd6] mb-6">New Release: FEELS SO GOOD</h2>
           <section className="flex flex-col md:flex-row gap-8 items-start relative">
             <div className="w-full md:w-1/2 bg-gray-900 rounded-lg shadow-xl relative overflow-hidden">
-              <div className="pt-[56.25%] relative">
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
                 <iframe
-                  src="https://www.youtube.com/embed/jzpvkq3Krjg?rel=0&showinfo=0&controls=1"
-                  title="Feels So Good - Music Video"
-                  className="absolute inset-0 w-full h-full rounded-lg"
-                  frameBorder="0"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  src="https://www.youtube.com/embed/jzpvkq3Krjg?enablejsapi=1&origin=${window.location.origin}"
+                  title="FEELS SO GOOD - Dale The Whale"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
-                ></iframe>
-              </div>
-              {/* Fallback message in case the iframe doesn't load */}
-              <div className="hidden youtube-fallback absolute inset-0 flex items-center justify-center bg-gray-900 text-white p-4 text-center">
-                <div>
-                  <p className="text-lg font-medium mb-2">Video not available</p>
-                  <a 
-                    href="https://www.youtube.com/watch?v=jzpvkq3Krjg" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-[#00ebd6] hover:underline"
-                  >
-                    Watch "Feels So Good" on YouTube
-                  </a>
-                </div>
+                  frameBorder="0"
+                />
               </div>
             </div>
             <div className="w-full md:w-1/2 space-y-6">
@@ -145,6 +130,16 @@ export default function ArchivedMusic({}: ArchivedMusicProps) {
                   Artist: Dale The Whale<br />
                   Featuring: AC3-2085
                 </p>
+                <div className="flex gap-4 mt-6">
+                  <a 
+                    href="https://www.youtube.com/watch?v=jzpvkq3Krjg" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-[#00ebd6] text-black px-6 py-3 rounded-lg hover:bg-[#00c4b3] transition-colors font-semibold"
+                  >
+                    Watch on YouTube
+                  </a>
+                </div>
               </div>
             </div>
           </section>
