@@ -57,10 +57,16 @@ export function MainNavigation() {
       color: "text-purple-300 border-purple-500/30 bg-purple-950/30"
     },
     {
+      name: "Whale Consciousness",
+      path: "/whale-consciousness",
+      icon: <Heart className="h-5 w-5" />,
+      color: "text-cyan-300 border-cyan-500/30 bg-cyan-950/30"
+    },
+    {
       name: "Cosmic Experience",
       path: "/cosmic-experience",
       icon: <MoonStar className="h-5 w-5" />,
-      color: "text-cyan-300 border-cyan-500/30 bg-cyan-950/30"
+      color: "text-purple-300 border-purple-500/30 bg-purple-950/30"
     },
     {
       name: "Community",
