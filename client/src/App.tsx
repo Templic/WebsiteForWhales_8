@@ -28,6 +28,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import ArchivedMusicPage from "@/pages/music/ArchivedMusic";
+import PublicMusicPage from "@/pages/music/MusicPage";
 import TourPage from "@/pages/TourPage";
 import EngagePage from "@/pages/EngagePage";
 import NewsletterPage from "@/pages/NewsletterPage";
@@ -102,7 +103,7 @@ import ConsciousnessMasteryPage from "@/pages/ConsciousnessMasteryPage";
 // Admin Pages
 import UsersPage from "@/pages/admin/UsersPage";
 import PostsPage from "@/pages/admin/PostsPage";
-import MusicPage from "@/pages/admin/MusicPage";
+import AdminMusicPage from "@/pages/admin/MusicPage";
 import MediaPage from "@/pages/admin/MediaPage";
 import GalleryPage from "@/pages/admin/GalleryPage";
 import VideoPage from "@/pages/admin/VideoPage";
@@ -241,7 +242,7 @@ function AppRouter() {
             const PostEditPage = module.default;
             return <PostEditPage />;
           })} requiredRole="admin" />
-          <ProtectedRoute path="/admin/music" component={MusicPage} requiredRole="admin" />
+          <ProtectedRoute path="/admin/music" component={AdminMusicPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/content" component={ContentManagementPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/content-workflow" component={ContentWorkflowPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/content-scheduler" component={ContentSchedulerPage} requiredRole="admin" />
