@@ -184,6 +184,25 @@ const transporter = createTransport({
 // CSRF protection middleware is already imported at the top of the file
 
 export async function registerRoutes(app: express.Application): Promise<Server> {
+  // === CRITICAL: PUBLIC API ROUTES MUST LOAD FIRST ===
+  // Load external API integrations BEFORE any authentication middleware
+  
+  // External API integration routes (completely public)
+  const externalApiRoutes = await import('./routes/external-api');
+  app.use('/api/external', externalApiRoutes.default);
+
+  // Taskade API integration routes (completely public)
+  const taskadeApiRoutes = await import('./routes/taskade-api');
+  app.use('/api/taskade', taskadeApiRoutes.default);
+
+  // YouTube API integration routes (completely public)
+  const youtubeApiRoutes = await import('./routes/youtube-api');
+  app.use('/api/youtube', youtubeApiRoutes.default);
+
+  // Google Maps API integration routes (completely public)
+  const mapsApiRoutes = await import('./routes/maps-api');
+  app.use('/api/maps', mapsApiRoutes.default);
+
   // Set up our authentication system
   await setupAuth(app);
 
@@ -329,21 +348,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   // Use deadlinks routes for link checking functionality
   app.use('/api/deadlinks', deadlinksRoutes);
 
-  // External API integration routes (public, no authentication required)
-  const externalApiRoutes = await import('./routes/external-api');
-  app.use('/api/external', externalApiRoutes.default);
-
-  // Taskade API integration routes
-  const taskadeApiRoutes = await import('./routes/taskade-api');
-  app.use('/api/taskade', taskadeApiRoutes.default);
-
-  // YouTube API integration routes
-  const youtubeApiRoutes = await import('./routes/youtube-api');
-  app.use('/api/youtube', youtubeApiRoutes.default);
-
-  // Google Maps API integration routes
-  const mapsApiRoutes = await import('./routes/maps-api');
-  app.use('/api/maps', mapsApiRoutes.default);
+  // API routes now loaded above authentication middleware
 
   // Custom embed pages following documented architecture
   app.get('/taskade-embed', (req, res) => {
