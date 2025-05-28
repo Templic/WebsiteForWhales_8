@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Music, Heart, Share2, Download, ExternalLink } from 'lucide-react';
+import { Play, Music, Heart, Share2, Download, ExternalLink, Archive, Search, Filter, Calendar, Clock } from 'lucide-react';
 
 interface Track {
   id: string;
@@ -8,6 +8,9 @@ interface Track {
   album: string;
   duration: string;
   releaseDate: string;
+  releaseYear?: number;
+  genre?: string;
+  description?: string;
   youtubeId?: string;
   streamingLinks: {
     spotify?: string;
@@ -16,6 +19,13 @@ interface Track {
     soundcloud?: string;
   };
   artwork?: string;
+}
+
+interface FilterOptions {
+  year: string;
+  genre: string;
+  sortBy: 'title' | 'year' | 'album';
+  showArchived: boolean;
 }
 
 const MusicPageV2: React.FC = () => {

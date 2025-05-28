@@ -27,9 +27,8 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 // Pages
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
-import ArchivedMusicV2 from "@/pages/music/ArchivedMusicV2";
-import MusicPageV2 from "@/pages/music/MusicPageV2";
-import TourPageV2 from "@/pages/TourPageV2";
+import EnhancedMusicPage from "@/pages/music/EnhancedMusicPage";
+import EnhancedTourPage from "@/pages/EnhancedTourPage";
 import EngagePage from "@/pages/EngagePage";
 import NewsletterPage from "@/pages/NewsletterPage";
 import BlogPage from "@/pages/blog/BlogPage";
@@ -156,7 +155,7 @@ function AppRouter() {
           <Route path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/contact" component={ContactPage} />
-          <Route path="/tour" component={TourPageV2} />
+          <Route path="/tour" component={EnhancedTourPage} />
           <Route path="/engage" component={EngagePage} />
           <Route path="/newsletter" component={NewsletterPage} />
           <Route path="/collaboration" component={CollaborationPage} />
@@ -173,10 +172,10 @@ function AppRouter() {
           <Route path="/cosmic-portal" component={CosmicPortalPage} />
 
           {/* Music & Experience */}
-          <Route path="/music" component={MusicPageV2} />
-          <Route path="/music-release" component={ArchivedMusicV2} />
-          <Route path="/archived-music" component={ArchivedMusicV2} />
-          <Route path="/music-archive" component={ArchivedMusicV2} />
+          <Route path="/music" component={EnhancedMusicPage} />
+          <Route path="/music-release" component={EnhancedMusicPage} />
+          <Route path="/archived-music" component={EnhancedMusicPage} />
+          <Route path="/music-archive" component={EnhancedMusicPage} />
           <Route path="/music/search" component={MusicSearchPage} />
           {/* Experience Routes */}
           <Route path="/cosmic-connectivity" component={CosmicConnectivityPage} />
