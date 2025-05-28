@@ -40,6 +40,7 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
   const [videoData, setVideoData] = useState<YouTubeVideoData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showPlayer, setShowPlayer] = useState(false);
 
   useEffect(() => {
     const fetchVideoData = async () => {
@@ -69,6 +70,10 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
       fetchVideoData();
     }
   }, [videoId]);
+
+  const handlePlayVideo = () => {
+    setShowPlayer(true);
+  };
 
   const handleWatchOnYouTube = () => {
     window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
@@ -136,29 +141,41 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
 
   return (
     <div className="w-full">
-      <div 
-        className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
-        onClick={handleWatchOnYouTube}
-      >
-        {/* Thumbnail */}
-        <img 
-          src={getThumbnail()} 
-          alt={videoData.snippet.title}
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Play button overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-          <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Play className="w-6 h-6 text-white ml-1" fill="currentColor" />
+      {!showPlayer ? (
+        <div 
+          className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
+          onClick={handlePlayVideo}
+        >
+          {/* Thumbnail */}
+          <img 
+            src={getThumbnail()} 
+            alt={videoData.snippet.title}
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Play button overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-30 transition-all">
+            <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Play className="w-6 h-6 text-white ml-1" fill="currentColor" />
+            </div>
+          </div>
+
+          {/* Duration badge */}
+          <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white px-2 py-1 rounded text-sm">
+            {formatDuration(videoData.contentDetails.duration)}
           </div>
         </div>
-
-        {/* Duration badge */}
-        <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white px-2 py-1 rounded text-sm">
-          {formatDuration(videoData.contentDetails.duration)}
+      ) : (
+        <div className="w-full aspect-video rounded-lg overflow-hidden">
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+            title={videoData.snippet.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
         </div>
-      </div>
+      )}
 
       {/* Video info */}
       <div className="mt-4 space-y-2">
