@@ -317,14 +317,20 @@ export function MainHeader() {
         </div>
       </div>
       
-      {/* Header Content */}
+      {/* Header Content with Enhanced Cosmic Background */}
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        {/* Glowing Header Background with Space on Sides */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#050f28]/90 to-[#0a1f3c]/90 backdrop-blur-sm border border-[#00ebd6]/20 shadow-lg shadow-cyan-500/10"></div>
+        {/* Primary Cosmic Background - Always Visible */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-lg border border-cyan-400/30 shadow-2xl shadow-cyan-500/20"></div>
         
-        {/* Cosmic Glow Effects */}
-        <div className="absolute inset-x-0 -top-10 h-10 bg-gradient-to-b from-cyan-500/20 to-transparent"></div>
-        <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-purple-500/10 to-cyan-500/20 blur-xl opacity-50 group-hover:opacity-100 animate-pulse" style={{ animationDuration: '4s' }}></div>
+        {/* Secondary Gradient Overlay */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#050f28]/80 to-[#0a1f3c]/80"></div>
+        
+        {/* Cosmic Glow Effects - Enhanced */}
+        <div className="absolute inset-x-0 -top-10 h-10 bg-gradient-to-b from-cyan-500/30 to-transparent"></div>
+        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500/25 via-purple-500/15 to-cyan-500/25 blur-xl opacity-60 animate-pulse" style={{ animationDuration: '4s' }}></div>
+        
+        {/* Additional Desktop Enhancement */}
+        <div className="hidden md:block absolute -inset-2 rounded-3xl bg-gradient-to-r from-cyan-500/10 via-purple-500/5 to-cyan-500/10 blur-2xl opacity-40"></div>
         
         {/* Main Content Container */}
         <div className="relative z-20 py-2">
