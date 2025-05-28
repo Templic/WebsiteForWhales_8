@@ -4,8 +4,8 @@
  * Uses PostMessage communication instead of complex YouTube IFrame API
  */
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Volume2, VolumeX, ExternalLink, RotateCcw } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Play, Pause, Volume2, VolumeX, ExternalLink, RotateCcw, Shield, CheckCircle } from 'lucide-react';
 
 interface PostMessageYouTubePlayerProps {
   videoId: string;
