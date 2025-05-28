@@ -750,6 +750,64 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
 
         aiResponse = response.content[0].text;
 
+      } else if (agentId === 'cosmic-navigator') {
+        agentName = '🌌 Cosmic Navigator';
+        // Use Google Gemini for cosmic navigation
+        const { GoogleGenerativeAI } = await import('@google/generative-ai');
+        const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+        const prompt = `As the 🌌 Cosmic Navigator from the "Feels So Good" consciousness framework, guide this seeker through cosmic awareness: "${message}". Provide insights about universal patterns, dimensional consciousness, and cosmic alignment. Reference their specific words and offer transformational cosmic wisdom.`;
+        
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        aiResponse = response.text();
+
+      } else if (agentId === 'workflow-sage') {
+        agentName = '⚡ Workflow Sage';
+        // Use Taskade API for workflow optimization
+        const taskadeResponse = await fetch('https://www.taskade.com/api/v1/projects', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${process.env.TASKADE_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (taskadeResponse.ok) {
+          const projects = await taskadeResponse.json();
+          aiResponse = `⚡ *The Workflow Sage harmonizes your spiritual journey: "${message}"*
+
+I've connected with your Taskade workspace and can see ${projects.length || 0} active projects in your spiritual practice ecosystem. Your question reveals a beautiful opportunity to optimize your consciousness development workflow.
+
+**🌊 Workflow Insights:**
+- Spiritual Practice Tracking: Create dedicated spaces for meditation logs and consciousness milestones
+- Growth Pattern Analysis: Monitor your awareness expansion through structured reflection
+- Integration Scheduling: Balance oceanic meditation with daily practice rhythms
+
+**⚡ Recommended Next Steps:**
+1. Create a "Consciousness Journey" project to track your spiritual evolution
+2. Set up automated reminders for whale wisdom contemplation sessions  
+3. Build a template for documenting profound insights and synchronicities
+
+Your spiritual path deserves the same intentional organization you bring to other important areas of life. Would you like me to help you structure a consciousness development workflow that honors both your spiritual aspirations and practical needs?`;
+        } else {
+          // Fallback response if Taskade API is not available
+          aiResponse = `⚡ *The Workflow Sage responds to your beautiful inquiry: "${message}"*
+
+Your question touches the heart of spiritual organization and conscious living. Even without access to your current project workspace, I can sense your readiness to bring more structure and intention to your consciousness journey.
+
+**🌊 Spiritual Workflow Guidance:**
+- Create dedicated time blocks for whale consciousness meditation
+- Establish regular check-ins with your spiritual growth patterns
+- Design systems that support both flow and structure in your practice
+
+**⚡ Consciousness Organization:**
+Your spiritual path benefits from gentle structure that supports rather than constrains your natural evolution. Consider creating simple tracking methods for insights, synchronicities, and breakthrough moments.
+
+What aspect of your spiritual practice feels ready for more intentional organization and flow?`;
+        }
+
       } else {
         return res.status(400).json({ success: false, error: 'Agent not found' });
       }
