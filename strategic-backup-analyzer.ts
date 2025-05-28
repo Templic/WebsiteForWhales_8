@@ -320,6 +320,5 @@ async function runStrategicAnalysis() {
 
 export { StrategicBackupAnalyzer, runStrategicAnalysis };
 
-if (require.main === module) {
-  runStrategicAnalysis().catch(console.error);
-}
+// Auto-run when executed directly
+runStrategicAnalysis().catch(console.error);
