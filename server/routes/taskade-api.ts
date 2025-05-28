@@ -1,5 +1,7 @@
 import express from 'express';
 import axios from 'axios';
+import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
 const router = express.Router();
 
