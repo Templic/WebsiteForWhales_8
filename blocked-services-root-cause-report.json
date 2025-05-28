@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-05-28T02:17:56.688Z",
+  "services": [
+    {
+      "service": "Google Maps",
+      "currentStatus": "completely_blocked",
+      "blockingFactors": {
+        "csp": true,
+        "authentication": false,
+        "apiKeys": true,
+        "cors": false,
+        "requestValidation": false,
+        "domNesting": false
+      },
+      "specificIssues": [
+        "CSP connect-src missing maps.googleapis.com",
+        "CSP script-src missing maps.googleapis.com",
+        "Missing GOOGLE_MAPS_API_KEY environment variable",
+        "No Google Maps components implemented in codebase",
+        "Maps embed URLs not whitelisted in frame-src"
+      ],
+      "requiredSecrets": [
+        "GOOGLE_MAPS_API_KEY"
+      ],
+      "implementationSteps": [
+        "Add maps.googleapis.com to CSP connect-src and script-src",
+        "Add *.google.com to CSP frame-src (already done)",
+        "Request Google Maps API key from user",
+        "Create Google Maps React component",
+        "Add Maps integration routes"
+      ]
+    },
+    {
+      "service": "Taskade Widgets",
+      "currentStatus": "partially_blocked",
+      "blockingFactors": {
+        "csp": true,
+        "authentication": true,
+        "apiKeys": false,
+        "cors": false,
+        "requestValidation": true,
+        "domNesting": true
+      },
+      "specificIssues": [
+        "CSP frame-src missing *.taskade.com (partially fixed)",
+        "Widget routes requiring consciousness authentication",
+        "Request validation pipeline rejecting Taskade widget data",
+        "DOM nesting warning: div cannot appear as descendant of p",
+        "Missing widget embedding components in React codebase",
+        "Taskade-embed route exists but widgets not rendering"
+      ],
+      "requiredSecrets": [],
+      "implementationSteps": [
+        "Fix DOM nesting in Skeleton/DynamicContent components",
+        "Create consciousness-exempt widget routes",
+        "Add Taskade widget validation schemas",
+        "Implement React Taskade widget components",
+        "Test widget embedding functionality"
+      ]
+    },
+    {
+      "service": "YouTube",
+      "currentStatus": "partially_blocked",
+      "blockingFactors": {
+        "csp": false,
+        "authentication": true,
+        "apiKeys": true,
+        "cors": false,
+        "requestValidation": false,
+        "domNesting": false
+      },
+      "specificIssues": [
+        "Missing YOUTUBE_API_KEY for Data API access",
+        "YouTube Data API routes requiring authentication",
+        "No YouTube playlist/search integration components",
+        "YouTube embed components may conflict with consciousness framework",
+        "CSP allows YouTube embeds but API calls might be blocked"
+      ],
+      "requiredSecrets": [
+        "YOUTUBE_API_KEY",
+        "YOUTUBE_DATA_API_KEY"
+      ],
+      "implementationSteps": [
+        "Request YouTube Data API key from user",
+        "Create public YouTube API routes (no auth required)",
+        "Add youtubei.googleapis.com to CSP connect-src",
+        "Implement YouTube Data API integration",
+        "Create YouTube playlist/search React components"
+      ]
+    }
+  ],
+  "overallFindings": [
+    "🚨 DOM nesting warning causing render issues (div in p elements)",
+    "🚨 Missing API keys for Google Maps and YouTube Data API",
+    "🚨 Consciousness authentication blocking widget/API routes",
+    "🚨 Request validation pipeline too strict for external widget data",
+    "⚠️ CSP partially updated but missing some Google service domains",
+    "⚠️ Taskade widgets exist but not rendering due to validation conflicts",
+    "⚠️ YouTube embeds allowed but Data API integration missing",
+    "✅ Taskade API key configured and CSRF exemptions exist",
+    "✅ Basic CSP updates for external services applied"
+  ],
+  "immediateFixes": [
+    "1. CRITICAL: Fix DOM nesting warning in Skeleton/DynamicContent components",
+    "2. CRITICAL: Create consciousness-exempt routes for widgets/APIs",
+    "3. HIGH: Add missing Google service domains to CSP",
+    "4. HIGH: Request missing API keys from user (Google Maps, YouTube)",
+    "5. MEDIUM: Add validation schemas for external widget data",
+    "6. MEDIUM: Implement React components for external services",
+    "7. LOW: Test and verify all external service integrations"
+  ],
+  "secretsNeeded": [
+    "GOOGLE_MAPS_API_KEY - for Google Maps integration",
+    "YOUTUBE_API_KEY - for YouTube Data API access",
+    "VITE_GA_MEASUREMENT_ID - for Google Analytics (already identified)"
+  ]
+}

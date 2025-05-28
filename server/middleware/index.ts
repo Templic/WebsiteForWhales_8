@@ -50,7 +50,7 @@ export function setupMiddleware(app: express.Application, sessionSecret: string)
         "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://auth.util.repl.co https://www.youtube.com https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://*.taskade.com; " +
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
         "img-src 'self' data: blob: https://i.ytimg.com https://www.google-analytics.com; " +
-        "connect-src 'self' wss: ws: https://api.stripe.com https://*.googleapis.com https://www.google-analytics.com https://*.taskade.com https://api.taskade.com; " +
+        "connect-src 'self' wss: ws: https://api.stripe.com https://*.googleapis.com https://maps.googleapis.com https://www.google-analytics.com https://www.youtube.com https://youtubei.googleapis.com https://*.taskade.com https://api.taskade.com; " +
         "font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com; " +
         "object-src 'none'; " +
         "media-src 'self' https://www.youtube.com; " +

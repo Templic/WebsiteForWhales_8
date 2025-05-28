@@ -197,9 +197,9 @@ const DynamicContent: React.FC<DynamicContentProps> = ({
   // DOM-safe rendering functions to prevent DOM nesting errors
   const renderLoadingSkeleton = () => {
     if (asImage) {
-      return <span className={className}><Skeleton className="h-40 w-full" /></span>;
+      return <span className={`inline-block ${className}`} style={{ display: 'inline-block', width: '100%', height: '160px', backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: '6px', animation: 'pulse 2s infinite' }} />;
     }
-    return <span className={className}><Skeleton className="h-6 w-48" /></span>;
+    return <span className={`inline-block ${className}`} style={{ display: 'inline-block', width: '192px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: '4px', animation: 'pulse 2s infinite' }} />;
   };
 
   const renderFallback = () => {

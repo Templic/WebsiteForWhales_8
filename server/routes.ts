@@ -352,6 +352,26 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     });
   });
 
+  // YouTube Data API endpoints (consciousness-exempt)
+  app.get('/api/youtube/videos/:videoId', (req, res) => {
+    if (!process.env.YOUTUBE_API_KEY) {
+      return res.status(503).json({ 
+        error: 'YouTube API key not configured',
+        setup_needed: 'YOUTUBE_API_KEY'
+      });
+    }
+    res.json({ message: 'YouTube API ready', video_id: req.params.videoId });
+  });
+
+  // Google Maps API endpoints (consciousness-exempt)
+  app.get('/api/maps/config', (req, res) => {
+    res.json({
+      api_key: process.env.GOOGLE_MAPS_API_KEY ? 'configured' : 'missing',
+      enabled: !!process.env.GOOGLE_MAPS_API_KEY,
+      status: process.env.GOOGLE_MAPS_API_KEY ? 'ready' : 'needs_api_key'
+    });
+  });
+
   // Register API security verification endpoint (admin only)
   app.get('/api/security/verify-api', isAdmin, async (req, res) => {
 
