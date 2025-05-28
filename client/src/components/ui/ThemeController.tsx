@@ -133,8 +133,8 @@ export function ThemeController() {
   const currentTheme = themeConfig[theme];
 
   return (
-    <div className="fixed top-4 right-4 z-[100] transition-all duration-300 hover:scale-105 relative group">
-      {/* Main cosmic toggle button */}
+    <div className="fixed top-4 right-4 z-[100] transition-all duration-300 relative group">
+      {/* Main cosmic toggle button - now stationary with enhanced hover effects */}
       <Button 
         variant="outline"
         size="icon"
@@ -144,13 +144,18 @@ export function ThemeController() {
           relative w-12 h-12 rounded-full 
           bg-card border-2 ${currentTheme.borderColor}
           shadow-lg ${theme === 'blackout' 
-            ? 'hover:shadow-[0_0_15px_5px_rgba(209,0,255,0.5)]' 
-            : 'hover:shadow-[0_0_15px_3px_rgba(139,92,246,0.5)]'}
-          transition-all duration-500
+            ? 'hover:shadow-[0_0_20px_8px_rgba(209,0,255,0.6)]' 
+            : 'hover:shadow-[0_0_20px_6px_rgba(139,92,246,0.6)]'}
+          transition-all duration-700 ease-out
           overflow-hidden
+          hover:border-opacity-100 hover:scale-110
           after:content-[''] after:absolute after:inset-0 after:opacity-0 
           after:rounded-full ${currentTheme.bgGlow} after:blur-xl after:scale-0
-          hover:after:opacity-20 hover:after:scale-150 hover:after:transition-all hover:after:duration-1000
+          hover:after:opacity-30 hover:after:scale-200 hover:after:transition-all hover:after:duration-1200 hover:after:ease-out
+          before:content-[''] before:absolute before:inset-[-2px] before:rounded-full 
+          before:bg-gradient-to-r before:from-transparent before:via-current before:to-transparent 
+          before:opacity-0 before:animate-spin-slow
+          hover:before:opacity-20 hover:before:transition-opacity hover:before:duration-500
         `}
         aria-label={`Toggle theme (Current: ${currentTheme.name})`}
       >
