@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import MultiProviderChatInterface from '@/components/chat/MultiProviderChatInterface';
+import MobileFriendlyChatInterface from '@/components/chat/MobileFriendlyChatInterface';
 
 const AIChatMenuPage: React.FC = () => {
   return (
@@ -35,7 +35,7 @@ const AIChatMenuPage: React.FC = () => {
 
       {/* Main Content */}
       <div className="relative z-10">
-        <MultiProviderChatInterface />
+        <MobileFriendlyChatInterface />
       </div>
     </div>
   );
