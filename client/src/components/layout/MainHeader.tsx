@@ -171,9 +171,9 @@ export function MainHeader() {
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
       style={{
-        background: 'linear-gradient(to right, rgb(15, 23, 42), rgb(30, 58, 138), rgb(88, 28, 135))',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(34, 197, 94, 0.2)'
+        background: 'linear-gradient(to right, rgba(15, 23, 42, 0.3), rgba(30, 58, 138, 0.3), rgba(88, 28, 135, 0.3))',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid rgba(34, 197, 94, 0.3)'
       }}
     >
       {/* Background Elements with Sacred Geometry - Centered and sides */}
