@@ -363,7 +363,7 @@ export default function HomePage() {
                 <h3>New Music</h3>
                 <p>Experience our latest sonic creations and explore new sound journeys.</p>
                 <button 
-                  onClick={() => window.location.href = '/music-release'} 
+                  onClick={() => window.location.href = '/music'} 
                   className="bg-green-500 hover:bg-green-700 text-white rounded"
                 >
                   <DynamicContent 

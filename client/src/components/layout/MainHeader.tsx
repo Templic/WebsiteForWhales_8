@@ -52,7 +52,7 @@ interface NavItem {
 const primaryNavItems: NavItem[] = [
   { name: "Home", path: "/", icon: <Home className="h-4 w-4 mr-1" />, glowColor: "cyan" },
   { name: "About", path: "/about", icon: <MoonStar className="h-4 w-4 mr-1" />, glowColor: "purple" },
-  { name: "Music", path: "/archived-music", icon: <Music className="h-4 w-4 mr-1" />, glowColor: "cyan" },
+  { name: "Music", path: "/music", icon: <Music className="h-4 w-4 mr-1" />, glowColor: "cyan" },
   { name: "Tour", path: "/tour", icon: <Calendar className="h-4 w-4 mr-1" />, glowColor: "purple" }
 ];
 
@@ -74,7 +74,7 @@ const communityLinks: NavItem[] = [
 
 // Music links for mobile
 const musicLinks: NavItem[] = [
-  { name: "Music Collection", path: "/archived-music", icon: <Music className="h-4 w-4 mr-1" /> },
+  { name: "Music Collection", path: "/music", icon: <Music className="h-4 w-4 mr-1" /> },
   { name: "Cosmic Connectivity", path: "/cosmic-connectivity", icon: <Music className="h-4 w-4 mr-1" /> }
 ];
 
