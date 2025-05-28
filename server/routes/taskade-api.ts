@@ -97,6 +97,55 @@ router.get('/agents/:agentId/conversations/:conversationId', async (req, res) =>
   }
 });
 
+// Get workspace tasks and projects for widget display
+router.get('/dashboard', async (req, res) => {
+  try {
+    const workspaces = await taskadeRequest('/workspaces');
+    
+    if (workspaces.length > 0) {
+      const workspace = workspaces[0];
+      const projects = await taskadeRequest(`/workspaces/${workspace.id}/projects`);
+      
+      res.json({ 
+        success: true, 
+        dashboard: {
+          workspace: workspace.name,
+          projectCount: projects.length,
+          recentProjects: projects.slice(0, 5)
+        }
+      });
+    } else {
+      res.json({ 
+        success: true, 
+        dashboard: {
+          workspace: 'No workspace found',
+          projectCount: 0,
+          recentProjects: []
+        }
+      });
+    }
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Create a new consciousness tracking project
+router.post('/create-project', async (req, res) => {
+  try {
+    const { name = 'Whale Consciousness Journey', workspace_id } = req.body;
+    
+    const projectData = {
+      name,
+      workspace_id
+    };
+
+    const project = await taskadeRequest('/projects', 'POST', projectData);
+    res.json({ success: true, project });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Test API connection
 router.get('/test', async (req, res) => {
   try {

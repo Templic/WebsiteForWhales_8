@@ -337,6 +337,14 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   const taskadeApiRoutes = await import('./routes/taskade-api');
   app.use('/api/taskade', taskadeApiRoutes.default);
 
+  // YouTube API integration routes
+  const youtubeApiRoutes = await import('./routes/youtube-api');
+  app.use('/api/youtube', youtubeApiRoutes.default);
+
+  // Google Maps API integration routes
+  const mapsApiRoutes = await import('./routes/maps-api');
+  app.use('/api/maps', mapsApiRoutes.default);
+
   // Custom embed pages following documented architecture
   app.get('/taskade-embed', (req, res) => {
     const { id, view = 'agent', theme = 'system', memory = '1', style = 'taskade', toolbar = '1' } = req.query;
