@@ -277,9 +277,9 @@ function AppRouter() {
           <Route path="/data-request" component={DataRequestPage} />
           
           {/* AI Chat */}
-          <Route path="/chat" component={AIChatMenuPage} />
-          <Route path="/ai-assistant" component={AIChatMenuPage} />
-          <Route path="/taskade" component={AIChatMenuPage} />
+          <Route path="/chat" component={CosmicPortalPage} />
+          <Route path="/ai-assistant" component={CosmicPortalPage} />
+          <Route path="/taskade" component={CosmicPortalPage} />
 
           {/* Demo Pages */}
           <Route path="/components" component={ComponentsCatalog} />

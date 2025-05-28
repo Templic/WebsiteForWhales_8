@@ -1,159 +1,104 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
-  Send, 
   Sparkles, 
-  Users, 
-  Calendar,
-  CheckSquare,
+  MessageSquare, 
+  Zap,
+  Waves,
+  Brain,
   Settings,
   Maximize2,
-  Minimize2,
-  Zap
+  Minimize2
 } from 'lucide-react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-interface TaskadeMessage {
-  id: string;
-  content: string;
-  timestamp: string;
-  type: 'user' | 'agent' | 'system';
-  agentName?: string;
-}
-
-interface TaskadeWorkspace {
-  id: string;
-  name: string;
-  description: string;
-  agentCount: number;
-  projectCount: number;
-  status: 'active' | 'archived';
-}
+// Import all 4 AI zone components
+import { AnthropicReasoningZone } from '../chat/AnthropicReasoningZone';
+import { OpenAIToolZone } from '../chat/OpenAIToolZone';
+import { GoogleGeminiZone } from '../chat/GoogleGeminiZone';
+import { TaskadeWorkflowZone } from '../chat/TaskadeWorkflowZone';
 
 interface TaskadeWidgetProps {
-  compact?: boolean;
   embedded?: boolean;
   className?: string;
 }
 
-export function TaskadeWidget({ compact = false, embedded = false, className = '' }: TaskadeWidgetProps) {
-  const [isExpanded, setIsExpanded] = useState(!compact);
-  const [currentMessage, setCurrentMessage] = useState('');
-  const [selectedWorkspace, setSelectedWorkspace] = useState<string>('fMYQJAhgg6MUA5nT');
-  const [messages, setMessages] = useState<TaskadeMessage[]>([]);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const queryClient = useQueryClient();
+export function TaskadeWidget({ embedded = false, className = '' }: TaskadeWidgetProps) {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [selectedTab, setSelectedTab] = useState('anthropic');
 
-  // Scroll to bottom when new messages arrive
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  // Fetch workspace data
-  const { data: workspaces, isLoading: workspacesLoading } = useQuery({
-    queryKey: ['/api/taskade/workspaces'],
-    enabled: isExpanded,
-  });
-
-  // Send message mutation
-  const sendMessageMutation = useMutation({
-    mutationFn: async (data: { message: string; workspaceId: string }) => {
-      const response = await fetch('/api/taskade/agent-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-      
-      return response.json();
+  const aiProviders = [
+    {
+      id: 'anthropic',
+      name: 'Anthropic',
+      icon: <Waves className="w-4 h-4" />,
+      description: 'Claude AI for whale wisdom & consciousness',
+      color: 'text-cyan-400',
+      component: AnthropicReasoningZone
     },
-    onMutate: (variables) => {
-      // Add user message immediately
-      const userMessage: TaskadeMessage = {
-        id: Date.now().toString(),
-        content: variables.message,
-        timestamp: new Date().toISOString(),
-        type: 'user'
-      };
-      setMessages(prev => [...prev, userMessage]);
-      setCurrentMessage('');
-      setIsProcessing(true);
+    {
+      id: 'openai',
+      name: 'OpenAI',
+      icon: <Sparkles className="w-4 h-4" />,
+      description: 'GPT for sacred geometry & creation',
+      color: 'text-emerald-400',
+      component: OpenAIToolZone
     },
-    onSuccess: (data) => {
-      // Add agent response
-      const agentMessage: TaskadeMessage = {
-        id: (Date.now() + 1).toString(),
-        content: data.response || 'Agent response received',
-        timestamp: new Date().toISOString(),
-        type: 'agent',
-        agentName: data.agentName || 'Taskade AI'
-      };
-      setMessages(prev => [...prev, agentMessage]);
-      setIsProcessing(false);
+    {
+      id: 'gemini',
+      name: 'Gemini',
+      icon: <Brain className="w-4 h-4" />,
+      description: 'Google AI for cosmic navigation',
+      color: 'text-blue-400',
+      component: GoogleGeminiZone
     },
-    onError: (error) => {
-      console.error('Message error:', error);
-      const errorMessage: TaskadeMessage = {
-        id: (Date.now() + 2).toString(),
-        content: 'Sorry, there was an error processing your message. Please try again.',
-        timestamp: new Date().toISOString(),
-        type: 'system'
-      };
-      setMessages(prev => [...prev, errorMessage]);
-      setIsProcessing(false);
+    {
+      id: 'taskade',
+      name: 'Taskade',
+      icon: <Zap className="w-4 h-4" />,
+      description: 'Workflow automation & project management',
+      color: 'text-purple-400',
+      component: TaskadeWorkflowZone
     }
-  });
+  ];
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!currentMessage.trim() || isProcessing) return;
-
-    sendMessageMutation.mutate({
-      message: currentMessage.trim(),
-      workspaceId: selectedWorkspace
-    });
-  };
-
-  const currentWorkspace = Array.isArray(workspaces) 
-    ? workspaces.find((w: TaskadeWorkspace) => w.id === selectedWorkspace)
-    : null;
-
-  if (!isExpanded && compact) {
+  if (!isExpanded && embedded) {
     return (
-      <Card className={`w-80 ${className}`}>
+      <Card className={`w-80 bg-gradient-to-br from-purple-900/20 to-blue-900/20 border-purple-500/30 ${className}`}>
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Zap className="w-5 h-5 text-blue-500" />
-              <CardTitle className="text-sm">Taskade AI</CardTitle>
+              <div className="relative">
+                <Zap className="w-5 h-5 text-purple-400" />
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+              </div>
+              <CardTitle className="text-sm bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent">
+                AI Assistants
+              </CardTitle>
             </div>
             <Button
               size="sm"
               variant="ghost"
               onClick={() => setIsExpanded(true)}
+              className="text-purple-400 hover:text-purple-300"
             >
               <Maximize2 className="w-4 h-4" />
             </Button>
           </div>
         </CardHeader>
         <CardContent className="pt-0">
-          <div className="text-xs text-muted-foreground">
-            {workspaces ? `${workspaces.length} workspaces available` : 'Loading...'}
+          <div className="text-xs text-muted-foreground mb-2">
+            4 AI providers available
           </div>
           <Button 
-            className="w-full mt-2" 
+            className="w-full bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-600 hover:to-emerald-600" 
             size="sm"
             onClick={() => setIsExpanded(true)}
           >
-            Open Taskade AI
+            <Sparkles className="w-4 h-4 mr-2" />
+            Open AI Portal
           </Button>
         </CardContent>
       </Card>
@@ -161,145 +106,103 @@ export function TaskadeWidget({ compact = false, embedded = false, className = '
   }
 
   return (
-    <Card className={`${embedded ? 'h-96' : 'h-[600px]'} w-full ${className}`}>
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Zap className="w-5 h-5 text-blue-500" />
-            <CardTitle>Taskade AI Workspace</CardTitle>
-          </div>
-          <div className="flex items-center space-x-2">
-            {compact && (
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setIsExpanded(false)}
-              >
-                <Minimize2 className="w-4 h-4" />
-              </Button>
-            )}
-            <Badge variant="secondary">
-              {currentWorkspace?.name || 'Feels So Good'}
-            </Badge>
-          </div>
-        </div>
-      </CardHeader>
-
-      <CardContent className="flex flex-col h-full p-0">
-        {/* Workspace Selection */}
-        {!embedded && (
-          <div className="px-4 pb-2">
-            <div className="flex items-center space-x-2 text-sm">
-              <Users className="w-4 h-4" />
-              <span>Active Workspace:</span>
-              <select 
-                value={selectedWorkspace}
-                onChange={(e) => setSelectedWorkspace(e.target.value)}
-                className="text-sm bg-background border rounded px-2 py-1"
-              >
-                <option value="fMYQJAhgg6MUA5nT">Feels So Good</option>
-                {Array.isArray(workspaces) && workspaces.map((workspace: TaskadeWorkspace) => (
-                  <option key={workspace.id} value={workspace.id}>
-                    {workspace.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        )}
-
-        {/* Chat Area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <ScrollArea className="flex-1 px-4">
-            <div className="space-y-4 py-4">
-              {messages.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-50 text-blue-500" />
-                  <p className="text-sm font-medium mb-2">Taskade AI Ready</p>
-                  <p className="text-xs">
-                    Connect with your workflow agents for project management, task automation, and team collaboration.
+    <div className={`w-full ${className}`}>
+      {/* Cosmic Background */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-blue-900/10 to-black/20 rounded-lg"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)] rounded-lg"></div>
+        
+        <Card className="relative bg-black/40 backdrop-blur-xl border-purple-500/30 overflow-hidden">
+          <CardHeader className="pb-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-emerald-500 rounded-full flex items-center justify-center">
+                    <Settings className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full animate-pulse flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                  </div>
+                </div>
+                <div>
+                  <CardTitle className="text-2xl bg-gradient-to-r from-purple-400 via-emerald-400 to-purple-400 bg-clip-text text-transparent">
+                    AI Assistant Portal
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    Connect with all 4 AI providers for comprehensive cosmic assistance
                   </p>
                 </div>
-              ) : (
-                messages.map((message) => (
-                  <div key={message.id} className="space-y-2">
-                    <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[80%] p-3 rounded-lg ${
-                        message.type === 'user' 
-                          ? 'bg-blue-500 text-white'
-                          : message.type === 'agent'
-                          ? 'bg-blue-50 border'
-                          : 'bg-orange-50 border border-orange-200'
-                      }`}>
-                        {message.agentName && (
-                          <div className="text-xs font-medium mb-1 text-blue-600">
-                            {message.agentName}
-                          </div>
-                        )}
-                        <div className="text-sm whitespace-pre-wrap">
-                          {message.content}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              )}
-              
-              {isProcessing && (
-                <div className="flex justify-start">
-                  <div className="bg-blue-50 border p-3 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-500"></div>
-                      <span className="text-xs text-muted-foreground">Taskade AI is thinking...</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-              
-              <div ref={messagesEndRef} />
-            </div>
-          </ScrollArea>
-
-          {/* Input Area */}
-          <div className="border-t p-4">
-            <form onSubmit={handleSendMessage} className="flex space-x-2">
-              <Input
-                value={currentMessage}
-                onChange={(e) => setCurrentMessage(e.target.value)}
-                placeholder="Ask Taskade AI about projects, tasks, or workflows..."
-                disabled={isProcessing}
-                className="flex-1"
-              />
-              <Button 
-                type="submit" 
-                disabled={!currentMessage.trim() || isProcessing}
-                size="sm"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </form>
-            
-            {!embedded && (
-              <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
-                <div className="flex items-center space-x-4">
-                  <span className="flex items-center space-x-1">
-                    <CheckSquare className="w-3 h-3" />
-                    <span>Task Management</span>
-                  </span>
-                  <span className="flex items-center space-x-1">
-                    <Calendar className="w-3 h-3" />
-                    <span>Project Planning</span>
-                  </span>
-                  <span className="flex items-center space-x-1">
-                    <Users className="w-3 h-3" />
-                    <span>Team Collaboration</span>
-                  </span>
-                </div>
               </div>
-            )}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+              
+              {embedded && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setIsExpanded(false)}
+                  className="text-purple-400 hover:text-purple-300"
+                >
+                  <Minimize2 className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
+          </CardHeader>
+
+          <CardContent className="space-y-6">
+            {/* AI Provider Tabs */}
+            <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-4 bg-black/30 border border-purple-500/20">
+                {aiProviders.map((provider) => (
+                  <TabsTrigger 
+                    key={provider.id}
+                    value={provider.id}
+                    className="flex flex-col space-y-1 p-3 data-[state=active]:bg-gradient-to-br data-[state=active]:from-purple-500/20 data-[state=active]:to-emerald-500/20"
+                  >
+                    <div className={provider.color}>
+                      {provider.icon}
+                    </div>
+                    <span className="text-xs font-medium">{provider.name}</span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              {/* Provider Descriptions */}
+              <div className="p-3 bg-black/30 rounded-lg border border-purple-500/20">
+                <p className="text-xs text-muted-foreground">
+                  {aiProviders.find(p => p.id === selectedTab)?.description}
+                </p>
+              </div>
+
+              {/* AI Provider Content */}
+              {aiProviders.map((provider) => {
+                const ProviderComponent = provider.component;
+                return (
+                  <TabsContent key={provider.id} value={provider.id} className="mt-4">
+                    <div className="min-h-[500px] bg-black/20 rounded-lg border border-purple-500/20 p-4">
+                      <ProviderComponent embedded={true} />
+                    </div>
+                  </TabsContent>
+                );
+              })}
+            </Tabs>
+
+            {/* Status Indicators */}
+            <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg border border-purple-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span className="text-xs text-muted-foreground">All AI providers loaded</span>
+              </div>
+              <div className="flex space-x-1">
+                {aiProviders.map((provider, index) => (
+                  <div 
+                    key={provider.id}
+                    className={`w-2 h-2 rounded-full ${provider.color.replace('text-', 'bg-')} opacity-60`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }
