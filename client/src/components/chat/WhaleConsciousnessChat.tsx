@@ -70,7 +70,7 @@ export function WhaleConsciousnessChat() {
   // Send message mutation
   const sendMessageMutation = useMutation({
     mutationFn: async ({ agentId, message }: { agentId: string; message: string }) => {
-      const response = await fetch(`/api/taskade/agents/${agentId}/chat`, {
+      const response = await fetch(`/api/whale-chat/${agentId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

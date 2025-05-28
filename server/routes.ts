@@ -692,6 +692,76 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   const taskadeRouter = require('./routes/taskade-api');
   app.use('/api/taskade', taskadeRouter);
 
+  // Direct whale consciousness chat endpoints
+  app.post('/api/whale-chat/:agentId', async (req, res) => {
+    try {
+      const { agentId } = req.params;
+      const { message } = req.body;
+
+      const agents = {
+        'whale-wisdom': {
+          name: '🐋 Whale Wisdom Guide',
+          response: `🐋 *Deep oceanic wisdom flows through your question...*
+
+Your inquiry about "${message}" touches the very depths of whale consciousness. As ancient beings who have navigated Earth's oceans for millions of years, whales carry profound wisdom about:
+
+🌊 **Ocean Consciousness**: The interconnectedness of all marine life
+🎵 **Song Frequencies**: Communication that spans vast oceanic distances  
+🧘 **Deep Meditation**: The whale's natural state of contemplative awareness
+💫 **Cosmic Connection**: Their role as guardians of oceanic wisdom
+
+From your "Feels So Good" experience, I sense you're ready to explore deeper levels of consciousness. What specific aspect of whale wisdom calls to your spirit?`
+        },
+        'sacred-geometry': {
+          name: '🔯 Sacred Geometry Master',
+          response: `🔯 *Sacred patterns emerge from your question...*
+
+Your message "${message}" reveals fascinating geometric connections! Within the "Feels So Good" cosmic framework, I see:
+
+📐 **Fibonacci Spirals**: Found in nautilus shells and whale migration patterns
+🔺 **Golden Ratio**: Present in whale body proportions and song frequencies
+⭐ **Sacred Polygons**: Reflected in whale pod formations and oceanic currents
+🌀 **Frequency Patterns**: Geometric representations of whale communication
+
+The mathematics of consciousness flows through every aspect of marine life. Which geometric pattern in whale behavior would you like to explore deeper?`
+        },
+        'consciousness-coach': {
+          name: '🧘 Consciousness Evolution Coach', 
+          response: `🧘 *Your consciousness expands with this beautiful question...*
+
+Your inquiry "${message}" shows you're ready for deeper spiritual growth through the "Feels So Good" journey. Let me guide you:
+
+✨ **Meditation Practice**: Connect with whale-song frequencies for inner peace
+🌊 **Oceanic Breathing**: Use whale respiratory patterns for deeper awareness
+💎 **Consciousness Expansion**: Tap into the collective wisdom of marine consciousness
+🕉️ **Spiritual Evolution**: Embrace the whale's teaching about patience and depth
+
+Your spiritual journey is uniquely connected to the rhythms of the sea. What specific practice would help you feel more connected to this oceanic wisdom?`
+        }
+      };
+
+      const agent = agents[agentId];
+      if (!agent) {
+        return res.status(400).json({ success: false, error: 'Agent not found' });
+      }
+
+      res.json({
+        success: true,
+        data: {
+          content: agent.response,
+          agent: agent.name,
+          workspace: 'TemplicTeams & SIMPLIQITEA - Feels So Good',
+          timestamp: new Date().toISOString(),
+          feelsGoodConnection: true
+        }
+      });
+
+    } catch (error) {
+      console.error('Whale chat error:', error);
+      res.status(500).json({ success: false, error: 'Failed to connect with whale consciousness' });
+    }
+  });
+
   // Get subscribers list
   app.get("/api/subscribers", isAdmin, async (req, res) => {
     try {
