@@ -106,20 +106,15 @@ const WhaleWatchingMap: React.FC = () => {
     <div className="space-y-4">
       {/* Interactive Tour Map Container */}
       <div className="relative w-full h-96 bg-cosmic-card rounded-lg overflow-hidden border border-cosmic-primary/20">
-        {mapLoaded ? (
-          <div 
-            ref={mapRef} 
-            className="w-full h-full"
-            style={{ minHeight: '384px' }}
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-900/20 to-purple-900/20">
-            <div className="text-center text-white">
-              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-              <p>Loading Hawaiian Islands Tour Map...</p>
-            </div>
-          </div>
-        )}
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59511.13422523199!2d-158.13134795!3d21.38895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006e0c0d6d5c5d%3A0x123456789abcdef!2sHawaii%2C%20USA!5e0!3m2!1sen!2sus!4v1701234567890!5m2!1sen!2sus"
+          className="w-full h-full border-0"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Dale's Hawaiian Islands Tour Locations - Waikiki Beach Shell, Hilo Bay Concert Hall, and More"
+          style={{ minHeight: '384px' }}
+        />
         
         <div className="absolute top-4 right-4">
           <Button
