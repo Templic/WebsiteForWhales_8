@@ -329,6 +329,10 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   // Use deadlinks routes for link checking functionality
   app.use('/api/deadlinks', deadlinksRoutes);
 
+  // External API integration routes (public, no authentication required)
+  const externalApiRoutes = require('./routes/external-api').default;
+  app.use('/api/external', externalApiRoutes);
+
   // Register API security verification endpoint (admin only)
   app.get('/api/security/verify-api', isAdmin, async (req, res) => {
 

@@ -47,14 +47,14 @@ export function setupMiddleware(app: express.Application, sessionSecret: string)
     res.setHeader(
         'Content-Security-Policy',
         "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://auth.util.repl.co https://www.youtube.com https://js.stripe.com; " +
-        "style-src 'self' 'unsafe-inline'; " +
-        "img-src 'self' data: blob: https://i.ytimg.com; " +
-        "connect-src 'self' wss: ws: https://api.stripe.com; " +
-        "font-src 'self' data:; " +
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://auth.util.repl.co https://www.youtube.com https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://*.taskade.com; " +
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+        "img-src 'self' data: blob: https://i.ytimg.com https://www.google-analytics.com; " +
+        "connect-src 'self' wss: ws: https://api.stripe.com https://*.googleapis.com https://www.google-analytics.com https://*.taskade.com https://api.taskade.com; " +
+        "font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com; " +
         "object-src 'none'; " +
         "media-src 'self' https://www.youtube.com; " +
-        "frame-src 'self' https://auth.util.repl.co https://www.youtube.com https://youtube.com https://www.google.com https://*.google.com https://js.stripe.com https://hooks.stripe.com;"
+        "frame-src 'self' https://auth.util.repl.co https://www.youtube.com https://youtube.com https://www.google.com https://*.google.com https://js.stripe.com https://hooks.stripe.com https://*.taskade.com;"
       );
     next();
   });
