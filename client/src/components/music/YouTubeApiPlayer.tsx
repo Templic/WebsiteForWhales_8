@@ -34,7 +34,7 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
   useEffect(() => {
     const fetchVideoData = async () => {
       try {
-        const response = await fetch(`/api/youtube-api/video/${videoId}`);
+        const response = await fetch(`/api/youtube/video/${videoId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch video data');
         }
