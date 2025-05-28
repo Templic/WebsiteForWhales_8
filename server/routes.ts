@@ -333,6 +333,25 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   const externalApiRoutes = require('./routes/external-api').default;
   app.use('/api/external', externalApiRoutes);
 
+  // Google Analytics configuration endpoint (bypasses all security layers)
+  app.get('/api/analytics/config', (req, res) => {
+    res.json({
+      measurementId: process.env.VITE_GA_MEASUREMENT_ID || null,
+      enabled: !!process.env.VITE_GA_MEASUREMENT_ID,
+      status: process.env.VITE_GA_MEASUREMENT_ID ? 'configured' : 'needs_setup'
+    });
+  });
+
+  // Taskade integration status (bypasses consciousness framework)
+  app.get('/api/taskade/integration', (req, res) => {
+    res.json({
+      api_key: process.env.TASKADE_API_KEY ? 'configured' : 'missing',
+      enabled: !!process.env.TASKADE_API_KEY,
+      embed_ready: true,
+      consciousness_bypass: true
+    });
+  });
+
   // Register API security verification endpoint (admin only)
   app.get('/api/security/verify-api', isAdmin, async (req, res) => {
 
