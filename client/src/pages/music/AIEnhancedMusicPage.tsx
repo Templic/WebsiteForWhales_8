@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { YouTubeApiPlayer } from '@/components/music/YouTubeApiPlayer';
+import { CleanYouTubePlayer } from '@/components/music/CleanYouTubePlayer';
 
 // Enhanced YouTube Player Component with security features
 const SecureYouTubePlayer: React.FC<{ videoId: string; title: string }> = ({ videoId, title }) => {
@@ -213,10 +213,8 @@ export default function AIEnhancedMusicPage() {
                       </div>
 
                       <div className="lg:w-1/2">
-                        <YouTubeApiPlayer
+                        <CleanYouTubePlayer
                           videoId={officialRelease.youtubeId}
-                          title={officialRelease.title}
-                          artist={officialRelease.artist}
                         />
                       </div>
                     </div>

@@ -48,6 +48,7 @@ import { verifyApiSecurity } from './security/apiSecurityVerification';
 import { enhancedCsrfProtection } from './security/middleware/enhancedCsrfProtection';
 import typescriptErrorRoutes from './routes/typescript-error-routes';
 import typescriptErrorSimpleRoutes from './routes/typescript-error-simple-routes';
+import { youtubeSecurityMiddleware } from './middleware/youtube-security-middleware';
 import embedBypassRoutes from './routes/embed-bypass';
 import { runYouTubeDiagnostic } from './tools/youtube-security-diagnostic';
 import adminRoutes from './admin-routes';
@@ -197,6 +198,9 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   const taskadeApiRoutes = await import('./routes/taskade-api');
   app.use('/api/taskade', taskadeApiRoutes.default);
 
+  // Apply YouTube security middleware before YouTube routes
+  app.use(youtubeSecurityMiddleware);
+  
   // YouTube API integration routes (completely public)
   const youtubeApiRoutes = await import('./routes/youtube-api');
   app.use('/api/youtube', youtubeApiRoutes.default);
