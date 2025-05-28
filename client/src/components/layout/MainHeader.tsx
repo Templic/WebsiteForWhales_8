@@ -58,7 +58,7 @@ const primaryNavItems: NavItem[] = [
 
 // Second row nav items - secondary navigation
 const secondaryNavItems: NavItem[] = [
-  { name: "Shop on Etsy", path: "https://www.etsy.com/shop/DaleTheWhaleMusic", icon: <ShoppingBag className="h-4 w-4 mr-1" />, glowColor: "purple" },
+  { name: "Shop", path: "/shop", icon: <ShoppingBag className="h-4 w-4 mr-1" />, glowColor: "purple" },
   { name: "Engage", path: "/engage", icon: <MoonStar className="h-4 w-4 mr-1" />, glowColor: "cyan" },
   { name: "Blog", path: "/blog", icon: <Headphones className="h-4 w-4 mr-1" />, glowColor: "purple" },
   { name: "AI Chat", path: "/chat", icon: <MessageSquare className="h-4 w-4 mr-1" />, glowColor: "cyan" }

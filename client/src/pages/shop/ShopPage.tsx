@@ -303,6 +303,24 @@ const ShopPage: React.FC = () => {
           "Order Tracking & Management"
         ]}
         estimatedCompletion="Q2 2025"
+        additionalInfo={
+          <div className="mt-6 p-4 bg-[#00ebd6]/10 rounded-lg border border-[#00ebd6]/30">
+            <p className="text-sm text-gray-300 mb-2">
+              <span className="font-semibold text-[#00ebd6]">Currently Available:</span>
+            </p>
+            <p className="text-sm text-gray-300">
+              Dale currently operates an Etsy shop where you can find whale-inspired merchandise and cosmic consciousness items. 
+            </p>
+            <a 
+              href="https://www.etsy.com/shop/DaleLovesWhales" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block mt-3 px-4 py-2 bg-[#00ebd6]/20 hover:bg-[#00ebd6]/30 border border-[#00ebd6]/50 rounded-lg text-[#00ebd6] text-sm font-medium transition-all duration-300 hover:shadow-[0_0_10px_rgba(0,235,214,0.4)]"
+            >
+              Visit Dale's Etsy Shop →
+            </a>
+          </div>
+        }
       />
       {/* Adjusted background with higher brightness */}
       <CosmicBackground opacity={0.35} color="indigo" nebulaEffect={true} />
