@@ -172,41 +172,60 @@ export default function BlogPage() {
                   <SacredGeometry variant="octagon" size={80} animated={false} />
                 </div>
                 
-                {/* Content container with improved spacing */}
-                <div className="relative z-10 p-5 sm:p-6 md:p-8 flex flex-col flex-grow">
+                {/* Content container optimized for octagon geometry */}
+                <div className="relative z-10 flex flex-col flex-grow" style={{ 
+                  padding: 'clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem)', 
+                  margin: '0.5rem' 
+                }}>
                   {post.featuredImage && (
-                    <div className="mb-4 max-h-48 overflow-hidden rounded-lg">
+                    <div className="mb-4 max-h-40 overflow-hidden rounded-lg" style={{ maxWidth: 'calc(100% - 2rem)', margin: '0 auto' }}>
                       <img 
                         src={post.featuredImage} 
                         alt={post.title}
-                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                        className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                       />
                     </div>
                   )}
                   
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#00ebd6] mb-2">{post.title}</h2>
+                  {/* Title with geometric padding */}
+                  <h2 className="text-lg sm:text-xl font-bold text-[#00ebd6] mb-3 text-center leading-tight" 
+                      style={{ marginLeft: '1rem', marginRight: '1rem' }}>
+                    {post.title}
+                  </h2>
                   
-                  <div className="text-gray-300 mb-4 line-clamp-3 sm:line-clamp-4 text-sm flex-grow">
-                    {typeof post.content === 'string' 
-                     ? post.content
-                        .replace(/<p>/g, '')
-                        .replace(/<\/p>/g, ' ')
-                        .replace(/<br\s*\/?>/g, ' ')
-                        .replace(/<div>/g, '')
-                        .replace(/<\/div>/g, ' ')
-                        .replace(/&nbsp;/g, ' ')
-                        .replace(/<[^>]*>/g, '') // Remove any other HTML tags
-                        .replace(/\s+/g, ' ')
-                        .trim()
-                     : ''}
+                  {/* Content with careful geometry-aware spacing */}
+                  <div className="text-gray-300 mb-4 text-sm flex-grow overflow-hidden" 
+                       style={{ 
+                         marginLeft: '1.5rem', 
+                         marginRight: '1.5rem',
+                         lineHeight: '1.4',
+                         maxHeight: '6rem'
+                       }}>
+                    <div className="line-clamp-4">
+                      {typeof post.content === 'string' 
+                       ? post.content
+                          .replace(/<p>/g, '')
+                          .replace(/<\/p>/g, ' ')
+                          .replace(/<br\s*\/?>/g, ' ')
+                          .replace(/<div>/g, '')
+                          .replace(/<\/div>/g, ' ')
+                          .replace(/&nbsp;/g, ' ')
+                          .replace(/<[^>]*>/g, '')
+                          .replace(/\s+/g, ' ')
+                          .trim()
+                          .substring(0, 180)
+                       : ''}...
+                    </div>
                   </div>
                   
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mt-3 sm:mt-6">
-                    <p className="text-xs sm:text-sm text-[#fe0064]">
+                  {/* Bottom section with geometric constraints */}
+                  <div className="flex flex-col sm:flex-row justify-between items-center gap-2 mt-auto" 
+                       style={{ marginLeft: '1rem', marginRight: '1rem', marginTop: '1rem' }}>
+                    <p className="text-xs text-[#fe0064] text-center sm:text-left">
                       Published: {formatDisplayDate(post.createdAt)}
                     </p>
                     <Button 
-                      className="text-xs sm:text-sm bg-transparent border border-[#00ebd6] text-[#00ebd6] hover:bg-[#00ebd6]/10 hover:shadow-[0_0_10px_rgba(0,235,214,0.4)]"
+                      className="text-xs bg-transparent border border-[#00ebd6] text-[#00ebd6] hover:bg-[#00ebd6]/10 hover:shadow-[0_0_10px_rgba(0,235,214,0.4)] px-4 py-2"
                       onClick={() => navigate(`/blog/${post.id}`)}
                     >
                       Read More
