@@ -113,11 +113,7 @@ export function AdvancedWhaleConsciousnessChat() {
         <TabsList className="hidden" />
         
         <TabsContent value="anthropic" className="mt-6">
-          <AnthropicReasoningZone 
-            agentId="whale-wisdom"
-            agentName="Whale Wisdom Guide"
-            agentEmoji="🐋"
-          />
+          <AnthropicReasoningZone />
         </TabsContent>
 
         <TabsContent value="openai" className="mt-6">

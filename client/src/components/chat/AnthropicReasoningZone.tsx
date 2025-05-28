@@ -21,17 +21,25 @@ interface AnthropicResponse {
   };
 }
 
-interface AnthropicZoneProps {
-  agentId: 'whale-wisdom' | 'consciousness-coach';
-  agentName: string;
-  agentEmoji: string;
-  specialPrompt?: string;
-}
-
-export function AnthropicReasoningZone({ agentId, agentName, agentEmoji, specialPrompt }: AnthropicZoneProps) {
+export function AnthropicReasoningZone() {
   const [message, setMessage] = useState('');
   const [responses, setResponses] = useState<AnthropicResponse[]>([]);
   const [analysisMode, setAnalysisMode] = useState<'standard' | 'deep' | 'ethical'>('standard');
+  const [selectedAgent, setSelectedAgent] = useState<'whale-wisdom' | 'consciousness-coach'>('whale-wisdom');
+  const [selectedModel, setSelectedModel] = useState<'claude-3-7-sonnet' | 'claude-3-opus' | 'claude-3-haiku'>('claude-3-7-sonnet');
+
+  const agents = [
+    { id: 'whale-wisdom', name: 'Whale Wisdom Guide', emoji: '🐋', description: 'Expert in oceanic consciousness and marine spirituality' },
+    { id: 'consciousness-coach', name: 'Consciousness Evolution Coach', emoji: '🧘', description: 'Guides through consciousness expansion and spiritual growth' }
+  ];
+
+  const models = [
+    { id: 'claude-3-7-sonnet', name: 'Claude-3.7-Sonnet', description: 'Most thoughtful and analytical' },
+    { id: 'claude-3-opus', name: 'Claude-3-Opus', description: 'Maximum creativity and reasoning' },
+    { id: 'claude-3-haiku', name: 'Claude-3-Haiku', description: 'Fast and efficient responses' }
+  ];
+
+  const currentAgent = agents.find(a => a.id === selectedAgent);
 
   const sendMessageMutation = useMutation({
     mutationFn: async ({ message, mode }: { message: string; mode: string }) => {
@@ -41,12 +49,16 @@ export function AnthropicReasoningZone({ agentId, agentName, agentEmoji, special
         ? `Consider ethical implications and provide thoughtful guidance for: ${message}`
         : message;
 
-      const response = await fetch(`/api/whale-chat/${agentId}`, {
+      const response = await fetch(`/api/whale-chat/${selectedAgent}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: enhancedPrompt }),
+        body: JSON.stringify({ 
+          message: enhancedPrompt,
+          model: selectedModel,
+          agent: selectedAgent 
+        }),
       });
       
       if (!response.ok) {
@@ -115,13 +127,13 @@ export function AnthropicReasoningZone({ agentId, agentName, agentEmoji, special
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">{agentEmoji}</span>
+                  <span className="text-2xl">{currentAgent?.emoji}</span>
                   <div>
-                    <CardTitle className="text-lg">{agentName}</CardTitle>
+                    <CardTitle className="text-lg">{currentAgent?.name}</CardTitle>
                     <CardDescription className="flex items-center space-x-2">
                       <span>Powered by Anthropic Claude</span>
                       <Badge variant="secondary" className="text-xs">
-                        claude-3-7-sonnet
+                        {selectedModel}
                       </Badge>
                     </CardDescription>
                   </div>
@@ -254,7 +266,7 @@ export function AnthropicReasoningZone({ agentId, agentName, agentEmoji, special
                 <Input
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder={`Ask ${agentName} for deep insights and ethical guidance...`}
+                  placeholder={`Ask ${currentAgent?.name} for deep insights and ethical guidance...`}
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                   disabled={sendMessageMutation.isPending}
                 />
