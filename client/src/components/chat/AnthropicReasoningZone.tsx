@@ -155,7 +155,7 @@ export function AnthropicReasoningZone() {
                       <Brain className="w-12 h-12 mx-auto mb-4 opacity-50 text-orange-500" />
                       <p className="text-lg font-medium mb-2">Advanced Reasoning Ready</p>
                       <p className="text-sm">
-                        Engage with {agentName} for deep analytical insights, ethical considerations, and thoughtful consciousness guidance.
+                        Engage with {currentAgent?.name} for deep analytical insights, ethical considerations, and thoughtful consciousness guidance.
                       </p>
                     </div>
                   ) : (
@@ -282,26 +282,49 @@ export function AnthropicReasoningZone() {
           </Card>
         </div>
 
-        {/* Claude Features Sidebar */}
+        {/* Agent & Model Selection Sidebar */}
         <div className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Claude Capabilities</CardTitle>
+              <CardTitle className="text-lg">Agent Selection</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="text-sm space-y-2">
-                <div className="flex justify-between">
-                  <span>Context Window:</span>
-                  <Badge variant="secondary">200K tokens</Badge>
-                </div>
-                <div className="flex justify-between">
-                  <span>Reasoning Depth:</span>
-                  <Badge variant="secondary">Advanced</Badge>
-                </div>
-                <div className="flex justify-between">
-                  <span>Ethical Framework:</span>
-                  <Badge variant="secondary">Constitutional AI</Badge>
-                </div>
+              {agents.map((agent) => (
+                <Button
+                  key={agent.id}
+                  onClick={() => setSelectedAgent(agent.id as any)}
+                  variant={selectedAgent === agent.id ? "default" : "outline"}
+                  className="w-full justify-start"
+                  size="sm"
+                >
+                  <span className="mr-2">{agent.emoji}</span>
+                  {agent.name}
+                </Button>
+              ))}
+              <div className="text-xs text-muted-foreground mt-2">
+                {currentAgent?.description}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Model Selection</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {models.map((model) => (
+                <Button
+                  key={model.id}
+                  onClick={() => setSelectedModel(model.id as any)}
+                  variant={selectedModel === model.id ? "default" : "outline"}
+                  className="w-full justify-start"
+                  size="sm"
+                >
+                  <span className="font-mono text-xs">{model.name}</span>
+                </Button>
+              ))}
+              <div className="text-xs text-muted-foreground mt-2">
+                {models.find(m => m.id === selectedModel)?.description}
               </div>
             </CardContent>
           </Card>
