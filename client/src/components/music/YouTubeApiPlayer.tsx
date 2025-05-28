@@ -40,7 +40,7 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
   const [videoData, setVideoData] = useState<YouTubeVideoData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [showPlayer, setShowPlayer] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const fetchVideoData = async () => {
@@ -72,7 +72,7 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
   }, [videoId]);
 
   const handlePlayVideo = () => {
-    setShowPlayer(true);
+    setIsPlaying(true);
   };
 
   const handleWatchOnYouTube = () => {
@@ -141,7 +141,7 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
 
   return (
     <div className="w-full">
-      {!showPlayer ? (
+      {!isPlaying ? (
         <div 
           className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
           onClick={handlePlayVideo}
@@ -166,13 +166,14 @@ export const YouTubeApiPlayer: React.FC<YouTubeApiPlayerProps> = ({
           </div>
         </div>
       ) : (
-        <div className="w-full aspect-video rounded-lg overflow-hidden">
+        <div className="w-full aspect-video rounded-lg overflow-hidden bg-black">
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&fs=1&enablejsapi=1`}
             title={videoData.snippet.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
-            className="w-full h-full"
+            className="w-full h-full border-0"
+            loading="eager"
           />
         </div>
       )}
