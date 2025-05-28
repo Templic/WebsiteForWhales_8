@@ -42,11 +42,12 @@ export default function MusicReleasePage() {
         <section className="flex flex-col md:flex-row gap-8 items-start relative">
           <div className="w-full md:w-1/2">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/jzpvkq3Krjg"
-              title="Feels So Good - Music Video"
+              src="https://www.youtube.com/embed/jzpvkq3Krjg?rel=0&modestbranding=1"
+              title="Feels So Good By Dale Loves Whales - Official Music Video"
               className="w-full aspect-video rounded-lg shadow-xl"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
           <div className="w-full md:w-1/2 space-y-6">
