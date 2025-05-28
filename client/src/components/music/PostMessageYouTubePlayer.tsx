@@ -43,7 +43,10 @@ export const PostMessageYouTubePlayer: React.FC<PostMessageYouTubePlayerProps> =
     duration: 0,
     videoUrl: '',
     muted: false,
-    volume: 50
+    volume: 50,
+    isSecure: true,
+    connectionStatus: 'connecting',
+    lastHeartbeat: Date.now()
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -191,9 +194,9 @@ export const PostMessageYouTubePlayer: React.FC<PostMessageYouTubePlayerProps> =
 
   if (loading) {
     return (
-      <div className="postmessage-player-loading bg-gray-100 rounded-lg p-8 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        <span className="ml-2 text-gray-600">Loading PostMessage whale-blessed content...</span>
+      <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 rounded-xl p-8 flex items-center justify-center border border-cyan-500/20">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
+        <span className="ml-3 text-cyan-200">Attuning to cosmic frequencies...</span>
       </div>
     );
   }
