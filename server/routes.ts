@@ -333,6 +333,23 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   const externalApiRoutes = require('./routes/external-api').default;
   app.use('/api/external', externalApiRoutes);
 
+  // Embed proxy routes with security bypass (fixes X-Frame-Options blocking)
+  app.use('/api/embed', (req, res, next) => {
+    // Mark request to bypass security checks
+    (req as any).__skipCSRF = true;
+    (req as any).__skipSecurity = true;
+    (req as any).isIntegration = true;
+    
+    // Remove blocking headers
+    res.removeHeader('X-Frame-Options');
+    res.removeHeader('Content-Security-Policy');
+    
+    next();
+  });
+  
+  const embedProxyRoutes = require('./routes/embed-proxy-routes').default;
+  app.use('/api/embed', embedProxyRoutes);
+
   // Google Analytics configuration endpoint (bypasses all security layers)
   app.get('/api/analytics/config', (req, res) => {
     res.json({

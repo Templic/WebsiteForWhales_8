@@ -12,8 +12,8 @@ const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [loading, setLoading] = useState(true);
   
-  // The Taskade AI Agent URL from your embed code
-  const taskadeUrl = 'https://www.taskade.com/a/01JRV02MYWJW6VJS9XGR1VB5J4';
+  // Use proxy route to bypass X-Frame-Options blocking
+  const taskadeUrl = '/api/embed/taskade/01JRV02MYWJW6VJS9XGR1VB5J4';
   
   // Handle iframe load event
   const handleIframeLoad = () => {
