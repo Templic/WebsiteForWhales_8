@@ -160,72 +160,57 @@ export default function BlogPage() {
             </div>
           </div>
         ) : posts && posts.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {posts.map((post) => (
-              <article key={post.id} className="relative group min-h-[420px] flex flex-col">
+              <article key={post.id} className="relative group w-full aspect-square max-w-lg mx-auto">
                 {/* Improved octagon shape container with clip-path */}
                 <div className="absolute inset-0 bg-[#00ebd6]/10 backdrop-blur-sm transform transition-all 
                     clip-path-octagon border-2 border-[#00ebd6]/30 z-0 group-hover:border-[#00ebd6]/60"></div>
                 
-                {/* Sacred geometry in bottom corner - only visible on hover */}
-                <div className="absolute -bottom-6 -right-6 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
-                  <SacredGeometry variant="octagon" size={80} animated={false} />
+                {/* Sacred geometry in corner - only visible on hover */}
+                <div className="absolute -bottom-4 -right-4 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
+                  <SacredGeometry variant="octagon" size={60} animated={false} />
                 </div>
                 
-                {/* Content container optimized for octagon geometry */}
-                <div className="relative z-10 flex flex-col flex-grow" style={{ 
-                  padding: 'clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem)', 
-                  margin: '0.5rem' 
+                {/* Content container maximizing octagon space */}
+                <div className="absolute inset-0 z-10 flex flex-col justify-between p-8 md:p-10 lg:p-12" style={{
+                  margin: '10%'
                 }}>
                   {post.featuredImage && (
-                    <div className="mb-4 max-h-40 overflow-hidden rounded-lg" style={{ maxWidth: 'calc(100% - 2rem)', margin: '0 auto' }}>
+                    <div className="mb-3 max-h-24 overflow-hidden rounded-lg">
                       <img 
                         src={post.featuredImage} 
                         alt={post.title}
-                        className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                        className="w-full h-24 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                       />
                     </div>
                   )}
                   
-                  {/* Title with geometric padding */}
-                  <h2 className="text-lg sm:text-xl font-bold text-[#00ebd6] mb-3 text-center leading-tight" 
-                      style={{ marginLeft: '1rem', marginRight: '1rem' }}>
+                  {/* Title optimized for octagon */}
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-[#00ebd6] mb-3 text-center leading-tight">
                     {post.title}
                   </h2>
                   
-                  {/* Content with careful geometry-aware spacing */}
-                  <div className="text-gray-300 mb-4 text-sm flex-grow overflow-hidden" 
-                       style={{ 
-                         marginLeft: '1.5rem', 
-                         marginRight: '1.5rem',
-                         lineHeight: '1.4',
-                         maxHeight: '6rem'
-                       }}>
-                    <div className="line-clamp-4">
+                  {/* Content with octagon-aware spacing */}
+                  <div className="text-gray-300 text-xs sm:text-sm flex-grow overflow-hidden text-center mb-4">
+                    <div className="line-clamp-3">
                       {typeof post.content === 'string' 
                        ? post.content
-                          .replace(/<p>/g, '')
-                          .replace(/<\/p>/g, ' ')
-                          .replace(/<br\s*\/?>/g, ' ')
-                          .replace(/<div>/g, '')
-                          .replace(/<\/div>/g, ' ')
-                          .replace(/&nbsp;/g, ' ')
                           .replace(/<[^>]*>/g, '')
                           .replace(/\s+/g, ' ')
                           .trim()
-                          .substring(0, 180)
+                          .substring(0, 120)
                        : ''}...
                     </div>
                   </div>
                   
-                  {/* Bottom section with geometric constraints */}
-                  <div className="flex flex-col sm:flex-row justify-between items-center gap-2 mt-auto" 
-                       style={{ marginLeft: '1rem', marginRight: '1rem', marginTop: '1rem' }}>
-                    <p className="text-xs text-[#fe0064] text-center sm:text-left">
-                      Published: {formatDisplayDate(post.createdAt)}
+                  {/* Bottom section centered */}
+                  <div className="flex flex-col items-center gap-2 mt-auto">
+                    <p className="text-xs text-[#fe0064] text-center">
+                      {formatDisplayDate(post.createdAt)}
                     </p>
                     <Button 
-                      className="text-xs bg-transparent border border-[#00ebd6] text-[#00ebd6] hover:bg-[#00ebd6]/10 hover:shadow-[0_0_10px_rgba(0,235,214,0.4)] px-4 py-2"
+                      className="text-xs bg-transparent border border-[#00ebd6] text-[#00ebd6] hover:bg-[#00ebd6]/10 hover:shadow-[0_0_10px_rgba(0,235,214,0.4)] px-3 py-1.5"
                       onClick={() => navigate(`/blog/${post.id}`)}
                     >
                       Read More
