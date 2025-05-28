@@ -1,11 +1,4 @@
-/**
- * card.tsx
- * 
- * Component Type: common
- * Migrated as part of the repository reorganization.
- */
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef<
