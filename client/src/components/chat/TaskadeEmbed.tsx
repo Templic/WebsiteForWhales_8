@@ -19,10 +19,11 @@ interface Message {
 }
 
 const TaskadeEmbed: React.FC<TaskadeEmbedProps> = ({ chatOnly = false, className = '' }) => {
+  const [selectedAgent, setSelectedAgent] = useState<string>('whale-wisdom');
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: 'Hello! I\'m your AI assistant powered by Taskade. How can I help you with your whale consciousness journey today?',
+      content: 'Welcome to your Whale Consciousness Chat! I\'m your Whale Wisdom Guide. Choose an agent below and ask me anything about whale consciousness, ocean spirituality, or sacred geometry!',
       sender: 'ai',
       timestamp: new Date()
     }

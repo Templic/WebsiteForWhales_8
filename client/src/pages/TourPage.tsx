@@ -7,6 +7,7 @@
 
 import { useEffect } from "react";
 import { SpotlightEffect } from "@/components/SpotlightEffect";
+import WhaleWatchingMap from "@/components/maps/WhaleWatchingMap";
 
 // Import geometric shape components from the responsive demo
 import { 
