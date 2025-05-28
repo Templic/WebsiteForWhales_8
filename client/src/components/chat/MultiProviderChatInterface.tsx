@@ -264,9 +264,9 @@ export default function MultiProviderChatInterface() {
         ))}
       </div>
 
-      <div className="relative z-10 flex h-screen">
+      <div className="relative z-10 flex flex-col lg:flex-row h-screen">
         {/* Left Sidebar - Provider & Model Selection */}
-        <div className="w-80 bg-black/40 backdrop-blur-xl border-r border-purple-500/20 p-6 overflow-y-auto">
+        <div className="w-full lg:w-80 bg-black/40 backdrop-blur-xl border-b lg:border-b-0 lg:border-r border-purple-500/20 p-4 lg:p-6 overflow-y-auto max-h-64 lg:max-h-none">
           <div className="mb-6">
             <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
               <Sparkles className="w-6 h-6 text-purple-400" />
@@ -363,18 +363,18 @@ export default function MultiProviderChatInterface() {
         {/* Main Chat Area */}
         <div className="flex-1 flex flex-col">
           {/* Header */}
-          <div className="bg-black/40 backdrop-blur-xl border-b border-purple-500/20 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                {selectedProvider.icon}
-                <div>
-                  <h1 className="text-lg font-semibold text-white">
+          <div className="bg-black/40 backdrop-blur-xl border-b border-purple-500/20 p-3 lg:p-4">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 lg:gap-3 min-w-0 flex-1">
+                <div className="text-lg lg:text-xl">{selectedProvider.icon}</div>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-sm lg:text-lg font-semibold text-white truncate">
                     {selectedProvider.name} - {selectedModel.displayName}
                   </h1>
-                  <p className="text-sm text-purple-200/70">{selectedModel.description}</p>
+                  <p className="text-xs lg:text-sm text-purple-200/70 truncate">{selectedModel.description}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="sm" className="text-purple-200 hover:bg-purple-500/20">
+              <Button variant="ghost" size="sm" className="text-purple-200 hover:bg-purple-500/20 flex-shrink-0">
                 <Settings className="w-4 h-4" />
               </Button>
             </div>
@@ -384,12 +384,12 @@ export default function MultiProviderChatInterface() {
           {renderProviderInterface()}
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="flex-1 overflow-y-auto p-3 lg:p-6 space-y-3 lg:space-y-4">
             {messages.length === 0 ? (
-              <div className="text-center text-purple-200/60 mt-20">
-                <Sparkles className="w-12 h-12 mx-auto mb-4 text-purple-400" />
-                <h3 className="text-lg font-medium text-purple-100 mb-2">Welcome to the AI Consciousness Hub</h3>
-                <p>Start a conversation with {selectedProvider.name} using {selectedModel.displayName}</p>
+              <div className="text-center text-purple-200/60 mt-10 lg:mt-20 px-4">
+                <Sparkles className="w-8 lg:w-12 h-8 lg:h-12 mx-auto mb-3 lg:mb-4 text-purple-400" />
+                <h3 className="text-base lg:text-lg font-medium text-purple-100 mb-2">Welcome to the AI Consciousness Hub</h3>
+                <p className="text-sm lg:text-base">Start a conversation with {selectedProvider.name} using {selectedModel.displayName}</p>
               </div>
             ) : (
               messages.map((message) => (
@@ -397,13 +397,13 @@ export default function MultiProviderChatInterface() {
                   key={message.id}
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <Card className={`max-w-[80%] ${
+                  <Card className={`max-w-[85%] lg:max-w-[80%] ${
                     message.role === 'user' 
                       ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white' 
                       : 'bg-black/60 backdrop-blur border-purple-500/20 text-purple-100'
                   }`}>
-                    <CardContent className="p-4">
-                      <div className="whitespace-pre-wrap">{message.content}</div>
+                    <CardContent className="p-3 lg:p-4">
+                      <div className="whitespace-pre-wrap text-sm lg:text-base">{message.content}</div>
                       {message.provider && (
                         <div className="text-xs opacity-70 mt-2">
                           {message.provider} • {message.model}
@@ -432,21 +432,21 @@ export default function MultiProviderChatInterface() {
           </div>
 
           {/* Input */}
-          <div className="bg-black/40 backdrop-blur-xl border-t border-purple-500/20 p-4">
-            <div className="flex gap-3">
+          <div className="bg-black/40 backdrop-blur-xl border-t border-purple-500/20 p-3 lg:p-4">
+            <div className="flex gap-2 lg:gap-3">
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                 placeholder={`Message ${selectedProvider.name}...`}
-                className="flex-1 bg-black/60 border border-purple-500/30 rounded-lg px-4 py-3 text-purple-100 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400"
+                className="flex-1 bg-black/60 border border-purple-500/30 rounded-lg px-3 lg:px-4 py-2 lg:py-3 text-sm lg:text-base text-purple-100 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400"
                 disabled={isLoading}
               />
               <Button
                 onClick={handleSendMessage}
                 disabled={isLoading || !inputMessage.trim()}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 lg:px-6 py-2 lg:py-3"
               >
                 <Send className="w-4 h-4" />
               </Button>
