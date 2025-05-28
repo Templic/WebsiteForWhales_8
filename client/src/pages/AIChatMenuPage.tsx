@@ -61,15 +61,15 @@ const AIChatMenuPage: React.FC = () => {
   } = useChat();
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-12 relative">
-          {/* Sacred geometry background decorations */}
-          <div className="absolute top-0 -left-40 opacity-20 hidden lg:block">
-            <SacredGeometry type="flower-of-life" size={180} color="#6366f1" animate />
+    <div className="container mx-auto py-8 px-4 min-h-screen">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-8 relative z-10">
+          {/* Sacred geometry background decorations - positioned to avoid overlap */}
+          <div className="absolute top-0 -left-32 opacity-15 hidden xl:block pointer-events-none">
+            <SacredGeometry type="flower-of-life" size={120} color="#6366f1" animate />
           </div>
-          <div className="absolute top-20 -right-40 opacity-20 hidden lg:block">
-            <SacredGeometry type="metatron-cube" size={160} color="#8b5cf6" animate />
+          <div className="absolute top-16 -right-32 opacity-15 hidden xl:block pointer-events-none">
+            <SacredGeometry type="metatron-cube" size={100} color="#8b5cf6" animate />
           </div>
 
           {/* Cosmic animated avatar */}

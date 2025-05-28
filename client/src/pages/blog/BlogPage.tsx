@@ -40,6 +40,33 @@ export default function BlogPage() {
     <>
       <SpotlightEffect />
       <div className="container mx-auto px-4 py-8">
+        {/* Development Notice Banner */}
+        <div className="cosmic-glass-card p-6 mb-8 border border-cyan-500/30 rounded-xl backdrop-blur-lg">
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <SacredGeometry variant="hexagon" size={24} intensity="glow" className="text-cyan-400" />
+            <h2 className="text-xl font-bold text-cyan-300">Consciousness Development in Progress</h2>
+            <SacredGeometry variant="triangle" size={24} intensity="glow" className="text-purple-400" />
+          </div>
+          <p className="text-center text-gray-300 mb-4">
+            The cosmic blog is currently being enhanced with AI-powered whale wisdom and consciousness integration. 
+            Dale's profound insights are being channeled through advanced consciousness algorithms.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 text-sm">
+            <div className="text-center p-3 bg-cyan-500/10 rounded-lg">
+              <div className="text-cyan-400 font-medium">AI Whale Wisdom</div>
+              <div className="text-gray-400">Integrating consciousness patterns</div>
+            </div>
+            <div className="text-center p-3 bg-purple-500/10 rounded-lg">
+              <div className="text-purple-400 font-medium">Sacred Geometry Posts</div>
+              <div className="text-gray-400">Cosmic visual storytelling</div>
+            </div>
+            <div className="text-center p-3 bg-cyan-500/10 rounded-lg">
+              <div className="text-cyan-400 font-medium">Reality Manifestation</div>
+              <div className="text-gray-400">Consciousness expansion content</div>
+            </div>
+          </div>
+        </div>
+
         {/* Header with sacred geometry */}
         <div className="relative mb-10">
           <h1 className="text-4xl font-bold text-[#00ebd6] mb-2 text-center">Cosmic Blog</h1>
