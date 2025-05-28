@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import EnhancedAIChatMenu from '@/components/chat/EnhancedAIChatMenu';
+import MultiProviderChatInterface from '@/components/chat/MultiProviderChatInterface';
 
 const AIChatMenuPage: React.FC = () => {
   return (
@@ -35,7 +35,7 @@ const AIChatMenuPage: React.FC = () => {
 
       {/* Main Content */}
       <div className="relative z-10">
-        <EnhancedAIChatMenu />
+        <MultiProviderChatInterface />
       </div>
     </div>
   );

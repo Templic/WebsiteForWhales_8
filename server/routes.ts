@@ -852,6 +852,98 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   // Serve public images
   app.use('/images', express.static(path.join(process.cwd(), 'public/images')));
 
+  // Multi-Provider Chat API Endpoint
+  app.post('/api/chat', async (req, res) => {
+    try {
+      const { message, provider, model } = req.body;
+
+      if (!message || !provider || !model) {
+        return res.status(400).json({ 
+          error: 'Missing required fields: message, provider, and model are required' 
+        });
+      }
+
+      let response = '';
+
+      switch (provider) {
+        case 'openai':
+          if (!process.env.OPENAI_API_KEY) {
+            return res.status(503).json({ 
+              error: 'OpenAI API key not configured. Please add your OPENAI_API_KEY to access OpenAI models.' 
+            });
+          }
+          
+          const { default: OpenAI } = await import('openai');
+          const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+          
+          const openaiResponse = await openai.chat.completions.create({
+            model: model,
+            messages: [{ role: 'user', content: message }],
+            max_tokens: 1000,
+          });
+          
+          response = openaiResponse.choices[0].message.content || 'No response generated';
+          break;
+
+        case 'anthropic':
+          if (!process.env.ANTHROPIC_API_KEY) {
+            return res.status(503).json({ 
+              error: 'Anthropic API key not configured. Please add your ANTHROPIC_API_KEY to access Claude models.' 
+            });
+          }
+          
+          const anthropic = new (await import('@anthropic-ai/sdk')).default({
+            apiKey: process.env.ANTHROPIC_API_KEY,
+          });
+          
+          const anthropicResponse = await anthropic.messages.create({
+            model: model,
+            max_tokens: 1000,
+            messages: [{ role: 'user', content: message }],
+          });
+          
+          response = anthropicResponse.content[0].text;
+          break;
+
+        case 'google':
+          if (!process.env.GOOGLE_API_KEY) {
+            return res.status(503).json({ 
+              error: 'Google API key not configured. Please add your GOOGLE_API_KEY to access Gemini models.' 
+            });
+          }
+          
+          const { GoogleGenerativeAI } = await import('@google/generative-ai');
+          const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+          const googleModel = genAI.getGenerativeModel({ model: model });
+          
+          const googleResponse = await googleModel.generateContent(message);
+          response = googleResponse.response.text();
+          break;
+
+        case 'taskade':
+          if (!process.env.TASKADE_API_KEY) {
+            return res.status(503).json({ 
+              error: 'Taskade API key not configured. Please add your TASKADE_API_KEY to access Taskade AI Agents.' 
+            });
+          }
+          
+          // Taskade integration with agentic features
+          response = `🤖 Taskade AI Agent Response: This would integrate with your Taskade workspace and AI agents. Your message "${message}" would be processed through Taskade's agentic platform with specialized agents, workflows, and collaboration features. Please ensure your TASKADE_API_KEY is properly configured.`;
+          break;
+
+        default:
+          return res.status(400).json({ error: 'Unsupported provider' });
+      }
+
+      res.json({ response });
+    } catch (error) {
+      console.error('Chat API error:', error);
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : 'Failed to process chat request' 
+      });
+    }
+  });
+
   // Direct whale consciousness chat endpoints (before other routes)
   app.post('/api/whale-chat/:agentId', async (req, res) => {
     try {
