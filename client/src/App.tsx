@@ -63,6 +63,7 @@ import RevampedCommunityPage from "@/pages/community/RevampedCommunityPage";
 import WhaleWisdomCommunity from "@/pages/CommunityPage";
 import AIChatMenuPage from "@/pages/AIChatMenuPage";
 import WhaleConsciousnessPage from "@/pages/WhaleConsciousnessPage";
+import CosmicPortalPage from "@/pages/CosmicPortalPage";
 
 // Resource Pages
 import ResourcesPage from "@/pages/resources/ResourcesPage";
@@ -168,6 +169,7 @@ function AppRouter() {
           {/* AI Chat & Consciousness */}
           <Route path="/whale-consciousness" component={WhaleConsciousnessPage} />
           <Route path="/ai-chat" component={AIChatMenuPage} />
+          <Route path="/cosmic-portal" component={CosmicPortalPage} />
 
           {/* Music & Experience */}
           <Route path="/music-release" component={ArchivedMusicPage} />
