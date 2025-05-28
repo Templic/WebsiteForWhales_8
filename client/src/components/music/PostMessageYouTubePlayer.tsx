@@ -23,6 +23,9 @@ interface YouTubePlayerState {
   videoUrl: string;
   muted: boolean;
   volume: number;
+  isSecure: boolean;
+  connectionStatus: 'connecting' | 'connected' | 'error' | 'disconnected';
+  lastHeartbeat: number;
 }
 
 export const PostMessageYouTubePlayer: React.FC<PostMessageYouTubePlayerProps> = ({
