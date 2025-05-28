@@ -2571,6 +2571,57 @@ app.post("/api/posts/comments/:id/reject", isAdmin, async (req, res) => {
     }
   });
 
+  // Google Maps API endpoint for tour venues
+  app.get('/api/maps/venues', async (req, res) => {
+    try {
+      const { location } = req.query;
+      
+      // Hawaiian tour venues data
+      const hawaiianVenues = [
+        {
+          id: '1',
+          name: 'Waikiki Beach Shell',
+          latitude: 21.2677,
+          longitude: -157.8186,
+          description: 'Iconic outdoor concert venue with ocean views',
+          bestTime: 'Sunset shows year-round',
+          whaleTypes: ['Humpback Whales (Winter)', 'Dolphins (Year-round)']
+        },
+        {
+          id: '2', 
+          name: 'Hilo Bay Concert Hall',
+          latitude: 19.7297,
+          longitude: -155.0890,
+          description: 'Big Island venue with volcanic backdrop',
+          bestTime: 'Evening performances',
+          whaleTypes: ['Humpback Whales', 'Pilot Whales', 'Spinner Dolphins']
+        },
+        {
+          id: '3',
+          name: 'Maui Ocean Center Amphitheater',
+          latitude: 20.7984,
+          longitude: -156.4319,
+          description: 'Oceanfront amphitheater in Maui',
+          bestTime: 'Winter whale season',
+          whaleTypes: ['Humpback Whales', 'Whale Watching Tours']
+        }
+      ];
+
+      res.json({
+        success: true,
+        data: hawaiianVenues,
+        googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY ? 'available' : 'missing'
+      });
+    } catch (error) {
+      console.error('Error fetching map venues:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to fetch venues',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // Security log endpoint
   app.post('/api/security/log', (req, res) => {
     try {

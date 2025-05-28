@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Loader2, RefreshCw } from 'lucide-react';
-import { apiClient } from '@/lib/api-client';
+
+// Google Maps type declarations
+declare global {
+  interface Window {
+    google: {
+      maps: {
+        Map: any;
+        Marker: any;
+        InfoWindow: any;
+      };
+    };
+  }
+}
 
 interface WhaleLocation {
   id: string;
@@ -18,22 +30,64 @@ const WhaleWatchingMap: React.FC = () => {
   const [locations, setLocations] = useState<WhaleLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState<WhaleLocation | null>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  // Hawaiian tour venues data
+  const hawaiianVenues = [
+    {
+      id: '1',
+      name: 'Waikiki Beach Shell',
+      latitude: 21.2677,
+      longitude: -157.8186,
+      description: 'Iconic outdoor concert venue with ocean views',
+      bestTime: 'Sunset shows year-round',
+      whaleTypes: ['Humpback Whales (Winter)', 'Dolphins (Year-round)']
+    },
+    {
+      id: '2', 
+      name: 'Hilo Bay Concert Hall',
+      latitude: 19.7297,
+      longitude: -155.0890,
+      description: 'Big Island venue with volcanic backdrop',
+      bestTime: 'Evening performances',
+      whaleTypes: ['Humpback Whales', 'Pilot Whales', 'Spinner Dolphins']
+    },
+    {
+      id: '3',
+      name: 'Maui Ocean Center Amphitheater',
+      latitude: 20.7984,
+      longitude: -156.4319,
+      description: 'Oceanfront amphitheater in Maui',
+      bestTime: 'Winter whale season',
+      whaleTypes: ['Humpback Whales', 'Whale Watching Tours']
+    }
+  ];
 
   useEffect(() => {
-    loadWhaleLocations();
+    setLocations(hawaiianVenues);
+    loadGoogleMapsAPI();
+    setLoading(false);
   }, []);
 
-  const loadWhaleLocations = async () => {
-    setLoading(true);
+  const loadGoogleMapsAPI = async () => {
     try {
-      const result = await apiClient.getWhaleLocations('Hawaii');
-      if (result.success && result.data) {
-        setLocations(result.data);
+      // Use the new server endpoint to get venue data
+      const response = await fetch('/api/maps/venues?location=Hawaii');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.data) {
+          setLocations(data.data);
+        }
+        setMapLoaded(true);
+      } else {
+        // Fallback to basic map display
+        setMapLoaded(true);
       }
     } catch (error) {
-      console.error('Error loading whale locations:', error);
-    } finally {
-      setLoading(false);
+      console.error('Error loading map data:', error);
+      // Always show the map even if data loading fails
+      setMapLoaded(true);
     }
   };
 
@@ -52,18 +106,29 @@ const WhaleWatchingMap: React.FC = () => {
     <div className="space-y-4">
       {/* Interactive Tour Map Container */}
       <div className="relative w-full h-96 bg-cosmic-card rounded-lg overflow-hidden border border-cosmic-primary/20">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d119022.26845046398!2d-158.13134795000002!3d21.38895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWaikiki%20Beach%20Shell%20Hilo%20Bay%20Concert%20Hall%20Hawaii%20venues!5e0!3m2!1sen!2sus!4v1701234567890!5m2!1sen!2sus"
-          className="w-full h-full border-0"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Dale's Hawaiian Islands Tour Locations"
-        />
+        {mapLoaded ? (
+          <div 
+            ref={mapRef} 
+            className="w-full h-full"
+            style={{ minHeight: '384px' }}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-900/20 to-purple-900/20">
+            <div className="text-center text-white">
+              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+              <p>Loading Hawaiian Islands Tour Map...</p>
+            </div>
+          </div>
+        )}
         
         <div className="absolute top-4 right-4">
           <Button
-            onClick={loadWhaleLocations}
+            onClick={() => {
+              setMapLoaded(false);
+              setTimeout(() => {
+                loadGoogleMapsAPI();
+              }, 100);
+            }}
             variant="secondary"
             size="sm"
             className="bg-cosmic-primary/90 text-white hover:bg-cosmic-primary"
