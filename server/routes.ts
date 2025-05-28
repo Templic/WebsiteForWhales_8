@@ -203,8 +203,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   const taskadeApiRoutes = await import('./routes/taskade-api');
   app.use('/api/taskade', taskadeApiRoutes.default);
 
-  // Apply YouTube security middleware before YouTube routes
-  app.use(youtubeSecurityMiddleware);
+  // YouTube security is now handled by holistic middleware above
   
   // YouTube API integration routes (completely public)
   const youtubeApiRoutes = await import('./routes/youtube-api');

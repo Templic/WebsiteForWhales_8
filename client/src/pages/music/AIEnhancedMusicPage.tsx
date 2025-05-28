@@ -169,8 +169,10 @@ export default function AIEnhancedMusicPage() {
                       </div>
 
                       <div className="lg:w-1/2">
-                        <SecureYouTubePlayer
+                        <ConsciousnessYouTubePlayer
                           videoId={officialRelease.youtubeId}
+                          consciousnessLevel={2}
+                          whaleWisdomRequired={true}
                         />
                       </div>
                     </div>
