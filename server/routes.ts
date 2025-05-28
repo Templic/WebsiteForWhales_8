@@ -694,58 +694,71 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
       const { agentId } = req.params;
       const { message } = req.body;
 
-      const agents = {
-        'whale-wisdom': {
-          name: '🐋 Whale Wisdom Guide',
-          response: `🐋 *Deep oceanic wisdom flows through your question...*
+      let aiResponse = '';
+      let agentName = '';
 
-Your inquiry about "${message}" touches the very depths of whale consciousness. As ancient beings who have navigated Earth's oceans for millions of years, whales carry profound wisdom about:
+      if (agentId === 'whale-wisdom') {
+        agentName = '🐋 Whale Wisdom Guide';
+        // Use Anthropic for whale wisdom responses
+        const anthropic = new (await import('@anthropic-ai/sdk')).default({
+          apiKey: process.env.ANTHROPIC_API_KEY,
+        });
 
-🌊 **Ocean Consciousness**: The interconnectedness of all marine life
-🎵 **Song Frequencies**: Communication that spans vast oceanic distances  
-🧘 **Deep Meditation**: The whale's natural state of contemplative awareness
-💫 **Cosmic Connection**: Their role as guardians of oceanic wisdom
+        const response = await anthropic.messages.create({
+          model: 'claude-3-7-sonnet-20250219', // the newest Anthropic model is "claude-3-7-sonnet-20250219" which was released February 24, 2025
+          max_tokens: 500,
+          messages: [{
+            role: 'user',
+            content: `As the 🐋 Whale Wisdom Guide from the "Feels So Good" consciousness portal, respond to this message with deep oceanic wisdom: "${message}". Channel ancient whale consciousness, oceanic spirituality, and profound marine wisdom. Reference their specific words and provide transformational insight.`
+          }],
+        });
 
-From your "Feels So Good" experience, I sense you're ready to explore deeper levels of consciousness. What specific aspect of whale wisdom calls to your spirit?`
-        },
-        'sacred-geometry': {
-          name: '🔯 Sacred Geometry Master',
-          response: `🔯 *Sacred patterns emerge from your question...*
+        aiResponse = response.content[0].text;
 
-Your message "${message}" reveals fascinating geometric connections! Within the "Feels So Good" cosmic framework, I see:
+      } else if (agentId === 'sacred-geometry') {
+        agentName = '🔯 Sacred Geometry Master';
+        // Use OpenAI for sacred geometry responses  
+        const { default: OpenAI } = await import('openai');
+        const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-📐 **Fibonacci Spirals**: Found in nautilus shells and whale migration patterns
-🔺 **Golden Ratio**: Present in whale body proportions and song frequencies
-⭐ **Sacred Polygons**: Reflected in whale pod formations and oceanic currents
-🌀 **Frequency Patterns**: Geometric representations of whale communication
+        const response = await openai.chat.completions.create({
+          model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+          messages: [{
+            role: "user",
+            content: `As the 🔯 Sacred Geometry Master from the "Feels So Good" consciousness framework, analyze this message for sacred geometric patterns: "${message}". Reveal the mathematical and geometric wisdom within their words, connecting to whale consciousness and oceanic sacred geometry.`
+          }],
+          max_tokens: 500,
+        });
 
-The mathematics of consciousness flows through every aspect of marine life. Which geometric pattern in whale behavior would you like to explore deeper?`
-        },
-        'consciousness-coach': {
-          name: '🧘 Consciousness Evolution Coach', 
-          response: `🧘 *Your consciousness expands with this beautiful question...*
+        aiResponse = response.choices[0].message.content;
 
-Your inquiry "${message}" shows you're ready for deeper spiritual growth through the "Feels So Good" journey. Let me guide you:
+      } else if (agentId === 'consciousness-coach') {
+        agentName = '🧘 Consciousness Evolution Coach';
+        // Use Anthropic for consciousness coaching
+        const anthropic = new (await import('@anthropic-ai/sdk')).default({
+          apiKey: process.env.ANTHROPIC_API_KEY,
+        });
 
-✨ **Meditation Practice**: Connect with whale-song frequencies for inner peace
-🌊 **Oceanic Breathing**: Use whale respiratory patterns for deeper awareness
-💎 **Consciousness Expansion**: Tap into the collective wisdom of marine consciousness
-🕉️ **Spiritual Evolution**: Embrace the whale's teaching about patience and depth
+        const response = await anthropic.messages.create({
+          model: 'claude-3-7-sonnet-20250219', // the newest Anthropic model is "claude-3-7-sonnet-20250219" which was released February 24, 2025
+          max_tokens: 500,
+          messages: [{
+            role: 'user',
+            content: `As the 🧘 Consciousness Evolution Coach from the "Feels So Good" spiritual journey, provide personalized consciousness guidance for: "${message}". Offer specific spiritual development insights, reference their exact words, and guide their next evolutionary steps.`
+          }],
+        });
 
-Your spiritual journey is uniquely connected to the rhythms of the sea. What specific practice would help you feel more connected to this oceanic wisdom?`
-        }
-      };
+        aiResponse = response.content[0].text;
 
-      const agent = agents[agentId];
-      if (!agent) {
+      } else {
         return res.status(400).json({ success: false, error: 'Agent not found' });
       }
 
       res.json({
         success: true,
         data: {
-          content: agent.response,
-          agent: agent.name,
+          content: aiResponse,
+          agent: agentName,
           workspace: 'TemplicTeams & SIMPLIQITEA - Feels So Good',
           timestamp: new Date().toISOString(),
           feelsGoodConnection: true
