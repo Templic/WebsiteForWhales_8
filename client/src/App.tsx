@@ -28,7 +28,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import AIEnhancedMusicPage from "@/pages/music/AIEnhancedMusicPage";
-import AIEnhancedTourPage from "@/pages/AIEnhancedTourPage";
+import EnhancedTourPage from "@/pages/EnhancedTourPage";
 import EngagePage from "@/pages/EngagePage";
 import NewsletterPage from "@/pages/NewsletterPage";
 import BlogPage from "@/pages/blog/BlogPage";
@@ -155,7 +155,7 @@ function AppRouter() {
           <Route path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/contact" component={ContactPage} />
-          <Route path="/tour" component={AIEnhancedTourPage} />
+          <Route path="/tour" component={EnhancedTourPage} />
           <Route path="/engage" component={EngagePage} />
           <Route path="/newsletter" component={NewsletterPage} />
           <Route path="/collaboration" component={CollaborationPage} />
