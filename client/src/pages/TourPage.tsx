@@ -104,15 +104,8 @@ export default function TourPage() {
             Explore Dale's Hawaiian Islands tour locations - click on map markers for details
           </p>
           
-          <div className="w-full max-w-5xl mx-auto bg-black/30 backdrop-blur-sm rounded-xl p-2" style={{ minHeight: '700px' }}>
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2663525.3112356835!2d-161.67382492051866!3d21.476153723897597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sus!4v1682970147321!5m2!1sen!2sus"
-              className="w-full h-full min-h-[650px] rounded-lg border-0"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Hawaiian Islands Map"
-            />
+          <div className="w-full max-w-5xl mx-auto bg-black/30 backdrop-blur-sm rounded-xl p-4">
+            <WhaleWatchingMap />
           </div>
         </div>
 

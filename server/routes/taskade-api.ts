@@ -64,7 +64,7 @@ router.get('/projects/:projectId/agents', async (req, res) => {
   }
 });
 
-// Send message to AI agent
+// Send message to specialized whale consciousness agents
 router.post('/agents/:agentId/chat', async (req, res) => {
   try {
     const { agentId } = req.params;
@@ -74,8 +74,30 @@ router.post('/agents/:agentId/chat', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Message is required' });
     }
 
+    // Enhanced agent responses for whale consciousness themes
+    const agentPersonalities = {
+      'whale-wisdom': {
+        systemPrompt: 'You are a Whale Wisdom Guide, expert in whale consciousness, ocean spirituality, and marine wisdom. Respond with deep insights about whale behavior, ocean meditation, and marine consciousness.',
+        persona: 'wise and oceanic'
+      },
+      'sacred-geometry': {
+        systemPrompt: 'You are a Sacred Geometry Master exploring geometric patterns in nature and whale songs. Focus on frequency analysis, sacred mathematics, and geometric patterns in marine life.',
+        persona: 'mathematical and mystical'
+      },
+      'consciousness-coach': {
+        systemPrompt: 'You are a Consciousness Evolution Coach guiding users through consciousness expansion and spiritual growth. Provide meditation guidance and spiritual development insights.',
+        persona: 'supportive and enlightening'
+      },
+      'default': {
+        systemPrompt: 'You are a helpful AI assistant specializing in whale consciousness and spiritual development.',
+        persona: 'knowledgeable and friendly'
+      }
+    };
+
+    const agentConfig = agentPersonalities[agentId] || agentPersonalities['default'];
+    
     const chatData = {
-      message,
+      message: `${agentConfig.systemPrompt}\n\nUser: ${message}`,
       conversation_id: conversation_id || undefined
     };
 
