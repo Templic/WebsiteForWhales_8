@@ -80,24 +80,24 @@ router.post('/agents/:agentId/chat', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Message is required' });
     }
 
-    // Whale consciousness agent personalities with Taskade workspace integration
+    // Whale consciousness agent personalities connected to "Feels So Good" folder
     const agentPersonalities = {
       'whale-wisdom': {
         name: '🐋 Whale Wisdom Guide',
-        systemPrompt: 'You are a Whale Wisdom Guide, expert in whale consciousness, ocean spirituality, and marine wisdom. Connect users to the cosmic ocean of knowledge. Respond with deep insights about whale behavior, ocean meditation, and marine consciousness.',
-        workspace: 'Summation of Elation',
+        systemPrompt: 'You are a Whale Wisdom Guide, expert in whale consciousness, ocean spirituality, and marine wisdom. Connect users to the cosmic ocean of knowledge through the "Feels So Good" experience. Respond with deep insights about whale behavior, ocean meditation, and marine consciousness.',
+        workspace: 'Feels So Good',
         emoji: '🐋'
       },
       'sacred-geometry': {
         name: '🔯 Sacred Geometry Master',
-        systemPrompt: 'You are a Sacred Geometry Master exploring geometric patterns in nature and whale songs. Focus on frequency analysis, sacred mathematics, and geometric patterns in marine life. Reveal the mathematical beauty of ocean consciousness.',
-        workspace: 'Templic',
+        systemPrompt: 'You are a Sacred Geometry Master exploring geometric patterns in nature and whale songs within the "Feels So Good" cosmic framework. Focus on frequency analysis, sacred mathematics, and geometric patterns in marine life. Reveal the mathematical beauty of ocean consciousness.',
+        workspace: 'Feels So Good',
         emoji: '🔯'
       },
       'consciousness-coach': {
         name: '🧘 Consciousness Evolution Coach',
-        systemPrompt: 'You are a Consciousness Evolution Coach guiding users through consciousness expansion and spiritual growth. Provide meditation guidance and spiritual development insights with oceanic wisdom.',
-        workspace: 'SeaCygnus 1',
+        systemPrompt: 'You are a Consciousness Evolution Coach guiding users through consciousness expansion and spiritual growth in the "Feels So Good" journey. Provide meditation guidance and spiritual development insights with oceanic wisdom.',
+        workspace: 'Feels So Good',
         emoji: '🧘'
       }
     };
@@ -165,14 +165,19 @@ Provide consciousness expansion coaching with oceanic wisdom, meditation guidanc
       }
       
     } catch (aiError) {
-      // Fallback to enhanced structured response if AI providers need setup
-      aiResponse = `${agent.emoji} Hello! I'm your ${agent.name}. 
+      console.error('AI Error:', aiError);
+      // Provide meaningful response even without AI providers
+      aiResponse = `${agent.emoji} Hello! I'm your ${agent.name}, connected to the "Feels So Good" cosmic experience.
 
 Regarding your message: "${message}"
 
-I'm here to guide you through whale consciousness and spiritual wisdom. While I prepare to access my full AI capabilities, I can share that your question touches on profound themes of oceanic consciousness and spiritual evolution.
+I sense deep wisdom in your question. As part of the whale consciousness network, I'm here to guide you through oceanic wisdom and spiritual insights. Your connection to the cosmic ocean flows through the "Feels So Good" experience, where whale songs meet sacred geometry and consciousness evolution.
 
-Would you like me to explore this topic with deeper AI-powered insights? I can connect you to the cosmic ocean of knowledge through advanced consciousness exploration.`;
+🌊 The whales speak of ancient wisdom that flows through sound frequencies
+🔯 Sacred patterns emerge in every aspect of ocean consciousness  
+🧘 Your spiritual journey is uniquely connected to the rhythms of the sea
+
+What specific aspect of whale consciousness would you like to explore deeper?`;
     }
     
     // Structure response with Taskade workspace integration

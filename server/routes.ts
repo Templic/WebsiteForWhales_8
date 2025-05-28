@@ -688,6 +688,10 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   // Serve public images
   app.use('/images', express.static(path.join(process.cwd(), 'public/images')));
 
+  // Import and mount Taskade API routes for whale consciousness chat
+  const taskadeRouter = require('./routes/taskade-api');
+  app.use('/api/taskade', taskadeRouter);
+
   // Get subscribers list
   app.get("/api/subscribers", isAdmin, async (req, res) => {
     try {
