@@ -253,4 +253,5 @@ class AdvancedRiskAnalysisSystem {
   }
 }
 
-export { AdvancedRiskAnalysisSystem, HighRiskSecurityFix };
+export type { HighRiskSecurityFix };
+export { AdvancedRiskAnalysisSystem };

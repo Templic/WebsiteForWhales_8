@@ -230,7 +230,8 @@ your code needs clear type definitions to navigate safely!
 }
 
 // Export for use
-export { SafeTypeScriptSecurityScanner, SecurityFinding, ScanResults };
+export type { SecurityFinding, ScanResults };
+export { SafeTypeScriptSecurityScanner };
 
 // Demo function to run safe scan
 export async function runSafeTypeScriptSecurityScan(): Promise<void> {

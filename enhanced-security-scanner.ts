@@ -242,4 +242,5 @@ patterns that were previously invisible!
   }
 }
 
-export { EnhancedSecurityScanner, EnhancedSecurityPattern };
+export type { EnhancedSecurityPattern };
+export { EnhancedSecurityScanner };

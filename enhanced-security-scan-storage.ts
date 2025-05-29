@@ -407,4 +407,5 @@ class EnhancedSecurityScanStorage {
 }
 
 // Export the enhanced storage system
-export { EnhancedSecurityScanStorage, SecurityFinding, ScanSession, SecurityTrend };
+export type { SecurityFinding, ScanSession, SecurityTrend };
+export { EnhancedSecurityScanStorage };

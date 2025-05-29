@@ -368,7 +368,8 @@ class WorkingSecurityScanner {
 }
 
 // Export for use
-export { WorkingSecurityScanner, SecurityIssue, SecurityScanResult };
+export type { SecurityIssue, SecurityScanResult };
+export { WorkingSecurityScanner };
 
 // Run scan if called directly
 if (process.argv[1].includes('working-security-scan-utilities')) {
