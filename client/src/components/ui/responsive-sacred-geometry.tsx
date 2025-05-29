@@ -7,7 +7,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '../../lib/utils';
+// Simple utility function for class merging
+function cn(...classes: (string | undefined | null | false)[]): string {
+  return classes.filter(Boolean).join(' ');
+}
 
 // Golden ratio constant for sacred proportions
 const PHI = 1.618033988749;
