@@ -286,7 +286,8 @@ needed for safe enhancement.
   }
 }
 
-export { EnhancedSecurityUtilities, SecurityUtilityConfig, VulnerabilityLocation, SystemInterdependency };
+export type { SecurityUtilityConfig, VulnerabilityLocation, SystemInterdependency };
+export { EnhancedSecurityUtilities };
 
 // Create global instance for app-wide usage
 export const securityUtilities = new EnhancedSecurityUtilities();

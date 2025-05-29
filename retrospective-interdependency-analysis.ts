@@ -252,7 +252,8 @@ class RetrospectiveInterdependencyAnalysis {
   }
 }
 
-export { RetrospectiveInterdependencyAnalysis, AppliedFix, InterdependencyLessonsLearned };
+export type { AppliedFix, InterdependencyLessonsLearned };
+export { RetrospectiveInterdependencyAnalysis };
 
 // Generate insights for immediate use
 const retrospectiveAnalysis = new RetrospectiveInterdependencyAnalysis();

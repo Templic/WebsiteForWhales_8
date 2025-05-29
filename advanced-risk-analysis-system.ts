@@ -160,7 +160,7 @@ class AdvancedRiskAnalysisSystem {
 
       {
         id: 'disabled-typescript-checks',
-        severity: 'medium',
+        severity: 'high',
         location: 'server/routes.ts:156',
         issue: '@ts-ignore comment hiding potential type safety issues',
         proposedFix: 'Investigate underlying type issue and implement proper typing solution',
