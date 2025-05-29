@@ -35,33 +35,15 @@ export function Header() {
   const [, navigate] = useLocation();
   const { autoHideNav } = useAccessibility();
   
-  // Handle scroll event for auto-hiding navigation
+  // Simple scroll detection for styling only (no auto-hide)
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 10);
-      
-      // Auto-hide navigation when scrolling down and show when scrolling up
-      if (autoHideNav && scrollY > 100) {
-        const header = document.querySelector('header');
-        if (header) {
-          if (scrollY > lastScrollY) {
-            // Scrolling down - add scrolled-down class to hide
-            header.classList.add('scrolled-down');
-          } else {
-            // Scrolling up - remove scrolled-down class to show
-            header.classList.remove('scrolled-down');
-          }
-        }
-      }
-      lastScrollY = scrollY;
+      setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [autoHideNav]);
+  }, []);
 
   const handleNavigationClick = useCallback((path: string) => {
     // First scroll to top with smooth behavior
@@ -80,7 +62,7 @@ export function Header() {
   const searchInputStyles = "px-3 py-2 text-base border border-gray-300 rounded-md bg-white/10 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00ebd6]";
 
   return (
-    <header className={`bg-[#0a325c] sticky top-0 z-[60] border-b border-[#00ebd6] shadow-lg transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
+    <header className="bg-[#0a325c] sticky top-0 z-[60] border-b border-[#00ebd6] shadow-lg py-4 min-h-[80px]">
       <div className="flex items-center justify-between p-4 container mx-auto">
         <div className="flex items-center gap-4">
           <button
