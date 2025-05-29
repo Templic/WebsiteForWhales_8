@@ -319,4 +319,4 @@ export function checkQuerySafety(query: string): Promise<{
 }
 
 // Export types for use in other modules
-export type { SQLInjectionThreat, SecurityReport };
+export type { SQLInjectionThreat, SecurityReport};

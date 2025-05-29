@@ -222,7 +222,7 @@ const ContentPreview: React.FC<ContentPreviewProps> = ({
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">Device:</span>
-                <Tabs value={deviceView} onValueChange={(v) => setDeviceView(v as any)}>
+                <Tabs value={deviceView} onValueChange={(v: any) => setDeviceView(v as any)}>
                   <TabsList>
                     <TabsTrigger value="desktop">
                       <Monitor className="h-4 w-4 mr-1" />
