@@ -19,6 +19,7 @@ import {
   hasAdminPrivileges 
 } from './utils/auth-utils';
 import { setupCSRFProtection } from './middleware/csrfProtectionMiddleware';
+import { adminRateLimit, authRateLimit, generalRateLimit } from './middleware/enhanced-rate-limiting';
 
 // The isAuthenticated, isAdmin, and isSuperAdmin middleware are now imported from auth-utils.ts
 import { nanoid } from 'nanoid';

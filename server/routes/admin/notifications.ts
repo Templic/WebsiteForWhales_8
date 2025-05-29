@@ -12,8 +12,12 @@ import {
 } from '../../../shared/schema';
 import { eq, and, desc, asc, sql, like, not, gt, lt, isNotNull, isNull } from 'drizzle-orm';
 import { verifyAccessToken, extractTokenFromHeader } from '../../../server/security/jwt';
+import { adminRateLimit } from '../../middleware/enhanced-rate-limiting';
 
 const router = express.Router();
+
+// Apply rate limiting to all admin notification routes
+router.use(adminRateLimit);
 
 // JWT authentication middleware for admin routes
 const requireAdmin = (req: any, res: any, next: any) => {
