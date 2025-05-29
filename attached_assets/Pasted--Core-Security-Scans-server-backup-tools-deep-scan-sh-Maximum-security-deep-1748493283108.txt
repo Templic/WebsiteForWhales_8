@@ -1,0 +1,207 @@
+# Core Security Scans
+./server-backup/tools/deep-scan.sh                    # Maximum security deep scan
+./server-backup/tools/detect-xss.sh                  # XSS vulnerability detection
+./server-backup/tools/fix-xss.sh                     # XSS vulnerability fixes
+./server-backup/tools/inspect-sql-vulnerabilities.sh # SQL injection detection
+./server-backup/tools/runSQLSecurityScan.sh         # Comprehensive SQL security
+
+# Package Security
+npm audit                                            # Node.js dependency vulnerabilities
+npm audit --audit-level high                        # High severity only
+npm audit fix                                       # Auto-fix vulnerabilities
+┌──────────────────────────────────────────────────────┐
+│             MAXIMUM SECURITY DEEP SCAN               │
+└──────────────────────────────────────────────────────┘
+/home/runner/workspace/server/tools/runDeepScan.ts:10
+import { performSecurityScan } from '../security/maximumSecurityScan';
+         ^
+
+SyntaxError: The requested module '../security/maximumSecurityScan' does not provide an export named 'performSecurityScan'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:146:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:229:5)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:122:5)
+
+Node.js v20.18.1
+❌ Deep security scan failed. Check the logs for details.
+┌──────────────────────────────────────────────────────┐
+│            XSS VULNERABILITY DETECTION                │
+└──────────────────────────────────────────────────────┘
+Running XSS vulnerability detection...
+/home/runner/workspace/server/tools/detectXssVulnerabilities.ts:17
+import { securityBlockchain } from '../security/advanced/blockchain/ImmutableSecurityLogs';
+         ^
+
+SyntaxError: The requested module '../security/advanced/blockchain/ImmutableSecurityLogs' does not provide an export named 'securityBlockchain'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:146:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:229:5)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:122:5)
+
+Node.js v20.18.1
+❌ XSS vulnerability detection failed. Check the logs for details.
+┌──────────────────────────────────────────────────────┐
+│         XSS VULNERABILITY REMEDIATION                 │
+└──────────────────────────────────────────────────────┘
+DOMPurify is installed. Proceeding...
+Running XSS vulnerability remediation...
+/home/runner/workspace/server/tools/fixXssVulnerabilities.ts:17
+import { securityBlockchain } from '../security/advanced/blockchain/ImmutableSecurityLogs';
+         ^
+
+SyntaxError: The requested module '../security/advanced/blockchain/ImmutableSecurityLogs' does not provide an export named 'securityBlockchain'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:146:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:229:5)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:122:5)
+
+Node.js v20.18.1
+❌ XSS vulnerability remediation failed. Check the logs for details.
+┌──────────────────────────────────────────────────────┐
+│        SQL INJECTION VULNERABILITY INSPECTOR         │
+└──────────────────────────────────────────────────────┘
+Directories to scan: server client shared
+Running SQL injection vulnerability inspection...
+/home/runner/workspace/server/tools/inspectSqlVulnerabilities.ts:490
+if (require.main === module) {
+^
+
+
+ReferenceError: require is not defined in ES module scope, you can use import instead
+    at <anonymous> (/home/runner/workspace/server/tools/inspectSqlVulnerabilities.ts:490:1)
+    at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:122:5)
+
+Node.js v20.18.1
+❌ SQL injection vulnerability inspection failed. Check the logs for details.
+┌──────────────────────────────────────────────────────┐
+│           SQL INJECTION SECURITY SCAN                │
+└──────────────────────────────────────────────────────┘
+Running SQL injection detection and remediation...
+/home/runner/workspace/server/tools/sqlInjectionDetector.ts:313
+if (require.main === module) {
+^
+
+
+ReferenceError: require is not defined in ES module scope, you can use import instead
+    at <anonymous> (/home/runner/workspace/server/tools/sqlInjectionDetector.ts:313:1)
+    at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:122:5)
+
+Node.js v20.18.1
+❌ SQL injection security scan failed. Check the logs for details.
+# npm audit report
+
+esbuild  <=0.24.2
+Severity: moderate
+esbuild enables any website to send any requests to the development server and read the response - https://github.com/advisories/GHSA-67mh-4wv8-2f99
+fix available via `npm audit fix --force`
+Will install drizzle-kit@0.18.1, which is a breaking change
+node_modules/@esbuild-kit/core-utils/node_modules/esbuild
+node_modules/vite/node_modules/esbuild
+  @esbuild-kit/core-utils  *
+  Depends on vulnerable versions of esbuild
+  node_modules/@esbuild-kit/core-utils
+    @esbuild-kit/esm-loader  *
+    Depends on vulnerable versions of @esbuild-kit/core-utils
+    node_modules/@esbuild-kit/esm-loader
+      drizzle-kit  0.17.5-6b7793f - 0.17.5-e5944eb || 0.18.1-065de38 - 0.18.1-f3800bf || >=0.19.0-07024c4
+      Depends on vulnerable versions of @esbuild-kit/esm-loader
+      node_modules/drizzle-kit
+  vite  0.11.0 - 6.1.6
+  Depends on vulnerable versions of esbuild
+  node_modules/vite
+
+
+5 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+# npm audit report
+
+esbuild  <=0.24.2
+Severity: moderate
+esbuild enables any website to send any requests to the development server and read the response - https://github.com/advisories/GHSA-67mh-4wv8-2f99
+fix available via `npm audit fix --force`
+Will install drizzle-kit@0.18.1, which is a breaking change
+node_modules/@esbuild-kit/core-utils/node_modules/esbuild
+node_modules/vite/node_modules/esbuild
+  @esbuild-kit/core-utils  *
+  Depends on vulnerable versions of esbuild
+  node_modules/@esbuild-kit/core-utils
+    @esbuild-kit/esm-loader  *
+    Depends on vulnerable versions of @esbuild-kit/core-utils
+    node_modules/@esbuild-kit/esm-loader
+      drizzle-kit  0.17.5-6b7793f - 0.17.5-e5944eb || 0.18.1-065de38 - 0.18.1-f3800bf || >=0.19.0-07024c4
+      Depends on vulnerable versions of @esbuild-kit/esm-loader
+      node_modules/drizzle-kit
+  vite  0.11.0 - 6.1.6
+  Depends on vulnerable versions of esbuild
+  node_modules/vite
+
+
+5 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+changed 1 package, and audited 1292 packages in 5s
+
+308 packages are looking for funding
+  run `npm fund` for details
+
+# npm audit report
+
+esbuild  <=0.24.2
+Severity: moderate
+esbuild enables any website to send any requests to the development server and read the response - https://github.com/advisories/GHSA-67mh-4wv8-2f99
+fix available via `npm audit fix --force`
+Will install vite@6.3.5, which is a breaking change
+node_modules/@esbuild-kit/core-utils/node_modules/esbuild
+node_modules/vite/node_modules/esbuild
+  @esbuild-kit/core-utils  *
+  Depends on vulnerable versions of esbuild
+  node_modules/@esbuild-kit/core-utils
+    @esbuild-kit/esm-loader  *
+    Depends on vulnerable versions of @esbuild-kit/core-utils
+    node_modules/@esbuild-kit/esm-loader
+      drizzle-kit  0.17.5-6b7793f - 0.17.5-e5944eb || 0.18.1-065de38 - 0.18.1-f3800bf || >=0.19.0-07024c4
+      Depends on vulnerable versions of @esbuild-kit/esm-loader
+      node_modules/drizzle-kit
+  vite  0.11.0 - 6.1.6
+  Depends on vulnerable versions of esbuild
+  node_modules/vite
+    @vitejs/plugin-react  2.0.0-alpha.0 - 4.3.3
+    Depends on vulnerable versions of vite
+    node_modules/@vitejs/plugin-react
+
+6 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+~/workspace$ ./server-backup/tools/runSQLSecurityScan.sh
+┌──────────────────────────────────────────────────────┐
+│           SQL INJECTION SECURITY SCAN                │
+└──────────────────────────────────────────────────────┘
+Running SQL injection detection and remediation...
+/home/runner/workspace/server/tools/sqlInjectionDetector.ts:313
+if (require.main === module) {
+^
+
+
+ReferenceError: require is not defined in ES module scope, you can use import instead
+    at <anonymous> (/home/runner/workspace/server/tools/sqlInjectionDetector.ts:313:1)
+    at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:122:5)
