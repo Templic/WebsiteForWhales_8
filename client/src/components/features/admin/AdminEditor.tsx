@@ -40,7 +40,7 @@ interface EditorSaveData {
   imageFile?: File;
   meta?: Record<string, any>;
 }
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "../../../hooks/use-toast";
 import { 
   Image, 
   Type, 
@@ -52,7 +52,7 @@ import {
   ArrowLeftIcon,
   TrashIcon
 } from "lucide-react";
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "../../../hooks/use-auth";
 import "./admin.css";
 
 interface AdminEditorProps {

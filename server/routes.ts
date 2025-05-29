@@ -675,7 +675,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
 
       try {
         // Direct database query to get user
-        const userRows = await db.select().from(users).where(eq(users.username, username));
+        const userRows = await db.select().from(users).where(eq(users.username, username).execute());
         console.log(`Direct DB query for ${username} found ${userRows.length} rows`);
 
         if (userRows.length > 0) {
@@ -1151,11 +1151,11 @@ What aspect of your spiritual practice feels ready for more intentional organiza
       // Calculate approval rate (if any reviews have been done)
       const approvedComments = await db.select({ count: sql`count(*)` })
         .from(comments)
-        .where(eq(comments.approved, true));
+        .where(eq(comments.approved, true).execute());
 
       const rejectedComments = await db.select({ count: sql`count(*)` })
         .from(comments)
-        .where(eq(comments.approved, false));
+        .where(eq(comments.approved, false).execute());
 
       const totalReviewed = parseInt(approvedComments[0]?.count.toString() || '0') + 
                             parseInt(rejectedComments[0]?.count.toString() || '0');

@@ -7,7 +7,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "./use-toast";
 
 // Define User type with proper typing matching the schema.ts definition
 export interface User {

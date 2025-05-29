@@ -6,7 +6,7 @@
  */
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { apiRequest } from "../../../lib/queryClient";
 import { SafeHtml } from "@/lib/security/XssPrevention";
 import { 
   Card, 
