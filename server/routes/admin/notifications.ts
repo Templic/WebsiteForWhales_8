@@ -10,7 +10,7 @@ import {
   userNotifications,
   users 
 } from '../../../shared/schema';
-import { eq, and, desc, asc, sql, like, not, gt, lt, isNotNull, isNull } from 'drizzle-orm';
+import { eq, and, desc, asc, sql, like, not, gt, lt, isNotNull, isNull, or } from 'drizzle-orm';
 import { verifyAccessToken, extractTokenFromHeader } from '../../../server/security/jwt';
 import { adminRateLimit } from '../../middleware/enhanced-rate-limiting';
 
@@ -65,13 +65,17 @@ router.get('/system', requireAdmin, async (req, res) => {
     // Build the query
     let query = db.select().from(systemNotifications);
     
-    // Apply filters
-    const conditions = [];
+    // Apply filters using secure parameterized queries
+    const conditions: any[] = [];
     
     if (search) {
+      // Use parameterized LIKE queries to prevent SQL injection
+      const searchTerm = `%${search}%`;
       conditions.push(
-        sql`lower(${systemNotifications.title}) LIKE lower(${'%' + search + '%'}) OR 
-            lower(${systemNotifications.content}) LIKE lower(${'%' + search + '%'})`
+        or(
+          like(systemNotifications.title, searchTerm),
+          like(systemNotifications.content, searchTerm)
+        )
       );
     }
     
@@ -84,14 +88,19 @@ router.get('/system', requireAdmin, async (req, res) => {
     }
     
     if (conditions.length > 0) {
-      query = query.where(sql.and(...conditions));
+      query = query.where(and(...conditions));
     }
     
     // Count total records for pagination metadata
-    const [countResult] = await db
+    let countQuery = db
       .select({ count: sql<number>`count(*)` })
-      .from(systemNotifications)
-      .where(() => conditions.length > 0 ? sql.and(...conditions) : undefined);
+      .from(systemNotifications);
+    
+    if (conditions.length > 0) {
+      countQuery = countQuery.where(and(...conditions));
+    }
+    
+    const [countResult] = await countQuery;
     
     // Apply sorting and pagination to the query
     if (sortField === 'createdAt') {
