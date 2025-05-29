@@ -14,7 +14,12 @@ import { SpotlightEffect } from "@/components/SpotlightEffect";
 import { DynamicContent } from "@/components/content";
 import { createDynamicComponent } from "@/lib/bundle-optimization";
 
-// Import geometric shape components
+// Import enhanced responsive sacred geometry components
+import { 
+  SacredGeometryLayout, 
+  GeometricTextContainer,
+  ResponsiveSacredGeometry 
+} from '@/components/ui/responsive-sacred-geometry';
 import { 
   SimpleHexagon, 
   SimpleTriangle,
