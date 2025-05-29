@@ -19,6 +19,8 @@ import {
   GeometricTextContainer,
   ResponsiveSacredGeometry 
 } from '../components/ui/responsive-sacred-geometry';
+import { AdvancedSacredGeometry } from '../components/ui/advanced-sacred-geometry';
+import { ResponsivePhiGrid, PhiGridItem, PhiGridStyles } from '../components/ui/phi-grid-system';
 import { 
   SimpleHexagon, 
   SimpleTriangle,
