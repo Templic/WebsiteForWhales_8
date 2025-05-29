@@ -21,7 +21,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '../../../lib/utils';
+import { consciousGeometryAI } from '../../lib/consciousGeometryAI';
+
+// Utility function for className merging
+const cn = (...classes: (string | undefined | false)[]) => {
+  return classes.filter(Boolean).join(' ');
+};
 
 // Sacred geometry constants from historical mathematicians
 const PHI = 1.618033988749; // Golden Ratio (Fibonacci, Euclid)
@@ -199,6 +204,9 @@ export function CentralizedSacredGeometry({
   // Phase 2-4 Enhanced State Management
   const [currentConsciousnessLevel, setCurrentConsciousnessLevel] = useState(consciousnessLevel);
   const [aiOptimizations, setAiOptimizations] = useState<Record<string, any>>({});
+  const [whaleWisdomActive, setWhaleWisdomActive] = useState(false);
+  const [cosmicAlignment, setCosmicAlignment] = useState(0.7);
+  const [consciousnessProgress, setConsciousnessProgress] = useState<any[]>([]);
   const [performanceMetrics, setPerformanceMetrics] = useState({
     fps: 60,
     memoryUsage: 0,
