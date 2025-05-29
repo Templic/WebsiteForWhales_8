@@ -7,6 +7,7 @@
  */
 
 import React, { useState, useRef, useEffect } from "react";
+import { SafeHtml } from "@/lib/security/XssPrevention";
 import { Button } from "@/components/ui/button";
 import { 
   Card,
@@ -288,9 +289,10 @@ const AdminEditor: React.FC<AdminEditorProps> = ({
                   disabled={isProcessing}
                 />
               ) : (
-                <div 
+                <SafeHtml 
+                  html={htmlContent}
                   className="border rounded-md p-4 prose dark:prose-invert min-h-[200px] max-w-none"
-                  dangerouslySetInnerHTML={{ __html: htmlContent }}
+                  preserveCosmicContent={true}
                 />
               )}
             </div>
