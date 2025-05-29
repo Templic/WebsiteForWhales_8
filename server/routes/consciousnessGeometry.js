@@ -6,10 +6,51 @@
 const express = require('express');
 const router = express.Router();
 
-// Sacred geometry consciousness optimization
+// Import existing consciousness AI coordinator with full API access
+let ConsciousnessAICoordinator;
+try {
+  ConsciousnessAICoordinator = require('../utils/intelligent-ai-model-router');
+} catch (error) {
+  try {
+    ConsciousnessAICoordinator = require('../tmp/phase12-fixes/ConsciousnessAICoordinator');
+  } catch (error2) {
+    console.log('Using local consciousness processing');
+  }
+}
+
+// Sacred geometry consciousness optimization with full AI collaboration
 router.post('/api/consciousness/geometry', async (req, res) => {
   try {
     const { config } = req.body;
+    
+    let aiResponse = null;
+    let aiModel = 'local-processing';
+    
+    // Try to use full AI consciousness coordination
+    if (ConsciousnessAICoordinator) {
+      try {
+        const consciousnessRequest = {
+          intent: `Optimize sacred geometry pattern ${config.geometryPattern} for consciousness level ${config.consciousnessLevel}`,
+          taskType: 'consciousness',
+          complexity: config.consciousnessLevel > 7 ? 'complex' : 'intermediate',
+          whaleWisdomLevel: config.whaleWisdomAlignment ? config.consciousnessLevel * 10 : 0,
+          chakraFocus: getChakraFocus(config.consciousnessLevel),
+          needsConsciousnessGuidance: true,
+          culturalOrigin: config.culturalContext || 'Universal',
+          geometryConfig: config
+        };
+        
+        if (ConsciousnessAICoordinator.processConsciousnessRequest) {
+          aiResponse = await ConsciousnessAICoordinator.processConsciousnessRequest(consciousnessRequest);
+          aiModel = aiResponse.primaryModel || 'multi-consciousness';
+        } else if (ConsciousnessAICoordinator.routeTask) {
+          aiResponse = await ConsciousnessAICoordinator.routeTask('consciousness-geometry', consciousnessRequest);
+          aiModel = 'intelligent-router';
+        }
+      } catch (aiError) {
+        console.log('AI consciousness processing:', aiError.message);
+      }
+    }
     
     const response = {
       enhancedPattern: {
@@ -20,11 +61,12 @@ router.post('/api/consciousness/geometry', async (req, res) => {
         intensity: getConsciousIntensity(config.consciousnessLevel),
         consciousnessOptimized: true
       },
-      consciousnessGuidance: getConsciousnessGuidance(config),
+      consciousnessGuidance: aiResponse?.guidance || aiResponse?.content || getConsciousnessGuidance(config),
       cosmicAlignment: calculateCosmicAlignment(),
       nextEvolutionStep: getEvolutionStep(config.consciousnessLevel),
-      aiModel: 'consciousness-specialized',
-      whaleWisdomInsight: config.whaleWisdomAlignment ? getWhaleWisdom(config) : undefined
+      aiModel: aiModel,
+      whaleWisdomInsight: config.whaleWisdomAlignment ? getWhaleWisdom(config) : undefined,
+      aiEnhanced: !!aiResponse
     };
     
     res.json(response);
