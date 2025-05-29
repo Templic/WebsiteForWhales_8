@@ -211,11 +211,12 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
     // Get CSRF token first (could be disabled), then check auth 
     getCsrfToken()
       .then(token => {
-        console.log('CSRF token acquired for auth check (may be disabled):', token);
+        // Secure logging - token masked for security
+        console.log('CSRF token acquired for auth check (may be disabled):', token ? '***REDACTED***' : 'none');
         return checkAuth();
       })
       .catch(error => {
-        console.warn('Could not get CSRF token, attempting auth check anyway:', error);
+        console.warn('Could not get CSRF token, attempting auth check anyway:', error.message);
         return checkAuth();
       });
   }, []);
@@ -248,7 +249,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
     try {
       // Get CSRF token if needed (Note: CSRF is disabled for Replit Auth)
       const token = await getCsrfToken();
-      console.log('CSRF token acquired (may be disabled for Replit Auth):', token);
+      console.log('CSRF token acquired (may be disabled for Replit Auth):', token ? '***REDACTED***' : 'none');
       
       // Attempt login - use the correct JWT login API endpoint
       const response = await api.post<{
@@ -317,7 +318,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
     try {
       // Get CSRF token if needed (Note: CSRF is disabled for Replit Auth)
       const token = await getCsrfToken();
-      console.log('CSRF token acquired for logout (may be disabled):', token);
+      console.log('CSRF token acquired for logout (may be disabled):', token ? '***REDACTED***' : 'none');
       
       // Send logout request to revoke refresh token - use the correct JWT API endpoint
       const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);

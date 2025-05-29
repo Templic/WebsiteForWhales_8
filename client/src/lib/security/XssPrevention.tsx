@@ -15,25 +15,40 @@ import DOMPurify from 'dompurify';
 export function SafeHtml({
   html,
   className,
-  allowedTags = ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div'],
+  allowedTags = ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
   allowedAttributes = { a: ['href', 'target', 'rel'] },
+  preserveCosmicContent = true,
   ...rest
 }: {
   html: string;
   className?: string;
   allowedTags?: string[];
   allowedAttributes?: Record<string, string[]>;
+  preserveCosmicContent?: boolean;
   [key: string]: any;
 }) {
-  // Configure DOMPurify
+  // Configure DOMPurify with cosmic content preservation
   const purifyConfig = {
     ALLOWED_TAGS: allowedTags,
     ALLOWED_ATTR: ['class', 'id', 'style'],
+    KEEP_CONTENT: preserveCosmicContent,
     ...allowedAttributes
   };
+
+  // Enhanced cosmic content preservation - whitelist cosmic characters and whale emojis
+  const cosmicPreservedHtml = preserveCosmicContent ? 
+    html.replace(/[🐋🌊✨🌟🕉️☯️💙🎵🎶🌌]/g, (match) => `__COSMIC_${match.codePointAt(0)?.toString(16)?.toUpperCase()}__`) 
+    : html;
   
   // Sanitize the HTML
-  const sanitizedHtml = DOMPurify.sanitize(html, purifyConfig);
+  let sanitizedHtml = DOMPurify.sanitize(cosmicPreservedHtml, purifyConfig);
+  
+  // Restore cosmic characters after sanitization
+  if (preserveCosmicContent) {
+    sanitizedHtml = sanitizedHtml.replace(/__COSMIC_([0-9A-F]+)__/g, (_, code) => 
+      String.fromCodePoint(parseInt(code, 16))
+    );
+  }
   
   return (
     <div 
