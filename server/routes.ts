@@ -193,6 +193,13 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   app.use(youTubeCSRFExemption);
   app.use(youTubeRateLimitExemption);
   app.use(holisticYouTubeSecurityMiddleware);
+  
+  // Apply general rate limiting to prevent unauthorized access attempts
+  app.use('/api', generalRateLimit);
+  // Apply strict rate limiting to admin endpoints
+  app.use('/api/admin', adminRateLimit);
+  // Apply auth rate limiting to authentication endpoints
+  app.use('/api/auth', authRateLimit);
   // === CRITICAL: PUBLIC API ROUTES MUST LOAD FIRST ===
   // Load external API integrations BEFORE any authentication middleware
   
