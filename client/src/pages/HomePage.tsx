@@ -19,7 +19,7 @@ import {
   SacredGeometryLayout, 
   GeometricTextContainer,
   ResponsiveSacredGeometry 
-} from '@/components/ui/responsive-sacred-geometry';
+} from '../components/ui/responsive-sacred-geometry';
 import { 
   SimpleHexagon, 
   SimpleTriangle,
