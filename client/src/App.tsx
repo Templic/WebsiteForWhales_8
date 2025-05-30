@@ -11,6 +11,8 @@ import NotFound from "./pages/not-found";
 import { useEffect } from "react";
 import { initializeGA, trackPageView } from "@/lib/analytics";
 import { applyMobileOptimizations } from "@/utils/mobileOptimization";
+import { emergencyPerformanceManager } from "@/utils/emergencyPerformanceMode";
+import { resourceOptimizer } from "@/utils/resourceOptimizer";
 import { ErrorBoundary } from "react-error-boundary";
 import StarBackground from "@/components/cosmic/StarBackground";
 import { AccessibilityProvider } from "@/contexts/AccessibilityContext";

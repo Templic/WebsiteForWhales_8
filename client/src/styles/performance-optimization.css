@@ -1,0 +1,121 @@
+/**
+ * Performance Optimization CSS
+ * Reduces resource-intensive animations and effects
+ */
+
+/* Reduce animation complexity */
+.sacred-geometry-pattern {
+  animation-duration: 2s !important;
+  animation-iteration-count: 1 !important;
+}
+
+.cosmic-animation {
+  animation-duration: 1.5s !important;
+  animation-timing-function: ease-out !important;
+}
+
+/* Simplify particle effects */
+.particle-effect {
+  opacity: 0.3 !important;
+  animation-duration: 3s !important;
+}
+
+.particles {
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Reduce visual effects complexity */
+.cosmic-glow {
+  filter: blur(1px) !important;
+  opacity: 0.5 !important;
+}
+
+.sacred-geometry-glow {
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.3) !important;
+  filter: none !important;
+}
+
+/* Optimize complex SVG patterns */
+svg {
+  shape-rendering: optimizeSpeed !important;
+}
+
+.complex-pattern path:nth-child(n+6) {
+  display: none !important;
+}
+
+/* Disable resource-intensive transforms */
+.geometric-transform {
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Reduce gradient complexity */
+.cosmic-gradient {
+  background: linear-gradient(45deg, #6c63ff 0%, #3f51b5 100%) !important;
+}
+
+/* Performance-optimized mode indicators */
+.performance-optimized {
+  position: relative;
+}
+
+.performance-optimized::before {
+  content: "⚡ Optimized Mode";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(108, 99, 255, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Disable when emergency mode is active */
+.emergency-performance-mode .sacred-geometry-pattern {
+  animation: none !important;
+  transform: none !important;
+}
+
+.emergency-performance-mode .particle-effect {
+  display: none !important;
+}
+
+.emergency-performance-mode .cosmic-glow {
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.emergency-performance-mode .geometric-transform {
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Responsive performance optimizations */
+@media (max-width: 768px) {
+  .sacred-geometry-pattern {
+    animation-duration: 1s !important;
+  }
+  
+  .particle-effect {
+    display: none !important;
+  }
+  
+  .cosmic-glow {
+    filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sacred-geometry-pattern,
+  .cosmic-animation,
+  .particle-effect {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
