@@ -126,6 +126,12 @@ const SimplifiedSacredGeometry: React.FC<SimplifiedSacredGeometryProps> = memo((
   const config = INTENSITY_CONFIGS[intensity];
   const posConfig = POSITION_CONFIGS[position];
 
+  // Safety check for pattern
+  if (!pattern) {
+    console.warn(`SimplifiedSacredGeometry: Unknown variant "${variant}"`);
+    return null;
+  }
+
   // Memoized gradient definitions for performance
   const gradientDefs = useMemo(() => {
     const id = `gradient-${variant}-${intensity}`;
