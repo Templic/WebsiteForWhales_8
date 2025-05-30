@@ -49,16 +49,17 @@ export function ParticleBackground() {
 
     const initParticles = () => {
       particles = []
-      const particleCount = Math.min(Math.floor(window.innerWidth / 10), 100)
+      // Reduce particle count for better performance
+      const particleCount = Math.min(Math.floor(window.innerWidth / 15), 60)
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 0.5,
-          speedX: Math.random() * 0.2 - 0.1,
-          speedY: Math.random() * 0.2 - 0.1,
-          opacity: Math.random() * 0.5 + 0.1,
+          size: Math.random() * 1.5 + 0.5, // Slightly smaller particles
+          speedX: (Math.random() * 0.1 - 0.05), // Slower movement
+          speedY: (Math.random() * 0.1 - 0.05), // Slower movement
+          opacity: Math.random() * 0.4 + 0.1, // More subtle
           color: getRandomColor(),
         })
       }
@@ -66,10 +67,10 @@ export function ParticleBackground() {
 
     const getRandomColor = () => {
       const colors = [
-        "rgba(147, 51, 234, 0.7)", // Purple
-        "rgba(79, 70, 229, 0.7)", // Indigo
-        "rgba(59, 130, 246, 0.7)", // Blue
-        "rgba(236, 72, 153, 0.7)", // Pink
+        "rgba(147, 51, 234, 0.5)", // Purple - more subtle
+        "rgba(79, 70, 229, 0.5)", // Indigo - more subtle
+        "rgba(59, 130, 246, 0.5)", // Blue - more subtle
+        "rgba(236, 72, 153, 0.5)", // Pink - more subtle
       ]
       return colors[Math.floor(Math.random() * colors.length)]
     }
@@ -94,7 +95,7 @@ export function ParticleBackground() {
         ctx.fillStyle = particle.color
         ctx.fill()
 
-        // Draw connections
+        // Draw connections with reduced distance for better performance
         connectParticles(particle, i)
       })
     }
@@ -105,10 +106,11 @@ export function ParticleBackground() {
         const dy = particle.y - particles[i].y
         const distance = Math.sqrt(dx * dx + dy * dy)
 
-        if (distance < 120) {
+        // Reduced connection distance for better performance
+        if (distance < 80) {
           ctx.beginPath()
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 120)})`
-          ctx.lineWidth = 0.5
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 * (1 - distance / 80)})`
+          ctx.lineWidth = 0.3
           ctx.moveTo(particle.x, particle.y)
           ctx.lineTo(particles[i].x, particles[i].y)
           ctx.stroke()
@@ -116,8 +118,16 @@ export function ParticleBackground() {
       }
     }
 
-    const animate = () => {
-      drawParticles()
+    // Performance optimization: throttle animation to 15fps instead of 60fps
+    let lastFrameTime = 0
+    const targetFPS = 15
+    const frameInterval = 1000 / targetFPS
+
+    const animate = (currentTime: number = 0) => {
+      if (currentTime - lastFrameTime >= frameInterval) {
+        drawParticles()
+        lastFrameTime = currentTime
+      }
       animationFrameId = requestAnimationFrame(animate)
     }
 
