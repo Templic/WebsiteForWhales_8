@@ -46,7 +46,7 @@ class StarPool {
 }
 
 const OptimizedStars: React.FC<OptimizedStarsProps> = ({
-  count = 50, // Reduced from 200
+  count = 111, // Optimized from 200 to 111 as requested
   speed = 0.3,
   color = '#ffffff',
   backgroundColor = 'transparent',
@@ -57,28 +57,17 @@ const OptimizedStars: React.FC<OptimizedStarsProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const starPool = useRef(new StarPool());
   const animationRef = useRef<number>();
-  const lastFrameTime = useRef(0);
   const starsInitialized = useRef(false);
   
-  // Performance-based particle count adjustment
+  // Performance-based particle count adjustment - maintain 111 base
   const optimizedCount = useMemo(() => {
     switch (performanceMode) {
-      case 'low': return Math.min(count, 25);
-      case 'medium': return Math.min(count, 50);
-      case 'high': return Math.min(count, 75);
+      case 'low': return Math.min(count, 75);
+      case 'medium': return Math.min(count, 111);
+      case 'high': return Math.min(count, 150);
       default: return count;
     }
   }, [count, performanceMode]);
-  
-  // Frame rate targeting based on performance mode
-  const targetFrameRate = useMemo(() => {
-    switch (performanceMode) {
-      case 'low': return 20;
-      case 'medium': return 30;
-      case 'high': return 45;
-      default: return 30;
-    }
-  }, [performanceMode]);
   
   // Pre-calculated random values for performance
   const preCalculatedValues = useMemo(() => {
@@ -120,15 +109,6 @@ const OptimizedStars: React.FC<OptimizedStarsProps> = ({
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
-    // Frame rate limiting
-    const frameInterval = 1000 / targetFrameRate;
-    if (currentTime - lastFrameTime.current < frameInterval) {
-      animationRef.current = requestAnimationFrame(animate);
-      return;
-    }
-    
-    lastFrameTime.current = currentTime;
     
     // Clear canvas only when needed
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -174,7 +154,7 @@ const OptimizedStars: React.FC<OptimizedStarsProps> = ({
     ctx.fill();
     
     animationRef.current = requestAnimationFrame(animate);
-  }, [color, backgroundColor, performanceMode, targetFrameRate, getRandomValue]);
+  }, [color, backgroundColor, performanceMode, getRandomValue]);
   
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
