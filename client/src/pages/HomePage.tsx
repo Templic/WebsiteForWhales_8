@@ -67,7 +67,55 @@ export default function HomePage() {
   return (
     <SacredGeometryLayout className="min-h-screen">
       <SpotlightEffect />
-      <div className="container mx-auto px-4 py-4 max-w-[1600px]">
+      
+      {/* Adaptive Sacred Geometry Background Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Corner elements that adapt to device capabilities */}
+        <div className="absolute top-20 left-8 opacity-20">
+          <AdaptiveGeometrySystem 
+            variant="flower-of-life" 
+            size={140} 
+            position="background" 
+            intensity="subtle" 
+          />
+        </div>
+        <div className="absolute top-20 right-8 opacity-20">
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={120} 
+            position="background" 
+            intensity="subtle" 
+          />
+        </div>
+        <div className="absolute bottom-20 left-8 opacity-20">
+          <AdaptiveGeometrySystem 
+            variant="sri-yantra" 
+            size={130} 
+            position="background" 
+            intensity="subtle" 
+          />
+        </div>
+        <div className="absolute bottom-20 right-8 opacity-20">
+          <AdaptiveGeometrySystem 
+            variant="golden-spiral" 
+            size={110} 
+            position="background" 
+            intensity="subtle" 
+          />
+        </div>
+        
+        {/* Center floating element for larger screens */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10 hidden lg:block">
+          <AdaptiveGeometrySystem 
+            variant="hexagon" 
+            size={200} 
+            position="background" 
+            intensity="medium" 
+          />
+        </div>
+      </div>
+      
+      <div className="container mx-auto px-4 py-4 max-w-[1600px] relative z-10">
 
         {/* Enhanced Cosmic Hero Section with Responsive Sacred Geometry */}
         <section className="hero min-h-[90vh] relative flex items-center justify-center text-center text-white mb-8">
