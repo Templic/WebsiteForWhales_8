@@ -13,13 +13,8 @@ import { UsersRound, BarChart3, Sparkles } from "lucide-react";
 import { SpotlightEffect } from "../components/SpotlightEffect";
 import { DynamicContent } from "../components/content";
 
-// Import enhanced responsive sacred geometry components
-import { 
-  SacredGeometryLayout, 
-  GeometricTextContainer,
-  ResponsiveSacredGeometry 
-} from '../components/ui/responsive-sacred-geometry';
-import { AdvancedSacredGeometry } from '../components/ui/advanced-sacred-geometry';
+// Import optimized geometry components
+import { GeometricTextContainer } from '../components/ui/responsive-sacred-geometry';
 import { ResponsivePhiGrid, PhiGridItem, PhiGridStyles } from '../components/ui/phi-grid-system';
 import ThrottledSacredGeometry from '../components/cosmic/ThrottledSacredGeometry';
 
@@ -58,9 +53,23 @@ export default function HomePage() {
   }, []);
 
   return (
-    <SacredGeometryLayout className="min-h-screen">
+    <div className="min-h-screen relative bg-gradient-to-b from-slate-900 to-slate-800">
+      {/* Optimized background geometry - mobile-friendly */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
+        <div className="absolute top-1/4 left-1/4 hidden md:block">
+          <ThrottledSacredGeometry variant="merkaba" size={200} animated={true} intensity="subtle" />
+        </div>
+        <div className="absolute bottom-1/4 right-1/4 hidden md:block">
+          <ThrottledSacredGeometry variant="dodecahedron" size={180} animated={true} intensity="subtle" />
+        </div>
+        {/* Mobile-only simplified background */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:hidden">
+          <ThrottledSacredGeometry variant="hexagon" size={120} animated={true} intensity="subtle" />
+        </div>
+      </div>
+      
       <SpotlightEffect />
-      <div className="container mx-auto px-4 py-4 max-w-[1600px]">
+      <div className="container mx-auto px-4 py-4 max-w-[1600px] relative z-10">
 
         {/* Enhanced Cosmic Hero Section with Responsive Sacred Geometry */}
         <section className="hero min-h-[90vh] relative flex items-center justify-center text-center text-white mb-8">
@@ -419,6 +428,6 @@ export default function HomePage() {
           </div>
         </main>
       </div>
-    </SacredGeometryLayout>
+    </div>
   );
 }
