@@ -21,13 +21,7 @@ import {
 } from '../components/ui/responsive-sacred-geometry';
 import { AdvancedSacredGeometry } from '../components/ui/advanced-sacred-geometry';
 import { ResponsivePhiGrid, PhiGridItem, PhiGridStyles } from '../components/ui/phi-grid-system';
-import { 
-  SimpleHexagon, 
-  SimpleTriangle,
-  SimpleInvertedTriangle,
-  SimpleCircle,
-  SimpleOctagon
-} from '../components/cosmic/SimpleGeometry';
+import ThrottledSacredGeometry from '../components/cosmic/ThrottledSacredGeometry';
 
 interface ConsciousnessOverview {
   currentLevel: number;
@@ -151,72 +145,75 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
             {/* Whale Wisdom Explanation */}
-            <div className="w-full">
-              <SimpleTriangle className="w-full max-w-[350px] mx-auto">
-                <motion.div 
-                  className="text-center"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="text-5xl mb-4">🐋</div>
-                  <h3 className="text-2xl font-bold text-blue-800 mb-4">Whale Wisdom</h3>
-                  <p className="text-blue-600 mb-6 leading-relaxed">
-                    Ancient ocean frequencies carry transformative wisdom to expand your awareness. 
-                    Connect with humpback, blue whale, orca, and gray whale consciousness.
-                  </p>
-                  <div className="space-y-2 text-sm text-blue-500">
-                    <div>🎵 Real whale song frequencies</div>
-                    <div>🧠 Consciousness expansion</div>
-                    <div>💫 Ancient marine wisdom</div>
-                  </div>
-                </motion.div>
-              </SimpleTriangle>
+            <div className="w-full relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                <ThrottledSacredGeometry variant="vesica-piscis" size={300} animated={true} intensity="subtle" />
+              </div>
+              <motion.div 
+                className="relative z-10 text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-blue-300/30"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-5xl mb-4">🐋</div>
+                <h3 className="text-2xl font-bold text-blue-800 mb-4">Whale Wisdom</h3>
+                <p className="text-blue-600 mb-6 leading-relaxed">
+                  Ancient ocean frequencies carry transformative wisdom to expand your awareness. 
+                  Connect with humpback, blue whale, orca, and gray whale consciousness.
+                </p>
+                <div className="space-y-2 text-sm text-blue-500">
+                  <div>🎵 Real whale song frequencies</div>
+                  <div>🧠 Consciousness expansion</div>
+                  <div>💫 Ancient marine wisdom</div>
+                </div>
+              </motion.div>
             </div>
 
             {/* Manifestation Explanation */}
-            <div className="w-full">
-              <SimpleOctagon className="w-full max-w-[350px] mx-auto">
-                <motion.div 
-                  className="text-center"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="text-5xl mb-4">✨</div>
-                  <h3 className="text-2xl font-bold text-purple-800 mb-4">Reality Manifestation</h3>
-                  <p className="text-purple-600 mb-6 leading-relaxed">
-                    Quantum intention aligns cosmic energies with your deepest desires. 
-                    Track your manifestation journey with evidence-based progress.
-                  </p>
-                  <div className="space-y-2 text-sm text-purple-500">
-                    <div>⚡ Quantum energy alignment</div>
-                    <div>📈 Evidence tracking</div>
-                    <div>🎯 Intention optimization</div>
-                  </div>
-                </motion.div>
-              </SimpleOctagon>
+            <div className="w-full relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                <ThrottledSacredGeometry variant="merkaba" size={300} animated={true} intensity="subtle" />
+              </div>
+              <motion.div 
+                className="relative z-10 text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-purple-300/30"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-5xl mb-4">✨</div>
+                <h3 className="text-2xl font-bold text-purple-800 mb-4">Reality Manifestation</h3>
+                <p className="text-purple-600 mb-6 leading-relaxed">
+                  Quantum intention aligns cosmic energies with your deepest desires. 
+                  Track your manifestation journey with evidence-based progress.
+                </p>
+                <div className="space-y-2 text-sm text-purple-500">
+                  <div>⚡ Quantum energy alignment</div>
+                  <div>📈 Evidence tracking</div>
+                  <div>🎯 Intention optimization</div>
+                </div>
+              </motion.div>
             </div>
 
             {/* Sacred Geometry Explanation */}
-            <div className="w-full">
-              <SimpleCircle className="w-full max-w-[350px] mx-auto">
-                <motion.div 
-                  className="text-center"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="text-5xl mb-4">🔯</div>
-                  <h3 className="text-2xl font-bold text-teal-800 mb-4">Sacred Geometry</h3>
-                  <p className="text-teal-600 mb-6 leading-relaxed">
-                    Divine patterns harmonize consciousness with universal frequencies, 
-                    creating profound spiritual resonance and visual meditation.
-                  </p>
-                  <div className="space-y-2 text-sm text-teal-500">
-                    <div>🌸 Flower of Life patterns</div>
-                    <div>🔺 Merkaba meditation</div>
-                    <div>🎼 Frequency synchronization</div>
-                  </div>
-                </motion.div>
-              </SimpleCircle>
+            <div className="w-full relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                <ThrottledSacredGeometry variant="flower-of-life" size={300} animated={true} intensity="subtle" />
+              </div>
+              <motion.div 
+                className="relative z-10 text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-teal-300/30"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-5xl mb-4">🔯</div>
+                <h3 className="text-2xl font-bold text-teal-800 mb-4">Sacred Geometry</h3>
+                <p className="text-teal-600 mb-6 leading-relaxed">
+                  Divine patterns harmonize consciousness with universal frequencies, 
+                  creating profound spiritual resonance and visual meditation.
+                </p>
+                <div className="space-y-2 text-sm text-teal-500">
+                  <div>🌸 Flower of Life patterns</div>
+                  <div>🔺 Merkaba meditation</div>
+                  <div>🎼 Frequency synchronization</div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
