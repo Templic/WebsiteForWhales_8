@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { SpotlightEffect } from "@/components/SpotlightEffect";
-import SacredGeometry from "@/components/ui/sacred-geometry";
+import { ThrottledSacredGeometry } from "@/components/cosmic/ThrottledSacredGeometry";
 
 const newsletterSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -78,12 +78,12 @@ export default function NewsletterPage() {
               {/* Glow effect overlay */}
               <div className="absolute inset-0 clip-path-octagon bg-gradient-to-tr from-[rgba(0,235,214,0.2)] to-transparent mix-blend-overlay"></div>
               
-              {/* Sacred geometry overlay */}
-              <div className="absolute top-10 right-10 opacity-30 animate-spin-very-slow" style={{ animationDuration: '30s' }}>
-                <SacredGeometry variant="merkaba" size={120} animated={false} intensity="medium" />
+              {/* Sacred geometry overlay - updated to advanced timing system */}
+              <div className="absolute top-10 right-10 opacity-30">
+                <ThrottledSacredGeometry variant="merkaba" size={120} animated={true} intensity="medium" />
               </div>
-              <div className="absolute bottom-10 left-10 opacity-30 animate-spin-very-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
-                <SacredGeometry variant="octagon" size={100} animated={false} intensity="medium" />
+              <div className="absolute bottom-10 left-10 opacity-30">
+                <ThrottledSacredGeometry variant="octagon" size={100} animated={true} intensity="medium" />
               </div>
             </div>
           </div>
