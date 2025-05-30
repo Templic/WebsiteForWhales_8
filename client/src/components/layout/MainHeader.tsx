@@ -37,7 +37,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { useAccessibility } from "@/contexts/AccessibilityContext";
 import { motion } from "framer-motion";
-import SacredGeometry from "../../components/ui/sacred-geometry";
+import AdaptiveGeometrySystem from "../cosmic/AdaptiveGeometrySystem";
 // Remove ThemeToggle import as it's now managed in MainLayout
 
 // Define the navigation items structure
@@ -180,108 +180,84 @@ export function MainHeader() {
       <div className="absolute inset-0 overflow-hidden z-0">
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
-        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
-          <div className="animate-spin-cosmic">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={90} 
-              animated={false} 
-              intensity="medium" 
-              className="text-cyan-300" 
-            />
-          </div>
+        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-20 opacity-60">
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={90} 
+            position="foreground" 
+            intensity="medium" 
+          />
         </div>
 
         {/* Left circle background/shadow - first set */}
-        <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <div className="animate-spin-planetary">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={100} 
-              animated={false} 
-              intensity="subtle" 
-              className="text-purple-400" 
-            />
-          </div>
+        <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-30 blur-sm">
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={100} 
+            position="background" 
+            intensity="subtle" 
+          />
         </div>
         
         {/* Right circle foreground - first set */}
-        <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
-          <div className="animate-spin-cosmic">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={90} 
-              animated={false} 
-              intensity="medium" 
-              className="text-cyan-300" 
-            />
-          </div>
+        <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-20 opacity-60">
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={90} 
+            position="foreground" 
+            intensity="medium" 
+          />
         </div>
         
         {/* Right circle background/shadow - first set */}
-        <div className="absolute top-[52%] right-[7%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <div className="animate-spin-planetary">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={100} 
-              animated={false} 
-              intensity="subtle" 
-              className="text-purple-400" 
-            />
-          </div>
+        <div className="absolute top-[52%] right-[7%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-30 blur-sm">
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={100} 
+            position="background" 
+            intensity="subtle" 
+          />
         </div>
         
         {/* SECOND SET - Slightly below and toward center - in absolute foreground */}
         {/* Left circle foreground - second set */}
-        <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
-          <div className="animate-spin-cosmic">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={75} 
-              animated={false} 
-              intensity="medium" 
-              className="text-cyan-300" 
-            />
-          </div>
+        <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50" style={{ zIndex: 100 }}>
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={75} 
+            position="foreground" 
+            intensity="medium" 
+          />
         </div>
 
         {/* Left circle background/shadow - second set */}
-        <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
-          <div className="animate-spin-cosmic">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={85} 
-              animated={false} 
-              intensity="subtle" 
-              className="text-purple-400" 
-            />
-          </div>
+        <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-25 blur-sm" style={{ zIndex: 99 }}>
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={85} 
+            position="background" 
+            intensity="subtle" 
+          />
         </div>
         
         {/* Right circle foreground - second set */}
-        <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
-          <div className="animate-spin-cosmic">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={75} 
-              animated={false} 
-              intensity="medium" 
-              className="text-cyan-300" 
-            />
-          </div>
+        <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50" style={{ zIndex: 100 }}>
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={75} 
+            position="foreground" 
+            intensity="medium" 
+          />
         </div>
         
         {/* Right circle background/shadow - second set */}
-        <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
-          <div className="animate-spin-cosmic">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={85} 
-              animated={false} 
-              intensity="subtle" 
-              className="text-purple-400" 
-            />
-          </div>
+        <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-25 blur-sm" style={{ zIndex: 99 }}>
+          <AdaptiveGeometrySystem 
+            variant="merkaba" 
+            size={85} 
+            position="background" 
+            intensity="subtle" 
+          />
         </div>
       
         <div className="absolute -top-14 -right-14 opacity-40 transform rotate-45">
