@@ -40,6 +40,8 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
   const rotationRef = useRef<number>(0);
+  const lastFrameTime = useRef(0);
+  const manager = GeometryPerformanceManager.getInstance();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -48,6 +50,10 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Register with performance manager
+    const animationId = `sacred-geometry-${type}`;
+    const canAnimate = manager.registerAnimation(animationId);
+    
     // Set canvas size
     canvas.width = size;
     canvas.height = size;
@@ -505,18 +511,29 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       ctx.fillText(text, x, y);
     }
 
-    // Animation loop with performance throttling
-    const animationLoop = () => {
-      if (animate) {
-        rotationRef.current += 0.0005; // Slower rotation speed to prevent resource competition
-        drawPattern(rotationRef.current);
-        // Throttle to 15fps instead of 60fps to reduce flickering
-        setTimeout(() => {
-          animationRef.current = requestAnimationFrame(animationLoop);
-        }, 1000 / 15);
+    // Sacred frequency based animation with Solfeggio timing
+    const sacredFrequency = SACRED_FREQUENCIES.meditation; // 11.4 second cycles
+    const targetFPS = manager.getOptimization().frameRate || 8;
+    const frameInterval = 1000 / targetFPS;
+
+    const animationLoop = (timestamp: number = 0) => {
+      if (animate && canAnimate) {
+        // Throttle based on sacred frequencies
+        if (timestamp - lastFrameTime.current >= frameInterval) {
+          // Use sacred timing for rotation
+          rotationRef.current += (Math.PI * 2) / (sacredFrequency * targetFPS);
+          drawPattern(rotationRef.current);
+          lastFrameTime.current = timestamp;
+        }
+        animationRef.current = requestAnimationFrame(animationLoop);
       } else {
         drawPattern(0);
       }
+    };
+
+    // Static geometry drawing function for graceful degradation
+    const drawStaticGeometry = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+      drawPattern(0); // Draw without rotation
     };
 
     animationLoop();
@@ -525,8 +542,9 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      manager.unregisterAnimation(animationId);
     };
-  }, [type, size, color, animate, animationDuration, lineWidth, showLabels]);
+  }, [type, size, color, animate, animationDuration, lineWidth, showLabels, manager]);
 
   return (
     <canvas

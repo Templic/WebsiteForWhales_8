@@ -29,7 +29,7 @@ interface Particle {
 }
 
 interface ParticleBackgroundProps {
-  colorScheme?: "mixed" | "blue" | "purple" | "green" | "cosmic";
+  colorScheme?: "mixed" | "blue" | "purple" | "green" | "cosmic" | "teal" | "pink";
   density?: "low" | "medium" | "high";
   speed?: "slow" | "medium" | "fast";
   connectDistance?: number;
@@ -125,10 +125,10 @@ export function ParticleBackground() {
       }
     }
 
-    // Performance optimization: throttle animation to 15fps instead of 60fps
+    // Sacred frequency optimization: Use Solfeggio frequencies for animation timing
     let lastFrameTime = 0
-    const targetFPS = 15
-    const frameInterval = 1000 / targetFPS
+    const sacredFPS = 8  // Much slower - 8 FPS for meditation
+    const frameInterval = 1000 / sacredFPS
 
     const animate = (currentTime: number = 0) => {
       if (currentTime - lastFrameTime >= frameInterval) {
