@@ -73,23 +73,23 @@ const ThrottledSacredGeometry: React.FC<ThrottledSacredGeometryProps> = ({
     const centerY = size / 2;
     const radius = size * 0.4;
 
-    // Adaptive performance settings based on device
+    // Adaptive performance settings based on device with planetary frequencies
     const performanceSettings = {
       mobile: {
-        frameRate: 15,        // 15 FPS
-        rotationSpeed: 0.0003, // Very slow rotation
+        frameRate: 4,          // 4 FPS for meditation
+        rotationSpeed: 0.00003, // Extremely slow planetary rotation (120s cycle)
         lineWidth: 1,
         complexity: 'low'
       },
       tablet: {
-        frameRate: 30,        // 30 FPS
-        rotationSpeed: 0.0006, // Slow rotation
+        frameRate: 8,          // 8 FPS
+        rotationSpeed: 0.00004, // Very slow planetary rotation (90s cycle)
         lineWidth: 1.5,
         complexity: 'medium'
       },
       desktop: {
-        frameRate: 60,        // 60 FPS
-        rotationSpeed: 0.001,  // Normal rotation
+        frameRate: 15,         // 15 FPS max
+        rotationSpeed: 0.00005, // Slow planetary rotation (60s cycle)
         lineWidth: 2,
         complexity: 'high'
       }

@@ -22,7 +22,7 @@ export const SimpleHexagon: React.FC<GeometryProps> = ({ className = "", glowCol
       <motion.div
         className="absolute inset-0"
         animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
           <defs>
@@ -80,7 +80,7 @@ export const SimpleTriangle: React.FC<GeometryProps> = ({ className = "", glowCo
       <motion.div
         className="absolute inset-0"
         animate={{ rotate: 360 }}
-        transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
           <defs>
@@ -175,7 +175,7 @@ export const SimpleOctagon: React.FC<GeometryProps> = ({ className = "", glowCol
     <div className={`relative ${className}`}>
       <motion.div
         animate={{ rotate: -360 }}
-        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <defs>
@@ -214,7 +214,7 @@ export const SimpleInvertedTriangle: React.FC<GeometryProps> = ({ className = ""
     <div className={`relative ${className}`}>
       <motion.div
         animate={{ rotate: -360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <defs>
@@ -253,7 +253,7 @@ export const SimpleStarburst: React.FC<GeometryProps> = ({ className = "", glowC
     <div className={`relative ${className}`}>
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <defs>
