@@ -3,10 +3,15 @@
  * Stable version without complex imports
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'wouter';
+import { applyMobileStabilityFixes } from '../utils/mobileStabilityFix';
 
 export default function SacredGeometryStatus() {
+  useEffect(() => {
+    applyMobileStabilityFixes();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white p-8">
       <div className="max-w-6xl mx-auto">
