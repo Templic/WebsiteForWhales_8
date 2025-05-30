@@ -500,18 +500,21 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       ctx.fillText(text, x, y);
     }
 
-    // Animation loop
-    const animate = () => {
+    // Animation loop with performance throttling
+    const animationLoop = () => {
       if (animate) {
-        rotationRef.current += 0.001; // Adjust rotation speed
+        rotationRef.current += 0.0005; // Slower rotation speed to prevent resource competition
         drawPattern(rotationRef.current);
-        animationRef.current = requestAnimationFrame(animate);
+        // Throttle to 15fps instead of 60fps to reduce flickering
+        setTimeout(() => {
+          animationRef.current = requestAnimationFrame(animationLoop);
+        }, 1000 / 15);
       } else {
         drawPattern(0);
       }
     };
 
-    animate();
+    animationLoop();
 
     return () => {
       if (animationRef.current) {
