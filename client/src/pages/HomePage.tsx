@@ -5,22 +5,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "wouter";
 import { motion } from 'framer-motion';
-import { Button } from "../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { Progress } from "../components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { UsersRound, BarChart3, Sparkles } from "lucide-react";
-import { SpotlightEffect } from "../components/SpotlightEffect";
-import { DynamicContent } from "../components/content";
+import { SpotlightEffect } from "@/components/SpotlightEffect";
+import { DynamicContent } from "@/components/content";
+import { createDynamicComponent } from "@/lib/bundle-optimization";
 
-// Import enhanced responsive sacred geometry components
-import { 
-  SacredGeometryLayout, 
-  GeometricTextContainer,
-  ResponsiveSacredGeometry 
-} from '../components/ui/responsive-sacred-geometry';
-import { AdvancedSacredGeometry } from '../components/ui/advanced-sacred-geometry';
-import { ResponsivePhiGrid, PhiGridItem, PhiGridStyles } from '../components/ui/phi-grid-system';
+// Import geometric shape components
 import { 
   SimpleHexagon, 
   SimpleTriangle,
@@ -64,19 +58,14 @@ export default function HomePage() {
   }, []);
 
   return (
-    <SacredGeometryLayout className="min-h-screen">
+    <>
       <SpotlightEffect />
       <div className="container mx-auto px-4 py-4 max-w-[1600px]">
 
-        {/* Enhanced Cosmic Hero Section with Responsive Sacred Geometry */}
+        {/* Restored Cosmic Hero Section */}
         <section className="hero min-h-[90vh] relative flex items-center justify-center text-center text-white mb-8">
           <div className="w-full max-w-[1200px] mx-auto">
-            <GeometricTextContainer 
-              variant="hexagon" 
-              className="w-full max-w-[800px] mx-auto" 
-              glowColor="rgba(255, 65, 105, 0.6)"
-              backgroundBlur={true}
-            >
+            <SimpleHexagon className="w-full max-w-[800px] mx-auto" glowColor="rgba(255, 65, 105, 0.6)">
               <motion.h1 
                 className="cosmic-heading-responsive-lg mb-6 text-shadow shadow-[#fe0064] animate-cosmic font-almendra leading-tight px-4 whitespace-normal text-[#e15554]"
                 initial={{ y: -20, opacity: 0 }}
@@ -134,7 +123,7 @@ export default function HomePage() {
                   🐋 Begin Consciousness Journey
                 </button>
               </motion.div>
-            </GeometricTextContainer>
+            </SimpleHexagon>
           </div>
         </section>
 
@@ -407,6 +396,6 @@ export default function HomePage() {
           </div>
         </main>
       </div>
-    </SacredGeometryLayout>
+    </>
   );
 }
