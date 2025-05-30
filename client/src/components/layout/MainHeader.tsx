@@ -477,10 +477,10 @@ export function MainHeader() {
                     >
                       <div >
                         <AdaptiveGeometrySystem 
-                          variant={index % 2 === 0 ? "hexagon" : "triangle"} 
+                          variant={index % 2 === 0 ? "hexagon" : "merkaba"} 
                           size={16} 
+                          position="background"
                           intensity="subtle" 
-                          className={index % 2 === 0 ? "text-cyan-300" : "text-purple-300"} 
                         />
                       </div>
                       {item.icon}
