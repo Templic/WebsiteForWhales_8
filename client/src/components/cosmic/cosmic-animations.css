@@ -38,8 +38,8 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Subtle rotation */
-@keyframes subtleRotate {
+/* Planetary frequency rotation */
+@keyframes planetaryRotate {
   0% {
     transform: rotate(0deg);
   }
@@ -48,8 +48,38 @@
   }
 }
 
+@keyframes planetaryReverseRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Planetary frequency classes based on sacred timing */
 .cosmic-rotate {
-  animation: subtleRotate 30s linear infinite;
+  animation: planetaryRotate 60s linear infinite; /* 1 minute - Jupiter energy */
+}
+
+.animate-spin-very-slow {
+  animation: planetaryRotate 60s linear infinite; /* 1 minute - Jupiter energy */
+}
+
+.animate-spin-planetary {
+  animation: planetaryRotate 90s linear infinite; /* 1.5 minutes - Deep meditation */
+}
+
+.animate-spin-cosmic {
+  animation: planetaryRotate 120s linear infinite; /* 2 minutes - Root chakra grounding */
+}
+
+.slow-rotate {
+  animation: planetaryRotate 90s linear infinite; /* 1.5 minutes - Deep meditation */
+}
+
+.reverse-rotate {
+  animation: planetaryReverseRotate 120s linear infinite; /* 2 minutes - Root chakra grounding */
 }
 
 /* Sparkle effect */

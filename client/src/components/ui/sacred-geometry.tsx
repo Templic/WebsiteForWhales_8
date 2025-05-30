@@ -47,8 +47,8 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
     "--fill-opacity": opacityValue,
   } as React.CSSProperties;
 
-  // Animation class based on the animated prop
-  const animationClass = animated ? 'animate-spin-very-slow' : '';
+  // Animation class based on the animated prop using planetary frequencies
+  const animationClass = animated ? 'animate-spin-planetary' : '';
 
   // Helper function to create SVG with consistent props
   const createSvg = (children: React.ReactNode) => (

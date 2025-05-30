@@ -194,7 +194,7 @@ export function MainHeader() {
 
         {/* Left circle background/shadow - first set */}
         <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-planetary">
             <SacredGeometry 
               variant="merkaba" 
               size={100} 
@@ -207,7 +207,7 @@ export function MainHeader() {
         
         {/* Right circle foreground - first set */}
         <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-cosmic">
             <SacredGeometry 
               variant="merkaba" 
               size={90} 
@@ -220,7 +220,7 @@ export function MainHeader() {
         
         {/* Right circle background/shadow - first set */}
         <div className="absolute top-[52%] right-[7%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-planetary">
             <SacredGeometry 
               variant="merkaba" 
               size={100} 
