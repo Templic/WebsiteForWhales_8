@@ -140,6 +140,8 @@ import ResponsiveDemo from "./pages/ResponsiveDemo";
 import ResponsiveDemo2 from "./pages/ResponsiveDemo2";
 import ContentAIDemo from "@/pages/ContentAIDemo";
 import ContentRecommendationsDemo from "@/pages/ContentRecommendationsDemo";
+import PerformanceOptimizationDemo from "@/pages/PerformanceOptimizationDemo";
+import AdaptiveGeometryDemo from "@/pages/AdaptiveGeometryDemo";
 
 // Sacred Geometry Demo Pages
 import SacredGeometryDemoPage from "@/pages/SacredGeometryDemoPage";
@@ -308,6 +310,8 @@ function AppRouter() {
           <Route path="/content-ai-demo" component={ContentAIDemo} />
           <Route path="/content-recommendations-demo" component={ContentRecommendationsDemo} />
           <Route path="/performance" component={PerformanceDemoPage} />
+          <Route path="/performance-optimization-demo" component={PerformanceOptimizationDemo} />
+          <Route path="/adaptive-geometry-demo" component={AdaptiveGeometryDemo} />
           <Route path="/responsive-demo" component={ResponsiveDemo} />
           <Route path="/responsive-demo2" component={ResponsiveDemo2} />
 
