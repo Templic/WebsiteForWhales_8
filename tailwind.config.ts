@@ -147,6 +147,14 @@ export default {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
+        "spin-planetary": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "spin-cosmic": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
         "hover-shimmer": {
           "0%": { backgroundPosition: "200% 0" },
           "100%": { backgroundPosition: "-200% 0" },
@@ -164,7 +172,9 @@ export default {
         "cosmic-pulse": "cosmic-pulse 4s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
         "glow": "glow 3s ease-in-out infinite",
-        "spin-very-slow": "spin-very-slow 30s linear infinite",
+        "spin-very-slow": "spin-very-slow 60s linear infinite",
+        "spin-planetary": "spin-planetary 90s linear infinite",
+        "spin-cosmic": "spin-cosmic 120s linear infinite",
         "hover-shimmer": "hover-shimmer 2s ease infinite",
       },
       backgroundImage: {
