@@ -4,8 +4,16 @@
  * Uses verified mathematical formulas and cultural sources
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { isAudioComponentDisabled } from '../../utils/audioComponentsToggle';
+import { 
+  calculatePhiSpiral, 
+  generateDodecahedralPattern,
+  calculateFractalAnimationSpeed,
+  FractalPerformanceMonitor,
+  DAN_WINTER_CONSTANTS 
+} from '../../lib/danWinterFractalMath';
 
 // Authentic mathematical constants from historical sources
 const PHI = 1.6180339887498948; // Golden Ratio - Euclid's Elements

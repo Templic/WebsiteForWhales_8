@@ -8,6 +8,7 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { CartProvider } from "@/hooks/use-cart";
 import { ProtectedRoute } from "@/lib/protected-route";
 import NotFound from "./pages/not-found";
+import './utils/audioComponentsToggle'; // Initialize performance optimizations
 import { useEffect } from "react";
 import { initializeGA, trackPageView } from "@/lib/analytics";
 import { applyMobileOptimizations } from "@/utils/mobileOptimization";
