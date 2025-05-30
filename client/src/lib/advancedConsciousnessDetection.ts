@@ -121,7 +121,8 @@ export class AdvancedConsciousnessDetection {
 
   private handleHover(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    if (target.dataset.sacredPattern) {
+    const sacredPattern = target.dataset?.sacredPattern || target.className || 'unknown';
+    if (sacredPattern !== 'unknown') {
       const startTime = Date.now();
       
       const handleLeave = () => {
@@ -130,9 +131,9 @@ export class AdvancedConsciousnessDetection {
           this.recordInteraction({
             timestamp: new Date(),
             action: 'hover',
-            element: target.dataset.sacredPattern!,
+            element: sacredPattern,
             duration,
-            pattern: target.dataset.sacredPattern,
+            pattern: sacredPattern,
             depth: this.calculateInteractionDepth(target)
           });
         }
@@ -145,13 +146,14 @@ export class AdvancedConsciousnessDetection {
 
   private handleClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    if (target.dataset.sacredPattern) {
+    const sacredPattern = target.dataset?.sacredPattern || target.className || 'unknown';
+    if (sacredPattern !== 'unknown') {
       this.recordInteraction({
         timestamp: new Date(),
         action: 'click',
-        element: target.dataset.sacredPattern,
+        element: sacredPattern,
         duration: 0,
-        pattern: target.dataset.sacredPattern,
+        pattern: sacredPattern,
         depth: this.calculateInteractionDepth(target)
       });
     }
@@ -357,7 +359,7 @@ export class AdvancedConsciousnessDetection {
       const response = await fetch('/api/consciousness/astronomical-data');
       if (response.ok) {
         const data = await response.json();
-        return data.cosmicAlignment || 0.7;
+        return (data as any)?.cosmicAlignment || 0.7;
       }
     } catch (error) {
       // Calculate based on time of day as fallback
