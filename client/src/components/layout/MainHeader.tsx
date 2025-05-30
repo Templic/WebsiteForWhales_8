@@ -181,7 +181,7 @@ export function MainHeader() {
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
         <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-cosmic">
             <SacredGeometry 
               variant="merkaba" 
               size={90} 
@@ -234,7 +234,7 @@ export function MainHeader() {
         {/* SECOND SET - Slightly below and toward center - in absolute foreground */}
         {/* Left circle foreground - second set */}
         <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-cosmic">
             <SacredGeometry 
               variant="merkaba" 
               size={75} 
@@ -247,7 +247,7 @@ export function MainHeader() {
 
         {/* Left circle background/shadow - second set */}
         <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-cosmic">
             <SacredGeometry 
               variant="merkaba" 
               size={85} 
@@ -260,7 +260,7 @@ export function MainHeader() {
         
         {/* Right circle foreground - second set */}
         <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-cosmic">
             <SacredGeometry 
               variant="merkaba" 
               size={75} 
@@ -273,7 +273,7 @@ export function MainHeader() {
         
         {/* Right circle background/shadow - second set */}
         <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
-          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+          <div className="animate-spin-cosmic">
             <SacredGeometry 
               variant="merkaba" 
               size={85} 
