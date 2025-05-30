@@ -1,0 +1,530 @@
+Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'self'” 3 utils.js:42:10
+TypeError: t is undefined content_script.js:2:536882
+Content-Security-Policy warnings 4
+TypeError: t is undefined content_script.js:2:536882
+Ignoring unsupported entryTypes: longtask. recaptcha__en.js:405:341
+TypeError: t is undefined 2 content_script.js:2:536882
+Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'self'” utils.js:42:10
+Content-Security-Policy: (Report-Only policy) The page’s settings would block an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'self'” utils.js:42:10
+Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'self'” utils.js:42:10
+Content-Security-Policy: (Report-Only policy) The page’s settings would block an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'self'” utils.js:42:10
+Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'self'” utils.js:42:10
+Content-Security-Policy: (Report-Only policy) The page’s settings would block an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'self'” utils.js:42:10
+TypeError: t is undefined content_script.js:2:536882
+Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src https://m.stripe.network 'sha256-5DA+a07wxWmEka9IdoWjSPVHb17Cp5284/lJzfbl8KA=' 'sha256-/5Guo2nzv5n/w6ukZpOBZOtTJBJPSkJ6mhHpnBgm3Ls='” 3 utils.js:42:10
+TypeError: t is undefined content_script.js:2:536882
+Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://m.stripe.com/6. (Reason: CORS request did not succeed). Status code: (null).
+Content-Security-Policy: The page’s settings blocked an inline style (style-src-elem) from being applied because it violates the following directive: “style-src 'self' 'sha256-0hAheEzaMe6uXIKV4EehS9pu1am1lj/KnnzrOYqckXk='” autoconsent.js:973:14
+Content-Security-Policy: The page’s settings blocked an inline style (style-src-elem) from being applied because it violates the following directive: “style-src 'self'” autoconsent.js:973:14
+Content-Security-Policy: (Report-Only policy) The page’s settings would block an inline style (style-src-elem) from being applied because it violates the following directive: “style-src 'self'” autoconsent.js:973:14
+Content-Security-Policy: The page’s settings blocked an inline style (style-src-elem) from being applied because it violates the following directive: “style-src https://m.stripe.network” autoconsent.js:973:14
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.6638693423199948, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.4856631356000889, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.8765016747346613, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.2637799306282448, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.9977289952227374, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.9565450259368892, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.8447589402553463, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.005120050968951073, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.9878974289010054, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.2052022418005789, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.770844332435991, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.15000683539371362, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Feature Policy: Skipping unsupported feature name “accelerometer”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “ambient-light-sensor”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “autoplay”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “battery”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “encrypted-media”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “execution-while-not-rendered”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “execution-while-out-of-viewport”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “gyroscope”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “layout-animations”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “legacy-image-formats”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “magnetometer”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “midi”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “navigation-override”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “oversized-images”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “payment”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “picture-in-picture”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “publickey-credentials”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “sync-xhr”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “unoptimized-images”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “unsized-media”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “usb”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “xr-spatial-tracking”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “clipboard-read”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “clipboard-write”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “accelerometer”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “ambient-light-sensor”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “autoplay”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “battery”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “encrypted-media”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “execution-while-not-rendered”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “execution-while-out-of-viewport”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “gyroscope”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “layout-animations”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “legacy-image-formats”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “magnetometer”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “midi”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “navigation-override”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “oversized-images”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “payment”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “picture-in-picture”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “publickey-credentials”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “sync-xhr”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “unoptimized-images”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “unsized-media”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “usb”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “xr-spatial-tracking”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “clipboard-read”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “clipboard-write”. workspace_iframe.html
+Feature Policy: Skipping unsupported feature name “accelerometer”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “ambient-light-sensor”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “autoplay”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “battery”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “encrypted-media”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “execution-while-not-rendered”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “execution-while-out-of-viewport”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “gyroscope”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “layout-animations”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “legacy-image-formats”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “magnetometer”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “midi”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “navigation-override”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “oversized-images”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “payment”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “picture-in-picture”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “publickey-credentials”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “sync-xhr”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “unoptimized-images”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “unsized-media”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “usb”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “xr-spatial-tracking”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “clipboard-read”. workspace_iframe.html:151:20
+Feature Policy: Skipping unsupported feature name “clipboard-write”. workspace_iframe.html:151:20
+TypeError: t is undefined content_script.js:2:536882
+Preload of https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/manifest.json was ignored due to unknown “as” or “type” values, or non-matching “media” attribute. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev
+TypeError: t is undefined content_script.js:2:536882
+The script from “https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js” was loaded even though its MIME type (“text/plain”) is not a valid JavaScript MIME type. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev
+The script from “https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/__replco/static/devtools/injected.js” was loaded even though its MIME type (“text/plain”) is not a valid JavaScript MIME type. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev
+Layout was forced before the page was fully loaded. If stylesheets are not yet loaded this may cause a flash of unstyled content. util.js:114:4
+[vite] connecting... Console.js:61:14
+Content-Security-Policy: The page’s settings blocked an event handler (script-src-attr) from being executed because it violates the following directive: “script-src-attr 'none'”
+Source: parent.postMessage({event:'error',payloa… c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev
+[vite] connected. Console.js:61:14
+[Performance] Audio components disabled for optimization Console.js:61:14
+[Orientation] Orientation detection initialized Console.js:61:14
+Analytics disabled: No GA Measurement ID Console.js:61:14
+[Mobile] Optimization active: 
+Object { isMobile: true, cacheSize: 0, throttledCalls: 0 }
+Console.js:61:14
+[Orientation] Orientation detection initialized Console.js:61:14
+[Orientation] Orientation detection cleaned up 2 Console.js:61:14
+[Orientation] Orientation detection initialized Console.js:61:14
+Analytics disabled: No GA Measurement ID Console.js:61:14
+[Mobile] Optimization active: 
+Object { isMobile: true, cacheSize: 0, throttledCalls: 0 }
+Console.js:61:14
+[Orientation] Orientation detection initialized Console.js:61:14
+Loading failed for the <script> with source “https://replit.com/public/js/beacon.js”. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Content-Security-Policy: The page’s settings blocked a script (script-src-elem) at https://replit.com/public/js/beacon.js from being executed because it violates the following directive: “script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com https://*.google.com https://*.youtube.com https://*.ytimg.com https://*.taskade.com https://assets.taskade.com https://js.stripe.com https://www.youtube.com https://www.gstatic.com https://apis.google.com” workspace_iframe.html:142:39
+CSRF token acquired for auth check (may be disabled): ***REDACTED*** 2 Console.js:61:14
+Service Worker registration failed: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+Service Worker error: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+Service Worker registration failed: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+Service Worker error: TypeError: ServiceWorker script at https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/service-worker.js for scope https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/ encountered an error during installation. Console.js:61:14
+The resource at “https://c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev/assets/icons/icon-192x192.svg” preloaded with link preload was not used within a few seconds. Make sure all attributes of the preload tag are set correctly. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev
+Some cookies are misusing the recommended “SameSite“ attribute 5
+Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://logs.browser-intake-us5-datadoghq.com/api/v2/logs?ddsource=browser&ddtags=sdk_version%3A4.46.0%2Capi%3Axhr%2Cenv%3Aproduction%2Cservice%3Awebsite%2Cversion%3A1992270f&dd-api-key=pub31a5047a3a4692afb84a423db984dc57&dd-evp-origin-version=4.46.0&dd-evp-origin=browser&dd-request-id=19fb7589-a94f-4081-8bfb-abda4f2dd240. (Reason: CORS request did not succeed). Status code: (null).
+Error: E353: csPostMessage: timeout 60000 ms content_script.js:2:218505
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.38092253548981336, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.9264075575180035, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:4376
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:9481
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:21324
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:29437
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:35560
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:41700
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:70176
+Expected color but found ‘text’.  Error in parsing value for ‘color’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:6237
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:5281
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:8748
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:20051
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:24468
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:30791
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:35970
+Error in parsing value for ‘-webkit-text-size-adjust’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:2869:29
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:3247:27
+Unknown property ‘-moz-column-break-inside’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:6986:28
+Unknown property ‘-moz-column-gap’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:7095:19
+Unknown property ‘-moz-column-gap’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:7099:19
+Unknown property ‘-moz-column-gap’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:7103:19
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:11856:27
+Ruleset ignored due to bad selector. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:299:27
+Error in parsing value for ‘opacity’.  Declaration dropped. 4 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Unknown property ‘-moz-box-shadow’.  Declaration dropped. styles__ltr.css:1:49169
+Expected ‘none’, URL, or filter function but found ‘progid’.  Error in parsing value for ‘filter’.  Declaration dropped. styles__ltr.css:1:51017
+Unknown property ‘-moz-border-radius’.  Declaration dropped. styles__ltr.css:1:63852
+Error in parsing value for ‘box-shadow’.  Declaration dropped. styles__ltr.css:1:63885
+Unknown property ‘-moz-backface-visibility’.  Declaration dropped. styles__ltr.css:1:73059
+Error in parsing value for ‘opacity’.  Declaration dropped. 12 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Error in parsing value for ‘font-size’.  Declaration dropped. website-whales-79-updated-applied-to-77:4:56
+Error in parsing value for ‘font-size’.  Declaration dropped. website-whales-79-updated-applied-to-77:121:56
+Unknown descriptor ‘font-feature-settings: '"ss15"';’ in @font-face rule.  Skipped to next declaration. website-whales-79-updated-applied-to-77:81:30
+Error in parsing value for ‘opacity’.  Declaration dropped. 8 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Error in parsing value for ‘text-decoration’.  Declaration dropped. bd74f35f0d2ca31f.css:1:7948
+Error in parsing value for ‘text-decoration’.  Declaration dropped. bd74f35f0d2ca31f.css:1:8070
+Error in parsing value for ‘text-decoration’.  Declaration dropped. bd74f35f0d2ca31f.css:1:8196
+Error in parsing value for ‘text-decoration’.  Declaration dropped. bd74f35f0d2ca31f.css:1:8322
+Error in parsing value for ‘opacity’.  Declaration dropped. 436 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Error in parsing value for ‘text-wrap’.  Declaration dropped. df4e84e8c5a3ac0b.css:1:14143
+Error in parsing value for ‘text-wrap’.  Declaration dropped. df4e84e8c5a3ac0b.css:1:17929
+Error in parsing value for ‘transition-duration’.  Declaration dropped. df4e84e8c5a3ac0b.css:1:31740
+Error in parsing value for ‘scrollbar-width’.  Declaration dropped. df4e84e8c5a3ac0b.css:1:40847
+Unknown property ‘-moz-transform’.  Declaration dropped. website-whales-79-updated-applied-to-77:1:475
+Unknown property ‘-moz-transform’.  Declaration dropped. website-whales-79-updated-applied-to-77:1:1236
+Error in parsing value for ‘-webkit-box-align’.  Declaration dropped. website-whales-79-updated-applied-to-77:1:212
+Unknown property ‘-moz-transform’.  Declaration dropped. website-whales-79-updated-applied-to-77:1:607
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:399
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:433
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:542
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:577
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:690
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:727
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:845
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:883
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1002
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1038
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1178
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1212
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1321
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1356
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1469
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1506
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1624
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1662
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1781
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1817
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:398
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:432
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:542
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:578
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:695
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:734
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:858
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:897
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1043
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1077
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1187
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1223
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1340
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1379
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1503
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1542
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:401
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:435
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:543
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:577
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:687
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:723
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:840
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:878
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1023
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1057
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1165
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1199
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1309
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1345
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1462
+Keyframe rule ignored due to bad selector. website-whales-79-updated-applied-to-77:1:1500
+Error in parsing value for ‘opacity’.  Declaration dropped. 52 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Source map error: Error: request failed with status 404
+Resource URL: https://cdn.replit.com/_next/static/css/df4e84e8c5a3ac0b.css
+Source Map URL: df4e84e8c5a3ac0b.css.map
+Error in parsing value for ‘opacity’.  Declaration dropped. 8 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Source map error: Error: request failed with status 404
+Resource URL: https://cdn.replit.com/_next/static/css/bd74f35f0d2ca31f.css
+Source Map URL: bd74f35f0d2ca31f.css.map
+Error in parsing value for ‘opacity’.  Declaration dropped. 2220 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Error in parsing value for ‘opacity’.  Declaration dropped. 40 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+TypeError: H.config is undefined content_script.js:2:527260
+Error in parsing value for ‘opacity’.  Declaration dropped. 4 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Error in parsing value for ‘transform’.  Declaration dropped. c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:4:42
+Error in parsing value for ‘opacity’.  Declaration dropped. 16 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://o1151714.ingest.sentry.io/api/6318792/envelope/?sentry_key=8aa91189a4274b5a8c9b7b01d46ea360&sentry_version=7&sentry_client=sentry.javascript.browser%2F7.112.0. (Reason: CORS request did not succeed). Status code: (null).
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/pages/_app-febcd11f57abfa47.js
+Source Map URL: _app-febcd11f57abfa47.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/5731-69297b36e495970b.js
+Source Map URL: 5731-69297b36e495970b.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/f44716c1-79c5e5c0cf55414e.js
+Source Map URL: f44716c1-79c5e5c0cf55414e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/1669.9bc49ad0a0a2af3e.js
+Source Map URL: 1669.9bc49ad0a0a2af3e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/6465-86891899ac9cb9e7.js
+Source Map URL: 6465-86891899ac9cb9e7.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3025-8332520b889b8910.js
+Source Map URL: 3025-8332520b889b8910.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/2788-d835c4f83cb8209b.js
+Source Map URL: 2788-d835c4f83cb8209b.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3375.068d8e6806448601.js
+Source Map URL: 3375.068d8e6806448601.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/8053-08bdb29ee5b011c8.js
+Source Map URL: 8053-08bdb29ee5b011c8.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3807.6f4948396056d7d5.js
+Source Map URL: 3807.6f4948396056d7d5.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4550-8d3bde3f95c01232.js
+Source Map URL: 4550-8d3bde3f95c01232.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/1885.8a8e37d8410784ec.js
+Source Map URL: 1885.8a8e37d8410784ec.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4899-0edca06b22c5dbb3.js
+Source Map URL: 4899-0edca06b22c5dbb3.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7775-6cca48606c61b85a.js
+Source Map URL: 7775-6cca48606c61b85a.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/pages/usage-0de54f8e65673c3a.js
+Source Map URL: usage-0de54f8e65673c3a.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7181-151a5c7eedffe7f4.js
+Source Map URL: 7181-151a5c7eedffe7f4.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3629-3104818750418208.js
+Source Map URL: 3629-3104818750418208.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/113-eb1b2b5d5e1de6bd.js
+Source Map URL: 113-eb1b2b5d5e1de6bd.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/33-c7b1525b6c9bd681.js
+Source Map URL: 33-c7b1525b6c9bd681.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/9027-3b49952ec1120c4e.js
+Source Map URL: 9027-3b49952ec1120c4e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/1497.8dcb9e45676d2fac.js
+Source Map URL: 1497.8dcb9e45676d2fac.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/main-edc40902b7775694.js
+Source Map URL: main-edc40902b7775694.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/1344-788957d64d0e51db.js
+Source Map URL: 1344-788957d64d0e51db.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4566-da7ce8fb869ad18e.js
+Source Map URL: 4566-da7ce8fb869ad18e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/27dcceb2-1245eb4f74b1b514.js
+Source Map URL: 27dcceb2-1245eb4f74b1b514.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/9838-bc1f6a26d2966b50.js
+Source Map URL: 9838-bc1f6a26d2966b50.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4230-fdb78865de42263e.js
+Source Map URL: 4230-fdb78865de42263e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/9864-9214bb5cab2c87b5.js
+Source Map URL: 9864-9214bb5cab2c87b5.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3158-3a2476b63c773326.js
+Source Map URL: 3158-3a2476b63c773326.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3021-013f2aca1a3adba0.js
+Source Map URL: 3021-013f2aca1a3adba0.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3002-73c458121ea51dd0.js
+Source Map URL: 3002-73c458121ea51dd0.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/2928-4530b9304feeeb13.js
+Source Map URL: 2928-4530b9304feeeb13.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/framework-989fa464dd34f339.js
+Source Map URL: framework-989fa464dd34f339.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/2619-5d0a443129bc1c02.js
+Source Map URL: 2619-5d0a443129bc1c02.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/8426-e80b34ef12ac59a8.js
+Source Map URL: 8426-e80b34ef12ac59a8.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4182-da3bd8afa5dd4f2f.js
+Source Map URL: 4182-da3bd8afa5dd4f2f.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/5908-27088463fc838d37.js
+Source Map URL: 5908-27088463fc838d37.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7482-ac330b6802ce2af6.js
+Source Map URL: 7482-ac330b6802ce2af6.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/8328.dbab9a0500ebaaac.js
+Source Map URL: 8328.dbab9a0500ebaaac.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/6747e1e9-7d4ffff133082378.js
+Source Map URL: 6747e1e9-7d4ffff133082378.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4611-0541e0d4258a2d2e.js
+Source Map URL: 4611-0541e0d4258a2d2e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/5605-13c763cc3fc7fef7.js
+Source Map URL: 5605-13c763cc3fc7fef7.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/8157.f958e6f2897d8b96.js
+Source Map URL: 8157.f958e6f2897d8b96.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/6677-f77008becbf0d1bf.js
+Source Map URL: 6677-f77008becbf0d1bf.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4695.090d6acc2ce05f99.js
+Source Map URL: 4695.090d6acc2ce05f99.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3341-f80a8a48c601463e.js
+Source Map URL: 3341-f80a8a48c601463e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/743659af-99a50ba09ee2c21f.js
+Source Map URL: 743659af-99a50ba09ee2c21f.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7618-0cd8075c9d6b476e.js
+Source Map URL: 7618-0cd8075c9d6b476e.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4239-10ca29ff6548cffc.js
+Source Map URL: 4239-10ca29ff6548cffc.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/1836.0b69e4f04f4fd14d.js
+Source Map URL: 1836.0b69e4f04f4fd14d.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3235.9cfbd070c4538629.js
+Source Map URL: 3235.9cfbd070c4538629.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/2647-1cdd29b746a056df.js
+Source Map URL: 2647-1cdd29b746a056df.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/2516-54407a4484653fbd.js
+Source Map URL: 2516-54407a4484653fbd.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7088.fc4dc3f7d8396d22.js
+Source Map URL: 7088.fc4dc3f7d8396d22.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/1444-4879dbfaa9116ecd.js
+Source Map URL: 1444-4879dbfaa9116ecd.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3233-35d71fffe1b808d9.js
+Source Map URL: 3233-35d71fffe1b808d9.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/6364-f2d5d6adafca6a66.js
+Source Map URL: 6364-f2d5d6adafca6a66.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/8074.febccf9b284fd027.js
+Source Map URL: 8074.febccf9b284fd027.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3618.d0b21096581a3199.js
+Source Map URL: 3618.d0b21096581a3199.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/pages/replEnvironmentDesktop-3cbf6cb29aa8a4eb.js
+Source Map URL: replEnvironmentDesktop-3cbf6cb29aa8a4eb.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/6052-bdd4fdf7c2cdd6f1.js
+Source Map URL: 6052-bdd4fdf7c2cdd6f1.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7573-341f35b891968c6f.js
+Source Map URL: 7573-341f35b891968c6f.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/2319-fcf68a3dca8599de.js
+Source Map URL: 2319-fcf68a3dca8599de.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/8997-fa6ac23ae600cafe.js
+Source Map URL: 8997-fa6ac23ae600cafe.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4308-03fdade1079fabeb.js
+Source Map URL: 4308-03fdade1079fabeb.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3030-bc37113df81620f6.js
+Source Map URL: 3030-bc37113df81620f6.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/f1543ea7-b7d0cecdca5dd905.js
+Source Map URL: f1543ea7-b7d0cecdca5dd905.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7650-4c834f09ed32ede6.js
+Source Map URL: 7650-4c834f09ed32ede6.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/6549-ce88c74cc5c9fd19.js
+Source Map URL: 6549-ce88c74cc5c9fd19.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4474-969063d38535c194.js
+Source Map URL: 4474-969063d38535c194.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/2322-c6432aa97a2d0ded.js
+Source Map URL: 2322-c6432aa97a2d0ded.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/6843-5276ba54bdf3a031.js
+Source Map URL: 6843-5276ba54bdf3a031.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/3530-35c2ef559fe7d575.js
+Source Map URL: 3530-35c2ef559fe7d575.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/7961-1d92af3db1295403.js
+Source Map URL: 7961-1d92af3db1295403.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/1c7fb644.0fe35a6110efa2ac.js
+Source Map URL: 1c7fb644.0fe35a6110efa2ac.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/8508-78ee2bd535476398.js
+Source Map URL: 8508-78ee2bd535476398.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/4344-7da5b46424bc2240.js
+Source Map URL: 4344-7da5b46424bc2240.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/webpack-409f8cd4155f1068.js
+Source Map URL: webpack-409f8cd4155f1068.js.map
+Source map error: No sources are declared in this source map.
+Resource URL: https://cdn.replit.com/_next/static/chunks/5243-91af7f3fa6befcb7.js
+Source Map URL: 5243-91af7f3fa6befcb7.js.map
+Error in parsing value for ‘opacity’.  Declaration dropped. 4 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.6407706590949149, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+Extension sent deprecated postMessage 
+Object { type: "SELENIUM_IDE_CS_MSG", secret: 0.39005858155158846, payload: true, logLevel: "warn" }
+_app-febcd11f57abfa47.js:38:5277
+TypeError: H.config is undefined content_script.js:2:527260
+Error in parsing value for ‘opacity’.  Declaration dropped. 4 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1
+TypeError: H.config is undefined 2 content_script.js:2:527260
+Error in parsing value for ‘opacity’.  Declaration dropped. 12 c72e757d-fbc9-4acc-839e-5dd32158a0c5-00-gjzh3ly6qwio.picard.replit.dev:1:1

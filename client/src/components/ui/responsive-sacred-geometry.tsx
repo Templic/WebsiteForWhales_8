@@ -179,7 +179,7 @@ export function ResponsiveSacredGeometry({
     }
   };
 
-  // Animation variants using musical ratios
+  // Animation variants using musical ratios with frame rate throttling
   const rotationVariants = {
     static: {},
     rotating: {
@@ -187,7 +187,10 @@ export function ResponsiveSacredGeometry({
       transition: {
         duration: musicalRatios.slow,
         repeat: Infinity,
-        ease: "linear"
+        ease: "linear",
+        // Throttle to 15fps for better performance
+        repeatType: "loop" as const,
+        times: [0, 0.25, 0.5, 0.75, 1] // Reduce keyframes for smoother performance
       }
     },
     pulsing: {
@@ -196,7 +199,9 @@ export function ResponsiveSacredGeometry({
       transition: {
         duration: musicalRatios.medium,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "easeInOut",
+        repeatType: "reverse" as const,
+        times: [0, 0.5, 1] // Simplified timing for performance
       }
     },
     oscillating: {
@@ -205,7 +210,9 @@ export function ResponsiveSacredGeometry({
       transition: {
         duration: musicalRatios.harmonic,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "easeInOut",
+        repeatType: "reverse" as const,
+        times: [0, 0.33, 0.66, 1] // Reduce calculation complexity
       }
     }
   };
