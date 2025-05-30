@@ -363,14 +363,12 @@ export class AdvancedConsciousnessDetection {
 
     try {
       // Temporarily disabled for performance optimization
-      // const response = await fetch('/api/consciousness/astronomical-data');
-      if (response.ok) {
-        const data = await response.json();
-        const alignment = (data as any)?.cosmicAlignment || 0.7;
-        this.lastCosmicAlignment = alignment;
-        this.lastCosmicAlignmentTime = Date.now();
-        return alignment;
-      }
+      // Use calculated astronomical alignment instead
+      const now = new Date();
+      const calculatedAlignment = 0.7 + (Math.sin(now.getTime() / 86400000) * 0.3);
+      this.lastCosmicAlignment = calculatedAlignment;
+      this.lastCosmicAlignmentTime = Date.now();
+      return calculatedAlignment;
     } catch (error) {
       // Calculate based on time of day as fallback
       const hour = new Date().getHours();
