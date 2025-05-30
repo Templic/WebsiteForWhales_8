@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { createPaymentIntent, processOrder } from '@/lib/paymentService';
 import { CosmicBackground } from '@/components/features/cosmic/CosmicBackground';
 import SacredGeometry from '@/components/ui/sacred-geometry';
+import ThrottledSacredGeometry from '@/components/cosmic/ThrottledSacredGeometry';
 // UI Components
 import {
   Form,
@@ -369,15 +370,15 @@ export default function CheckoutPage() {
           <SacredGeometry variant="flower-of-life" size={120} animated={true} />
         </div>
         <div className="absolute bottom-40 left-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="metatron-cube" size={120} animated={true} />
+          <ThrottledSacredGeometry variant="metatron-cube" size={120} animated={true} intensity="subtle" />
         </div>
         
         {/* Right margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 right-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="seed-of-life" size={120} animated={true} />
+          <ThrottledSacredGeometry variant="seed-of-life" size={120} animated={true} intensity="subtle" />
         </div>
         <div className="absolute bottom-40 right-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="sri-yantra" size={120} animated={true} />
+          <ThrottledSacredGeometry variant="sri-yantra" size={120} animated={true} intensity="subtle" />
         </div>
       </div>
 
