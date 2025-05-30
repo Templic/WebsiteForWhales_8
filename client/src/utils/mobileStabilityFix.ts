@@ -58,12 +58,53 @@ export const optimizeMobileTouchEvents = () => {
   document.addEventListener('touchend', function() {}, { passive: true });
 };
 
-// Apply all mobile fixes
-export const applyMobileStabilityFixes = () => {
+// Debounce function to prevent excessive calls
+const debounce = (func: Function, wait: number) => {
+  let timeout: NodeJS.Timeout;
+  return function executedFunction(...args: any[]) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
+// Prevent excessive API requests
+export const optimizeAPIRequests = () => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media (max-width: 768px) {
+      /* Disable excessive animations that trigger reflows */
+      .cosmic-background::before,
+      .cosmic-background::after {
+        animation: none !important;
+      }
+      
+      /* Reduce repaints */
+      * {
+        will-change: auto !important;
+      }
+      
+      /* Stabilize text rendering */
+      body, p, h1, h2, h3, h4, h5, h6 {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeSpeed;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+};
+
+// Apply all mobile fixes with debouncing
+export const applyMobileStabilityFixes = debounce(() => {
   if (window.innerWidth <= 768) {
     fixMobileViewport();
     stabilizeMobileAnimations();
     optimizeMobileTouchEvents();
+    optimizeAPIRequests();
     console.log('[Mobile] Stability fixes applied');
   }
-};
+}, 100);

@@ -355,19 +355,34 @@ export class AdvancedConsciousnessDetection {
   }
 
   private async getCurrentCosmicAlignment(): Promise<number> {
+    // Use cached value on mobile to prevent excessive API calls
+    if (window.innerWidth <= 768 && this.lastCosmicAlignment && 
+        Date.now() - this.lastCosmicAlignmentTime < 30000) {
+      return this.lastCosmicAlignment;
+    }
+
     try {
       const response = await fetch('/api/consciousness/astronomical-data');
       if (response.ok) {
         const data = await response.json();
-        return (data as any)?.cosmicAlignment || 0.7;
+        const alignment = (data as any)?.cosmicAlignment || 0.7;
+        this.lastCosmicAlignment = alignment;
+        this.lastCosmicAlignmentTime = Date.now();
+        return alignment;
       }
     } catch (error) {
       // Calculate based on time of day as fallback
       const hour = new Date().getHours();
-      return Math.sin((hour / 24) * 2 * Math.PI) * 0.5 + 0.5;
+      const alignment = Math.sin((hour / 24) * 2 * Math.PI) * 0.5 + 0.5;
+      this.lastCosmicAlignment = alignment;
+      this.lastCosmicAlignmentTime = Date.now();
+      return alignment;
     }
     return 0.7;
   }
+
+  private lastCosmicAlignment?: number;
+  private lastCosmicAlignmentTime: number = 0;
 
   private generateEvolutionGoals(metrics: EngagementMetrics, level: number): string[] {
     const goals: string[] = [];
