@@ -542,4 +542,5 @@ const ThrottledSacredGeometry: React.FC<ThrottledSacredGeometryProps> = ({
   );
 };
 
+export { ThrottledSacredGeometry };
 export default ThrottledSacredGeometry;

@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { SiSpotify, SiSoundcloud, SiBandcamp, SiYoutube, SiInstagram } from "react-icons/si";
 import { SpotlightEffect } from "@/components/SpotlightEffect";
-import SacredGeometry from "@/components/ui/sacred-geometry";
+import { ThrottledSacredGeometry } from "@/components/cosmic/ThrottledSacredGeometry";
 
 const images = [
   "uploads/whale costume bike.jpg",
@@ -53,16 +53,12 @@ export default function CollaborationPage() {
         <div className="relative mb-12">
           <h1 className="text-5xl font-nebula font-bold text-[#00ebd6] mb-6 cosmic-float text-center">Collaboration</h1>
           
-          {/* Sacred geometry elements in header */}
+          {/* Sacred geometry elements in header - updated to advanced timing system */}
           <div className="absolute -top-14 -right-10 opacity-20 hidden md:block">
-            <div className="animate-spin-very-slow" style={{ animationDuration: '30s' }}>
-              <SacredGeometry variant="merkaba" size={100} animated={false} intensity="medium" />
-            </div>
+            <ThrottledSacredGeometry variant="merkaba" size={100} animated={true} intensity="medium" />
           </div>
           <div className="absolute -bottom-10 -left-10 opacity-20 hidden md:block">
-            <div className="animate-spin-very-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
-              <SacredGeometry variant="octagon" size={80} animated={false} intensity="medium" />
-            </div>
+            <ThrottledSacredGeometry variant="octagon" size={80} animated={true} intensity="medium" />
           </div>
           
           <div className="relative text-center mb-12 cosmic-slide-up">
