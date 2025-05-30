@@ -3,10 +3,18 @@
  * Reduces resource-intensive animations and effects
  */
 
-/* Reduce animation complexity */
+/* Immediately reduce animation complexity */
 .sacred-geometry-pattern {
-  animation-duration: 2s !important;
-  animation-iteration-count: 1 !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Re-enable with reduced complexity for stable systems */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .sacred-geometry-pattern.performance-stable {
+    animation-duration: 3s !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 .cosmic-animation {
