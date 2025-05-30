@@ -95,13 +95,14 @@ export class AdvancedConsciousnessDetection {
 
   private handleFocus(event: FocusEvent): void {
     const target = event.target as HTMLElement;
-    if (target.dataset.sacredPattern) {
+    const sacredPattern = target.dataset?.sacredPattern || target.className || 'unknown';
+    if (sacredPattern !== 'unknown') {
       this.recordInteraction({
         timestamp: new Date(),
         action: 'focus',
-        element: target.dataset.sacredPattern,
+        element: sacredPattern,
         duration: 0,
-        pattern: target.dataset.sacredPattern,
+        pattern: sacredPattern,
         depth: this.calculateInteractionDepth(target)
       });
     }

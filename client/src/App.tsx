@@ -144,7 +144,7 @@ import AuthenticSacredGeometryDemo from "@/pages/AuthenticSacredGeometryDemo";
 import Phase2SacredGeometryDemo from "@/pages/Phase2SacredGeometryDemo";
 import ImprovedPhase2Demo from "@/pages/ImprovedPhase2Demo";
 import Phase3CommunityDemo from "@/pages/Phase3CommunityDemo";
-import SacredGeometryImplementationStatus from "@/pages/SacredGeometryImplementationStatus";
+import SacredGeometryStatus from "@/pages/SacredGeometryStatus";
 
 // MainHeader is now included in MainLayout, no longer needed here
 
@@ -315,8 +315,8 @@ function AppRouter() {
           <Route path="/demo/phase2-sacred-geometry" component={Phase2SacredGeometryDemo} />
           <Route path="/demo/improved-phase2" component={ImprovedPhase2Demo} />
           <Route path="/demo/phase3-community" component={Phase3CommunityDemo} />
-          <Route path="/sacred-geometry-status" component={SacredGeometryImplementationStatus} />
-          <Route path="/implementation-status" component={SacredGeometryImplementationStatus} />
+          <Route path="/sacred-geometry-status" component={SacredGeometryStatus} />
+          <Route path="/implementation-status" component={SacredGeometryStatus} />
 
           <Route path="/test/binaural-beat-performance" component={
             () => import('./pages/tests/binaural-beat-performance-test').then(module => {
