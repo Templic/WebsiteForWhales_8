@@ -273,9 +273,12 @@ export default function HomePage() {
         <main className="max-w-[1200px] mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {/* About Section */}
-            <div className="w-full">
-              <SimpleTriangle className="w-full max-w-[350px] mx-auto">
-                <h3>
+            <div className="w-full relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-15">
+                <ThrottledSacredGeometry variant="merkaba" size={280} animated={true} intensity="subtle" />
+              </div>
+              <div className="relative z-10 text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-blue-300/30">
+                <h3 className="text-xl font-bold mb-4">
                   <DynamicContent 
                     contentKey="home-activity-title" 
                     fallback="Ideal Activity"
@@ -283,7 +286,7 @@ export default function HomePage() {
                     section="activity" 
                   />
                 </h3>
-                <p>
+                <p className="mb-6">
                   <DynamicContent 
                     contentKey="home-activity-description" 
                     fallback="🌟 Dale Loves Whales blends cosmic rhythms with tropical soul 🌴 Dive deep into his musical journey that bridges the stars with the ocean's depths 🌊"
@@ -293,17 +296,20 @@ export default function HomePage() {
                 </p>
                 <button 
                   onClick={() => window.location.href = '/about'} 
-                  className="bg-blue-500 hover:bg-blue-700 text-white rounded"
+                  className="bg-blue-500 hover:bg-blue-700 text-white rounded px-4 py-2"
                 >
                   Learn More
                 </button>
-              </SimpleTriangle>
+              </div>
             </div>
 
             {/* Vibes Section */}
-            <div className="w-full">
-              <SimpleOctagon className="w-full max-w-[350px] mx-auto">
-                <h3>
+            <div className="w-full relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-15">
+                <ThrottledSacredGeometry variant="dodecahedron" size={280} animated={true} intensity="subtle" />
+              </div>
+              <div className="relative z-10 text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-purple-300/30">
+                <h3 className="text-xl font-bold mb-4">
                   <DynamicContent 
                     contentKey="home-vibes-title" 
                     fallback="Cosmic Sound Vibes"
@@ -311,7 +317,7 @@ export default function HomePage() {
                     section="vibes" 
                   />
                 </h3>
-                <p>
+                <p className="mb-6">
                   <DynamicContent 
                     contentKey="home-vibes-description" 
                     fallback="From live performances to collaborative projects, Dale brings a unique sound experience infused with retro-futuristic beats, fluid tropical notes, and immersive visuals."
@@ -321,19 +327,22 @@ export default function HomePage() {
                 </p>
                 <button 
                   onClick={() => window.location.href = '/immersive'} 
-                  className="bg-purple-500 hover:bg-purple-700 text-white rounded"
+                  className="bg-purple-500 hover:bg-purple-700 text-white rounded px-4 py-2"
                 >
                   Explore
                 </button>
-              </SimpleOctagon>
+              </div>
             </div>
 
 
 
             {/* Journey Section */}
-            <div className="w-full">
-              <SimpleCircle className="w-full max-w-[350px] mx-auto">
-                <h3>
+            <div className="w-full relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-15">
+                <ThrottledSacredGeometry variant="seed-of-life" size={280} animated={true} intensity="subtle" />
+              </div>
+              <div className="relative z-10 text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-teal-300/30">
+                <h3 className="text-xl font-bold mb-4">
                   <DynamicContent 
                     contentKey="home-journey-title" 
                     fallback="Explore The Journey"
@@ -341,7 +350,7 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </h3>
-                <p>
+                <p className="mb-6">
                   <DynamicContent 
                     contentKey="home-journey-description" 
                     fallback="💫 Join the cosmic voyage and become part of the ever-growing community of cosmic explorers and music lovers 💖"
@@ -351,7 +360,7 @@ export default function HomePage() {
                 </p>
                 <button 
                   onClick={() => window.location.href = '/cosmic-connectivity'} 
-                  className="bg-teal-500 hover:bg-teal-700 text-white rounded"
+                  className="bg-teal-500 hover:bg-teal-700 text-white rounded px-4 py-2"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-cosmic" 
@@ -360,19 +369,22 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </button>
-              </SimpleCircle>
+              </div>
             </div>
           </div>
 
           {/* Additional Links Section */}
           <div className="flex flex-wrap justify-center gap-6 mb-16">
-            <div className="w-[200px]">
-              <SimpleInvertedTriangle className="w-full">
-                <h3>New Music</h3>
-                <p>Experience our latest sonic creations and explore new sound journeys.</p>
+            <div className="w-[200px] relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <ThrottledSacredGeometry variant="icosahedron" size={180} animated={true} intensity="subtle" />
+              </div>
+              <div className="relative z-10 text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-green-300/30">
+                <h3 className="text-lg font-bold mb-2">New Music</h3>
+                <p className="text-sm mb-4">Experience our latest sonic creations and explore new sound journeys.</p>
                 <button 
                   onClick={() => window.location.href = '/music'} 
-                  className="bg-green-500 hover:bg-green-700 text-white rounded"
+                  className="bg-green-500 hover:bg-green-700 text-white rounded px-3 py-2 text-sm"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-music" 
@@ -381,16 +393,19 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </button>
-              </SimpleInvertedTriangle>
+              </div>
             </div>
             
-            <div className="w-[200px]">
-              <SimpleInvertedTriangle className="w-full">
-                <h3>Tour Dates</h3>
-                <p>Find out when and where you can experience our cosmic performances live.</p>
+            <div className="w-[200px] relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <ThrottledSacredGeometry variant="sri-yantra" size={180} animated={true} intensity="subtle" />
+              </div>
+              <div className="relative z-10 text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-amber-300/30">
+                <h3 className="text-lg font-bold mb-2">Tour Dates</h3>
+                <p className="text-sm mb-4">Find out when and where you can experience our cosmic performances live.</p>
                 <button 
                   onClick={() => window.location.href = '/tour'} 
-                  className="bg-amber-500 hover:bg-amber-700 text-white rounded"
+                  className="bg-amber-500 hover:bg-amber-700 text-white rounded px-3 py-2 text-sm"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-tour" 
@@ -399,7 +414,7 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </button>
-              </SimpleInvertedTriangle>
+              </div>
             </div>
           </div>
         </main>
