@@ -1,0 +1,190 @@
+/**
+ * Simplified Sacred Geometry CSS
+ * Optimized for mobile and low-performance devices
+ */
+
+/* Performance-optimized animations using GPU acceleration */
+.simplified-sacred-geometry {
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Ultra-slow cosmic rotation for mobile devices */
+.simplified-cosmic-spin {
+  animation: simplified-rotate 240s linear infinite;
+  transform-origin: center center;
+}
+
+/* Subtle breathing effect for center consciousness point */
+.simplified-pulse {
+  animation: simplified-breathe 8s ease-in-out infinite;
+}
+
+/* Optimized keyframes using transform3d for GPU acceleration */
+@keyframes simplified-rotate {
+  0% { 
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  100% { 
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
+
+@keyframes simplified-breathe {
+  0%, 100% { 
+    transform: scale3d(1, 1, 1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: scale3d(1.2, 1.2, 1);
+    opacity: 0.9;
+  }
+}
+
+/* Performance states for different device capabilities */
+.geometry-optimized {
+  animation-duration: 300s; /* Even slower for very low-end devices */
+  filter: blur(0.5px); /* Slight blur reduces rendering complexity */
+}
+
+.geometry-balanced {
+  animation-duration: 240s; /* Standard slow rotation */
+}
+
+.geometry-quality {
+  animation-duration: 180s; /* Slightly faster for high-end devices */
+  filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.3));
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .simplified-cosmic-spin,
+  .simplified-pulse {
+    animation: none;
+  }
+  
+  .simplified-sacred-geometry {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .simplified-sacred-geometry path {
+    stroke-width: 2px;
+    stroke: #ffffff;
+  }
+  
+  .simplified-sacred-geometry circle {
+    fill: #ffffff;
+  }
+}
+
+/* Battery saving mode adjustments */
+@media (prefers-reduced-data: reduce) {
+  .simplified-sacred-geometry {
+    display: none;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .simplified-sacred-geometry {
+    transform: scale(0.9); /* Slightly smaller on touch devices */
+  }
+}
+
+/* Memory-efficient gradient patterns */
+.gradient-simple-purple {
+  background: radial-gradient(
+    circle at center,
+    rgba(147, 51, 234, 0.3) 0%,
+    rgba(139, 92, 246, 0.2) 50%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
+}
+
+.gradient-simple-blue {
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.3) 0%,
+    rgba(99, 102, 241, 0.2) 50%,
+    rgba(139, 92, 246, 0.1) 100%
+  );
+}
+
+/* Position-based optimizations */
+.position-corner {
+  transform: scale(0.7) translate(-25%, -25%);
+  opacity: 0.6;
+}
+
+.position-edge {
+  transform: scale(0.85) translateX(-15%);
+  opacity: 0.7;
+}
+
+.position-center {
+  transform: scale(1);
+  opacity: 0.8;
+}
+
+/* Intensity-based optimizations */
+.intensity-subtle {
+  opacity: 0.3;
+  filter: blur(1px);
+}
+
+.intensity-medium {
+  opacity: 0.6;
+  filter: blur(0.5px);
+}
+
+.intensity-vivid {
+  opacity: 0.9;
+  filter: none;
+}
+
+/* Device-specific optimizations */
+@media (max-width: 768px) {
+  .simplified-sacred-geometry {
+    transform: scale(0.8);
+    animation-duration: 360s; /* Extra slow on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .simplified-sacred-geometry {
+    transform: scale(0.6);
+    animation-duration: 480s; /* Ultra slow on small screens */
+  }
+}
+
+/* High-end device enhancements */
+@media (min-width: 1920px) and (min-height: 1080px) {
+  .simplified-sacred-geometry {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 12px rgba(147, 51, 234, 0.4));
+  }
+}
+
+/* Performance monitoring indicators (dev only) */
+.performance-indicator {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 4px;
+  border-radius: 2px;
+  pointer-events: none;
+  font-family: monospace;
+}
+
+.perf-optimized { background: rgba(255, 0, 0, 0.2); }
+.perf-balanced { background: rgba(255, 255, 0, 0.2); }
+.perf-quality { background: rgba(0, 255, 0, 0.2); }

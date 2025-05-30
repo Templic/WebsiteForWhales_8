@@ -28,6 +28,7 @@ import {
   SimpleCircle,
   SimpleOctagon
 } from '../components/cosmic/SimpleGeometry';
+import AdaptiveGeometrySystem from '../components/cosmic/AdaptiveGeometrySystem';
 
 interface ConsciousnessOverview {
   currentLevel: number;
