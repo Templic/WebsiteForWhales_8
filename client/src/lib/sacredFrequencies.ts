@@ -5,32 +5,32 @@
  * and modern performance optimization principles.
  */
 
-// Solfeggio frequency scale adapted for visual geometry (in seconds)
+// Planetary cycle frequencies for meditative sacred geometry (in seconds)
 export const SACRED_FREQUENCIES = {
-  // Base Solfeggio frequencies converted to rotation timing
-  deepMeditation: 17.4,    // 396 Hz -> ~17.4s cycle
-  meditation: 11.4,        // 528 Hz -> ~11.4s cycle
-  awareness: 9.6,          // 639 Hz -> ~9.6s cycle
-  gentle: 8.5,            // 741 Hz -> ~8.5s cycle
-  subtle: 7.4,            // 852 Hz -> ~7.4s cycle
+  // Planetary-based rotation cycles for deep meditation
+  deepMeditation: 90.0,    // 1.5 minutes - Saturn energy
+  meditation: 60.0,        // 1 minute - Jupiter energy
+  awareness: 45.0,         // 45 seconds - Mars energy
+  gentle: 30.0,           // 30 seconds - Venus energy
+  subtle: 20.0,           // 20 seconds - Mercury energy
   
-  // Golden ratio based frequencies (practical ranges)
-  phi: 10.18,             // PHI ratio adjusted
-  invPhi: 6.18,           // Inverse PHI ratio
+  // Golden ratio based frequencies (much slower)
+  phi: 54.0,              // PHI ratio * 30 seconds
+  invPhi: 33.0,           // Inverse PHI ratio * 30 seconds
   
-  // Musical harmony ratios (optimized for visual)
-  octave: 12.0,           // 2:1 ratio
-  fifth: 9.0,             // 3:2 ratio
-  fourth: 8.0,            // 4:3 ratio
+  // Musical harmony ratios (slow and meditative)
+  octave: 48.0,           // 2:1 ratio
+  fifth: 36.0,            // 3:2 ratio
+  fourth: 32.0,           // 4:3 ratio
   
-  // Chakra-aligned frequencies (Solfeggio-based)
-  root: 15.6,             // 396 Hz - Grounding
-  sacral: 13.3,           // 417 Hz - Creative flow
-  solarPlexus: 11.4,      // 528 Hz - Personal power
-  heart: 9.6,             // 639 Hz - Love frequency
-  throat: 8.5,            // 741 Hz - Expression
-  thirdEye: 7.4,          // 852 Hz - Intuition
-  crown: 6.3,             // 963 Hz - Spiritual connection
+  // Chakra-aligned frequencies (much slower for contemplation)
+  root: 120.0,            // 2 minutes - Deep grounding
+  sacral: 90.0,           // 1.5 minutes - Creative flow
+  solarPlexus: 75.0,      // 1.25 minutes - Personal power
+  heart: 60.0,            // 1 minute - Love frequency
+  throat: 50.0,           // 50 seconds - Expression
+  thirdEye: 40.0,         // 40 seconds - Intuition
+  crown: 30.0,            // 30 seconds - Spiritual connection
 } as const;
 
 // Performance-optimized frame rates

@@ -35,7 +35,12 @@ interface ParticleBackgroundProps {
   connectDistance?: number;
 }
 
-export function ParticleBackground() {
+export function ParticleBackground({
+  colorScheme = "mixed", 
+  density = "low", 
+  speed = "slow",
+  connectDistance = 80
+}: ParticleBackgroundProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -54,19 +59,38 @@ export function ParticleBackground() {
       initParticles()
     }
 
+    // Density and speed controls
+    const getDensityMultiplier = () => {
+      switch(density) {
+        case "low": return 0.3;
+        case "high": return 1.5;
+        default: return 0.8;
+      }
+    }
+
+    const getSpeedMultiplier = () => {
+      switch(speed) {
+        case "slow": return 0.2;
+        case "fast": return 1.0;
+        default: return 0.5;
+      }
+    }
+
     const initParticles = () => {
       particles = []
-      // Reduce particle count for better performance
-      const particleCount = Math.min(Math.floor(window.innerWidth / 15), 60)
+      // Much more conservative particle count with planetary timing
+      const densityMultiplier = getDensityMultiplier()
+      const speedMultiplier = getSpeedMultiplier()
+      const particleCount = Math.min(Math.floor(window.innerWidth / 25 * densityMultiplier), 40)
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 1.5 + 0.5, // Slightly smaller particles
-          speedX: (Math.random() * 0.1 - 0.05), // Slower movement
-          speedY: (Math.random() * 0.1 - 0.05), // Slower movement
-          opacity: Math.random() * 0.4 + 0.1, // More subtle
+          size: Math.random() * 1.2 + 0.3, // Smaller particles
+          speedX: (Math.random() * 0.05 - 0.025) * speedMultiplier, // Much slower movement
+          speedY: (Math.random() * 0.05 - 0.025) * speedMultiplier, // Much slower movement
+          opacity: Math.random() * 0.2 + 0.05, // Very subtle
           color: getRandomColor(),
         })
       }
@@ -125,10 +149,10 @@ export function ParticleBackground() {
       }
     }
 
-    // Sacred frequency optimization: Use Solfeggio frequencies for animation timing
+    // Planetary frequency optimization: Use deep meditation timing
     let lastFrameTime = 0
-    const sacredFPS = 8  // Much slower - 8 FPS for meditation
-    const frameInterval = 1000 / sacredFPS
+    const planetaryFPS = 4  // 4 FPS for deep planetary meditation
+    const frameInterval = 1000 / planetaryFPS
 
     const animate = (currentTime: number = 0) => {
       if (currentTime - lastFrameTime >= frameInterval) {
