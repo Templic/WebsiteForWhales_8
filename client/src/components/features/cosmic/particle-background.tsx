@@ -28,6 +28,13 @@ interface Particle {
   color: string
 }
 
+interface ParticleBackgroundProps {
+  colorScheme?: "mixed" | "blue" | "purple" | "green" | "cosmic";
+  density?: "low" | "medium" | "high";
+  speed?: "slow" | "medium" | "fast";
+  connectDistance?: number;
+}
+
 export function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 

@@ -7,7 +7,12 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils';
+import { SACRED_FREQUENCIES, GeometryPerformanceManager, createThrottledAnimationLoop } from '../../lib/sacredFrequencies';
+
+// Simple utility function for class merging
+function cn(...classes: (string | undefined | null | false)[]): string {
+  return classes.filter(Boolean).join(' ');
+}
 
 interface SacredGeometryProps {
   type: 'flower-of-life' | 'sri-yantra' | 'metatron-cube' | 'pentagon-star' | 'hexagon' | 'vesica-piscis' | 'golden-spiral';
@@ -459,7 +464,7 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       
       // Draw quarter circles for each rectangle
       for (let i = 0; i < maxIterations; i++) {
-        let centerX, centerY, startAngle, endAngle;
+        let centerX: number, centerY: number, startAngle: number, endAngle: number;
         
         if (i % 4 === 0) {
           centerX = cx + currentSize / 2;
@@ -476,7 +481,7 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
           centerY = cy - currentSize / 2;
           startAngle = Math.PI / 2;
           endAngle = 0;
-        } else if (i % 4 === 3) {
+        } else {
           centerX = cx + currentSize / 2;
           centerY = cy - currentSize / 2;
           startAngle = 0;

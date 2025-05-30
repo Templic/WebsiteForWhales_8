@@ -5,32 +5,32 @@
  * and modern performance optimization principles.
  */
 
-// Sacred geometric ratios for smooth animations
+// Solfeggio frequency scale adapted for visual geometry (in seconds)
 export const SACRED_FREQUENCIES = {
-  // Base frequencies in seconds (much slower for meditation)
-  deepMeditation: 24.0,    // 24 seconds - deep contemplation
-  meditation: 16.0,        // 16 seconds - standard meditation
-  awareness: 12.0,         // 12 seconds - mindful awareness  
-  gentle: 8.0,            // 8 seconds - gentle movement
-  subtle: 6.0,            // 6 seconds - subtle animation
+  // Base Solfeggio frequencies converted to rotation timing
+  deepMeditation: 17.4,    // 396 Hz -> ~17.4s cycle
+  meditation: 11.4,        // 528 Hz -> ~11.4s cycle
+  awareness: 9.6,          // 639 Hz -> ~9.6s cycle
+  gentle: 8.5,            // 741 Hz -> ~8.5s cycle
+  subtle: 7.4,            // 852 Hz -> ~7.4s cycle
   
-  // Golden ratio based frequencies
-  phi: 16.18,             // PHI ratio in seconds
-  invPhi: 9.89,           // Inverse PHI ratio
+  // Golden ratio based frequencies (practical ranges)
+  phi: 10.18,             // PHI ratio adjusted
+  invPhi: 6.18,           // Inverse PHI ratio
   
-  // Musical harmony ratios (extended for visual meditation)
-  octave: 20.0,           // 2:1 ratio
-  fifth: 15.0,            // 3:2 ratio
-  fourth: 13.33,          // 4:3 ratio
+  // Musical harmony ratios (optimized for visual)
+  octave: 12.0,           // 2:1 ratio
+  fifth: 9.0,             // 3:2 ratio
+  fourth: 8.0,            // 4:3 ratio
   
-  // Chakra-aligned frequencies (slower for deeper resonance)
-  root: 28.0,             // Grounding, slowest
-  sacral: 24.0,           // Creative flow
-  solarPlexus: 20.0,      // Personal power
-  heart: 16.0,            // Love, central frequency
-  throat: 14.0,           // Expression
-  thirdEye: 12.0,         // Intuition
-  crown: 10.0,            // Spiritual connection
+  // Chakra-aligned frequencies (Solfeggio-based)
+  root: 15.6,             // 396 Hz - Grounding
+  sacral: 13.3,           // 417 Hz - Creative flow
+  solarPlexus: 11.4,      // 528 Hz - Personal power
+  heart: 9.6,             // 639 Hz - Love frequency
+  throat: 8.5,            // 741 Hz - Expression
+  thirdEye: 7.4,          // 852 Hz - Intuition
+  crown: 6.3,             // 963 Hz - Spiritual connection
 } as const;
 
 // Performance-optimized frame rates
