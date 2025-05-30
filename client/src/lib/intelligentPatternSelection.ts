@@ -292,15 +292,8 @@ export class IntelligentPatternSelection {
   }
 
   private async getCurrentAstronomicalData(): Promise<AstronomicalData> {
-    try {
-      const response = await fetch('/api/consciousness/astronomical-data');
-      if (response.ok) {
-        return await response.json();
-      }
-    } catch (error) {
-      // Calculate fallback astronomical data
-    }
-    
+    // Temporarily disabled for performance optimization
+    // Use calculated astronomical data instead
     const now = new Date();
     return {
       lunarPhase: this.calculateLunarPhase(now),

@@ -219,18 +219,11 @@ export function CommunitySacredGeometry({
   };
 
   const loadAstronomicalTiming = async () => {
-    try {
-      const response = await fetch('/api/consciousness/astronomical-data');
-      if (response.ok) {
-        const astroData = await response.json();
-        setCosmicAlignment(astroData.cosmicAlignment);
-      }
-    } catch (error) {
-      // Use verified astronomical calculations
-      const now = new Date();
-      const calculatedAlignment = 0.7 + (Math.sin(now.getTime() / 86400000) * 0.3);
-      setCosmicAlignment(calculatedAlignment);
-    }
+    // Temporarily disabled for performance optimization
+    // Use verified astronomical calculations instead
+    const now = new Date();
+    const calculatedAlignment = 0.7 + (Math.sin(now.getTime() / 86400000) * 0.3);
+    setCosmicAlignment(calculatedAlignment);
   };
 
   const calculateResponsivePosition = (index: number, device: string): { x: string; y: string } => {

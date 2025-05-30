@@ -183,13 +183,19 @@ export function AuthenticSacredGeometry({
 
   const fetchAstronomicalData = async () => {
     try {
-      // Connect to real astronomical API for authentic celestial data
-      const response = await fetch('/api/consciousness/astronomical-data');
-      if (response.ok) {
-        const data = await response.json();
-        setAstronomicalData(data);
-        onAstronomicalUpdate?.(data);
-      }
+      // Temporarily disabled for performance optimization
+      // const response = await fetch('/api/consciousness/astronomical-data');
+      
+      // Use calculated astronomical data
+      const now = new Date();
+      const approximateData = {
+        lunarPhase: calculateLunarPhase(now),
+        solarPosition: calculateSolarPosition(now),
+        cosmicAlignment: 0.7,
+        source: 'calculated'
+      };
+      setAstronomicalData(approximateData);
+      onAstronomicalUpdate?.(approximateData);
     } catch (error) {
       // Use calculated astronomical approximations as fallback
       const now = new Date();

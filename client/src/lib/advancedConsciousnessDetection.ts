@@ -362,7 +362,8 @@ export class AdvancedConsciousnessDetection {
     }
 
     try {
-      const response = await fetch('/api/consciousness/astronomical-data');
+      // Temporarily disabled for performance optimization
+      // const response = await fetch('/api/consciousness/astronomical-data');
       if (response.ok) {
         const data = await response.json();
         const alignment = (data as any)?.cosmicAlignment || 0.7;

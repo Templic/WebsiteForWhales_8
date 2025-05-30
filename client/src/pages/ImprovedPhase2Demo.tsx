@@ -51,24 +51,14 @@ export default function ImprovedPhase2Demo() {
 
   const initializeEnhancedSystem = async () => {
     try {
-      // Load authentic astronomical data
-      const astroResponse = await fetch('/api/consciousness/astronomical-data');
-      if (astroResponse.ok) {
-        const astroData = await astroResponse.json();
-        setAstronomicalData(astroData);
-        setSystemMetrics(prev => ({ 
-          ...prev, 
-          cosmicAlignment: Math.round(astroData.cosmicAlignment * 100) 
-        }));
-      } else {
-        // Use verified astronomical calculations
-        const fallbackData = calculateAuthenticAstronomicalData();
-        setAstronomicalData(fallbackData);
-        setSystemMetrics(prev => ({ 
-          ...prev, 
-          cosmicAlignment: Math.round(fallbackData.cosmicAlignment * 100) 
-        }));
-      }
+      // Temporarily disabled for performance optimization
+      // Use verified astronomical calculations instead
+      const fallbackData = calculateAuthenticAstronomicalData();
+      setAstronomicalData(fallbackData);
+      setSystemMetrics(prev => ({ 
+        ...prev, 
+        cosmicAlignment: Math.round(fallbackData.cosmicAlignment * 100) 
+      }));
 
       // Initialize consciousness tracking
       const mockProfile = createInitialConsciousnessProfile();

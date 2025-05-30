@@ -120,16 +120,9 @@ export function ContextAdaptiveSacredGeometry({
   };
 
   const loadAstronomicalData = async () => {
-    try {
-      const response = await fetch('/api/consciousness/astronomical-data');
-      if (response.ok) {
-        const data = await response.json();
-        setAstronomicalData(data);
-      }
-    } catch (error) {
-      // Use calculated astronomical data as authentic fallback
-      setAstronomicalData(calculateFallbackAstronomicalData());
-    }
+    // Temporarily disabled for performance optimization
+    // Use calculated astronomical data instead
+    setAstronomicalData(calculateFallbackAstronomicalData());
   };
 
   const loadWhaleWisdom = async () => {
