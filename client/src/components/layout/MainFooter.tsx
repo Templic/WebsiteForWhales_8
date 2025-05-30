@@ -34,7 +34,7 @@ import {
   Users
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import SacredGeometry from "@/components/ui/sacred-geometry";
+import ThrottledSacredGeometry from "../../components/cosmic/ThrottledSacredGeometry";
 
 // Simple FlowerOfLifePattern component for cosmic background effect
 const FlowerOfLifePattern: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => {
@@ -211,10 +211,10 @@ export function MainFooter() {
     >
       {/* Sacred Geometry Background Elements */}
       <div className="absolute top-0 left-1/4 transform -translate-x-1/2 opacity-15">
-        <SacredGeometry variant="dodecahedron" size={300} animated={true} intensity="subtle" />
+        <ThrottledSacredGeometry variant="dodecahedron" size={300} animated={true} intensity="subtle" />
       </div>
       <div className="absolute bottom-20 right-0 transform translate-x-1/3 opacity-15">
-        <SacredGeometry variant="merkaba" size={240} animated={true} intensity="subtle" />
+        <ThrottledSacredGeometry variant="merkaba" size={240} animated={true} intensity="subtle" />
       </div>
       <div className="absolute left-0 bottom-0 opacity-10">
         <FlowerOfLifePattern className="w-full h-full" aria-hidden="true" />
@@ -385,7 +385,7 @@ export function MainFooter() {
 
             {/* Small sacred geometry element */}
             <div className="flex justify-center mt-4 opacity-30">
-              <SacredGeometry variant="pentagon" size={60} animated={true} intensity="subtle" />
+              <ThrottledSacredGeometry variant="hexagon" size={60} animated={true} intensity="subtle" />
             </div>
           </div>
         </div>

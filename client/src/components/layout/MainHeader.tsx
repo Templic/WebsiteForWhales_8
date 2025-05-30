@@ -591,11 +591,10 @@ export function MainHeader() {
                   className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                 >
                   <div className="absolute -left-1 -top-1 opacity-50">
-                    <SacredGeometry 
-                      variant={index % 2 === 0 ? "hexagon" : "triangle"} 
+                    <ThrottledSacredGeometry 
+                      variant={index % 2 === 0 ? "hexagon" : "dodecahedron"} 
                       size={16} 
                       intensity="subtle" 
-                      className={index % 2 === 0 ? "text-cyan-300" : "text-purple-300"} 
                     />
                   </div>
                   {item.icon}
@@ -623,15 +622,12 @@ export function MainHeader() {
 
           {/* Five-pointed star for mobile view - behind everything except page background */}
           <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: 5 }}>
-            <div className="animate-spin-very-slow animate-pulse" style={{ animationDuration: '25s' }}>
-              <SacredGeometry 
-                variant="star" 
-                size={180} 
-                animated={false} 
-                intensity="medium" 
-                className="text-cyan-300" 
-              />
-            </div>
+            <ThrottledSacredGeometry 
+              variant="merkaba" 
+              size={180} 
+              animated={true} 
+              intensity="subtle" 
+            />
           </div>
 
           {/* Mobile Menu */}
@@ -837,23 +833,21 @@ export function MainHeader() {
       
       {/* Five-pointed star positioned behind content for mobile view */}
       <div className="absolute right-2 top-1/2 transform -translate-y-1/2 md:hidden" style={{ zIndex: 5 }}>
-        <SacredGeometry 
-          variant="star" 
+        <ThrottledSacredGeometry 
+          variant="merkaba" 
           size={110} 
           animated={true} 
-          intensity="medium" 
-          className="text-cyan-300" 
+          intensity="subtle" 
         />
       </div>
 
       {/* Media query based five-pointed star (fallback for very small screens) */}
       <div className="absolute right-[-20px] top-1/2 transform -translate-y-1/2 md:hidden max-[340px]:hidden" style={{ zIndex: 3 }}>
-        <SacredGeometry 
-          variant="star" 
+        <ThrottledSacredGeometry 
+          variant="merkaba" 
           size={110} 
           animated={true} 
-          intensity="medium" 
-          className="text-cyan-300" 
+          intensity="subtle" 
         />
       </div>
 
