@@ -13,7 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.52.0",
+    "@anthropic-ai/sdk": "^0.37.0",
     "@babel/helpers": "^7.27.3",
     "@chakra-ui/react": "^3.13.0",
     "@emotion/react": "^11.14.0",
@@ -114,7 +114,7 @@
     "memoizee": "^0.4.17",
     "memorystore": "^1.6.7",
     "nodemailer": "^6.10.0",
-    "openai": "^4.103.0",
+    "openai": "^4.104.0",
     "openid-client": "^6.5.0",
     "ora": "^8.2.0",
     "passport": "^0.7.0",
