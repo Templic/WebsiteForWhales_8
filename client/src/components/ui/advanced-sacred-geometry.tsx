@@ -111,20 +111,8 @@ export function MetatronsCube({
             scale: [1, 1.05, 1]
           } : {}}
           transition={{
-            rotate: { 
-              duration: frequency * 4, // Slower rotation
-              repeat: Infinity, 
-              ease: "linear",
-              repeatType: "loop" as const,
-              times: [0, 0.25, 0.5, 0.75, 1] // Reduce keyframes for performance
-            },
-            scale: { 
-              duration: frequency * 2, // Slower scaling
-              repeat: Infinity, 
-              ease: "easeInOut",
-              repeatType: "reverse" as const,
-              times: [0, 0.5, 1] // Simplified timing
-            }
+            rotate: { duration: frequency * 2, repeat: Infinity, ease: "linear" },
+            scale: { duration: frequency, repeat: Infinity, ease: "easeInOut" }
           }}
         />
         
@@ -139,11 +127,9 @@ export function MetatronsCube({
             r: [size * 0.02, size * 0.03, size * 0.02]
           } : {}}
           transition={{
-            duration: frequency, // Slower pulsing
+            duration: frequency / 2,
             repeat: Infinity,
-            ease: "easeInOut",
-            repeatType: "reverse" as const,
-            times: [0, 0.5, 1] // Simplified timing for performance
+            ease: "easeInOut"
           }}
         />
       </svg>
@@ -209,20 +195,8 @@ export function SriYantra({
               opacity: [0.6, 1, 0.6]
             } : {}}
             transition={{
-              rotate: { 
-                duration: frequency * (index + 2) * 2, // Much slower rotation
-                repeat: Infinity, 
-                ease: "linear",
-                repeatType: "loop" as const,
-                times: [0, 0.25, 0.5, 0.75, 1]
-              },
-              opacity: { 
-                duration: frequency, // Slower opacity changes
-                repeat: Infinity, 
-                ease: "easeInOut",
-                repeatType: "reverse" as const,
-                times: [0, 0.5, 1]
-              }
+              rotate: { duration: frequency * (index + 1), repeat: Infinity, ease: "linear" },
+              opacity: { duration: frequency / 2, repeat: Infinity, ease: "easeInOut" }
             }}
           />
         ))}

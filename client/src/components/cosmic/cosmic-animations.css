@@ -38,8 +38,8 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Planetary frequency rotation */
-@keyframes planetaryRotate {
+/* Subtle rotation */
+@keyframes subtleRotate {
   0% {
     transform: rotate(0deg);
   }
@@ -48,43 +48,8 @@
   }
 }
 
-@keyframes planetaryReverseRotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-
-/* Planetary frequency classes based on sacred timing */
 .cosmic-rotate {
-  animation: planetaryRotate 60s linear infinite; /* 1 minute - Jupiter energy */
-}
-
-/* DEPRECATED: These CSS animations are outdated and use fast timing instead of proper planetary consciousness timing */
-/* MIGRATE TO: ThrottledSacredGeometry with Dan Winter's fractal mathematics */
-.animate-spin-very-slow {
-  animation: planetaryRotate 60s linear infinite; /* 1 minute - Jupiter energy */
-  /* DEPRECATED: Replace with ThrottledSacredGeometry for proper cosmic timing */
-}
-
-.animate-spin-planetary {
-  animation: planetaryRotate 90s linear infinite; /* 1.5 minutes - Deep meditation */
-  /* DEPRECATED: Replace with ThrottledSacredGeometry for consciousness alignment */
-}
-
-.animate-spin-cosmic {
-  animation: planetaryRotate 120s linear infinite; /* 2 minutes - Root chakra grounding */
-  /* DEPRECATED: Replace with ThrottledSacredGeometry for meditative pace */
-}
-
-.slow-rotate {
-  animation: planetaryRotate 90s linear infinite; /* 1.5 minutes - Deep meditation */
-}
-
-.reverse-rotate {
-  animation: planetaryReverseRotate 120s linear infinite; /* 2 minutes - Root chakra grounding */
+  animation: subtleRotate 30s linear infinite;
 }
 
 /* Sparkle effect */

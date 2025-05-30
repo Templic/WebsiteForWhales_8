@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDisplayDate } from "@/lib/date-utils";
 import { SpotlightEffect } from "@/components/SpotlightEffect";
-import { ThrottledSacredGeometry } from "@/components/cosmic/ThrottledSacredGeometry";
+import SacredGeometry from "@/components/ui/sacred-geometry";
 import { useLocation } from "wouter";
 
 export default function BlogPage() {
@@ -126,12 +126,16 @@ export default function BlogPage() {
             Explore the journey of cosmic consciousness through Dale's experiences, insights, and adventures
           </p>
           
-          {/* Sacred geometry elements - updated to advanced timing system */}
+          {/* Sacred geometry elements */}
           <div className="absolute -top-14 -right-4 opacity-20 hidden md:block">
-            <ThrottledSacredGeometry variant="octagon" size={100} animated={true} intensity="medium" />
+            <div className="animate-spin-very-slow" style={{ animationDuration: '30s' }}>
+              <SacredGeometry variant="octagon" size={100} animated={false} intensity="medium" />
+            </div>
           </div>
           <div className="absolute -bottom-10 -left-4 opacity-20 hidden md:block">
-            <ThrottledSacredGeometry variant="merkaba" size={80} animated={true} intensity="medium" />
+            <div className="animate-spin-very-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
+              <SacredGeometry variant="merkaba" size={80} animated={false} intensity="medium" />
+            </div>
           </div>
         </div>
         

@@ -28,19 +28,7 @@ interface Particle {
   color: string
 }
 
-interface ParticleBackgroundProps {
-  colorScheme?: "mixed" | "blue" | "purple" | "green" | "cosmic" | "teal" | "pink";
-  density?: "low" | "medium" | "high";
-  speed?: "slow" | "medium" | "fast";
-  connectDistance?: number;
-}
-
-export function ParticleBackground({
-  colorScheme = "mixed", 
-  density = "low", 
-  speed = "slow",
-  connectDistance = 80
-}: ParticleBackgroundProps = {}) {
+export function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -59,38 +47,18 @@ export function ParticleBackground({
       initParticles()
     }
 
-    // Density and speed controls
-    const getDensityMultiplier = () => {
-      switch(density) {
-        case "low": return 0.3;
-        case "high": return 1.5;
-        default: return 0.8;
-      }
-    }
-
-    const getSpeedMultiplier = () => {
-      switch(speed) {
-        case "slow": return 0.2;
-        case "fast": return 1.0;
-        default: return 0.5;
-      }
-    }
-
     const initParticles = () => {
       particles = []
-      // Much more conservative particle count with planetary timing
-      const densityMultiplier = getDensityMultiplier()
-      const speedMultiplier = getSpeedMultiplier()
-      const particleCount = Math.min(Math.floor(window.innerWidth / 25 * densityMultiplier), 40)
+      const particleCount = Math.min(Math.floor(window.innerWidth / 10), 100)
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 1.2 + 0.3, // Smaller particles
-          speedX: (Math.random() * 0.05 - 0.025) * speedMultiplier, // Much slower movement
-          speedY: (Math.random() * 0.05 - 0.025) * speedMultiplier, // Much slower movement
-          opacity: Math.random() * 0.2 + 0.05, // Very subtle
+          size: Math.random() * 2 + 0.5,
+          speedX: Math.random() * 0.2 - 0.1,
+          speedY: Math.random() * 0.2 - 0.1,
+          opacity: Math.random() * 0.5 + 0.1,
           color: getRandomColor(),
         })
       }
@@ -98,10 +66,10 @@ export function ParticleBackground({
 
     const getRandomColor = () => {
       const colors = [
-        "rgba(147, 51, 234, 0.5)", // Purple - more subtle
-        "rgba(79, 70, 229, 0.5)", // Indigo - more subtle
-        "rgba(59, 130, 246, 0.5)", // Blue - more subtle
-        "rgba(236, 72, 153, 0.5)", // Pink - more subtle
+        "rgba(147, 51, 234, 0.7)", // Purple
+        "rgba(79, 70, 229, 0.7)", // Indigo
+        "rgba(59, 130, 246, 0.7)", // Blue
+        "rgba(236, 72, 153, 0.7)", // Pink
       ]
       return colors[Math.floor(Math.random() * colors.length)]
     }
@@ -126,7 +94,7 @@ export function ParticleBackground({
         ctx.fillStyle = particle.color
         ctx.fill()
 
-        // Draw connections with reduced distance for better performance
+        // Draw connections
         connectParticles(particle, i)
       })
     }
@@ -137,11 +105,10 @@ export function ParticleBackground({
         const dy = particle.y - particles[i].y
         const distance = Math.sqrt(dx * dx + dy * dy)
 
-        // Reduced connection distance for better performance
-        if (distance < 80) {
+        if (distance < 120) {
           ctx.beginPath()
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 * (1 - distance / 80)})`
-          ctx.lineWidth = 0.3
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 120)})`
+          ctx.lineWidth = 0.5
           ctx.moveTo(particle.x, particle.y)
           ctx.lineTo(particles[i].x, particles[i].y)
           ctx.stroke()
@@ -149,16 +116,8 @@ export function ParticleBackground({
       }
     }
 
-    // Planetary frequency optimization: Use deep meditation timing
-    let lastFrameTime = 0
-    const planetaryFPS = 4  // 4 FPS for deep planetary meditation
-    const frameInterval = 1000 / planetaryFPS
-
-    const animate = (currentTime: number = 0) => {
-      if (currentTime - lastFrameTime >= frameInterval) {
-        drawParticles()
-        lastFrameTime = currentTime
-      }
+    const animate = () => {
+      drawParticles()
       animationFrameId = requestAnimationFrame(animate)
     }
 

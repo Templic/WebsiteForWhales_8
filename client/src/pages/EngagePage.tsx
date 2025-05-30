@@ -16,7 +16,6 @@ import FeaturedMerchandise from "@/components/common/FeaturedMerchandise";
 import { ComingSoonNotice } from '@/components/common/ComingSoonNotice';
 
 import SacredGeometry from "@/components/ui/sacred-geometry";
-import ThrottledSacredGeometry from "@/components/cosmic/ThrottledSacredGeometry";
 import { FaYoutube, FaInstagram, FaSpotify, FaPodcast, FaMusic, FaEnvelope, FaPhone, FaCalendarAlt, FaUsers } from 'react-icons/fa';
 
 // Define TypeScript types for feedback and comments
@@ -285,15 +284,15 @@ export default function EngagePage() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Left margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 left-5 opacity-10 hidden md:block">
-          <ThrottledSacredGeometry variant="merkaba" size={120} animated={true} intensity="subtle" />
+          <SacredGeometry variant="merkaba" size={120} animated={true} />
         </div>
         <div className="absolute bottom-40 left-5 opacity-10 hidden md:block">
-          <ThrottledSacredGeometry variant="dodecahedron" size={120} animated={true} intensity="subtle" />
+          <SacredGeometry variant="dodecahedron" size={120} animated={true} />
         </div>
 
         {/* Right margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 right-5 opacity-10 hidden md:block">
-          <ThrottledSacredGeometry variant="icosahedron" size={120} animated={true} intensity="subtle" />
+          <SacredGeometry variant="icosahedron" size={120} animated={true} />
         </div>
       </div>
 

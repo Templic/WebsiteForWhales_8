@@ -96,7 +96,7 @@
 .sacred-spiral polyline {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: dash 60s linear forwards;
+  animation: dash 3s linear forwards;
 }
 
 @keyframes dash {

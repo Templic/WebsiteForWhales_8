@@ -140,10 +140,7 @@ export function createHolisticYouTubeSecurityMiddleware(config: Partial<Holistic
       quantumSafe: true
     };
 
-    // Only log for significant security events, not every file request
-    if (!req.path.includes('.css') && !req.path.includes('.js') && !req.path.includes('.ts') && !req.path.includes('.svg')) {
-      console.log(`[Holistic YouTube Security] Security configured for: ${req.path}`);
-    }
+    console.log(`[Holistic YouTube Security] All security layers configured for YouTube compatibility`);
     next();
   };
 }

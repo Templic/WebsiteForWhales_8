@@ -48,36 +48,27 @@ const Stars: React.FC<StarsProps> = ({
       }
     };
 
-    // Performance optimization: throttle animation to 15fps instead of 60fps
-    let lastFrameTime = 0;
-    const targetFPS = 15;
-    const frameInterval = 1000 / targetFPS;
-
-    const animate = (currentTime: number = 0) => {
-      if (currentTime - lastFrameTime >= frameInterval) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = backgroundColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = backgroundColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = color;
+      starsRef.current.forEach(star => {
+        // Draw the star
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
         
-        ctx.fillStyle = color;
-        starsRef.current.forEach(star => {
-          // Draw the star
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-          ctx.fill();
-          
-          // Move the star (slower movement for better performance)
-          star.y += star.speed * 0.5;
-          
-          // If the star has moved off the bottom, reset it to the top
-          if (star.y > canvas.height) {
-            star.y = 0;
-            star.x = Math.random() * canvas.width;
-          }
-        });
+        // Move the star
+        star.y += star.speed;
         
-        lastFrameTime = currentTime;
-      }
+        // If the star has moved off the bottom, reset it to the top
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
       
       animationRef.current = requestAnimationFrame(animate);
     };

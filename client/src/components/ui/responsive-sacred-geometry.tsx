@@ -5,10 +5,8 @@
  * Optimized for mobile, tablet, and desktop with proper depth layering
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SACRED_FREQUENCIES, GeometryPerformanceManager, smoothAnimationReset } from '../../lib/sacredFrequencies';
-
 // Simple utility function for class merging
 function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -75,17 +73,12 @@ const geometryPaths = {
   spiral: "M50,50 Q30,30 50,10 Q90,30 70,50 Q50,90 30,70 Q10,50 30,30"
 };
 
-// Sacred frequency timing for deep meditative animations
-const getSacredTiming = (intensity: string) => {
-  const manager = GeometryPerformanceManager.getInstance();
-  const baseFrequencies = {
-    subtle: SACRED_FREQUENCIES.deepMeditation,     // 24 seconds
-    medium: SACRED_FREQUENCIES.meditation,        // 16 seconds  
-    vivid: SACRED_FREQUENCIES.awareness,          // 12 seconds
-  };
-  
-  const baseFreq = baseFrequencies[intensity as keyof typeof baseFrequencies] || SACRED_FREQUENCIES.meditation;
-  return manager.getAdaptiveFrequency(baseFreq);
+// Musical ratio timing for animations (based on sacred frequencies)
+const musicalRatios = {
+  slow: 8.000, // 1:1 ratio
+  medium: 6.000, // 4:3 ratio  
+  fast: 4.500, // 3:2 ratio
+  harmonic: 3.375 // 9:8 ratio
 };
 
 export function ResponsiveSacredGeometry({
@@ -100,11 +93,6 @@ export function ResponsiveSacredGeometry({
 }: ResponsiveSacredGeometryProps) {
   const [currentConfig, setCurrentConfig] = useState<BreakpointConfig>(breakpointConfigs.mobile);
   const [isVisible, setIsVisible] = useState(true);
-  const [animationRegistered, setAnimationRegistered] = useState(false);
-  
-  const manager = GeometryPerformanceManager.getInstance();
-  const animationId = `responsive-geometry-${variant}-${depth}`;
-  const sacredTiming = getSacredTiming(intensity);
 
   // Responsive breakpoint detection
   useEffect(() => {
@@ -191,39 +179,33 @@ export function ResponsiveSacredGeometry({
     }
   };
 
-  // Animation variants using sacred frequencies with graceful degradation
+  // Animation variants using musical ratios
   const rotationVariants = {
     static: {},
     rotating: {
       rotate: [0, 360],
       transition: {
-        duration: sacredTiming,
+        duration: musicalRatios.slow,
         repeat: Infinity,
-        ease: "linear",
-        repeatType: "loop" as const,
-        times: [0, 0.25, 0.5, 0.75, 1] // Reduce keyframes for smoother performance
+        ease: "linear"
       }
     },
     pulsing: {
       scale: [1, 1.1, 1],
       opacity: [currentConfig.opacity, currentConfig.opacity * 1.3, currentConfig.opacity],
       transition: {
-        duration: sacredTiming * 0.75, // Slightly faster for pulsing
+        duration: musicalRatios.medium,
         repeat: Infinity,
-        ease: "easeInOut",
-        repeatType: "reverse" as const,
-        times: [0, 0.5, 1] // Simplified timing for performance
+        ease: "easeInOut"
       }
     },
     oscillating: {
       rotate: [0, 15, -15, 0],
       scale: [1, 1.05, 1],
       transition: {
-        duration: sacredTiming * 0.6, // Faster for gentle oscillation
+        duration: musicalRatios.harmonic,
         repeat: Infinity,
-        ease: "easeInOut",
-        repeatType: "reverse" as const,
-        times: [0, 0.33, 0.66, 1] // Reduce calculation complexity
+        ease: "easeInOut"
       }
     }
   };

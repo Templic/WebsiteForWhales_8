@@ -7,12 +7,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { SACRED_FREQUENCIES, GeometryPerformanceManager, createThrottledAnimationLoop } from '../../lib/sacredFrequencies';
-
-// Simple utility function for class merging
-function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ');
-}
+import { cn } from '@/lib/utils';
 
 interface SacredGeometryProps {
   type: 'flower-of-life' | 'sri-yantra' | 'metatron-cube' | 'pentagon-star' | 'hexagon' | 'vesica-piscis' | 'golden-spiral';
@@ -40,8 +35,6 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
   const rotationRef = useRef<number>(0);
-  const lastFrameTime = useRef(0);
-  const manager = GeometryPerformanceManager.getInstance();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -50,10 +43,6 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Register with performance manager
-    const animationId = `sacred-geometry-${type}`;
-    const canAnimate = manager.registerAnimation(animationId);
-    
     // Set canvas size
     canvas.width = size;
     canvas.height = size;
@@ -470,7 +459,7 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       
       // Draw quarter circles for each rectangle
       for (let i = 0; i < maxIterations; i++) {
-        let centerX: number, centerY: number, startAngle: number, endAngle: number;
+        let centerX, centerY, startAngle, endAngle;
         
         if (i % 4 === 0) {
           centerX = cx + currentSize / 2;
@@ -487,7 +476,7 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
           centerY = cy - currentSize / 2;
           startAngle = Math.PI / 2;
           endAngle = 0;
-        } else {
+        } else if (i % 4 === 3) {
           centerX = cx + currentSize / 2;
           centerY = cy - currentSize / 2;
           startAngle = 0;
@@ -511,41 +500,25 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       ctx.fillText(text, x, y);
     }
 
-    // Sacred frequency based animation with Solfeggio timing
-    const sacredFrequency = SACRED_FREQUENCIES.meditation; // 11.4 second cycles
-    const targetFPS = manager.getOptimization().frameRate || 8;
-    const frameInterval = 1000 / targetFPS;
-
-    const animationLoop = (timestamp: number = 0) => {
-      if (animate && canAnimate) {
-        // Throttle based on sacred frequencies
-        if (timestamp - lastFrameTime.current >= frameInterval) {
-          // Use sacred timing for rotation
-          rotationRef.current += (Math.PI * 2) / (sacredFrequency * targetFPS);
-          drawPattern(rotationRef.current);
-          lastFrameTime.current = timestamp;
-        }
-        animationRef.current = requestAnimationFrame(animationLoop);
+    // Animation loop
+    const animate = () => {
+      if (animate) {
+        rotationRef.current += 0.001; // Adjust rotation speed
+        drawPattern(rotationRef.current);
+        animationRef.current = requestAnimationFrame(animate);
       } else {
         drawPattern(0);
       }
     };
 
-    // Initialize with static or animated geometry
-    if (!canAnimate && animate) {
-      drawPattern(0); // Static fallback
-      return () => manager.unregisterAnimation(animationId);
-    } else {
-      animationLoop();
-    }
+    animate();
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      manager.unregisterAnimation(animationId);
     };
-  }, [type, size, color, animate, animationDuration, lineWidth, showLabels, manager]);
+  }, [type, size, color, animate, animationDuration, lineWidth, showLabels]);
 
   return (
     <canvas

@@ -8,12 +8,8 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { CartProvider } from "@/hooks/use-cart";
 import { ProtectedRoute } from "@/lib/protected-route";
 import NotFound from "./pages/not-found";
-import './utils/audioComponentsToggle'; // Initialize performance optimizations
 import { useEffect } from "react";
 import { initializeGA, trackPageView } from "@/lib/analytics";
-import { applyMobileOptimizations } from "@/utils/mobileOptimization";
-import { emergencyPerformanceManager } from "@/utils/emergencyPerformanceMode";
-import { resourceOptimizer } from "@/utils/resourceOptimizer";
 import { ErrorBoundary } from "react-error-boundary";
 import StarBackground from "@/components/cosmic/StarBackground";
 import { AccessibilityProvider } from "@/contexts/AccessibilityContext";
@@ -140,17 +136,6 @@ import ResponsiveDemo from "./pages/ResponsiveDemo";
 import ResponsiveDemo2 from "./pages/ResponsiveDemo2";
 import ContentAIDemo from "@/pages/ContentAIDemo";
 import ContentRecommendationsDemo from "@/pages/ContentRecommendationsDemo";
-import PerformanceOptimizationDemo from "@/pages/PerformanceOptimizationDemo";
-import AdaptiveGeometryDemo from "@/pages/AdaptiveGeometryDemo";
-
-// Sacred Geometry Demo Pages
-import SacredGeometryDemoPage from "@/pages/SacredGeometryDemoPage";
-import EnhancedSacredGeometryDemo from "@/pages/EnhancedSacredGeometryDemo";
-import AuthenticSacredGeometryDemo from "@/pages/AuthenticSacredGeometryDemo";
-import Phase2SacredGeometryDemo from "@/pages/Phase2SacredGeometryDemo";
-import ImprovedPhase2Demo from "@/pages/ImprovedPhase2Demo";
-import Phase3CommunityDemo from "@/pages/Phase3CommunityDemo";
-import SacredGeometryStatus from "@/pages/SacredGeometryStatus";
 
 // MainHeader is now included in MainLayout, no longer needed here
 
@@ -310,22 +295,8 @@ function AppRouter() {
           <Route path="/content-ai-demo" component={ContentAIDemo} />
           <Route path="/content-recommendations-demo" component={ContentRecommendationsDemo} />
           <Route path="/performance" component={PerformanceDemoPage} />
-          <Route path="/performance-optimization-demo" component={PerformanceOptimizationDemo} />
-          <Route path="/adaptive-geometry-demo" component={AdaptiveGeometryDemo} />
           <Route path="/responsive-demo" component={ResponsiveDemo} />
           <Route path="/responsive-demo2" component={ResponsiveDemo2} />
-
-          {/* Sacred Geometry Demo Routes - Four-Phase Implementation */}
-          <Route path="/sacred-geometry-demo" component={SacredGeometryDemoPage} />
-          <Route path="/demo/sacred-geometry" component={SacredGeometryDemoPage} />
-          <Route path="/demo/enhanced-sacred-geometry" component={EnhancedSacredGeometryDemo} />
-          <Route path="/demo/authentic-sacred-geometry" component={AuthenticSacredGeometryDemo} />
-          <Route path="/demo/phase2-sacred-geometry" component={Phase2SacredGeometryDemo} />
-          <Route path="/demo/improved-phase2" component={ImprovedPhase2Demo} />
-          <Route path="/demo/phase3-community" component={Phase3CommunityDemo} />
-          <Route path="/sacred-geometry-status" component={SacredGeometryStatus} />
-          <Route path="/implementation-status" component={SacredGeometryStatus} />
-
           <Route path="/test/binaural-beat-performance" component={
             () => import('./pages/tests/binaural-beat-performance-test').then(module => {
               const Page = module.default;
@@ -367,7 +338,6 @@ function ErrorFallback({error, resetErrorBoundary}: {error: Error; resetErrorBou
 function App() {
   useEffect(() => {
     initializeGA();
-    applyMobileOptimizations();
   }, []);
 
   return (

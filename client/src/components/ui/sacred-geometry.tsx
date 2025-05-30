@@ -1,13 +1,7 @@
 /**
  * sacred-geometry.tsx
  * 
- * DEPRECATED COMPONENT - DO NOT USE IN NEW CODE
- * 
- * This component uses outdated animation timing that lacks proper 
- * planetary consciousness alignment. All new code should use 
- * ThrottledSacredGeometry with Dan Winter's fractal mathematics.
- * 
- * Component Type: common (deprecated)
+ * Component Type: common
  * Migrated as part of the repository reorganization.
  */
 import React from 'react';
@@ -53,8 +47,8 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
     "--fill-opacity": opacityValue,
   } as React.CSSProperties;
 
-  // Animation class based on the animated prop using planetary frequencies
-  const animationClass = animated ? 'animate-spin-planetary' : '';
+  // Animation class based on the animated prop
+  const animationClass = animated ? 'animate-spin-very-slow' : '';
 
   // Helper function to create SVG with consistent props
   const createSvg = (children: React.ReactNode) => (

@@ -37,7 +37,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { useAccessibility } from "@/contexts/AccessibilityContext";
 import { motion } from "framer-motion";
-import ThrottledSacredGeometry from "../../components/cosmic/ThrottledSacredGeometry";
+import SacredGeometry from "../../components/ui/sacred-geometry";
 // Remove ThemeToggle import as it's now managed in MainLayout
 
 // Define the navigation items structure
@@ -181,115 +181,143 @@ export function MainHeader() {
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
         <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={90} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={90} 
+              animated={false} 
+              intensity="medium" 
+              className="text-cyan-300" 
+            />
+          </div>
         </div>
 
         {/* Left circle background/shadow - first set */}
         <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={100} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={100} 
+              animated={false} 
+              intensity="subtle" 
+              className="text-purple-400" 
+            />
+          </div>
         </div>
         
         {/* Right circle foreground - first set */}
         <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={90} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={90} 
+              animated={false} 
+              intensity="medium" 
+              className="text-cyan-300" 
+            />
+          </div>
         </div>
         
         {/* Right circle background/shadow - first set */}
         <div className="absolute top-[52%] right-[7%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={100} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={100} 
+              animated={false} 
+              intensity="subtle" 
+              className="text-purple-400" 
+            />
+          </div>
         </div>
         
         {/* SECOND SET - Slightly below and toward center - in absolute foreground */}
         {/* Left circle foreground - second set */}
         <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={75} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={75} 
+              animated={false} 
+              intensity="medium" 
+              className="text-cyan-300" 
+            />
+          </div>
         </div>
 
         {/* Left circle background/shadow - second set */}
         <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={85} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={85} 
+              animated={false} 
+              intensity="subtle" 
+              className="text-purple-400" 
+            />
+          </div>
         </div>
         
         {/* Right circle foreground - second set */}
         <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={75} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={75} 
+              animated={false} 
+              intensity="medium" 
+              className="text-cyan-300" 
+            />
+          </div>
         </div>
         
         {/* Right circle background/shadow - second set */}
         <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
-          <ThrottledSacredGeometry 
-            variant="merkaba" 
-            size={85} 
-            animated={true} 
-            intensity="subtle" 
-          />
+          <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
+            <SacredGeometry 
+              variant="merkaba" 
+              size={85} 
+              animated={false} 
+              intensity="subtle" 
+              className="text-purple-400" 
+            />
+          </div>
         </div>
       
         <div className="absolute -top-14 -right-14 opacity-40 transform rotate-45">
-          <ThrottledSacredGeometry 
+          <SacredGeometry 
             variant="merkaba" 
             size={80} 
             animated={true} 
-            intensity="subtle" 
+            intensity="medium" 
+            className="text-cyan-400" 
           />
         </div>
         <div className="absolute -bottom-10 -left-10 opacity-30">
-          <ThrottledSacredGeometry 
+          <SacredGeometry 
             variant="hexagon" 
             size={70} 
             animated={true} 
-            intensity="subtle" 
+            intensity="medium" 
+            className="text-purple-400" 
           />
         </div>
         <div className="absolute top-1/2 -translate-y-1/2 -right-8 opacity-20">
-          <ThrottledSacredGeometry 
-            variant="dodecahedron" 
+          <SacredGeometry 
+            variant="tetrahedron" 
             size={50} 
             animated={true} 
             intensity="subtle" 
+            className="text-cyan-300" 
           />
         </div>
         <div className="absolute top-1/2 -translate-y-1/2 -left-8 opacity-20">
-          <ThrottledSacredGeometry 
-            variant="icosahedron" 
+          <SacredGeometry 
+            variant="octahedron" 
             size={50} 
             animated={true} 
             intensity="subtle" 
+            className="text-purple-300" 
           />
         </div>
       </div>
@@ -473,10 +501,11 @@ export function MainHeader() {
                       className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                     >
                       <div className="absolute -left-1 -top-1 opacity-50">
-                        <ThrottledSacredGeometry 
-                          variant={index % 2 === 0 ? "hexagon" : "dodecahedron"} 
+                        <SacredGeometry 
+                          variant={index % 2 === 0 ? "hexagon" : "triangle"} 
                           size={16} 
                           intensity="subtle" 
+                          className={index % 2 === 0 ? "text-cyan-300" : "text-purple-300"} 
                         />
                       </div>
                       {item.icon}
@@ -518,10 +547,11 @@ export function MainHeader() {
                       className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                     >
                       <div className="absolute -left-1 -top-1 opacity-50">
-                        <ThrottledSacredGeometry 
-                          variant={index % 2 === 0 ? "icosahedron" : "hexagon"} 
+                        <SacredGeometry 
+                          variant={index % 2 === 0 ? "tetrahedron" : "pentagon"} 
                           size={16} 
                           intensity="subtle" 
+                          className={index % 2 === 0 ? "text-purple-300" : "text-cyan-300"} 
                         />
                       </div>
                       {item.icon}
@@ -591,10 +621,11 @@ export function MainHeader() {
                   className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                 >
                   <div className="absolute -left-1 -top-1 opacity-50">
-                    <ThrottledSacredGeometry 
-                      variant={index % 2 === 0 ? "hexagon" : "dodecahedron"} 
+                    <SacredGeometry 
+                      variant={index % 2 === 0 ? "hexagon" : "triangle"} 
                       size={16} 
                       intensity="subtle" 
+                      className={index % 2 === 0 ? "text-cyan-300" : "text-purple-300"} 
                     />
                   </div>
                   {item.icon}
@@ -622,12 +653,15 @@ export function MainHeader() {
 
           {/* Five-pointed star for mobile view - behind everything except page background */}
           <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: 5 }}>
-            <ThrottledSacredGeometry 
-              variant="merkaba" 
-              size={180} 
-              animated={true} 
-              intensity="subtle" 
-            />
+            <div className="animate-spin-very-slow animate-pulse" style={{ animationDuration: '25s' }}>
+              <SacredGeometry 
+                variant="star" 
+                size={180} 
+                animated={false} 
+                intensity="medium" 
+                className="text-cyan-300" 
+              />
+            </div>
           </div>
 
           {/* Mobile Menu */}
@@ -833,21 +867,23 @@ export function MainHeader() {
       
       {/* Five-pointed star positioned behind content for mobile view */}
       <div className="absolute right-2 top-1/2 transform -translate-y-1/2 md:hidden" style={{ zIndex: 5 }}>
-        <ThrottledSacredGeometry 
-          variant="merkaba" 
+        <SacredGeometry 
+          variant="star" 
           size={110} 
           animated={true} 
-          intensity="subtle" 
+          intensity="medium" 
+          className="text-cyan-300" 
         />
       </div>
 
       {/* Media query based five-pointed star (fallback for very small screens) */}
       <div className="absolute right-[-20px] top-1/2 transform -translate-y-1/2 md:hidden max-[340px]:hidden" style={{ zIndex: 3 }}>
-        <ThrottledSacredGeometry 
-          variant="merkaba" 
+        <SacredGeometry 
+          variant="star" 
           size={110} 
           animated={true} 
-          intensity="subtle" 
+          intensity="medium" 
+          className="text-cyan-300" 
         />
       </div>
 

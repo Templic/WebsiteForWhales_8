@@ -13,10 +13,21 @@ import { UsersRound, BarChart3, Sparkles } from "lucide-react";
 import { SpotlightEffect } from "../components/SpotlightEffect";
 import { DynamicContent } from "../components/content";
 
-// Import optimized geometry components
-import { GeometricTextContainer } from '../components/ui/responsive-sacred-geometry';
+// Import enhanced responsive sacred geometry components
+import { 
+  SacredGeometryLayout, 
+  GeometricTextContainer,
+  ResponsiveSacredGeometry 
+} from '../components/ui/responsive-sacred-geometry';
+import { AdvancedSacredGeometry } from '../components/ui/advanced-sacred-geometry';
 import { ResponsivePhiGrid, PhiGridItem, PhiGridStyles } from '../components/ui/phi-grid-system';
-import ThrottledSacredGeometry from '../components/cosmic/ThrottledSacredGeometry';
+import { 
+  SimpleHexagon, 
+  SimpleTriangle,
+  SimpleInvertedTriangle,
+  SimpleCircle,
+  SimpleOctagon
+} from '../components/cosmic/SimpleGeometry';
 
 interface ConsciousnessOverview {
   currentLevel: number;
@@ -53,47 +64,9 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-b from-slate-900 to-slate-800">
-      {/* Restored original sacred geometry layout - exactly as before */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Original stars near menu area - top corners */}
-        <div className="absolute top-8 left-8 w-24 h-24 opacity-20">
-          <ThrottledSacredGeometry variant="merkaba" size={96} animated={true} intensity="subtle" />
-        </div>
-        <div className="absolute top-8 right-8 w-24 h-24 opacity-20">
-          <ThrottledSacredGeometry variant="merkaba" size={96} animated={true} intensity="subtle" />
-        </div>
-        
-        {/* Original polyhedron near footer area */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-32 h-32 opacity-15">
-          <ThrottledSacredGeometry variant="dodecahedron" size={128} animated={true} intensity="subtle" />
-        </div>
-        
-        {/* Original margin shapes - left and right sides */}
-        <div className="absolute top-1/3 left-4 w-20 h-20 opacity-15 hidden md:block">
-          <ThrottledSacredGeometry variant="icosahedron" size={80} animated={true} intensity="subtle" />
-        </div>
-        <div className="absolute top-1/3 right-4 w-20 h-20 opacity-15 hidden md:block">
-          <ThrottledSacredGeometry variant="hexagon" size={80} animated={true} intensity="subtle" />
-        </div>
-        <div className="absolute bottom-1/3 left-4 w-20 h-20 opacity-15 hidden md:block">
-          <ThrottledSacredGeometry variant="flower-of-life" size={80} animated={true} intensity="subtle" />
-        </div>
-        <div className="absolute bottom-1/3 right-4 w-20 h-20 opacity-15 hidden md:block">
-          <ThrottledSacredGeometry variant="sri-yantra" size={80} animated={true} intensity="subtle" />
-        </div>
-        
-        {/* Additional original shapes scattered throughout */}
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 opacity-10 hidden lg:block">
-          <ThrottledSacredGeometry variant="seed-of-life" size={64} animated={true} intensity="subtle" />
-        </div>
-        <div className="absolute top-1/2 right-1/4 w-16 h-16 opacity-10 hidden lg:block">
-          <ThrottledSacredGeometry variant="metatron-cube" size={64} animated={true} intensity="subtle" />
-        </div>
-      </div>
-      
+    <SacredGeometryLayout className="min-h-screen">
       <SpotlightEffect />
-      <div className="container mx-auto px-4 py-4 max-w-[1600px] relative z-10">
+      <div className="container mx-auto px-4 py-4 max-w-[1600px]">
 
         {/* Enhanced Cosmic Hero Section with Responsive Sacred Geometry */}
         <section className="hero min-h-[90vh] relative flex items-center justify-center text-center text-white mb-8">
@@ -178,75 +151,72 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
             {/* Whale Wisdom Explanation */}
-            <div className="w-full relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                <ThrottledSacredGeometry variant="vesica-piscis" size={300} animated={true} intensity="subtle" />
-              </div>
-              <motion.div 
-                className="relative z-10 text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-blue-300/30"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-5xl mb-4">🐋</div>
-                <h3 className="text-2xl font-bold text-blue-800 mb-4">Whale Wisdom</h3>
-                <p className="text-blue-600 mb-6 leading-relaxed">
-                  Ancient ocean frequencies carry transformative wisdom to expand your awareness. 
-                  Connect with humpback, blue whale, orca, and gray whale consciousness.
-                </p>
-                <div className="space-y-2 text-sm text-blue-500">
-                  <div>🎵 Real whale song frequencies</div>
-                  <div>🧠 Consciousness expansion</div>
-                  <div>💫 Ancient marine wisdom</div>
-                </div>
-              </motion.div>
+            <div className="w-full">
+              <SimpleTriangle className="w-full max-w-[350px] mx-auto">
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-5xl mb-4">🐋</div>
+                  <h3 className="text-2xl font-bold text-blue-800 mb-4">Whale Wisdom</h3>
+                  <p className="text-blue-600 mb-6 leading-relaxed">
+                    Ancient ocean frequencies carry transformative wisdom to expand your awareness. 
+                    Connect with humpback, blue whale, orca, and gray whale consciousness.
+                  </p>
+                  <div className="space-y-2 text-sm text-blue-500">
+                    <div>🎵 Real whale song frequencies</div>
+                    <div>🧠 Consciousness expansion</div>
+                    <div>💫 Ancient marine wisdom</div>
+                  </div>
+                </motion.div>
+              </SimpleTriangle>
             </div>
 
             {/* Manifestation Explanation */}
-            <div className="w-full relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                <ThrottledSacredGeometry variant="merkaba" size={300} animated={true} intensity="subtle" />
-              </div>
-              <motion.div 
-                className="relative z-10 text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-purple-300/30"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-5xl mb-4">✨</div>
-                <h3 className="text-2xl font-bold text-purple-800 mb-4">Reality Manifestation</h3>
-                <p className="text-purple-600 mb-6 leading-relaxed">
-                  Quantum intention aligns cosmic energies with your deepest desires. 
-                  Track your manifestation journey with evidence-based progress.
-                </p>
-                <div className="space-y-2 text-sm text-purple-500">
-                  <div>⚡ Quantum energy alignment</div>
-                  <div>📈 Evidence tracking</div>
-                  <div>🎯 Intention optimization</div>
-                </div>
-              </motion.div>
+            <div className="w-full">
+              <SimpleOctagon className="w-full max-w-[350px] mx-auto">
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-5xl mb-4">✨</div>
+                  <h3 className="text-2xl font-bold text-purple-800 mb-4">Reality Manifestation</h3>
+                  <p className="text-purple-600 mb-6 leading-relaxed">
+                    Quantum intention aligns cosmic energies with your deepest desires. 
+                    Track your manifestation journey with evidence-based progress.
+                  </p>
+                  <div className="space-y-2 text-sm text-purple-500">
+                    <div>⚡ Quantum energy alignment</div>
+                    <div>📈 Evidence tracking</div>
+                    <div>🎯 Intention optimization</div>
+                  </div>
+                </motion.div>
+              </SimpleOctagon>
             </div>
 
             {/* Sacred Geometry Explanation */}
-            <div className="w-full relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                <ThrottledSacredGeometry variant="flower-of-life" size={300} animated={true} intensity="subtle" />
-              </div>
-              <motion.div 
-                className="relative z-10 text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-teal-300/30"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-5xl mb-4">🔯</div>
-                <h3 className="text-2xl font-bold text-teal-800 mb-4">Sacred Geometry</h3>
-                <p className="text-teal-600 mb-6 leading-relaxed">
-                  Divine patterns harmonize consciousness with universal frequencies, 
-                  creating profound spiritual resonance and visual meditation.
-                </p>
-                <div className="space-y-2 text-sm text-teal-500">
-                  <div>🌸 Flower of Life patterns</div>
-                  <div>🔺 Merkaba meditation</div>
-                  <div>🎼 Frequency synchronization</div>
-                </div>
-              </motion.div>
+            <div className="w-full">
+              <SimpleCircle className="w-full max-w-[350px] mx-auto">
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-5xl mb-4">🔯</div>
+                  <h3 className="text-2xl font-bold text-teal-800 mb-4">Sacred Geometry</h3>
+                  <p className="text-teal-600 mb-6 leading-relaxed">
+                    Divine patterns harmonize consciousness with universal frequencies, 
+                    creating profound spiritual resonance and visual meditation.
+                  </p>
+                  <div className="space-y-2 text-sm text-teal-500">
+                    <div>🌸 Flower of Life patterns</div>
+                    <div>🔺 Merkaba meditation</div>
+                    <div>🎼 Frequency synchronization</div>
+                  </div>
+                </motion.div>
+              </SimpleCircle>
             </div>
           </div>
         </section>
@@ -306,12 +276,9 @@ export default function HomePage() {
         <main className="max-w-[1200px] mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {/* About Section */}
-            <div className="w-full relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-15">
-                <ThrottledSacredGeometry variant="merkaba" size={280} animated={true} intensity="subtle" />
-              </div>
-              <div className="relative z-10 text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-blue-300/30">
-                <h3 className="text-xl font-bold mb-4">
+            <div className="w-full">
+              <SimpleTriangle className="w-full max-w-[350px] mx-auto">
+                <h3>
                   <DynamicContent 
                     contentKey="home-activity-title" 
                     fallback="Ideal Activity"
@@ -319,7 +286,7 @@ export default function HomePage() {
                     section="activity" 
                   />
                 </h3>
-                <p className="mb-6">
+                <p>
                   <DynamicContent 
                     contentKey="home-activity-description" 
                     fallback="🌟 Dale Loves Whales blends cosmic rhythms with tropical soul 🌴 Dive deep into his musical journey that bridges the stars with the ocean's depths 🌊"
@@ -329,20 +296,17 @@ export default function HomePage() {
                 </p>
                 <button 
                   onClick={() => window.location.href = '/about'} 
-                  className="bg-blue-500 hover:bg-blue-700 text-white rounded px-4 py-2"
+                  className="bg-blue-500 hover:bg-blue-700 text-white rounded"
                 >
                   Learn More
                 </button>
-              </div>
+              </SimpleTriangle>
             </div>
 
             {/* Vibes Section */}
-            <div className="w-full relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-15">
-                <ThrottledSacredGeometry variant="dodecahedron" size={280} animated={true} intensity="subtle" />
-              </div>
-              <div className="relative z-10 text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-purple-300/30">
-                <h3 className="text-xl font-bold mb-4">
+            <div className="w-full">
+              <SimpleOctagon className="w-full max-w-[350px] mx-auto">
+                <h3>
                   <DynamicContent 
                     contentKey="home-vibes-title" 
                     fallback="Cosmic Sound Vibes"
@@ -350,7 +314,7 @@ export default function HomePage() {
                     section="vibes" 
                   />
                 </h3>
-                <p className="mb-6">
+                <p>
                   <DynamicContent 
                     contentKey="home-vibes-description" 
                     fallback="From live performances to collaborative projects, Dale brings a unique sound experience infused with retro-futuristic beats, fluid tropical notes, and immersive visuals."
@@ -360,22 +324,19 @@ export default function HomePage() {
                 </p>
                 <button 
                   onClick={() => window.location.href = '/immersive'} 
-                  className="bg-purple-500 hover:bg-purple-700 text-white rounded px-4 py-2"
+                  className="bg-purple-500 hover:bg-purple-700 text-white rounded"
                 >
                   Explore
                 </button>
-              </div>
+              </SimpleOctagon>
             </div>
 
 
 
             {/* Journey Section */}
-            <div className="w-full relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-15">
-                <ThrottledSacredGeometry variant="seed-of-life" size={280} animated={true} intensity="subtle" />
-              </div>
-              <div className="relative z-10 text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-teal-300/30">
-                <h3 className="text-xl font-bold mb-4">
+            <div className="w-full">
+              <SimpleCircle className="w-full max-w-[350px] mx-auto">
+                <h3>
                   <DynamicContent 
                     contentKey="home-journey-title" 
                     fallback="Explore The Journey"
@@ -383,7 +344,7 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </h3>
-                <p className="mb-6">
+                <p>
                   <DynamicContent 
                     contentKey="home-journey-description" 
                     fallback="💫 Join the cosmic voyage and become part of the ever-growing community of cosmic explorers and music lovers 💖"
@@ -393,7 +354,7 @@ export default function HomePage() {
                 </p>
                 <button 
                   onClick={() => window.location.href = '/cosmic-connectivity'} 
-                  className="bg-teal-500 hover:bg-teal-700 text-white rounded px-4 py-2"
+                  className="bg-teal-500 hover:bg-teal-700 text-white rounded"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-cosmic" 
@@ -402,22 +363,19 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </button>
-              </div>
+              </SimpleCircle>
             </div>
           </div>
 
           {/* Additional Links Section */}
           <div className="flex flex-wrap justify-center gap-6 mb-16">
-            <div className="w-[200px] relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                <ThrottledSacredGeometry variant="icosahedron" size={180} animated={true} intensity="subtle" />
-              </div>
-              <div className="relative z-10 text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-green-300/30">
-                <h3 className="text-lg font-bold mb-2">New Music</h3>
-                <p className="text-sm mb-4">Experience our latest sonic creations and explore new sound journeys.</p>
+            <div className="w-[200px]">
+              <SimpleInvertedTriangle className="w-full">
+                <h3>New Music</h3>
+                <p>Experience our latest sonic creations and explore new sound journeys.</p>
                 <button 
                   onClick={() => window.location.href = '/music'} 
-                  className="bg-green-500 hover:bg-green-700 text-white rounded px-3 py-2 text-sm"
+                  className="bg-green-500 hover:bg-green-700 text-white rounded"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-music" 
@@ -426,19 +384,16 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </button>
-              </div>
+              </SimpleInvertedTriangle>
             </div>
             
-            <div className="w-[200px] relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                <ThrottledSacredGeometry variant="sri-yantra" size={180} animated={true} intensity="subtle" />
-              </div>
-              <div className="relative z-10 text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-amber-300/30">
-                <h3 className="text-lg font-bold mb-2">Tour Dates</h3>
-                <p className="text-sm mb-4">Find out when and where you can experience our cosmic performances live.</p>
+            <div className="w-[200px]">
+              <SimpleInvertedTriangle className="w-full">
+                <h3>Tour Dates</h3>
+                <p>Find out when and where you can experience our cosmic performances live.</p>
                 <button 
                   onClick={() => window.location.href = '/tour'} 
-                  className="bg-amber-500 hover:bg-amber-700 text-white rounded px-3 py-2 text-sm"
+                  className="bg-amber-500 hover:bg-amber-700 text-white rounded"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-tour" 
@@ -447,11 +402,11 @@ export default function HomePage() {
                     section="journey" 
                   />
                 </button>
-              </div>
+              </SimpleInvertedTriangle>
             </div>
           </div>
         </main>
       </div>
-    </div>
+    </SacredGeometryLayout>
   );
 }
