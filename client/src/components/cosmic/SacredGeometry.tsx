@@ -531,12 +531,13 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       }
     };
 
-    // Static geometry drawing function for graceful degradation
-    const drawStaticGeometry = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-      drawPattern(0); // Draw without rotation
-    };
-
-    animationLoop();
+    // Initialize with static or animated geometry
+    if (!canAnimate && animate) {
+      drawPattern(0); // Static fallback
+      return () => manager.unregisterAnimation(animationId);
+    } else {
+      animationLoop();
+    }
 
     return () => {
       if (animationRef.current) {
