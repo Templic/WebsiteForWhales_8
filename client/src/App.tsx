@@ -10,6 +10,7 @@ import { ProtectedRoute } from "@/lib/protected-route";
 import NotFound from "./pages/not-found";
 import { useEffect } from "react";
 import { initializeGA, trackPageView } from "@/lib/analytics";
+import { applyMobileOptimizations } from "@/utils/mobileOptimization";
 import { ErrorBoundary } from "react-error-boundary";
 import StarBackground from "@/components/cosmic/StarBackground";
 import { AccessibilityProvider } from "@/contexts/AccessibilityContext";
@@ -359,6 +360,7 @@ function ErrorFallback({error, resetErrorBoundary}: {error: Error; resetErrorBou
 function App() {
   useEffect(() => {
     initializeGA();
+    applyMobileOptimizations();
   }, []);
 
   return (

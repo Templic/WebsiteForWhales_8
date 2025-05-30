@@ -7,11 +7,13 @@ import React, { useEffect } from 'react';
 import { Link } from 'wouter';
 import { applyMobileStabilityFixes } from '../utils/mobileStabilityFix';
 import { applyTextFlickerFixes } from '../utils/textFlickerFix';
+import { applyMobileOptimizations } from '../utils/mobileOptimization';
 
 export default function SacredGeometryStatus() {
   useEffect(() => {
     applyMobileStabilityFixes();
     applyTextFlickerFixes();
+    applyMobileOptimizations();
   }, []);
 
   return (
