@@ -1,7 +1,13 @@
 /**
  * sacred-geometry.tsx
  * 
- * Component Type: common
+ * DEPRECATED COMPONENT - DO NOT USE IN NEW CODE
+ * 
+ * This component uses outdated animation timing that lacks proper 
+ * planetary consciousness alignment. All new code should use 
+ * ThrottledSacredGeometry with Dan Winter's fractal mathematics.
+ * 
+ * Component Type: common (deprecated)
  * Migrated as part of the repository reorganization.
  */
 import React from 'react';

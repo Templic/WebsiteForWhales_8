@@ -62,16 +62,21 @@
   animation: planetaryRotate 60s linear infinite; /* 1 minute - Jupiter energy */
 }
 
+/* DEPRECATED: These CSS animations are outdated and use fast timing instead of proper planetary consciousness timing */
+/* MIGRATE TO: ThrottledSacredGeometry with Dan Winter's fractal mathematics */
 .animate-spin-very-slow {
   animation: planetaryRotate 60s linear infinite; /* 1 minute - Jupiter energy */
+  /* DEPRECATED: Replace with ThrottledSacredGeometry for proper cosmic timing */
 }
 
 .animate-spin-planetary {
   animation: planetaryRotate 90s linear infinite; /* 1.5 minutes - Deep meditation */
+  /* DEPRECATED: Replace with ThrottledSacredGeometry for consciousness alignment */
 }
 
 .animate-spin-cosmic {
   animation: planetaryRotate 120s linear infinite; /* 2 minutes - Root chakra grounding */
+  /* DEPRECATED: Replace with ThrottledSacredGeometry for meditative pace */
 }
 
 .slow-rotate {

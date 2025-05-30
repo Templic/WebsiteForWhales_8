@@ -54,17 +54,41 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen relative bg-gradient-to-b from-slate-900 to-slate-800">
-      {/* Optimized background geometry - mobile-friendly */}
-      <div className="absolute inset-0 overflow-hidden opacity-10">
-        <div className="absolute top-1/4 left-1/4 hidden md:block">
-          <ThrottledSacredGeometry variant="merkaba" size={200} animated={true} intensity="subtle" />
+      {/* Restored original sacred geometry layout - exactly as before */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Original stars near menu area - top corners */}
+        <div className="absolute top-8 left-8 w-24 h-24 opacity-20">
+          <ThrottledSacredGeometry variant="merkaba" size={96} animated={true} intensity="subtle" />
         </div>
-        <div className="absolute bottom-1/4 right-1/4 hidden md:block">
-          <ThrottledSacredGeometry variant="dodecahedron" size={180} animated={true} intensity="subtle" />
+        <div className="absolute top-8 right-8 w-24 h-24 opacity-20">
+          <ThrottledSacredGeometry variant="merkaba" size={96} animated={true} intensity="subtle" />
         </div>
-        {/* Mobile-only simplified background */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:hidden">
-          <ThrottledSacredGeometry variant="hexagon" size={120} animated={true} intensity="subtle" />
+        
+        {/* Original polyhedron near footer area */}
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-32 h-32 opacity-15">
+          <ThrottledSacredGeometry variant="dodecahedron" size={128} animated={true} intensity="subtle" />
+        </div>
+        
+        {/* Original margin shapes - left and right sides */}
+        <div className="absolute top-1/3 left-4 w-20 h-20 opacity-15 hidden md:block">
+          <ThrottledSacredGeometry variant="icosahedron" size={80} animated={true} intensity="subtle" />
+        </div>
+        <div className="absolute top-1/3 right-4 w-20 h-20 opacity-15 hidden md:block">
+          <ThrottledSacredGeometry variant="hexagon" size={80} animated={true} intensity="subtle" />
+        </div>
+        <div className="absolute bottom-1/3 left-4 w-20 h-20 opacity-15 hidden md:block">
+          <ThrottledSacredGeometry variant="flower-of-life" size={80} animated={true} intensity="subtle" />
+        </div>
+        <div className="absolute bottom-1/3 right-4 w-20 h-20 opacity-15 hidden md:block">
+          <ThrottledSacredGeometry variant="sri-yantra" size={80} animated={true} intensity="subtle" />
+        </div>
+        
+        {/* Additional original shapes scattered throughout */}
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 opacity-10 hidden lg:block">
+          <ThrottledSacredGeometry variant="seed-of-life" size={64} animated={true} intensity="subtle" />
+        </div>
+        <div className="absolute top-1/2 right-1/4 w-16 h-16 opacity-10 hidden lg:block">
+          <ThrottledSacredGeometry variant="metatron-cube" size={64} animated={true} intensity="subtle" />
         </div>
       </div>
       
