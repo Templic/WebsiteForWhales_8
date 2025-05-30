@@ -260,17 +260,16 @@ export function MainHeader() {
           />
         </div>
       
-        <div className="absolute -top-14 -right-14 opacity-40 transform rotate-45">
-          <SacredGeometry 
+        <div className="absolute -top-14 -right-14 opacity-20 transform rotate-45">
+          <AdaptiveGeometrySystem 
             variant="merkaba" 
             size={80} 
-            animated={true} 
+            position="background" 
             intensity="medium" 
-            className="text-cyan-400" 
           />
         </div>
         <div className="absolute -bottom-10 -left-10 opacity-30">
-          <SacredGeometry 
+          <AdaptiveGeometrySystem 
             variant="hexagon" 
             size={70} 
             animated={true} 
@@ -279,7 +278,7 @@ export function MainHeader() {
           />
         </div>
         <div className="absolute top-1/2 -translate-y-1/2 -right-8 opacity-20">
-          <SacredGeometry 
+          <AdaptiveGeometrySystem 
             variant="tetrahedron" 
             size={50} 
             animated={true} 
@@ -288,7 +287,7 @@ export function MainHeader() {
           />
         </div>
         <div className="absolute top-1/2 -translate-y-1/2 -left-8 opacity-20">
-          <SacredGeometry 
+          <AdaptiveGeometrySystem 
             variant="octahedron" 
             size={50} 
             animated={true} 
@@ -477,7 +476,7 @@ export function MainHeader() {
                       className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                     >
                       <div className="absolute -left-1 -top-1 opacity-50">
-                        <SacredGeometry 
+                        <AdaptiveGeometrySystem 
                           variant={index % 2 === 0 ? "hexagon" : "triangle"} 
                           size={16} 
                           intensity="subtle" 
@@ -523,7 +522,7 @@ export function MainHeader() {
                       className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                     >
                       <div className="absolute -left-1 -top-1 opacity-50">
-                        <SacredGeometry 
+                        <AdaptiveGeometrySystem 
                           variant={index % 2 === 0 ? "tetrahedron" : "pentagon"} 
                           size={16} 
                           intensity="subtle" 
@@ -597,7 +596,7 @@ export function MainHeader() {
                   className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                 >
                   <div className="absolute -left-1 -top-1 opacity-50">
-                    <SacredGeometry 
+                    <AdaptiveGeometrySystem 
                       variant={index % 2 === 0 ? "hexagon" : "triangle"} 
                       size={16} 
                       intensity="subtle" 
@@ -630,7 +629,7 @@ export function MainHeader() {
           {/* Five-pointed star for mobile view - behind everything except page background */}
           <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: 5 }}>
             <div className="animate-spin-very-slow animate-pulse" style={{ animationDuration: '25s' }}>
-              <SacredGeometry 
+              <AdaptiveGeometrySystem 
                 variant="star" 
                 size={180} 
                 animated={false} 
@@ -843,7 +842,7 @@ export function MainHeader() {
       
       {/* Five-pointed star positioned behind content for mobile view */}
       <div className="absolute right-2 top-1/2 transform -translate-y-1/2 md:hidden" style={{ zIndex: 5 }}>
-        <SacredGeometry 
+        <AdaptiveGeometrySystem 
           variant="star" 
           size={110} 
           animated={true} 
@@ -854,7 +853,7 @@ export function MainHeader() {
 
       {/* Media query based five-pointed star (fallback for very small screens) */}
       <div className="absolute right-[-20px] top-1/2 transform -translate-y-1/2 md:hidden max-[340px]:hidden" style={{ zIndex: 3 }}>
-        <SacredGeometry 
+        <AdaptiveGeometrySystem 
           variant="star" 
           size={110} 
           animated={true} 

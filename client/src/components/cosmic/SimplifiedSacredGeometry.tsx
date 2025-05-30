@@ -8,6 +8,11 @@
 import React, { memo, useMemo } from 'react';
 import './simplified-geometry.css';
 
+// Simple className utility
+const cn = (...classes: (string | undefined | false)[]): string => {
+  return classes.filter(Boolean).join(' ');
+};
+
 interface SimplifiedSacredGeometryProps {
   variant: 'flower' | 'merkaba' | 'yantra' | 'spiral' | 'hexagon' | 'triangle';
   size?: number;
