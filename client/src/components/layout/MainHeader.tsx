@@ -231,9 +231,9 @@ export function MainHeader() {
           </div>
         </div>
         
-        {/* SECOND SET - Slightly below and toward center - in absolute foreground */}
+        {/* SECOND SET - Slightly below and toward center - behind navigation */}
         {/* Left circle foreground - second set */}
-        <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
+        <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-0">
           <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
             <SacredGeometry 
               variant="merkaba" 
@@ -246,7 +246,7 @@ export function MainHeader() {
         </div>
 
         {/* Left circle background/shadow - second set */}
-        <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
+        <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm z-0">
           <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
             <SacredGeometry 
               variant="merkaba" 
@@ -259,7 +259,7 @@ export function MainHeader() {
         </div>
         
         {/* Right circle foreground - second set */}
-        <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 100 }}>
+        <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-0">
           <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
             <SacredGeometry 
               variant="merkaba" 
@@ -272,7 +272,7 @@ export function MainHeader() {
         </div>
         
         {/* Right circle background/shadow - second set */}
-        <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm" style={{ zIndex: 99 }}>
+        <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm z-0">
           <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
             <SacredGeometry 
               variant="merkaba" 
@@ -323,7 +323,7 @@ export function MainHeader() {
       </div>
       
       {/* Header Content with Enhanced Cosmic Background */}
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 relative z-50">
         {/* Primary Cosmic Background - Always Visible */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-lg border border-cyan-400/30 shadow-2xl shadow-cyan-500/20"></div>
         
