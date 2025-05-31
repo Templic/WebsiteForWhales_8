@@ -358,6 +358,168 @@ body.filter-orange {
   box-shadow: 0 0 20px 4px rgba(209, 0, 255, 0.8);
 }
 
+/* Enhanced Button Styles for Each Lightness Mode */
+
+/* COSMIC MODE Buttons - Bright, energetic interactions */
+.cosmic-mode button,
+.light button {
+  background: linear-gradient(135deg, rgba(0, 235, 214, 0.1), rgba(124, 58, 237, 0.1));
+  border-color: rgba(0, 235, 214, 0.3);
+  color: var(--foreground);
+  transition: all 0.3s ease;
+}
+
+.cosmic-mode button:hover,
+.light button:hover {
+  background: linear-gradient(135deg, rgba(0, 235, 214, 0.2), rgba(124, 58, 237, 0.2));
+  border-color: rgba(0, 235, 214, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 235, 214, 0.3);
+  transform: translateY(-1px);
+}
+
+.cosmic-mode .btn-primary,
+.light .btn-primary {
+  background: linear-gradient(135deg, #00ebd6, #7c3aed);
+  border: none;
+  color: white;
+}
+
+.cosmic-mode .btn-primary:hover,
+.light .btn-primary:hover {
+  background: linear-gradient(135deg, #00c2cb, #6d28d9);
+  box-shadow: 0 6px 20px rgba(0, 235, 214, 0.4);
+}
+
+/* NEBULA MODE Buttons - Balanced cosmic flow */
+.nebula-mode button,
+.dark button {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1));
+  border-color: rgba(139, 92, 246, 0.3);
+  color: var(--foreground);
+  transition: all 0.3s ease;
+}
+
+.nebula-mode button:hover,
+.dark button:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2));
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.nebula-mode .btn-primary,
+.dark .btn-primary {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  border: none;
+  color: white;
+}
+
+.nebula-mode .btn-primary:hover,
+.dark .btn-primary:hover {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+/* VOID MODE Buttons - Deep space with intense energy */
+.void-mode button,
+.blackout button {
+  background: linear-gradient(135deg, rgba(209, 0, 255, 0.1), rgba(102, 51, 255, 0.1));
+  border-color: rgba(209, 0, 255, 0.3);
+  color: var(--foreground);
+  transition: all 0.4s ease;
+}
+
+.void-mode button:hover,
+.blackout button:hover {
+  background: linear-gradient(135deg, rgba(209, 0, 255, 0.2), rgba(102, 51, 255, 0.2));
+  border-color: rgba(209, 0, 255, 0.5);
+  box-shadow: 0 6px 25px rgba(209, 0, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.void-mode .btn-primary,
+.blackout .btn-primary {
+  background: linear-gradient(135deg, #d100ff, #6633ff);
+  border: none;
+  color: white;
+}
+
+.void-mode .btn-primary:hover,
+.blackout .btn-primary:hover {
+  background: linear-gradient(135deg, #c210ff, #5b21b6);
+  box-shadow: 0 8px 30px rgba(209, 0, 255, 0.5);
+}
+
+/* Enhanced Text and Link Styles */
+
+/* COSMIC MODE Text */
+.cosmic-mode h1, .cosmic-mode h2, .cosmic-mode h3,
+.light h1, .light h2, .light h3 {
+  background: linear-gradient(135deg, #00ebd6, #7c3aed);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(0, 235, 214, 0.3);
+}
+
+.cosmic-mode a,
+.light a {
+  color: #00c2cb;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cosmic-mode a:hover,
+.light a:hover {
+  color: #00ebd6;
+  text-shadow: 0 0 8px rgba(0, 235, 214, 0.5);
+}
+
+/* NEBULA MODE Text */
+.nebula-mode h1, .nebula-mode h2, .nebula-mode h3,
+.dark h1, .dark h2, .dark h3 {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.nebula-mode a,
+.dark a {
+  color: #8b5cf6;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nebula-mode a:hover,
+.dark a:hover {
+  color: #a855f7;
+  text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+
+/* VOID MODE Text */
+.void-mode h1, .void-mode h2, .void-mode h3,
+.blackout h1, .blackout h2, .blackout h3 {
+  background: linear-gradient(135deg, #d100ff, #6633ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(209, 0, 255, 0.4);
+}
+
+.void-mode a,
+.blackout a {
+  color: #d100ff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.void-mode a:hover,
+.blackout a:hover {
+  color: #c210ff;
+  text-shadow: 0 0 12px rgba(209, 0, 255, 0.6);
+}
+
 /* Stars in background */
 .star-field {
   position: absolute;
