@@ -523,7 +523,7 @@ function CosmicFooterOriginal() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/50 text-sm">© {new Date().getFullYear()} ASTRA. All rights reserved.</p>
+          <p className="text-white/50 text-sm">© {new Date().getFullYear()} Lee Swan. All rights reserved.</p>
           <div className="mt-4 md:mt-0">
             <p className="text-white/50 text-xs">Crafted with sacred geometry for cosmic consciousness</p>
           </div>

@@ -112,7 +112,7 @@ export function Footer() {
 
         {/* Copyright Notice */}
         <div className="mt-8 pt-8 border-t border-[#00ebd6]/20 text-center text-[#e8e6e3]">
-          <p>&copy; {new Date().getFullYear()} Dale Loves Whales. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Lee Swan. All rights reserved.</p>
         </div>
       </div>
     </footer>
