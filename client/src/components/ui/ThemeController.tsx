@@ -104,28 +104,28 @@ export function ThemeController() {
     return <div className="fixed top-4 right-4 w-12 h-12" />;
   }
 
-  // Define cosmic theme configurations with proper typing
+  // Define enhanced lightness mode configurations
   const themeConfig: ThemeConfig = {
     light: {
       icon: <Sun className="h-5 w-5" />,
-      color: 'text-[#00c2cb]',
-      bgGlow: 'after:bg-[#00c2cb]',
-      name: 'Nebula',
-      borderColor: 'border-[#00c2cb]'
+      color: 'text-[#00ebd6]',
+      bgGlow: 'after:bg-[#00ebd6]',
+      name: 'Cosmic',
+      borderColor: 'border-[#00ebd6]'
     },
     dark: {
       icon: <Moon className="h-5 w-5" />,
       color: 'text-[#8b5cf6]',
       bgGlow: 'after:bg-[#8b5cf6]',
-      name: 'Deep Space',
+      name: 'Nebula',
       borderColor: 'border-[#8b5cf6]'
     },
     blackout: {
       icon: <CircleDot className="h-5 w-5" />,
-      color: 'text-[#d100ff]', // Updated to match our enhanced blackout theme
-      bgGlow: 'after:bg-[#6633ff]', // Enhanced glow effect
-      name: 'Cosmic Void',
-      borderColor: 'border-[#d100ff]' // Match the new primary color
+      color: 'text-[#d100ff]',
+      bgGlow: 'after:bg-[#6633ff]',
+      name: 'Void',
+      borderColor: 'border-[#d100ff]'
     }
   };
 
@@ -143,7 +143,9 @@ export function ThemeController() {
           cosmic-theme-toggle
           relative w-12 h-12 rounded-full 
           bg-card border-2 ${currentTheme.borderColor}
-          shadow-lg ${theme === 'blackout' 
+          shadow-lg ${theme === 'light' 
+            ? 'hover:shadow-[0_0_25px_8px_rgba(0,235,214,0.7)]' 
+            : theme === 'blackout'
             ? 'hover:shadow-[0_0_20px_8px_rgba(209,0,255,0.6)]' 
             : 'hover:shadow-[0_0_20px_6px_rgba(139,92,246,0.6)]'}
           transition-all duration-700 ease-out

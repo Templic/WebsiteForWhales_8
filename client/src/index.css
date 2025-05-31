@@ -56,8 +56,78 @@
   --cosmic-accent: #00c2cb;
 }
 
-/* Blackout theme (True Cosmic Void with enhanced Nebula accents) */
-.blackout {
+/* Enhanced Lightness Mode Themes */
+
+/* COSMIC MODE (Light Theme) - Bright, energetic cosmic experience */
+.light, .cosmic-mode {
+  /* Bright cosmic background with subtle energy */
+  --background: #f8faff;
+  /* Deep cosmic text for excellent contrast */
+  --foreground: #1a0a2e;
+  /* Light cosmic cards with energy glow */
+  --card: rgba(255, 255, 255, 0.8);
+  --card-foreground: #1a0a2e;
+  /* Vibrant cosmic cyan primary */
+  --primary: #00c2cb;
+  --primary-foreground: #ffffff;
+  /* Balanced secondary cosmic purple */
+  --secondary: #7c3aed;
+  --secondary-foreground: #ffffff;
+  /* Bright accent with cosmic energy */
+  --accent: #00ebd6;
+  --accent-foreground: #1a0a2e;
+  /* Light muted cosmic areas */
+  --muted: #e8f2ff;
+  --muted-foreground: #5a4a7a;
+  /* Cosmic borders with energy flow */
+  --border: rgba(0, 235, 214, 0.3);
+  --input: rgba(255, 255, 255, 0.9);
+  /* Bright cosmic focus ring */
+  --ring: #00ebd6;
+  /* Cosmic-specific variables */
+  --cosmic-primary: #00ebd6;
+  --cosmic-accent: #7c3aed;
+  --cosmic-glow: rgba(0, 235, 214, 0.4);
+  --cosmic-shadow: 0 0 25px rgba(0, 235, 214, 0.3);
+  --cosmic-stardust: rgba(124, 58, 237, 0.2);
+}
+
+/* NEBULA MODE (Dark Theme) - Balanced cosmic flow */
+.dark, .nebula-mode {
+  /* Deep space background */
+  --background: #0f0a1a;
+  /* Cosmic purple-tinted light text */
+  --foreground: #e8e1ff;
+  /* Dark cosmic cards */
+  --card: #1a1229;
+  --card-foreground: #e8e1ff;
+  /* Balanced cosmic purple primary */
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  /* Deeper secondary cosmic elements */
+  --secondary: #312e81;
+  --secondary-foreground: #ffffff;
+  /* Cosmic accent with nebula energy */
+  --accent: #a855f7;
+  --accent-foreground: #ffffff;
+  /* Muted cosmic areas */
+  --muted: #1e1a2e;
+  --muted-foreground: #b8a8d8;
+  /* Cosmic borders with flow */
+  --border: rgba(139, 92, 246, 0.3);
+  --input: #1a1229;
+  /* Nebula focus ring */
+  --ring: #8b5cf6;
+  /* Cosmic-specific variables */
+  --cosmic-primary: #8b5cf6;
+  --cosmic-accent: #a855f7;
+  --cosmic-glow: rgba(139, 92, 246, 0.4);
+  --cosmic-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
+  --cosmic-stardust: rgba(168, 85, 247, 0.15);
+}
+
+/* VOID MODE (Blackout Theme) - Deep space with intense cosmic energy */
+.blackout, .void-mode {
   /* Absolute black for deepest space background */
   --background: #000000;
   /* Brighter purple-tinted white for improved text contrast */
