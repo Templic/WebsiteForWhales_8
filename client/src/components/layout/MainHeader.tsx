@@ -177,7 +177,7 @@ export function MainHeader() {
       }}
     >
       {/* Background Elements with Sacred Geometry - Centered and sides */}
-      <div className="absolute inset-0 overflow-hidden z-0">
+      <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
         <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
@@ -482,7 +482,7 @@ export function MainHeader() {
           </div>
 
           {/* Interlacing Staggered Two-Row Navigation - Desktop */}
-          <div className="hidden md:block mt-2 relative">
+          <div className="hidden md:block mt-2 relative z-50">
             
             <div className="flex flex-col space-y-1 items-center">
               {/* First Row - Staggered from left - improved centering */}
@@ -606,7 +606,7 @@ export function MainHeader() {
           </div>
 
           {/* Community Links - Desktop - Matching Primary Nav Style */}
-          <div className="hidden md:flex justify-center mt-2 space-x-2">
+          <div className="hidden md:flex justify-center mt-2 space-x-2 relative z-50">
             {communityLinks.map((item, index) => (
               <motion.div 
                 key={item.path}
