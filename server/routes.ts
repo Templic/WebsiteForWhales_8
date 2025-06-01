@@ -517,6 +517,24 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
+  // Cosmic consciousness tour events API endpoint
+  app.get('/api/tour/consciousness-events', async (req, res) => {
+    try {
+      // This endpoint would connect to your tour management system
+      // For now, return an error to indicate the service needs to be configured
+      res.status(503).json({
+        error: 'Tour data service not configured',
+        message: 'Please configure your tour management API or provide tour data credentials',
+        setup_needed: 'TOUR_API_KEY or tour database connection'
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: 'Failed to fetch consciousness tour events',
+        message: 'Tour data service is temporarily unavailable'
+      });
+    }
+  });
+
   // Use deadlinks routes for link checking functionality
   app.use('/api/deadlinks', deadlinksRoutes);
 
