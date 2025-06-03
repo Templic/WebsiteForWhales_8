@@ -10,10 +10,9 @@ const __dirname = dirname(__filename);
 import { storage } from "./storage";
 import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
-// Import the setupAuth from our auth module
-import { setupAuth } from "./auth";
+// Import the setupAuth from our Replit auth module
+import { setupAuth, isAuthenticated } from "./replitAuth";
 import { 
-  isAuthenticated, 
   isAdmin, 
   isSuperAdmin, 
   hasAdminPrivileges 
@@ -3059,8 +3058,8 @@ app.post("/api/posts/comments/:id/reject", isAdmin, async (req, res) => {
   }, 24 * 60 * 60 * 1000);
 
   // Admin Portal Routes Integration
-  app.use('/api/admin', adminDashboardRoutes);
-  app.use('/api/content-management', contentManagementRoutes);
+  const adminPortalRoutes = await import('./routes/admin-portal.js');
+  app.use('/api/admin', adminPortalRoutes.default);
 
   // Let Vite handle frontend routes in development mode
   if (process.env.NODE_ENV === 'production') {
