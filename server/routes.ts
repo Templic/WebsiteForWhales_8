@@ -375,10 +375,22 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  // Use authRoutes for all /api/auth routes
-  app.use('/api/auth', authRoutes);
+  // Set up Replit authentication first
+  await setupAuth(app);
 
-  // Use JWT auth routes for token-based API authentication
+  // Add Replit Auth user endpoint
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
+  // Keep JWT routes for backward compatibility but prioritize Replit Auth
   app.use('/api/jwt', jwtAuthRoutes);
 
   // Use search routes
