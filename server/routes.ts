@@ -375,10 +375,10 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  // Set up Replit authentication first
+  // Set up Replit authentication as primary
   await setupAuth(app);
 
-  // Add Replit Auth user endpoint
+  // Add Replit Auth user endpoint (primary authentication)
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
@@ -387,6 +387,67 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     } catch (error) {
       console.error("Error fetching user:", error);
       res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
+  // Admin portal direct access (temporary for testing PostgreSQL integration)
+  app.get('/api/admin/dashboard', async (req, res) => {
+    try {
+      const dashboardData = await storage.getAdminDashboardData();
+      res.json(dashboardData);
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+      res.status(500).json({ error: 'Failed to fetch dashboard data' });
+    }
+  });
+
+  app.get('/api/admin/users', async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      res.json(users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ error: 'Failed to fetch users' });
+    }
+  });
+
+  app.get('/api/admin/security', async (req, res) => {
+    try {
+      const securityEvents = await storage.getSecurityEvents();
+      res.json(securityEvents);
+    } catch (error) {
+      console.error('Error fetching security events:', error);
+      res.status(500).json({ error: 'Failed to fetch security events' });
+    }
+  });
+
+  app.get('/api/admin/content/stats', async (req, res) => {
+    try {
+      const contentStats = await storage.getContentStats();
+      res.json(contentStats);
+    } catch (error) {
+      console.error('Error fetching content stats:', error);
+      res.status(500).json({ error: 'Failed to fetch content stats' });
+    }
+  });
+
+  app.get('/api/admin/music/stats', async (req, res) => {
+    try {
+      const musicStats = await storage.getMusicStats();
+      res.json(musicStats);
+    } catch (error) {
+      console.error('Error fetching music stats:', error);
+      res.status(500).json({ error: 'Failed to fetch music stats' });
+    }
+  });
+
+  app.get('/api/admin/shop/stats', async (req, res) => {
+    try {
+      const shopStats = await storage.getShopStats();
+      res.json(shopStats);
+    } catch (error) {
+      console.error('Error fetching shop stats:', error);
+      res.status(500).json({ error: 'Failed to fetch shop stats' });
     }
   });
 
