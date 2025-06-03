@@ -72,6 +72,64 @@ export const users = pgTable("users", {
 });
 
 // ===================================================================
+// Admin Portal Core Schema Extensions
+// ===================================================================
+
+// Sessions table for secure session management
+export const sessions = pgTable("sessions", {
+  sid: varchar("sid").primaryKey(),
+  sess: json("sess").notNull(),
+  expire: timestamp("expire").notNull(),
+});
+
+
+
+// Media assets management
+export const mediaAssets = pgTable("media_assets", {
+  id: serial("id").primaryKey(),
+  filename: varchar("filename", { length: 255 }).notNull(),
+  originalName: varchar("original_name", { length: 255 }),
+  mimeType: varchar("mime_type", { length: 100 }),
+  size: integer("size"),
+  url: text("url"),
+  altText: text("alt_text"),
+  tags: text("tags").array(),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+
+// Content workflow management
+export const contentWorkflow = pgTable("content_workflow", {
+  id: serial("id").primaryKey(),
+  contentId: integer("content_id").references(() => contentItems.id),
+  status: varchar("status", { length: 50 }),
+  actorId: varchar("actor_id", { length: 255 }),
+  action: varchar("action", { length: 100 }),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+
+// System analytics and metrics
+export const analyticsMetrics = pgTable("analytics_metrics", {
+  id: serial("id").primaryKey(),
+  metricName: varchar("metric_name", { length: 100 }).notNull(),
+  metricValue: numeric("metric_value", { precision: 10, scale: 2 }).notNull(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  metadata: json("metadata").$type<Record<string, any>>()
+});
+
+// User activity logs
+export const userActivityLogs = pgTable("user_activity_logs", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id", { length: 255 }).references(() => users.id),
+  action: varchar("action", { length: 100 }).notNull(),
+  resource: varchar("resource", { length: 255 }),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  metadata: json("metadata").$type<Record<string, any>>()
+});
+
+// ===================================================================
 // Phase 4: Security Enhancement Schema
 // ===================================================================
 
