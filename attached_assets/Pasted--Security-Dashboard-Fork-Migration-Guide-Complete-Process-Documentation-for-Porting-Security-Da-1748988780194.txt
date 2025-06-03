@@ -1,0 +1,1290 @@
+# Security Dashboard Fork Migration Guide
+
+## Complete Process Documentation for Porting Security Dashboard via GitHub CLI
+
+This document provides step-by-step instructions for porting the entire security dashboard system, including all authentication systems, monitoring infrastructure, and real-time security features, to a forked repository using GitHub CLI with Replit agent management.
+
+## Prerequisites
+
+### Required Tools
+- GitHub CLI (`gh`) installed and authenticated
+- Replit account with agent access
+- PostgreSQL database with security logging capabilities
+- Node.js environment (18+ recommended)
+
+### Required Secrets/Environment Variables
+```env
+DATABASE_URL=postgresql://username:password@host:port/database
+SESSION_SECRET=your-session-secret-key
+SECURITY_LOG_LEVEL=info
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+SECURITY_ALERT_EMAIL=security@yourdomain.com
+```
+
+## Phase 1: Security Infrastructure Preparation
+
+### 1.1 Fork Creation with Security Focus
+```bash
+# Authenticate with GitHub CLI
+gh auth login
+
+# Fork the repository with security considerations
+gh repo fork original-repo-url --clone=true --remote=true
+
+# Navigate to forked repository
+cd forked-repo-name
+
+# Set up security-focused branch
+git checkout -b security-dashboard-migration
+```
+
+### 1.2 Security Environment Setup
+```bash
+# Create secure environment configuration
+cp .env.example .env.security
+
+# Install security-focused dependencies
+npm install
+
+# Initialize security logging directory
+mkdir -p logs/security
+chmod 750 logs/security
+
+# Verify PostgreSQL security extensions
+npm run db:security-check
+```
+
+## Phase 2: Core Security Dashboard Components Migration
+
+### 2.1 Security Database Schema Migration
+```bash
+# Create security-specific tables
+npm run db:create-security-tables
+
+# Push security schema to database
+npm run db:push:security
+
+# Verify security table creation
+npm run db:verify:security
+```
+
+### 2.2 Essential Security Files to Migrate
+
+#### Core Security Dashboard Components
+```
+client/src/components/admin/
+├── IntegratedSecurityDashboard.tsx      # Main security monitoring interface
+├── SecurityAuditReport.tsx              # Security audit and compliance
+├── SecurityEventMonitor.tsx             # Real-time security event tracking
+├── ThreatAnalysisPanel.tsx              # Threat detection and analysis
+├── SecurityMetricsDisplay.tsx           # Security metrics visualization
+├── VulnerabilityScanner.tsx             # Vulnerability assessment
+├── AccessControlManager.tsx             # User access and permissions
+├── SecurityAlertPanel.tsx               # Alert management interface
+└── ComplianceTracker.tsx                # Regulatory compliance monitoring
+```
+
+#### Server-Side Security Infrastructure
+```
+server/
+├── middleware/
+│   ├── security-monitoring.ts           # Real-time security monitoring
+│   ├── holistic-security.ts             # Comprehensive security middleware
+│   ├── rate-limiting.ts                 # Advanced rate limiting
+│   ├── intrusion-detection.ts           # Intrusion detection system
+│   ├── csrf-protection.ts               # CSRF attack prevention
+│   ├── sql-injection-protection.ts      # SQL injection prevention
+│   ├── xss-protection.ts                # XSS attack prevention
+│   └── security-headers.ts              # Security header management
+├── routes/
+│   ├── audit-security.ts                # Security audit endpoints
+│   ├── security-logs.ts                 # Security logging API
+│   ├── threat-analysis.ts               # Threat analysis endpoints
+│   ├── vulnerability-scan.ts            # Vulnerability scanning API
+│   └── security-reports.ts              # Security reporting system
+├── security/
+│   ├── security-scanner.ts              # Automated security scanning
+│   ├── threat-detector.ts               # Threat detection engine
+│   ├── compliance-checker.ts            # Compliance validation
+│   └── security-metrics.ts              # Security metrics collection
+└── services/
+    ├── security-event-logger.ts         # Security event logging service
+    ├── alert-notification.ts            # Security alert notifications
+    └── security-backup.ts               # Security backup service
+```
+
+#### Security Schema Files
+```
+shared/
+├── security-schema.ts                   # Security database schema
+├── security-types.ts                    # Security TypeScript definitions
+└── security-validation.ts               # Security input validation
+```
+
+### 2.3 Security Authentication System Migration
+
+#### Enhanced Security Authentication
+```typescript
+// server/middleware/enhanced-security-auth.ts
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import { Pool } from 'pg';
+
+// Enhanced rate limiting for security endpoints
+export const securityRateLimit = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
+  message: {
+    error: 'Too many security requests from this IP',
+    retryAfter: 900
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => {
+    // Skip rate limiting for trusted internal IPs
+    const trustedIPs = ['127.0.0.1', '::1'];
+    return trustedIPs.includes(req.ip);
+  }
+});
+
+// Security header configuration
+export const securityHeaders = helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"]
+    }
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }
+});
+
+// Enhanced admin security middleware
+export const enhancedAdminSecurity: RequestHandler = async (req, res, next) => {
+  try {
+    // Log security-relevant request
+    await logSecurityEvent({
+      type: 'admin_access_attempt',
+      ip: req.ip,
+      userAgent: req.get('User-Agent'),
+      path: req.path,
+      method: req.method,
+      timestamp: new Date().toISOString(),
+      userId: req.user?.id || 'anonymous'
+    });
+
+    // Verify admin role with enhanced checks
+    if (!req.user || !['admin', 'super_admin'].includes(req.user.role)) {
+      await logSecurityEvent({
+        type: 'unauthorized_admin_access',
+        ip: req.ip,
+        userId: req.user?.id || 'anonymous',
+        severity: 'high'
+      });
+      
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin access required',
+        incident: 'SEC-' + Date.now()
+      });
+    }
+
+    // Check for suspicious patterns
+    const suspiciousPatterns = [
+      /(\.|%2e){2,}/i,  // Directory traversal
+      /(union|select|insert|delete|update|drop)/i,  // SQL injection
+      /<script|javascript:|data:/i  // XSS attempts
+    ];
+
+    const isSuspicious = suspiciousPatterns.some(pattern => 
+      pattern.test(req.url) || 
+      pattern.test(JSON.stringify(req.body))
+    );
+
+    if (isSuspicious) {
+      await logSecurityEvent({
+        type: 'suspicious_request_pattern',
+        ip: req.ip,
+        userId: req.user.id,
+        pattern: req.url,
+        severity: 'critical'
+      });
+      
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Request blocked by security filter',
+        incident: 'SEC-' + Date.now()
+      });
+    }
+
+    next();
+  } catch (error) {
+    console.error('Security middleware error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Security validation failed' 
+    });
+  }
+};
+```
+
+## Phase 3: Security Monitoring System Migration
+
+### 3.1 Real-Time Security Event Logging
+```typescript
+// server/services/security-event-logger.ts
+import fs from 'fs';
+import path from 'path';
+import { Pool } from 'pg';
+
+interface SecurityEvent {
+  type: string;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  ip: string;
+  userId?: string;
+  userAgent?: string;
+  path?: string;
+  method?: string;
+  timestamp: string;
+  details?: any;
+  incident?: string;
+}
+
+class SecurityEventLogger {
+  private pool: Pool;
+  private logDir: string;
+
+  constructor() {
+    this.pool = new Pool({
+      connectionString: process.env.DATABASE_URL
+    });
+    this.logDir = path.join(process.cwd(), 'logs', 'security');
+    this.ensureLogDirectory();
+  }
+
+  private ensureLogDirectory(): void {
+    if (!fs.existsSync(this.logDir)) {
+      fs.mkdirSync(this.logDir, { recursive: true, mode: 0o750 });
+    }
+  }
+
+  async logEvent(event: SecurityEvent): Promise<void> {
+    try {
+      // Log to database
+      await this.logToDatabase(event);
+      
+      // Log to file system
+      await this.logToFile(event);
+      
+      // Send alerts for critical events
+      if (event.severity === 'critical') {
+        await this.sendSecurityAlert(event);
+      }
+      
+    } catch (error) {
+      console.error('Failed to log security event:', error);
+      // Fallback to file logging only
+      await this.logToFile(event);
+    }
+  }
+
+  private async logToDatabase(event: SecurityEvent): Promise<void> {
+    const query = `
+      INSERT INTO security_events (
+        type, severity, ip_address, user_id, user_agent, 
+        request_path, request_method, event_timestamp, 
+        details, incident_id
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    `;
+
+    const values = [
+      event.type,
+      event.severity,
+      event.ip,
+      event.userId || null,
+      event.userAgent || null,
+      event.path || null,
+      event.method || null,
+      event.timestamp,
+      JSON.stringify(event.details || {}),
+      event.incident || null
+    ];
+
+    await this.pool.query(query, values);
+  }
+
+  private async logToFile(event: SecurityEvent): Promise<void> {
+    const logFile = path.join(this.logDir, 'security.log');
+    const logEntry = JSON.stringify({
+      ...event,
+      logged_at: new Date().toISOString()
+    }) + '\n';
+
+    fs.appendFileSync(logFile, logEntry, { mode: 0o640 });
+  }
+
+  private async sendSecurityAlert(event: SecurityEvent): Promise<void> {
+    // Implementation for sending security alerts
+    // Could be email, Slack, SMS, etc.
+    console.log(`🚨 CRITICAL SECURITY EVENT: ${event.type}`);
+    console.log(`IP: ${event.ip}, User: ${event.userId || 'anonymous'}`);
+    console.log(`Incident ID: ${event.incident}`);
+  }
+
+  async getSecurityEvents(filters: {
+    startDate?: string;
+    endDate?: string;
+    severity?: string;
+    type?: string;
+    userId?: string;
+    limit?: number;
+  } = {}): Promise<SecurityEvent[]> {
+    let query = 'SELECT * FROM security_events WHERE 1=1';
+    const values: any[] = [];
+    let paramCount = 0;
+
+    if (filters.startDate) {
+      query += ` AND event_timestamp >= $${++paramCount}`;
+      values.push(filters.startDate);
+    }
+
+    if (filters.endDate) {
+      query += ` AND event_timestamp <= $${++paramCount}`;
+      values.push(filters.endDate);
+    }
+
+    if (filters.severity) {
+      query += ` AND severity = $${++paramCount}`;
+      values.push(filters.severity);
+    }
+
+    if (filters.type) {
+      query += ` AND type = $${++paramCount}`;
+      values.push(filters.type);
+    }
+
+    if (filters.userId) {
+      query += ` AND user_id = $${++paramCount}`;
+      values.push(filters.userId);
+    }
+
+    query += ` ORDER BY event_timestamp DESC LIMIT $${++paramCount}`;
+    values.push(filters.limit || 100);
+
+    const result = await this.pool.query(query, values);
+    return result.rows;
+  }
+
+  async getSecurityMetrics(timeRange: string = '24h'): Promise<any> {
+    const query = `
+      SELECT 
+        type,
+        severity,
+        COUNT(*) as count,
+        DATE_TRUNC('hour', event_timestamp) as hour
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+      GROUP BY type, severity, hour
+      ORDER BY hour DESC
+    `;
+
+    const result = await this.pool.query(query, [timeRange]);
+    return result.rows;
+  }
+}
+
+export const securityLogger = new SecurityEventLogger();
+
+// Global security event logging function
+export async function logSecurityEvent(event: Omit<SecurityEvent, 'timestamp'>): Promise<void> {
+  const fullEvent: SecurityEvent = {
+    ...event,
+    timestamp: new Date().toISOString(),
+    incident: event.incident || `SEC-${Date.now()}`
+  };
+
+  await securityLogger.logEvent(fullEvent);
+}
+```
+
+### 3.2 Security Dashboard Frontend Integration
+```typescript
+// client/src/components/admin/IntegratedSecurityDashboard.tsx
+import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
+import { Progress } from '../ui/progress';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { 
+  Shield, 
+  AlertTriangle, 
+  Eye, 
+  Activity, 
+  Lock, 
+  Zap,
+  TrendingUp,
+  TrendingDown,
+  RefreshCw,
+  Download,
+  Filter
+} from 'lucide-react';
+
+interface SecurityEvent {
+  id: string;
+  type: string;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  ip: string;
+  userId?: string;
+  timestamp: string;
+  details?: any;
+  incident?: string;
+}
+
+interface SecurityMetrics {
+  totalEvents: number;
+  criticalEvents: number;
+  activeThreats: number;
+  blockedAttacks: number;
+  securityScore: number;
+  complianceStatus: string;
+}
+
+export default function IntegratedSecurityDashboard() {
+  const [timeRange, setTimeRange] = useState('24h');
+  const [selectedSeverity, setSelectedSeverity] = useState<string>('all');
+
+  // Fetch security events
+  const { data: securityEvents, isLoading: eventsLoading, refetch: refetchEvents } = useQuery({
+    queryKey: ['security-events', timeRange, selectedSeverity],
+    queryFn: async () => {
+      const params = new URLSearchParams({
+        timeRange,
+        ...(selectedSeverity !== 'all' && { severity: selectedSeverity })
+      });
+      
+      const response = await fetch(`/api/security/events?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch security events');
+      return response.json();
+    },
+    refetchInterval: 30000 // Refresh every 30 seconds
+  });
+
+  // Fetch security metrics
+  const { data: securityMetrics, isLoading: metricsLoading } = useQuery({
+    queryKey: ['security-metrics', timeRange],
+    queryFn: async () => {
+      const response = await fetch(`/api/security/metrics?timeRange=${timeRange}`);
+      if (!response.ok) throw new Error('Failed to fetch security metrics');
+      return response.json();
+    },
+    refetchInterval: 60000 // Refresh every minute
+  });
+
+  // Export security report
+  const exportReportMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch('/api/security/export-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ timeRange, severity: selectedSeverity })
+      });
+      if (!response.ok) throw new Error('Failed to export report');
+      return response.blob();
+    },
+    onSuccess: (blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `security-report-${new Date().toISOString().slice(0, 10)}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+  });
+
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'critical': return 'bg-red-500';
+      case 'high': return 'bg-orange-500';
+      case 'medium': return 'bg-yellow-500';
+      case 'low': return 'bg-blue-500';
+      default: return 'bg-gray-500';
+    }
+  };
+
+  const getSeverityBadgeVariant = (severity: string) => {
+    switch (severity) {
+      case 'critical': return 'destructive';
+      case 'high': return 'destructive';
+      case 'medium': return 'default';
+      case 'low': return 'secondary';
+      default: return 'outline';
+    }
+  };
+
+  if (eventsLoading || metricsLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <RefreshCw className="h-8 w-8 animate-spin" />
+        <span className="ml-2">Loading security dashboard...</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Security Dashboard</h2>
+          <p className="text-muted-foreground">
+            Real-time security monitoring and threat analysis
+          </p>
+        </div>
+        
+        <div className="flex items-center space-x-4">
+          <select
+            value={timeRange}
+            onChange={(e) => setTimeRange(e.target.value)}
+            className="px-3 py-2 border rounded-md"
+          >
+            <option value="1h">Last Hour</option>
+            <option value="24h">Last 24 Hours</option>
+            <option value="7d">Last 7 Days</option>
+            <option value="30d">Last 30 Days</option>
+          </select>
+          
+          <select
+            value={selectedSeverity}
+            onChange={(e) => setSelectedSeverity(e.target.value)}
+            className="px-3 py-2 border rounded-md"
+          >
+            <option value="all">All Severities</option>
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+          
+          <Button onClick={() => refetchEvents()} variant="outline">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+          
+          <Button 
+            onClick={() => exportReportMutation.mutate()}
+            disabled={exportReportMutation.isPending}
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Export Report
+          </Button>
+        </div>
+      </div>
+
+      {/* Security Metrics Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Security Score</CardTitle>
+            <Shield className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">
+              {securityMetrics?.securityScore || 85}%
+            </div>
+            <Progress value={securityMetrics?.securityScore || 85} className="mt-2" />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Events</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {securityMetrics?.totalEvents || 0}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Last {timeRange}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Critical Threats</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-red-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-red-600">
+              {securityMetrics?.criticalEvents || 0}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Requires immediate attention
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Blocked Attacks</CardTitle>
+            <Lock className="h-4 w-4 text-green-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">
+              {securityMetrics?.blockedAttacks || 0}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Successfully prevented
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Critical Alerts */}
+      {securityEvents?.data?.filter((event: SecurityEvent) => event.severity === 'critical').length > 0 && (
+        <Alert className="border-red-200 bg-red-50">
+          <AlertTriangle className="h-4 w-4 text-red-600" />
+          <AlertTitle className="text-red-800">Critical Security Alerts</AlertTitle>
+          <AlertDescription className="text-red-700">
+            {securityEvents.data.filter((event: SecurityEvent) => event.severity === 'critical').length} critical security events detected. 
+            Immediate attention required.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Recent Security Events */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <Eye className="h-5 w-5 mr-2" />
+            Recent Security Events
+          </CardTitle>
+          <CardDescription>
+            Live security event monitoring and analysis
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {securityEvents?.data?.slice(0, 10).map((event: SecurityEvent) => (
+              <div 
+                key={event.id} 
+                className="flex items-center justify-between p-4 border rounded-lg"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className={`w-3 h-3 rounded-full ${getSeverityColor(event.severity)}`} />
+                  <div>
+                    <div className="font-medium">{event.type.replace(/_/g, ' ').toUpperCase()}</div>
+                    <div className="text-sm text-muted-foreground">
+                      IP: {event.ip} | {new Date(event.timestamp).toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Badge variant={getSeverityBadgeVariant(event.severity)}>
+                    {event.severity.toUpperCase()}
+                  </Badge>
+                  {event.incident && (
+                    <Badge variant="outline">
+                      {event.incident}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            ))}
+            
+            {(!securityEvents?.data || securityEvents.data.length === 0) && (
+              <div className="text-center py-8 text-muted-foreground">
+                No security events found for the selected criteria
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Security Trends Chart */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <TrendingUp className="h-5 w-5 mr-2" />
+            Security Trends
+          </CardTitle>
+          <CardDescription>
+            Security event patterns over time
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="h-64 flex items-center justify-center text-muted-foreground">
+            Security trends visualization would be implemented here
+            (Chart.js or similar visualization library)
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+```
+
+## Phase 4: Security Database Schema
+
+### 4.1 Security Tables Definition
+```sql
+-- Security events logging table
+CREATE TABLE security_events (
+  id SERIAL PRIMARY KEY,
+  type VARCHAR(100) NOT NULL,
+  severity VARCHAR(20) NOT NULL CHECK (severity IN ('low', 'medium', 'high', 'critical')),
+  ip_address INET NOT NULL,
+  user_id VARCHAR(255),
+  user_agent TEXT,
+  request_path TEXT,
+  request_method VARCHAR(10),
+  event_timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  details JSONB,
+  incident_id VARCHAR(50),
+  resolved BOOLEAN DEFAULT FALSE,
+  resolved_at TIMESTAMP WITH TIME ZONE,
+  resolved_by VARCHAR(255)
+);
+
+-- Security metrics tracking
+CREATE TABLE security_metrics (
+  id SERIAL PRIMARY KEY,
+  metric_name VARCHAR(100) NOT NULL,
+  metric_value DECIMAL(10,2) NOT NULL,
+  metric_timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  time_period VARCHAR(20) DEFAULT '1h'
+);
+
+-- Threat detection rules
+CREATE TABLE threat_detection_rules (
+  id SERIAL PRIMARY KEY,
+  rule_name VARCHAR(200) NOT NULL,
+  rule_pattern TEXT NOT NULL,
+  severity VARCHAR(20) NOT NULL,
+  enabled BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Security compliance tracking
+CREATE TABLE compliance_checks (
+  id SERIAL PRIMARY KEY,
+  check_name VARCHAR(200) NOT NULL,
+  compliance_standard VARCHAR(50), -- SOC2, GDPR, HIPAA, etc.
+  status VARCHAR(20) DEFAULT 'pending',
+  last_check TIMESTAMP WITH TIME ZONE,
+  next_check TIMESTAMP WITH TIME ZONE,
+  details JSONB
+);
+
+-- Failed login attempts tracking
+CREATE TABLE failed_login_attempts (
+  id SERIAL PRIMARY KEY,
+  ip_address INET NOT NULL,
+  username VARCHAR(255),
+  attempt_timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  user_agent TEXT,
+  blocked_until TIMESTAMP WITH TIME ZONE
+);
+
+-- Security audit trail
+CREATE TABLE security_audit_trail (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
+  action VARCHAR(100) NOT NULL,
+  resource VARCHAR(255),
+  resource_id VARCHAR(255),
+  old_values JSONB,
+  new_values JSONB,
+  ip_address INET,
+  user_agent TEXT,
+  timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create indexes for performance
+CREATE INDEX idx_security_events_timestamp ON security_events(event_timestamp);
+CREATE INDEX idx_security_events_severity ON security_events(severity);
+CREATE INDEX idx_security_events_type ON security_events(type);
+CREATE INDEX idx_security_events_ip ON security_events(ip_address);
+CREATE INDEX idx_failed_login_ip ON failed_login_attempts(ip_address);
+CREATE INDEX idx_failed_login_timestamp ON failed_login_attempts(attempt_timestamp);
+CREATE INDEX idx_audit_trail_user ON security_audit_trail(user_id);
+CREATE INDEX idx_audit_trail_timestamp ON security_audit_trail(timestamp);
+```
+
+## Phase 5: Security API Endpoints
+
+### 5.1 Security Routes Implementation
+```typescript
+// server/routes/security-api.ts
+import express from 'express';
+import { Pool } from 'pg';
+import { securityLogger } from '../services/security-event-logger';
+import { enhancedAdminSecurity, securityRateLimit } from '../middleware/enhanced-security-auth';
+
+const router = express.Router();
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+// Apply security middleware to all routes
+router.use(securityRateLimit);
+router.use(enhancedAdminSecurity);
+
+// Get security events
+router.get('/events', async (req, res) => {
+  try {
+    const {
+      timeRange = '24h',
+      severity,
+      type,
+      limit = 100,
+      offset = 0
+    } = req.query;
+
+    let query = `
+      SELECT id, type, severity, ip_address, user_id, user_agent,
+             request_path, request_method, event_timestamp, details, incident_id
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+    `;
+    
+    const params: any[] = [timeRange];
+    let paramCount = 1;
+
+    if (severity && severity !== 'all') {
+      query += ` AND severity = $${++paramCount}`;
+      params.push(severity);
+    }
+
+    if (type) {
+      query += ` AND type = $${++paramCount}`;
+      params.push(type);
+    }
+
+    query += ` ORDER BY event_timestamp DESC LIMIT $${++paramCount} OFFSET $${++paramCount}`;
+    params.push(limit, offset);
+
+    const result = await pool.query(query, params);
+
+    // Get total count for pagination
+    let countQuery = `
+      SELECT COUNT(*) as total 
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+    `;
+    const countParams = [timeRange];
+
+    if (severity && severity !== 'all') {
+      countQuery += ` AND severity = $2`;
+      countParams.push(severity as string);
+    }
+
+    const countResult = await pool.query(countQuery, countParams);
+
+    res.json({
+      success: true,
+      data: result.rows,
+      pagination: {
+        total: parseInt(countResult.rows[0].total),
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string)
+      }
+    });
+
+  } catch (error) {
+    console.error('Error fetching security events:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch security events' 
+    });
+  }
+});
+
+// Get security metrics
+router.get('/metrics', async (req, res) => {
+  try {
+    const { timeRange = '24h' } = req.query;
+
+    // Get event counts by severity
+    const eventCounts = await pool.query(`
+      SELECT 
+        severity,
+        COUNT(*) as count
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+      GROUP BY severity
+    `, [timeRange]);
+
+    // Get total events
+    const totalEvents = await pool.query(`
+      SELECT COUNT(*) as total
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+    `, [timeRange]);
+
+    // Get blocked attacks (example - adjust based on your threat types)
+    const blockedAttacks = await pool.query(`
+      SELECT COUNT(*) as blocked
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+      AND type IN ('blocked_ip', 'rate_limit_exceeded', 'suspicious_request_pattern')
+    `, [timeRange]);
+
+    // Calculate security score (simplified algorithm)
+    const criticalEvents = eventCounts.rows.find(row => row.severity === 'critical')?.count || 0;
+    const highEvents = eventCounts.rows.find(row => row.severity === 'high')?.count || 0;
+    const total = parseInt(totalEvents.rows[0].total);
+    
+    let securityScore = 100;
+    if (total > 0) {
+      securityScore = Math.max(0, 100 - (criticalEvents * 10 + highEvents * 5));
+    }
+
+    res.json({
+      success: true,
+      data: {
+        totalEvents: total,
+        criticalEvents: criticalEvents,
+        highEvents: highEvents,
+        blockedAttacks: parseInt(blockedAttacks.rows[0].blocked),
+        securityScore: securityScore,
+        eventsBySeverity: eventCounts.rows,
+        complianceStatus: 'compliant' // This would be calculated based on compliance checks
+      }
+    });
+
+  } catch (error) {
+    console.error('Error fetching security metrics:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch security metrics' 
+    });
+  }
+});
+
+// Get security trends
+router.get('/trends', async (req, res) => {
+  try {
+    const { timeRange = '24h' } = req.query;
+
+    const trends = await pool.query(`
+      SELECT 
+        DATE_TRUNC('hour', event_timestamp) as hour,
+        severity,
+        COUNT(*) as count
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+      GROUP BY hour, severity
+      ORDER BY hour DESC
+    `, [timeRange]);
+
+    res.json({
+      success: true,
+      data: trends.rows
+    });
+
+  } catch (error) {
+    console.error('Error fetching security trends:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch security trends' 
+    });
+  }
+});
+
+// Export security report
+router.post('/export-report', async (req, res) => {
+  try {
+    const { timeRange = '24h', severity } = req.body;
+
+    // Log the export action
+    await securityLogger.logEvent({
+      type: 'security_report_export',
+      severity: 'low',
+      ip: req.ip,
+      userId: req.user?.id,
+      timestamp: new Date().toISOString(),
+      details: { timeRange, severity }
+    });
+
+    // In a real implementation, you would generate a PDF report here
+    // For now, we'll return CSV data
+    let query = `
+      SELECT 
+        event_timestamp,
+        type,
+        severity,
+        ip_address,
+        user_id,
+        incident_id
+      FROM security_events 
+      WHERE event_timestamp >= NOW() - INTERVAL $1
+    `;
+
+    const params = [timeRange];
+
+    if (severity && severity !== 'all') {
+      query += ` AND severity = $2`;
+      params.push(severity);
+    }
+
+    query += ` ORDER BY event_timestamp DESC`;
+
+    const result = await pool.query(query, params);
+
+    // Convert to CSV
+    const headers = ['Timestamp', 'Type', 'Severity', 'IP Address', 'User ID', 'Incident ID'];
+    const csvData = [
+      headers.join(','),
+      ...result.rows.map(row => [
+        row.event_timestamp,
+        row.type,
+        row.severity,
+        row.ip_address,
+        row.user_id || '',
+        row.incident_id || ''
+      ].join(','))
+    ].join('\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=security-report.csv');
+    res.send(csvData);
+
+  } catch (error) {
+    console.error('Error exporting security report:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to export security report' 
+    });
+  }
+});
+
+// Resolve security incident
+router.patch('/incidents/:incidentId/resolve', async (req, res) => {
+  try {
+    const { incidentId } = req.params;
+    const { resolution_notes } = req.body;
+
+    await pool.query(`
+      UPDATE security_events 
+      SET resolved = true, 
+          resolved_at = NOW(), 
+          resolved_by = $1,
+          details = COALESCE(details, '{}') || $2
+      WHERE incident_id = $3
+    `, [
+      req.user?.id, 
+      JSON.stringify({ resolution_notes }),
+      incidentId
+    ]);
+
+    // Log the resolution
+    await securityLogger.logEvent({
+      type: 'security_incident_resolved',
+      severity: 'low',
+      ip: req.ip,
+      userId: req.user?.id,
+      timestamp: new Date().toISOString(),
+      details: { incidentId, resolution_notes }
+    });
+
+    res.json({
+      success: true,
+      message: 'Security incident resolved successfully'
+    });
+
+  } catch (error) {
+    console.error('Error resolving security incident:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to resolve security incident' 
+    });
+  }
+});
+
+export default router;
+```
+
+## Phase 6: Security Testing and Validation
+
+### 6.1 Security Test Suite
+```javascript
+// test/security-dashboard.test.js
+const request = require('supertest');
+const app = require('../server');
+
+describe('Security Dashboard Integration Tests', () => {
+  let adminToken;
+  
+  beforeAll(async () => {
+    // Setup test database with security tables
+    await setupSecurityDatabase();
+    
+    // Get admin authentication token
+    const authResponse = await request(app)
+      .post('/api/auth/login')
+      .send({
+        username: 'admin',
+        password: 'test-password'
+      });
+    
+    adminToken = authResponse.body.token;
+  });
+
+  describe('Security Event Logging', () => {
+    test('should log security events to database', async () => {
+      const response = await request(app)
+        .get('/api/security/events')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200);
+      
+      expect(response.body.success).toBe(true);
+      expect(Array.isArray(response.body.data)).toBe(true);
+    });
+
+    test('should filter events by severity', async () => {
+      const response = await request(app)
+        .get('/api/security/events?severity=critical')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200);
+      
+      response.body.data.forEach(event => {
+        expect(event.severity).toBe('critical');
+      });
+    });
+  });
+
+  describe('Security Metrics', () => {
+    test('should return security metrics', async () => {
+      const response = await request(app)
+        .get('/api/security/metrics')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200);
+      
+      expect(response.body.success).toBe(true);
+      expect(response.body.data).toHaveProperty('totalEvents');
+      expect(response.body.data).toHaveProperty('securityScore');
+      expect(response.body.data).toHaveProperty('criticalEvents');
+    });
+  });
+
+  describe('Security Dashboard Access', () => {
+    test('should require admin authentication', async () => {
+      await request(app)
+        .get('/api/security/events')
+        .expect(401);
+    });
+
+    test('should block non-admin users', async () => {
+      const userResponse = await request(app)
+        .post('/api/auth/login')
+        .send({
+          username: 'regular-user',
+          password: 'test-password'
+        });
+      
+      await request(app)
+        .get('/api/security/events')
+        .set('Authorization', `Bearer ${userResponse.body.token}`)
+        .expect(403);
+    });
+  });
+
+  describe('Rate Limiting', () => {
+    test('should apply rate limiting to security endpoints', async () => {
+      // Make multiple rapid requests
+      const requests = Array(105).fill().map(() => 
+        request(app)
+          .get('/api/security/events')
+          .set('Authorization', `Bearer ${adminToken}`)
+      );
+
+      const responses = await Promise.allSettled(requests);
+      
+      // Some requests should be rate limited
+      const rateLimited = responses.some(result => 
+        result.status === 'fulfilled' && result.value.status === 429
+      );
+      
+      expect(rateLimited).toBe(true);
+    });
+  });
+
+  describe('Security Report Export', () => {
+    test('should export security reports', async () => {
+      const response = await request(app)
+        .post('/api/security/export-report')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ timeRange: '24h' })
+        .expect(200);
+      
+      expect(response.headers['content-type']).toContain('text/csv');
+      expect(response.headers['content-disposition']).toContain('security-report.csv');
+    });
+  });
+});
+```
+
+## Phase 7: Deployment and Monitoring
+
+### 7.1 Security Deployment Script
+```bash
+#!/bin/bash
+# deploy-security-dashboard.sh
+
+set -e
+
+ENVIRONMENT="${1:-production}"
+BRANCH="${2:-main}"
+
+echo "🔒 Deploying security dashboard to $ENVIRONMENT..."
+
+# Step 1: Security pre-deployment checks
+echo "🔍 Running security pre-deployment checks..."
+npm run security:audit
+npm run security:vulnerability-scan
+
+# Step 2: Test security systems
+echo "🧪 Testing security systems..."
+npm run test:security
+
+# Step 3: Deploy with security configuration
+echo "☁️ Deploying with security configuration..."
+replit deploy --env="$ENVIRONMENT" --branch="$BRANCH" --security-enhanced
+
+# Step 4: Initialize security database
+echo "🗄️ Initializing security database..."
+npm run db:security:init
+
+# Step 5: Verify security deployment
+echo "✅ Verifying security deployment..."
+sleep 30  # Wait for deployment to stabilize
+
+DEPLOY_URL=$(replit deployments list --json | jq -r '.[0].url')
+./verify-security-dashboard.sh "$DEPLOY_URL"
+
+# Step 6: Enable security monitoring
+echo "📊 Enabling security monitoring..."
+replit agent update security-dashboard-monitor --config security-agent.yml
+
+echo "🎉 Security dashboard deployment completed successfully!"
+echo "🔒 Security Dashboard URL: $DEPLOY_URL/admin/security"
+```
+
+This comprehensive migration guide provides everything needed to port the complete security dashboard system, including real-time monitoring, threat detection, compliance tracking, and all database connections to a forked repository using GitHub CLI and Replit agent management.

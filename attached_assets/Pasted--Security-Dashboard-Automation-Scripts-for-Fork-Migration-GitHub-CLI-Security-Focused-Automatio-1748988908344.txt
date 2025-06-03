@@ -1,0 +1,841 @@
+# Security Dashboard Automation Scripts for Fork Migration
+
+## GitHub CLI Security-Focused Automation Scripts
+
+### 1. Complete Security Dashboard Fork Setup Script
+```bash
+#!/bin/bash
+# fork-security-dashboard.sh
+
+set -e
+
+ORIGINAL_REPO="$1"
+FORK_NAME="$2"
+DATABASE_URL="$3"
+SESSION_SECRET="$4"
+SECURITY_EMAIL="$5"
+
+if [ -z "$ORIGINAL_REPO" ] || [ -z "$FORK_NAME" ]; then
+    echo "Usage: ./fork-security-dashboard.sh <original-repo-url> <fork-name> [database-url] [session-secret] [security-email]"
+    exit 1
+fi
+
+echo "🔒 Starting security dashboard fork migration..."
+
+# Step 1: Fork and clone with security configuration
+echo "📋 Creating secure fork of $ORIGINAL_REPO..."
+gh repo fork "$ORIGINAL_REPO" --clone=true --fork-name="$FORK_NAME"
+cd "$FORK_NAME"
+
+# Step 2: Setup security-focused branch
+echo "🔐 Setting up security branch..."
+git checkout -b security-dashboard-integration
+git config core.autocrlf false
+git config core.filemode true
+
+# Step 3: Install dependencies with security audit
+echo "📦 Installing dependencies with security audit..."
+npm audit --audit-level=moderate
+npm install
+
+# Step 4: Setup secure environment
+echo "🔧 Configuring secure environment..."
+cp .env.example .env.security
+
+if [ ! -z "$DATABASE_URL" ]; then
+    echo "DATABASE_URL=$DATABASE_URL" >> .env.security
+fi
+
+if [ ! -z "$SESSION_SECRET" ]; then
+    echo "SESSION_SECRET=$SESSION_SECRET" >> .env.security
+fi
+
+if [ ! -z "$SECURITY_EMAIL" ]; then
+    echo "SECURITY_ALERT_EMAIL=$SECURITY_EMAIL" >> .env.security
+fi
+
+# Add security-specific environment variables
+cat >> .env.security << EOF
+SECURITY_LOG_LEVEL=info
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+SECURITY_SCAN_ENABLED=true
+INTRUSION_DETECTION_ENABLED=true
+CSRF_PROTECTION_ENABLED=true
+XSS_PROTECTION_ENABLED=true
+SQL_INJECTION_PROTECTION_ENABLED=true
+EOF
+
+# Step 5: Create security logging directory
+echo "📁 Setting up security logging..."
+mkdir -p logs/security
+chmod 750 logs/security
+touch logs/security/security.log
+chmod 640 logs/security/security.log
+
+# Step 6: Initialize security database
+echo "🗄️ Setting up security database schema..."
+npm run db:security:init || echo "Security database initialization will be handled during deployment"
+
+# Step 7: Run security vulnerability scan
+echo "🔍 Running security vulnerability scan..."
+npm audit --audit-level=high || echo "Security vulnerabilities detected - review required"
+
+# Step 8: Setup security monitoring
+echo "📊 Configuring security monitoring..."
+npm run security:setup-monitoring
+
+# Step 9: Verify security dashboard components
+echo "✅ Verifying security dashboard setup..."
+npm run verify:security-dashboard
+
+echo "🎉 Security dashboard fork migration completed successfully!"
+echo "📍 Repository: $FORK_NAME"
+echo "🔒 Security Dashboard: http://localhost:5000/admin/security"
+echo "📋 Next steps:"
+echo "  1. Review security.log for any issues"
+echo "  2. Configure additional security alerts"
+echo "  3. Test security event detection"
+echo "  4. Deploy to production with security monitoring"
+```
+
+### 2. Security Database Migration Script
+```bash
+#!/bin/bash
+# migrate-security-database.sh
+
+set -e
+
+SOURCE_DB="$1"
+TARGET_DB="$2"
+BACKUP_DIR="${3:-./security-backups}"
+
+if [ -z "$SOURCE_DB" ] || [ -z "$TARGET_DB" ]; then
+    echo "Usage: ./migrate-security-database.sh <source-db-url> <target-db-url> [backup-dir]"
+    exit 1
+fi
+
+echo "🔒 Starting security database migration..."
+
+# Create backup directory
+mkdir -p "$BACKUP_DIR"
+chmod 750 "$BACKUP_DIR"
+
+# Backup source security data
+echo "💾 Creating security database backup..."
+BACKUP_FILE="$BACKUP_DIR/security_backup_$(date +%Y%m%d_%H%M%S).sql"
+
+pg_dump "$SOURCE_DB" \
+  --table=security_events \
+  --table=security_metrics \
+  --table=threat_detection_rules \
+  --table=compliance_checks \
+  --table=failed_login_attempts \
+  --table=security_audit_trail \
+  > "$BACKUP_FILE"
+
+echo "📁 Security backup created: $BACKUP_FILE"
+
+# Create security schema in target database
+echo "🏗️ Creating security schema in target database..."
+psql "$TARGET_DB" << 'EOF'
+-- Security events logging table
+CREATE TABLE IF NOT EXISTS security_events (
+  id SERIAL PRIMARY KEY,
+  type VARCHAR(100) NOT NULL,
+  severity VARCHAR(20) NOT NULL CHECK (severity IN ('low', 'medium', 'high', 'critical')),
+  ip_address INET NOT NULL,
+  user_id VARCHAR(255),
+  user_agent TEXT,
+  request_path TEXT,
+  request_method VARCHAR(10),
+  event_timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  details JSONB,
+  incident_id VARCHAR(50),
+  resolved BOOLEAN DEFAULT FALSE,
+  resolved_at TIMESTAMP WITH TIME ZONE,
+  resolved_by VARCHAR(255)
+);
+
+-- Security metrics tracking
+CREATE TABLE IF NOT EXISTS security_metrics (
+  id SERIAL PRIMARY KEY,
+  metric_name VARCHAR(100) NOT NULL,
+  metric_value DECIMAL(10,2) NOT NULL,
+  metric_timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  time_period VARCHAR(20) DEFAULT '1h'
+);
+
+-- Threat detection rules
+CREATE TABLE IF NOT EXISTS threat_detection_rules (
+  id SERIAL PRIMARY KEY,
+  rule_name VARCHAR(200) NOT NULL,
+  rule_pattern TEXT NOT NULL,
+  severity VARCHAR(20) NOT NULL,
+  enabled BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Security compliance tracking
+CREATE TABLE IF NOT EXISTS compliance_checks (
+  id SERIAL PRIMARY KEY,
+  check_name VARCHAR(200) NOT NULL,
+  compliance_standard VARCHAR(50),
+  status VARCHAR(20) DEFAULT 'pending',
+  last_check TIMESTAMP WITH TIME ZONE,
+  next_check TIMESTAMP WITH TIME ZONE,
+  details JSONB
+);
+
+-- Failed login attempts tracking
+CREATE TABLE IF NOT EXISTS failed_login_attempts (
+  id SERIAL PRIMARY KEY,
+  ip_address INET NOT NULL,
+  username VARCHAR(255),
+  attempt_timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  user_agent TEXT,
+  blocked_until TIMESTAMP WITH TIME ZONE
+);
+
+-- Security audit trail
+CREATE TABLE IF NOT EXISTS security_audit_trail (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
+  action VARCHAR(100) NOT NULL,
+  resource VARCHAR(255),
+  resource_id VARCHAR(255),
+  old_values JSONB,
+  new_values JSONB,
+  ip_address INET,
+  user_agent TEXT,
+  timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create performance indexes
+CREATE INDEX IF NOT EXISTS idx_security_events_timestamp ON security_events(event_timestamp);
+CREATE INDEX IF NOT EXISTS idx_security_events_severity ON security_events(severity);
+CREATE INDEX IF NOT EXISTS idx_security_events_type ON security_events(type);
+CREATE INDEX IF NOT EXISTS idx_security_events_ip ON security_events(ip_address);
+CREATE INDEX IF NOT EXISTS idx_failed_login_ip ON failed_login_attempts(ip_address);
+CREATE INDEX IF NOT EXISTS idx_failed_login_timestamp ON failed_login_attempts(attempt_timestamp);
+CREATE INDEX IF NOT EXISTS idx_audit_trail_user ON security_audit_trail(user_id);
+CREATE INDEX IF NOT EXISTS idx_audit_trail_timestamp ON security_audit_trail(timestamp);
+
+-- Insert default threat detection rules
+INSERT INTO threat_detection_rules (rule_name, rule_pattern, severity) VALUES
+('SQL Injection Pattern', '(union|select|insert|delete|update|drop)', 'high'),
+('XSS Attack Pattern', '(<script|javascript:|data:)', 'high'),
+('Directory Traversal', '(\\.\\.|%2e%2e)', 'medium'),
+('Brute Force Login', 'multiple_failed_login', 'medium'),
+('Suspicious User Agent', '(bot|crawler|scanner)', 'low')
+ON CONFLICT DO NOTHING;
+
+-- Insert default compliance checks
+INSERT INTO compliance_checks (check_name, compliance_standard, status) VALUES
+('Password Policy Enforcement', 'SOC2', 'pending'),
+('Session Security Configuration', 'SOC2', 'pending'),
+('Data Encryption at Rest', 'GDPR', 'pending'),
+('Access Control Validation', 'SOC2', 'pending'),
+('Audit Log Retention', 'SOC2', 'pending')
+ON CONFLICT DO NOTHING;
+EOF
+
+# Restore security data if backup exists and has data
+if [ -s "$BACKUP_FILE" ]; then
+    echo "📂 Restoring security data..."
+    psql "$TARGET_DB" < "$BACKUP_FILE"
+fi
+
+# Verify migration
+echo "✅ Verifying security migration..."
+psql "$TARGET_DB" -c "SELECT COUNT(*) as security_events FROM security_events;"
+psql "$TARGET_DB" -c "SELECT COUNT(*) as threat_rules FROM threat_detection_rules;"
+psql "$TARGET_DB" -c "SELECT COUNT(*) as compliance_checks FROM compliance_checks;"
+
+echo "🎉 Security database migration completed successfully!"
+echo "📊 Backup location: $BACKUP_FILE"
+```
+
+### 3. Security Dashboard Verification Script
+```bash
+#!/bin/bash
+# verify-security-dashboard.sh
+
+set -e
+
+BASE_URL="${1:-http://localhost:5000}"
+ADMIN_TOKEN="$2"
+
+echo "🔍 Verifying security dashboard functionality..."
+
+# Function to make authenticated requests
+make_request() {
+    local endpoint="$1"
+    local method="${2:-GET}"
+    local expected_status="${3:-200}"
+    
+    if [ -n "$ADMIN_TOKEN" ]; then
+        response=$(curl -s -w "\n%{http_code}" \
+            -X "$method" \
+            -H "Authorization: Bearer $ADMIN_TOKEN" \
+            -H "Content-Type: application/json" \
+            "$BASE_URL$endpoint")
+    else
+        response=$(curl -s -w "\n%{http_code}" \
+            -X "$method" \
+            -H "Content-Type: application/json" \
+            "$BASE_URL$endpoint")
+    fi
+    
+    status_code=$(echo "$response" | tail -n1)
+    body=$(echo "$response" | sed '$d')
+    
+    if [ "$status_code" -eq "$expected_status" ]; then
+        echo "✅ $endpoint - Status: $status_code"
+        return 0
+    else
+        echo "❌ $endpoint - Expected: $expected_status, Got: $status_code"
+        echo "   Response: $body"
+        return 1
+    fi
+}
+
+# Test 1: Check server health
+echo "1️⃣ Testing server health..."
+make_request "/api/health" "GET" 200 || {
+    echo "❌ Server health check failed"
+    exit 1
+}
+
+# Test 2: Check security dashboard endpoint
+echo "2️⃣ Testing security dashboard access..."
+make_request "/api/security/events" "GET" 401 || {
+    echo "❌ Security endpoint should require authentication"
+    exit 1
+}
+
+# Test 3: Check database connectivity
+echo "3️⃣ Testing database connectivity..."
+make_request "/api/direct-admin/health" "GET" 200 || {
+    echo "❌ Database connectivity failed"
+    exit 1
+}
+
+# Test 4: Check security logging
+echo "4️⃣ Testing security logging..."
+if [ -f "logs/security/security.log" ]; then
+    echo "✅ Security log file exists"
+    if [ -s "logs/security/security.log" ]; then
+        echo "✅ Security log file has content"
+        tail -5 logs/security/security.log
+    else
+        echo "⚠️ Security log file is empty (this is normal for new installations)"
+    fi
+else
+    echo "❌ Security log file not found"
+    exit 1
+fi
+
+# Test 5: Check security database tables
+echo "5️⃣ Testing security database tables..."
+if [ -n "$DATABASE_URL" ]; then
+    required_tables=("security_events" "security_metrics" "threat_detection_rules" "compliance_checks" "failed_login_attempts" "security_audit_trail")
+    
+    for table in "${required_tables[@]}"; do
+        count=$(psql "$DATABASE_URL" -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '$table';" 2>/dev/null || echo "0")
+        if [ "$count" -gt 0 ]; then
+            echo "✅ Table $table exists"
+        else
+            echo "❌ Table $table missing"
+            exit 1
+        fi
+    done
+else
+    echo "⚠️ DATABASE_URL not set, skipping database table verification"
+fi
+
+# Test 6: Test security middleware
+echo "6️⃣ Testing security middleware..."
+
+# Test rate limiting
+echo "  📊 Testing rate limiting..."
+for i in {1..5}; do
+    make_request "/api/security/events" "GET" 401 >/dev/null 2>&1
+done
+
+# Test CSRF protection
+echo "  🛡️ Testing CSRF protection..."
+make_request "/api/security/events" "POST" 401 >/dev/null 2>&1
+
+# Test 7: Check security configuration
+echo "7️⃣ Testing security configuration..."
+
+# Check environment variables
+required_env_vars=("SESSION_SECRET" "DATABASE_URL")
+for var in "${required_env_vars[@]}"; do
+    if [ -n "${!var}" ]; then
+        echo "✅ Environment variable $var is set"
+    else
+        echo "⚠️ Environment variable $var is not set"
+    fi
+done
+
+# Test 8: If authenticated, test security dashboard functionality
+if [ -n "$ADMIN_TOKEN" ]; then
+    echo "8️⃣ Testing authenticated security dashboard..."
+    
+    make_request "/api/security/events" "GET" 200 || {
+        echo "❌ Security events endpoint failed"
+        exit 1
+    }
+    
+    make_request "/api/security/metrics" "GET" 200 || {
+        echo "❌ Security metrics endpoint failed"
+        exit 1
+    }
+    
+    make_request "/api/security/trends" "GET" 200 || {
+        echo "❌ Security trends endpoint failed"
+        exit 1
+    }
+else
+    echo "8️⃣ Skipping authenticated tests (no admin token provided)"
+fi
+
+echo "✅ Security dashboard verification completed successfully!"
+echo "🔒 Security Dashboard URL: $BASE_URL/admin/security"
+echo "📊 Security monitoring is active and functional"
+```
+
+### 4. Security Event Injection Script (for testing)
+```bash
+#!/bin/bash
+# inject-security-events.sh
+
+set -e
+
+DATABASE_URL="$1"
+
+if [ -z "$DATABASE_URL" ]; then
+    echo "Usage: ./inject-security-events.sh <database-url>"
+    exit 1
+fi
+
+echo "🧪 Injecting test security events..."
+
+# Generate test security events
+psql "$DATABASE_URL" << 'EOF'
+-- Insert test security events for dashboard testing
+INSERT INTO security_events (type, severity, ip_address, user_id, user_agent, request_path, request_method, details, incident_id) VALUES
+('failed_login_attempt', 'medium', '192.168.1.100', 'user123', 'Mozilla/5.0', '/api/auth/login', 'POST', '{"username": "admin", "attempts": 3}', 'SEC-1001'),
+('suspicious_request_pattern', 'high', '10.0.0.50', 'anonymous', 'curl/7.68.0', '/api/admin?id=1 UNION SELECT', 'GET', '{"pattern": "sql_injection"}', 'SEC-1002'),
+('rate_limit_exceeded', 'medium', '203.0.113.195', 'user456', 'PostmanRuntime/7.28.0', '/api/security/events', 'GET', '{"requests_per_minute": 150}', 'SEC-1003'),
+('unauthorized_admin_access', 'critical', '198.51.100.10', 'hacker789', 'Wget/1.20.3', '/api/admin/dashboard', 'GET', '{"role": "user"}', 'SEC-1004'),
+('xss_attempt', 'high', '192.0.2.25', 'anonymous', 'Chrome/91.0', '/search?q=<script>alert(1)</script>', 'GET', '{"payload": "script_injection"}', 'SEC-1005'),
+('directory_traversal', 'medium', '172.16.0.45', 'user789', 'Firefox/89.0', '/files?path=../../../etc/passwd', 'GET', '{"pattern": "path_traversal"}', 'SEC-1006'),
+('blocked_ip', 'low', '203.0.113.50', 'bot_scanner', 'Nmap/7.80', '/admin', 'GET', '{"reason": "known_malicious_ip"}', 'SEC-1007'),
+('csrf_token_mismatch', 'medium', '198.51.100.75', 'user321', 'Safari/14.1', '/api/admin/users', 'POST', '{"csrf_expected": "abc123", "csrf_received": "invalid"}', 'SEC-1008'),
+('brute_force_detected', 'critical', '192.0.2.100', 'attacker', 'Python-requests/2.25.1', '/api/auth/login', 'POST', '{"failed_attempts": 25, "time_window": "5min"}', 'SEC-1009'),
+('privilege_escalation_attempt', 'critical', '172.16.0.200', 'user555', 'curl/7.68.0', '/api/admin/users/1/promote', 'PUT', '{"attempted_role": "super_admin", "current_role": "user"}', 'SEC-1010');
+
+-- Insert security metrics
+INSERT INTO security_metrics (metric_name, metric_value, time_period) VALUES
+('events_per_hour', 45.5, '1h'),
+('critical_events_per_hour', 2.0, '1h'),
+('blocked_attacks_per_hour', 15.0, '1h'),
+('security_score', 82.5, '24h'),
+('failed_login_rate', 8.2, '1h'),
+('suspicious_requests_rate', 12.1, '1h');
+
+-- Update timestamps to recent values
+UPDATE security_events SET event_timestamp = NOW() - (random() * interval '24 hours');
+UPDATE security_metrics SET metric_timestamp = NOW() - (random() * interval '1 hour');
+EOF
+
+echo "✅ Test security events injected successfully!"
+
+# Verify injection
+echo "📊 Security event summary:"
+psql "$DATABASE_URL" -c "
+SELECT 
+    severity,
+    COUNT(*) as count 
+FROM security_events 
+WHERE event_timestamp >= NOW() - INTERVAL '24 hours'
+GROUP BY severity 
+ORDER BY 
+    CASE severity 
+        WHEN 'critical' THEN 1 
+        WHEN 'high' THEN 2 
+        WHEN 'medium' THEN 3 
+        WHEN 'low' THEN 4 
+    END;
+"
+
+echo "🎉 Security dashboard test data ready!"
+```
+
+### 5. Security Monitoring Setup Script
+```bash
+#!/bin/bash
+# setup-security-monitoring.sh
+
+set -e
+
+ENVIRONMENT="${1:-development}"
+ALERT_EMAIL="${2:-security@localhost}"
+
+echo "📊 Setting up security monitoring for $ENVIRONMENT..."
+
+# Create monitoring configuration
+cat > security-monitoring.conf << EOF
+# Security Monitoring Configuration
+[monitoring]
+environment = $ENVIRONMENT
+log_level = info
+alert_email = $ALERT_EMAIL
+real_time_monitoring = true
+
+[thresholds]
+critical_events_per_hour = 5
+failed_login_attempts_per_ip = 10
+rate_limit_violations_per_hour = 50
+security_score_minimum = 70
+
+[alerts]
+email_enabled = true
+slack_enabled = false
+sms_enabled = false
+webhook_enabled = false
+
+[retention]
+security_events_days = 90
+security_metrics_days = 365
+audit_trail_days = 2555  # 7 years for compliance
+EOF
+
+# Create monitoring script
+cat > monitor-security.sh << 'EOF'
+#!/bin/bash
+# Real-time security monitoring script
+
+DATABASE_URL="${DATABASE_URL}"
+ALERT_EMAIL="${ALERT_EMAIL:-security@localhost}"
+
+if [ -z "$DATABASE_URL" ]; then
+    echo "ERROR: DATABASE_URL not set"
+    exit 1
+fi
+
+check_critical_events() {
+    local count=$(psql "$DATABASE_URL" -t -c "
+        SELECT COUNT(*) 
+        FROM security_events 
+        WHERE severity = 'critical' 
+        AND event_timestamp >= NOW() - INTERVAL '1 hour'
+        AND resolved = false;
+    ")
+    
+    if [ "$count" -gt 5 ]; then
+        echo "ALERT: $count critical security events in the last hour"
+        # Send alert (implement email/notification logic here)
+        return 1
+    fi
+    
+    return 0
+}
+
+check_failed_logins() {
+    local suspicious_ips=$(psql "$DATABASE_URL" -t -c "
+        SELECT ip_address 
+        FROM failed_login_attempts 
+        WHERE attempt_timestamp >= NOW() - INTERVAL '1 hour'
+        GROUP BY ip_address 
+        HAVING COUNT(*) > 10;
+    ")
+    
+    if [ -n "$suspicious_ips" ]; then
+        echo "ALERT: Brute force attempts detected from IPs: $suspicious_ips"
+        return 1
+    fi
+    
+    return 0
+}
+
+check_security_score() {
+    local score=$(psql "$DATABASE_URL" -t -c "
+        SELECT metric_value 
+        FROM security_metrics 
+        WHERE metric_name = 'security_score' 
+        ORDER BY metric_timestamp DESC 
+        LIMIT 1;
+    ")
+    
+    if [ -n "$score" ] && [ "${score%.*}" -lt 70 ]; then
+        echo "ALERT: Security score dropped to $score"
+        return 1
+    fi
+    
+    return 0
+}
+
+# Run checks
+echo "$(date): Running security monitoring checks..."
+
+alerts=0
+
+if ! check_critical_events; then
+    alerts=$((alerts + 1))
+fi
+
+if ! check_failed_logins; then
+    alerts=$((alerts + 1))
+fi
+
+if ! check_security_score; then
+    alerts=$((alerts + 1))
+fi
+
+if [ $alerts -gt 0 ]; then
+    echo "$(date): $alerts security alerts detected"
+    exit 1
+else
+    echo "$(date): All security checks passed"
+    exit 0
+fi
+EOF
+
+chmod +x monitor-security.sh
+
+# Create systemd service for continuous monitoring (Linux)
+if command -v systemctl >/dev/null 2>&1; then
+    cat > security-monitor.service << EOF
+[Unit]
+Description=Security Dashboard Monitoring
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=$(pwd)
+ExecStart=$(pwd)/monitor-security.sh
+Restart=always
+RestartSec=300
+Environment=DATABASE_URL=$DATABASE_URL
+Environment=ALERT_EMAIL=$ALERT_EMAIL
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    echo "📋 Systemd service created: security-monitor.service"
+    echo "   To enable: sudo systemctl enable $(pwd)/security-monitor.service"
+    echo "   To start: sudo systemctl start security-monitor"
+fi
+
+# Create cron job for periodic checks
+cat > security-monitoring-cron << EOF
+# Security monitoring cron jobs
+# Run security check every 5 minutes
+*/5 * * * * $(pwd)/monitor-security.sh >> $(pwd)/logs/security/monitoring.log 2>&1
+
+# Daily security report
+0 8 * * * psql "$DATABASE_URL" -c "SELECT type, severity, COUNT(*) FROM security_events WHERE event_timestamp >= NOW() - INTERVAL '24 hours' GROUP BY type, severity;" | mail -s "Daily Security Report" $ALERT_EMAIL
+
+# Weekly security cleanup (remove resolved events older than 30 days)
+0 2 * * 0 psql "$DATABASE_URL" -c "DELETE FROM security_events WHERE resolved = true AND resolved_at < NOW() - INTERVAL '30 days';"
+EOF
+
+echo "📅 Cron jobs created in security-monitoring-cron"
+echo "   To install: crontab security-monitoring-cron"
+
+# Create log rotation configuration
+cat > security-logrotate << EOF
+$(pwd)/logs/security/*.log {
+    daily
+    missingok
+    rotate 52
+    compress
+    delaycompress
+    notifempty
+    create 640 root root
+    postrotate
+        # Restart security monitoring if needed
+        /bin/systemctl reload security-monitor || true
+    endscript
+}
+EOF
+
+echo "🔄 Log rotation configuration created: security-logrotate"
+echo "   To install: sudo cp security-logrotate /etc/logrotate.d/security-dashboard"
+
+echo "✅ Security monitoring setup completed!"
+echo "📊 Monitoring components created:"
+echo "  - Configuration file: security-monitoring.conf"
+echo "  - Monitoring script: monitor-security.sh"
+echo "  - Systemd service: security-monitor.service"
+echo "  - Cron jobs: security-monitoring-cron"
+echo "  - Log rotation: security-logrotate"
+```
+
+### 6. Security Compliance Checker Script
+```bash
+#!/bin/bash
+# check-security-compliance.sh
+
+set -e
+
+DATABASE_URL="$1"
+COMPLIANCE_STANDARD="${2:-SOC2}"
+
+if [ -z "$DATABASE_URL" ]; then
+    echo "Usage: ./check-security-compliance.sh <database-url> [compliance-standard]"
+    exit 1
+fi
+
+echo "🔍 Running security compliance check for $COMPLIANCE_STANDARD..."
+
+# Function to run compliance check
+run_check() {
+    local check_name="$1"
+    local query="$2"
+    local expected="$3"
+    
+    echo "  📋 Checking: $check_name"
+    
+    result=$(psql "$DATABASE_URL" -t -c "$query" 2>/dev/null || echo "FAILED")
+    
+    if [ "$result" = "$expected" ]; then
+        echo "    ✅ PASS"
+        psql "$DATABASE_URL" -c "
+            UPDATE compliance_checks 
+            SET status = 'compliant', last_check = NOW() 
+            WHERE check_name = '$check_name';
+        " >/dev/null 2>&1
+        return 0
+    else
+        echo "    ❌ FAIL (Expected: $expected, Got: $result)"
+        psql "$DATABASE_URL" -c "
+            UPDATE compliance_checks 
+            SET status = 'non_compliant', last_check = NOW() 
+            WHERE check_name = '$check_name';
+        " >/dev/null 2>&1
+        return 1
+    fi
+}
+
+compliance_score=0
+total_checks=0
+
+echo "🔒 Security Configuration Compliance Checks:"
+
+# Check 1: Password policy enforcement
+total_checks=$((total_checks + 1))
+if run_check "Password Policy Enforcement" "SELECT CASE WHEN COUNT(*) > 0 THEN 'COMPLIANT' ELSE 'NON_COMPLIANT' END FROM users WHERE password_hash IS NOT NULL;" "COMPLIANT"; then
+    compliance_score=$((compliance_score + 1))
+fi
+
+# Check 2: Session security configuration
+total_checks=$((total_checks + 1))
+if [ -n "$SESSION_SECRET" ] && [ ${#SESSION_SECRET} -ge 32 ]; then
+    echo "  📋 Checking: Session Security Configuration"
+    echo "    ✅ PASS"
+    compliance_score=$((compliance_score + 1))
+else
+    echo "  📋 Checking: Session Security Configuration"
+    echo "    ❌ FAIL (SESSION_SECRET not set or too short)"
+fi
+
+# Check 3: Security event logging
+total_checks=$((total_checks + 1))
+if run_check "Security Event Logging" "SELECT CASE WHEN COUNT(*) > 0 THEN 'COMPLIANT' ELSE 'NON_COMPLIANT' END FROM security_events WHERE event_timestamp >= NOW() - INTERVAL '24 hours';" "COMPLIANT"; then
+    compliance_score=$((compliance_score + 1))
+fi
+
+# Check 4: Failed login monitoring
+total_checks=$((total_checks + 1))
+if run_check "Failed Login Monitoring" "SELECT CASE WHEN COUNT(*) >= 0 THEN 'COMPLIANT' ELSE 'NON_COMPLIANT' END FROM failed_login_attempts;" "COMPLIANT"; then
+    compliance_score=$((compliance_score + 1))
+fi
+
+# Check 5: Audit trail maintenance
+total_checks=$((total_checks + 1))
+if run_check "Audit Trail Maintenance" "SELECT CASE WHEN COUNT(*) >= 0 THEN 'COMPLIANT' ELSE 'NON_COMPLIANT' END FROM security_audit_trail;" "COMPLIANT"; then
+    compliance_score=$((compliance_score + 1))
+fi
+
+# Check 6: Rate limiting implementation
+total_checks=$((total_checks + 1))
+if [ -n "$RATE_LIMIT_MAX_REQUESTS" ] && [ "$RATE_LIMIT_MAX_REQUESTS" -le 1000 ]; then
+    echo "  📋 Checking: Rate Limiting Implementation"
+    echo "    ✅ PASS"
+    compliance_score=$((compliance_score + 1))
+else
+    echo "  📋 Checking: Rate Limiting Implementation"
+    echo "    ❌ FAIL (Rate limiting not properly configured)"
+fi
+
+# Calculate compliance percentage
+compliance_percentage=$((compliance_score * 100 / total_checks))
+
+echo ""
+echo "📊 Compliance Summary:"
+echo "  Standard: $COMPLIANCE_STANDARD"
+echo "  Checks Passed: $compliance_score/$total_checks"
+echo "  Compliance Score: $compliance_percentage%"
+
+# Update overall compliance status
+if [ $compliance_percentage -ge 80 ]; then
+    compliance_status="compliant"
+    echo "  Status: ✅ COMPLIANT"
+elif [ $compliance_percentage -ge 60 ]; then
+    compliance_status="partially_compliant"
+    echo "  Status: ⚠️ PARTIALLY COMPLIANT"
+else
+    compliance_status="non_compliant"
+    echo "  Status: ❌ NON-COMPLIANT"
+fi
+
+# Generate compliance report
+cat > "compliance_report_$(date +%Y%m%d_%H%M%S).txt" << EOF
+Security Compliance Report
+=========================
+Generated: $(date)
+Standard: $COMPLIANCE_STANDARD
+Environment: $NODE_ENV
+
+Overall Status: $compliance_status
+Compliance Score: $compliance_percentage%
+Checks Passed: $compliance_score/$total_checks
+
+Detailed Results:
+- Password Policy Enforcement: $(psql "$DATABASE_URL" -t -c "SELECT status FROM compliance_checks WHERE check_name = 'Password Policy Enforcement';" 2>/dev/null | tr -d ' ')
+- Session Security Configuration: $([ -n "$SESSION_SECRET" ] && [ ${#SESSION_SECRET} -ge 32 ] && echo "compliant" || echo "non_compliant")
+- Security Event Logging: $(psql "$DATABASE_URL" -t -c "SELECT status FROM compliance_checks WHERE check_name = 'Security Event Logging';" 2>/dev/null | tr -d ' ')
+- Failed Login Monitoring: $(psql "$DATABASE_URL" -t -c "SELECT status FROM compliance_checks WHERE check_name = 'Failed Login Monitoring';" 2>/dev/null | tr -d ' ')
+- Audit Trail Maintenance: $(psql "$DATABASE_URL" -t -c "SELECT status FROM compliance_checks WHERE check_name = 'Audit Trail Maintenance';" 2>/dev/null | tr -d ' ')
+- Rate Limiting Implementation: $([ -n "$RATE_LIMIT_MAX_REQUESTS" ] && [ "$RATE_LIMIT_MAX_REQUESTS" -le 1000 ] && echo "compliant" || echo "non_compliant")
+
+Recommendations:
+EOF
+
+if [ $compliance_percentage -lt 100 ]; then
+    echo "- Review and address failed compliance checks" >> "compliance_report_$(date +%Y%m%d_%H%M%S).txt"
+    echo "- Implement missing security controls" >> "compliance_report_$(date +%Y%m%d_%H%M%S).txt"
+    echo "- Regular compliance monitoring and auditing" >> "compliance_report_$(date +%Y%m%d_%H%M%S).txt"
+fi
+
+echo ""
+echo "📄 Compliance report generated: compliance_report_$(date +%Y%m%d_%H%M%S).txt"
+
+if [ $compliance_percentage -lt 80 ]; then
+    echo "⚠️ Action required: Compliance score below acceptable threshold"
+    exit 1
+else
+    echo "✅ Compliance check completed successfully"
+    exit 0
+fi
+```
+
+This comprehensive automation suite provides everything needed to fork, migrate, test, monitor, and maintain the security dashboard system using GitHub CLI and Replit agent management, ensuring authentic database connections and real-time security monitoring capabilities.

@@ -1,0 +1,607 @@
+# Replit Agent Automation Scripts for Admin Portal Fork
+
+## GitHub CLI Automation Scripts
+
+### 1. Complete Fork Setup Script
+```bash
+#!/bin/bash
+# fork-admin-portal.sh
+
+set -e
+
+ORIGINAL_REPO="$1"
+FORK_NAME="$2"
+DATABASE_URL="$3"
+SESSION_SECRET="$4"
+
+if [ -z "$ORIGINAL_REPO" ] || [ -z "$FORK_NAME" ]; then
+    echo "Usage: ./fork-admin-portal.sh <original-repo-url> <fork-name> [database-url] [session-secret]"
+    exit 1
+fi
+
+echo "🚀 Starting admin portal fork migration..."
+
+# Step 1: Fork and clone repository
+echo "📋 Creating fork of $ORIGINAL_REPO..."
+gh repo fork "$ORIGINAL_REPO" --clone=true --fork-name="$FORK_NAME"
+cd "$FORK_NAME"
+
+# Step 2: Install dependencies
+echo "📦 Installing dependencies..."
+npm install
+
+# Step 3: Setup environment
+echo "🔧 Configuring environment..."
+cp .env.example .env
+
+if [ ! -z "$DATABASE_URL" ]; then
+    echo "DATABASE_URL=$DATABASE_URL" >> .env
+fi
+
+if [ ! -z "$SESSION_SECRET" ]; then
+    echo "SESSION_SECRET=$SESSION_SECRET" >> .env
+fi
+
+# Step 4: Initialize database
+echo "🗄️ Setting up database..."
+npm run db:push
+
+# Step 5: Verify admin portal components
+echo "✅ Verifying admin portal setup..."
+npm run verify:admin-portal
+
+echo "🎉 Fork migration completed successfully!"
+echo "📍 Repository: $FORK_NAME"
+echo "🌐 Admin portal: http://localhost:5000/admin"
+```
+
+### 2. Database Migration Script
+```bash
+#!/bin/bash
+# migrate-admin-database.sh
+
+set -e
+
+SOURCE_DB="$1"
+TARGET_DB="$2"
+
+if [ -z "$SOURCE_DB" ] || [ -z "$TARGET_DB" ]; then
+    echo "Usage: ./migrate-admin-database.sh <source-db-url> <target-db-url>"
+    exit 1
+fi
+
+echo "🔄 Starting database migration..."
+
+# Backup source database
+echo "💾 Creating database backup..."
+pg_dump "$SOURCE_DB" > admin_portal_backup.sql
+
+# Create target database schema
+echo "🏗️ Creating target schema..."
+psql "$TARGET_DB" < admin_portal_backup.sql
+
+# Verify migration
+echo "✅ Verifying migration..."
+psql "$TARGET_DB" -c "SELECT COUNT(*) FROM users WHERE role IN ('admin', 'super_admin');"
+psql "$TARGET_DB" -c "SELECT COUNT(*) FROM content_items;"
+psql "$TARGET_DB" -c "SELECT COUNT(*) FROM media_assets;"
+
+echo "🎉 Database migration completed successfully!"
+```
+
+### 3. Admin Portal Verification Script
+```bash
+#!/bin/bash
+# verify-admin-portal.sh
+
+set -e
+
+BASE_URL="${1:-http://localhost:5000}"
+
+echo "🔍 Verifying admin portal functionality..."
+
+# Test 1: Check server health
+echo "1️⃣ Testing server health..."
+curl -f "$BASE_URL/api/health" || {
+    echo "❌ Server health check failed"
+    exit 1
+}
+
+# Test 2: Check admin dashboard endpoint
+echo "2️⃣ Testing admin dashboard..."
+curl -f "$BASE_URL/api/admin/dashboard" || {
+    echo "❌ Admin dashboard endpoint failed"
+    exit 1
+}
+
+# Test 3: Check database connectivity
+echo "3️⃣ Testing database connectivity..."
+curl -f "$BASE_URL/api/direct-admin/health" || {
+    echo "❌ Database connectivity failed"
+    exit 1
+}
+
+# Test 4: Check content management
+echo "4️⃣ Testing content management..."
+curl -f "$BASE_URL/api/content-management/health" || {
+    echo "❌ Content management failed"
+    exit 1
+}
+
+# Test 5: Check all admin tabs
+echo "5️⃣ Testing admin tabs..."
+TABS=("dashboard" "users" "content" "media" "newsletter" "shop" "analytics" "security" "consciousness" "quantum" "settings")
+
+for tab in "${TABS[@]}"; do
+    echo "  📊 Testing $tab tab..."
+    curl -f "$BASE_URL/api/admin/$tab" || {
+        echo "❌ Admin tab $tab failed"
+        exit 1
+    }
+done
+
+echo "✅ All admin portal functionality verified successfully!"
+```
+
+## Replit Agent Configuration Files
+
+### 4. Agent Deployment Configuration
+```yaml
+# replit-agent.yml
+name: admin-portal-manager
+version: 1.0.0
+description: Comprehensive admin portal management agent
+
+services:
+  admin-portal:
+    type: nodejs
+    entry: server/index.ts
+    port: 5000
+    env:
+      NODE_ENV: production
+      
+  database:
+    type: postgresql
+    config:
+      max_connections: 100
+      shared_preload_libraries: pg_stat_statements
+      
+  file-storage:
+    type: filesystem
+    path: /uploads
+    max_size: 100MB
+
+endpoints:
+  - path: /admin
+    auth: required
+    roles: [admin, super_admin]
+    
+  - path: /api/admin/*
+    auth: required
+    roles: [admin, super_admin]
+    rate_limit: 1000/hour
+    
+  - path: /api/content-management/*
+    auth: required
+    roles: [admin, super_admin]
+    rate_limit: 500/hour
+
+monitoring:
+  health_checks:
+    - endpoint: /api/health
+      interval: 30s
+      timeout: 5s
+      
+  metrics:
+    - response_time
+    - error_rate
+    - database_connections
+    - file_uploads
+    
+  alerts:
+    - type: error_rate
+      threshold: 5%
+      window: 5m
+      
+    - type: response_time
+      threshold: 2000ms
+      window: 5m
+
+security:
+  csrf_protection: enabled
+  rate_limiting: enabled
+  file_upload_scanning: enabled
+  sql_injection_protection: enabled
+```
+
+### 5. Automated Testing Suite
+```javascript
+// test/admin-portal.test.js
+const request = require('supertest');
+const app = require('../server');
+
+describe('Admin Portal Integration Tests', () => {
+  let adminToken;
+  
+  beforeAll(async () => {
+    // Setup test database
+    await setupTestDatabase();
+    
+    // Get admin authentication token
+    const authResponse = await request(app)
+      .post('/api/auth/login')
+      .send({
+        username: 'admin',
+        password: 'test-password'
+      });
+    
+    adminToken = authResponse.body.token;
+  });
+
+  describe('Dashboard Functionality', () => {
+    test('should load admin dashboard', async () => {
+      const response = await request(app)
+        .get('/api/admin/dashboard')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200);
+      
+      expect(response.body.success).toBe(true);
+      expect(response.body.data).toHaveProperty('users');
+      expect(response.body.data).toHaveProperty('content');
+    });
+
+    test('should return authentic database statistics', async () => {
+      const response = await request(app)
+        .get('/api/direct-admin/users')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200);
+      
+      expect(response.body.success).toBe(true);
+      expect(response.body.data.total).toBeGreaterThanOrEqual(0);
+    });
+  });
+
+  describe('Content Management', () => {
+    test('should upload media files', async () => {
+      const response = await request(app)
+        .post('/api/content-management/upload')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .attach('file', 'test/fixtures/test-image.jpg')
+        .expect(200);
+      
+      expect(response.body.success).toBe(true);
+      expect(response.body.data).toHaveProperty('filename');
+    });
+
+    test('should create content items', async () => {
+      const contentData = {
+        title: 'Test Content',
+        content: 'Test content body',
+        contentType: 'blog',
+        status: 'draft'
+      };
+      
+      const response = await request(app)
+        .post('/api/content-management/content')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(contentData)
+        .expect(201);
+      
+      expect(response.body.success).toBe(true);
+      expect(response.body.data.title).toBe('Test Content');
+    });
+  });
+
+  describe('Security Features', () => {
+    test('should reject unauthorized access', async () => {
+      await request(app)
+        .get('/api/admin/dashboard')
+        .expect(401);
+    });
+
+    test('should enforce admin role requirements', async () => {
+      // Test with user token (non-admin)
+      const userResponse = await request(app)
+        .post('/api/auth/login')
+        .send({
+          username: 'regular-user',
+          password: 'test-password'
+        });
+      
+      await request(app)
+        .get('/api/admin/dashboard')
+        .set('Authorization', `Bearer ${userResponse.body.token}`)
+        .expect(403);
+    });
+  });
+
+  describe('All Admin Tabs', () => {
+    const adminTabs = [
+      'dashboard', 'users', 'content', 'media', 
+      'newsletter', 'shop', 'analytics', 'security',
+      'consciousness', 'quantum', 'settings'
+    ];
+
+    adminTabs.forEach(tab => {
+      test(`should load ${tab} tab data`, async () => {
+        const response = await request(app)
+          .get(`/api/admin/${tab}`)
+          .set('Authorization', `Bearer ${adminToken}`)
+          .expect(200);
+        
+        expect(response.body.success).toBe(true);
+      });
+    });
+  });
+});
+```
+
+### 6. Continuous Deployment Script
+```bash
+#!/bin/bash
+# deploy-admin-portal.sh
+
+set -e
+
+ENVIRONMENT="${1:-production}"
+BRANCH="${2:-main}"
+
+echo "🚀 Deploying admin portal to $ENVIRONMENT..."
+
+# Step 1: Run tests
+echo "🧪 Running test suite..."
+npm test
+
+# Step 2: Build application
+echo "🔨 Building application..."
+npm run build
+
+# Step 3: Deploy to Replit
+echo "☁️ Deploying to Replit..."
+replit deploy --env="$ENVIRONMENT" --branch="$BRANCH"
+
+# Step 4: Verify deployment
+echo "✅ Verifying deployment..."
+sleep 30  # Wait for deployment to stabilize
+
+DEPLOY_URL=$(replit deployments list --json | jq -r '.[0].url')
+./verify-admin-portal.sh "$DEPLOY_URL"
+
+# Step 5: Update agent configuration
+echo "🤖 Updating agent configuration..."
+replit agent update admin-portal-manager --config replit-agent.yml
+
+echo "🎉 Deployment completed successfully!"
+echo "🌐 Admin Portal URL: $DEPLOY_URL/admin"
+```
+
+## Package.json Scripts Integration
+
+### 7. NPM Scripts for Migration
+```json
+{
+  "scripts": {
+    "fork:setup": "./scripts/fork-admin-portal.sh",
+    "migrate:database": "./scripts/migrate-admin-database.sh",
+    "verify:admin-portal": "./scripts/verify-admin-portal.sh",
+    "deploy:admin": "./scripts/deploy-admin-portal.sh",
+    "test:admin-portal": "jest test/admin-portal.test.js",
+    "test:admin-tabs": "jest test/admin-tabs.test.js",
+    "db:backup": "pg_dump $DATABASE_URL > backups/admin_$(date +%Y%m%d_%H%M%S).sql",
+    "db:restore": "psql $DATABASE_URL < $1",
+    "admin:health-check": "node scripts/health-check.js",
+    "admin:user-create": "node scripts/create-admin-user.js",
+    "admin:stats": "node scripts/admin-statistics.js"
+  }
+}
+```
+
+### 8. Environment Configuration Template
+```bash
+# .env.template
+# Copy to .env and fill in actual values
+
+# Database Configuration
+DATABASE_URL=postgresql://username:password@host:port/database
+PGUSER=username
+PGPASSWORD=password
+PGHOST=host
+PGPORT=5432
+PGDATABASE=database
+
+# Authentication
+SESSION_SECRET=your-super-secure-session-secret-here
+
+# External APIs (optional)
+ANTHROPIC_API_KEY=your-anthropic-api-key
+YOUTUBE_API_KEY=your-youtube-api-key
+
+# Application Settings
+NODE_ENV=production
+PORT=5000
+UPLOAD_DIR=uploads
+
+# Security Settings
+BCRYPT_ROUNDS=12
+JWT_SECRET=your-jwt-secret
+CORS_ORIGIN=https://your-domain.com
+
+# Monitoring (optional)
+SENTRY_DSN=your-sentry-dsn
+LOG_LEVEL=info
+```
+
+### 9. Database Health Check Script
+```javascript
+// scripts/health-check.js
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
+
+async function healthCheck() {
+  try {
+    console.log('🔍 Checking database health...');
+    
+    // Test basic connectivity
+    const client = await pool.connect();
+    console.log('✅ Database connection successful');
+    
+    // Check required tables
+    const requiredTables = [
+      'users', 'posts', 'content_items', 
+      'media_assets', 'content_workflow', 'sessions'
+    ];
+    
+    for (const table of requiredTables) {
+      const result = await client.query(
+        `SELECT EXISTS (
+          SELECT FROM information_schema.tables 
+          WHERE table_name = $1
+        )`,
+        [table]
+      );
+      
+      if (result.rows[0].exists) {
+        console.log(`✅ Table ${table} exists`);
+      } else {
+        console.log(`❌ Table ${table} missing`);
+        process.exit(1);
+      }
+    }
+    
+    // Check admin users
+    const adminResult = await client.query(
+      "SELECT COUNT(*) FROM users WHERE role IN ('admin', 'super_admin')"
+    );
+    
+    console.log(`👥 Admin users: ${adminResult.rows[0].count}`);
+    
+    // Check content items
+    const contentResult = await client.query(
+      "SELECT COUNT(*) FROM content_items"
+    );
+    
+    console.log(`📄 Content items: ${contentResult.rows[0].count}`);
+    
+    client.release();
+    console.log('🎉 Database health check completed successfully!');
+    
+  } catch (error) {
+    console.error('❌ Database health check failed:', error.message);
+    process.exit(1);
+  } finally {
+    await pool.end();
+  }
+}
+
+if (require.main === module) {
+  healthCheck();
+}
+
+module.exports = healthCheck;
+```
+
+### 10. Admin User Creation Script
+```javascript
+// scripts/create-admin-user.js
+const bcrypt = require('bcrypt');
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
+
+async function createAdminUser(username, email, password, role = 'admin') {
+  try {
+    const client = await pool.connect();
+    
+    // Hash password
+    const saltRounds = parseInt(process.env.BCRYPT_ROUNDS) || 12;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+    
+    // Check if user already exists
+    const existingUser = await client.query(
+      'SELECT id FROM users WHERE username = $1 OR email = $2',
+      [username, email]
+    );
+    
+    if (existingUser.rows.length > 0) {
+      console.log('❌ User already exists');
+      return false;
+    }
+    
+    // Create user
+    const result = await client.query(
+      `INSERT INTO users (username, email, password_hash, role, created_at) 
+       VALUES ($1, $2, $3, $4, NOW()) 
+       RETURNING id, username, email, role`,
+      [username, email, passwordHash, role]
+    );
+    
+    console.log('✅ Admin user created successfully:');
+    console.log(`   ID: ${result.rows[0].id}`);
+    console.log(`   Username: ${result.rows[0].username}`);
+    console.log(`   Email: ${result.rows[0].email}`);
+    console.log(`   Role: ${result.rows[0].role}`);
+    
+    client.release();
+    return true;
+    
+  } catch (error) {
+    console.error('❌ Failed to create admin user:', error.message);
+    return false;
+  } finally {
+    await pool.end();
+  }
+}
+
+// Command line usage
+if (require.main === module) {
+  const [username, email, password, role] = process.argv.slice(2);
+  
+  if (!username || !email || !password) {
+    console.log('Usage: node create-admin-user.js <username> <email> <password> [role]');
+    process.exit(1);
+  }
+  
+  createAdminUser(username, email, password, role);
+}
+
+module.exports = createAdminUser;
+```
+
+## Replit Agent Command Reference
+
+### 11. Common Agent Commands
+```bash
+# Deploy agent with admin portal
+replit agent deploy --name admin-portal-manager --config replit-agent.yml
+
+# Monitor agent status
+replit agent status admin-portal-manager
+
+# View agent logs
+replit agent logs admin-portal-manager --follow --lines 100
+
+# Update agent configuration
+replit agent update admin-portal-manager --config replit-agent.yml
+
+# Scale agent resources
+replit agent scale admin-portal-manager --memory 2GB --cpu 1
+
+# Restart agent
+replit agent restart admin-portal-manager
+
+# Delete agent
+replit agent delete admin-portal-manager
+
+# List all agents
+replit agent list
+
+# Get agent metrics
+replit agent metrics admin-portal-manager --period 24h
+```
+
+This comprehensive automation suite provides everything needed to fork, migrate, test, and deploy the admin portal system using GitHub CLI and Replit agent management.
