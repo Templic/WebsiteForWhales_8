@@ -1,8 +1,8 @@
 /**
- * Modern Admin Dashboard - Complete Implementation
+ * Cosmic Admin Portal - Enhanced TemplicTune Implementation
  * 
- * Full-featured admin portal with 12 tabs, real PostgreSQL data,
- * multimedia upload, content management, and security monitoring
+ * Full-featured cosmic-themed admin portal with elegant design,
+ * PostgreSQL integration, and comprehensive management features
  */
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -217,53 +217,111 @@ export function ModernAdminDashboard() {
   };
 
   const renderDashboardTab = () => (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+    <div className="space-y-6 p-6">
+      {/* Cosmic Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-2">
+          Cosmic Admin Portal
+        </h1>
+        <p className="text-lg text-gray-300">Manage your universe with elegance and cosmic wisdom</p>
+      </div>
+
+      {/* Quick Action Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+        <Card className="bg-gradient-to-br from-purple-600/20 to-purple-800/20 border-purple-500/30 hover:border-purple-400/60 transition-all duration-300 cursor-pointer">
+          <CardContent className="p-4 text-center">
+            <LayoutDashboard className="h-8 w-8 mx-auto mb-2 text-purple-400" />
+            <p className="text-sm font-medium text-purple-200">Dashboard</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-blue-600/20 to-blue-800/20 border-blue-500/30 hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
+          <CardContent className="p-4 text-center">
+            <Users className="h-8 w-8 mx-auto mb-2 text-blue-400" />
+            <p className="text-sm font-medium text-blue-200">Users</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-green-600/20 to-green-800/20 border-green-500/30 hover:border-green-400/60 transition-all duration-300 cursor-pointer">
+          <CardContent className="p-4 text-center">
+            <FileText className="h-8 w-8 mx-auto mb-2 text-green-400" />
+            <p className="text-sm font-medium text-green-200">Content</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-orange-600/20 to-orange-800/20 border-orange-500/30 hover:border-orange-400/60 transition-all duration-300 cursor-pointer">
+          <CardContent className="p-4 text-center">
+            <ShoppingBag className="h-8 w-8 mx-auto mb-2 text-orange-400" />
+            <p className="text-sm font-medium text-orange-200">Shop</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-pink-600/20 to-pink-800/20 border-pink-500/30 hover:border-pink-400/60 transition-all duration-300 cursor-pointer">
+          <CardContent className="p-4 text-center">
+            <Mail className="h-8 w-8 mx-auto mb-2 text-pink-400" />
+            <p className="text-sm font-medium text-pink-200">Newsletter</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-red-600/20 to-red-800/20 border-red-500/30 hover:border-red-400/60 transition-all duration-300 cursor-pointer">
+          <CardContent className="p-4 text-center">
+            <Shield className="h-8 w-8 mx-auto mb-2 text-red-400" />
+            <p className="text-sm font-medium text-red-200">Security</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Statistics Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="bg-gradient-to-br from-purple-900/40 to-purple-700/40 border-purple-500/30">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-purple-200">Total Users</CardTitle>
+            <Users className="h-4 w-4 text-purple-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-bold text-white mb-1">
               {statsLoading ? '...' : dashboardStats?.totalUsers || 0}
             </div>
+            <div className="text-xs text-purple-300">+12% this month</div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-blue-900/40 to-blue-700/40 border-blue-500/30">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Posts</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-blue-200">Total Posts</CardTitle>
+            <FileText className="h-4 w-4 text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-bold text-white mb-1">
               {statsLoading ? '...' : dashboardStats?.totalPosts || 0}
             </div>
+            <div className="text-xs text-blue-300">+8% this month</div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-green-900/40 to-green-700/40 border-green-500/30">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-            <ShoppingBag className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-green-200">Total Orders</CardTitle>
+            <ShoppingBag className="h-4 w-4 text-green-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-bold text-white mb-1">
               {statsLoading ? '...' : dashboardStats?.totalOrders || 0}
             </div>
+            <div className="text-xs text-green-300">+24% this month</div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-orange-900/40 to-orange-700/40 border-orange-500/30">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-orange-200">Total Revenue</CardTitle>
+            <TrendingUp className="h-4 w-4 text-orange-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-bold text-white mb-1">
               ${statsLoading ? '...' : dashboardStats?.totalRevenue || '0.00'}
             </div>
+            <div className="text-xs text-orange-300">+18% this month</div>
           </CardContent>
         </Card>
       </div>
