@@ -1,426 +1,354 @@
-import { useEffect, useState, useMemo, lazy, Suspense } from "react";
-import { Link } from "wouter";
-import { useAuth } from "@/hooks/use-auth";
-import { useToast } from "@/hooks/use-toast";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Progress } from "@/components/ui/progress";
-import { Input } from "@/components/ui/input";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { ChartBar, LogOut, Users, FileText, AlertCircle, ShieldCheck, Gauge, RefreshCw, Settings } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import CosmicSecurityDashboard from "@/components/security/CosmicSecurityDashboard";
+/**
+ * Admin Portal Page - Complete Implementation
+ * 
+ * Main entry point for the admin portal with full authentication,
+ * dashboard integration, and all admin functionality
+ */
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ModernAdminDashboard } from '@/components/admin/ModernAdminDashboard';
+import { IntegratedSecurityDashboard } from '@/components/admin/IntegratedSecurityDashboard';
+import { useQuery } from '@tanstack/react-query';
+import { 
+  LayoutDashboard, 
+  Shield, 
+  Settings, 
+  Users, 
+  FileText, 
+  Image, 
+  ShoppingBag,
+  BarChart3,
+  Activity,
+  Atom,
+  Mail,
+  Upload
+} from 'lucide-react';
 
-interface AdminStats {
-  totalUsers: number;
-  pendingReviews: number;
-  systemHealth: string;
-  approvalRate: number;
-  recentActivities: Array<{
-    id: number;
-    action: string;
-    timestamp: string;
-    user: string;
-  }>;
-  userRolesDistribution: {
-    user: number;
-    admin: number;
-    super_admin: number;
-  };
+interface AdminUser {
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  permissions: string[];
 }
 
-const UserManagementComponent = lazy(() => import('@/components/admin/UserManagement'));
-const ContentReviewComponent = lazy(() => import('@/components/admin/ContentReview'));
-const DatabaseMonitorComponent = lazy(() => import('@/components/admin/DatabaseMonitor'));
-const PerformanceMonitoringComponent = lazy(() => import('@/components/admin/PerformanceMonitoringDashboard'));
-const CosmicContentManagerComponent = lazy(() => import('@/components/admin/CosmicContentManager'));
+export function AdminPortalPage() {
+  const [activeSection, setActiveSection] = useState('dashboard');
 
-export default function AdminPortalPage() {
-  const { user, logoutMutation } = useAuth();
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const [activeTab, setActiveTab] = useState("overview");
-
-  const { data: subscribers, refetch: refetchSubscribers } = useQuery({
-    queryKey: ['subscribers'],
-    queryFn: async () => {
-      const res = await fetch('/api/subscribers');
-      if (!res.ok) throw new Error('Failed to fetch subscribers');
-      return res.json();
-    },
-    enabled: activeTab === 'subscribers',
-    staleTime: 0 // Always fetch fresh data
+  // Check admin authentication
+  const { data: adminUser, isLoading: authLoading } = useQuery({
+    queryKey: ['/api/admin/auth/check'],
+    retry: false
   });
 
-  useEffect(() => {
-    if (activeTab === 'subscribers') {
-      refetchSubscribers();
-    }
-  }, [activeTab, refetchSubscribers]);
-
-  const { data: adminStats, isLoading: statsLoading } = useQuery<AdminStats>({
-    queryKey: ['adminStats'],
-    queryFn: () => fetch('/api/admin/stats').then(res => res.json())
-  });
-
-  const refreshStatsMutation = useMutation({
-    mutationFn: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['adminStats'] });
-    },
-    onSuccess: () => {
-      toast({
-        title: "Stats Refreshed",
-        description: "Dashboard statistics have been updated"
-      });
-    }
-  });
-
-  const handleUserAction = async (userId: string, action: 'promote' | 'demote' | 'delete' | 'ban' | 'unban') => {
-    try {
-      await fetch(`/api/admin/users/${userId}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ action }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      // Generate success message based on action
-      let successMessage = '';
-      switch (action) {
-        case 'delete':
-          successMessage = 'User deleted successfully';
-          break;
-        case 'ban':
-          successMessage = 'User banned successfully';
-          break;
-        case 'unban':
-          successMessage = 'User unbanned successfully';
-          break;
-        case 'promote':
-          successMessage = 'User promoted successfully';
-          break;
-        case 'demote':
-          successMessage = 'User demoted successfully';
-          break;
-      }
-      
-      toast({
-        title: 'User Action Success',
-        description: successMessage
-      });
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      queryClient.invalidateQueries({ queryKey: ['adminStats'] });
-    } catch (error) {
-      toast({
-        title: 'Action Failed',
-        description: `Could not ${action} user`,
-        variant: 'destructive'
-      });
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logoutMutation.mutateAsync();
-      toast({
-        title: "Success",
-        description: "Logged out successfully"
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to logout",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const healthStatus = useMemo(() => {
-    if (!adminStats) return { color: "bg-gray-500", status: "Unknown" };
-    switch (adminStats.systemHealth) {
-      case "Optimal": return { color: "bg-green-500", status: "Optimal" };
-      case "Warning": return { color: "bg-yellow-500", status: "Warning" };
-      case "Critical": return { color: "bg-red-500", status: "Critical" };
-      default: return { color: "bg-blue-500", status: adminStats.systemHealth };
-    }
-  }, [adminStats]);
-
-  return (
-    <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-[#00ebd6]">Admin Portal</h1>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => refreshStatsMutation.mutate()}
-            disabled={refreshStatsMutation.isPending}
-            className="text-[#00ebd6] border-[#00ebd6] hover:bg-[#00ebd620]"
-          >
-            <RefreshCw className={`mr-2 h-4 w-4 ${refreshStatsMutation.isPending ? 'animate-spin' : ''}`} />
-            Refresh Stats
-          </Button>
-          <Link href="/admin/analytics">
-            <Button
-              variant="default"
-              className="bg-[#00ebd6] text-[#303436] hover:bg-[#00c2b0]"
-            >
-              <ChartBar className="mr-2 h-4 w-4" />
-              Advanced Analytics
-            </Button>
-          </Link>
-          <Button
-            variant="outline"
-            onClick={handleLogout}
-            disabled={logoutMutation.isPending}
-          >
-            {logoutMutation.isPending ? (
-              "Logging out..."
-            ) : (
-              <>
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </>
-            )}
-          </Button>
+  // Loading state
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading admin portal...</p>
         </div>
       </div>
+    );
+  }
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>System Health</CardTitle>
+  // Unauthorized access
+  if (!adminUser) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <Shield className="h-12 w-12 text-red-500 mx-auto mb-4" />
+            <CardTitle className="text-xl">Access Denied</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span>Status</span>
-                <Badge variant={statsLoading ? "outline" : "default"}>
-                  {statsLoading ? "Loading..." : adminStats?.systemHealth || "Unknown"}
-                </Badge>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Approval Rate</span>
-                <span>{adminStats?.approvalRate || 0}%</span>
-              </div>
-            </div>
+          <CardContent className="text-center">
+            <p className="text-muted-foreground mb-4">
+              You don't have permission to access the admin portal.
+            </p>
+            <Button 
+              onClick={() => window.location.href = '/'}
+              className="w-full"
+            >
+              Return to Home
+            </Button>
           </CardContent>
         </Card>
+      </div>
+    );
+  }
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Content Management</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span>Pending Reviews</span>
-                <Badge variant="outline">{adminStats?.pendingReviews || 0}</Badge>
+  const adminSections = [
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
+      icon: LayoutDashboard,
+      component: <ModernAdminDashboard />
+    },
+    {
+      id: 'security',
+      label: 'Security',
+      icon: Shield,
+      component: <IntegratedSecurityDashboard />
+    },
+    {
+      id: 'users',
+      label: 'Users',
+      icon: Users,
+      component: <UserManagementSection />
+    },
+    {
+      id: 'content',
+      label: 'Content',
+      icon: FileText,
+      component: <ContentManagementSection />
+    },
+    {
+      id: 'media',
+      label: 'Media',
+      icon: Image,
+      component: <MediaManagementSection />
+    },
+    {
+      id: 'shop',
+      label: 'Shop',
+      icon: ShoppingBag,
+      component: <ShopManagementSection />
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      icon: BarChart3,
+      component: <AnalyticsSection />
+    },
+    {
+      id: 'consciousness',
+      label: 'Consciousness',
+      icon: Activity,
+      component: <ConsciousnessSection />
+    },
+    {
+      id: 'quantum',
+      label: 'Quantum',
+      icon: Atom,
+      component: <QuantumSection />
+    },
+    {
+      id: 'newsletter',
+      label: 'Newsletter',
+      icon: Mail,
+      component: <NewsletterSection />
+    },
+    {
+      id: 'upload',
+      label: 'Upload',
+      icon: Upload,
+      component: <UploadSection />
+    },
+    {
+      id: 'settings',
+      label: 'Settings',
+      icon: Settings,
+      component: <SettingsSection />
+    }
+  ];
+
+  const activeComponent = adminSections.find(section => section.id === activeSection)?.component;
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-4">
+              <Shield className="h-8 w-8 text-blue-600" />
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">Dale Loves Whales</h1>
+                <p className="text-sm text-gray-500">Admin Portal</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <Badge variant="outline" className="hidden sm:inline-flex">
+                {adminUser.role}
+              </Badge>
+              <div className="text-right hidden sm:block">
+                <p className="text-sm font-medium text-gray-900">{adminUser.username}</p>
+                <p className="text-xs text-gray-500">{adminUser.email}</p>
               </div>
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => setActiveTab("content")}
-                className="w-full"
+                onClick={() => window.location.href = '/api/auth/logout'}
               >
-                <FileText className="mr-2 h-4 w-4" />
-                Manage Content
+                Logout
               </Button>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>User Distribution</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span>Users</span>
-                <span>{adminStats?.userRolesDistribution?.user || 0}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Admins</span>
-                <span>{adminStats?.userRolesDistribution?.admin || 0}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Super Admins</span>
-                <span>{adminStats?.userRolesDistribution?.super_admin || 0}</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-        <TabsList className="mb-6 flex-wrap h-auto gap-1">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
-          <TabsTrigger value="content">Content</TabsTrigger>
-          <TabsTrigger value="cosmic-content">Cosmic</TabsTrigger>
-          <TabsTrigger value="cosmic-security" className="bg-purple-600 text-white">🔮 Security</TabsTrigger>
-          <TabsTrigger value="database">Database</TabsTrigger>
-          <TabsTrigger value="subscribers">Newsletter</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Total Users</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                {statsLoading ? (
-                  <Skeleton className="h-8 w-20" />
-                ) : (
-                  <div className="text-2xl font-bold">{adminStats?.totalUsers || 0}</div>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Pending Reviews</CardTitle>
-                <FileText className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                {statsLoading ? (
-                  <Skeleton className="h-8 w-20" />
-                ) : (
-                  <div className="text-2xl font-bold">{adminStats?.pendingReviews || 0}</div>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">System Health</CardTitle>
-                <Gauge className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${healthStatus.color}`}>
-                  {healthStatus.status}
-                </div>
-              </CardContent>
-            </Card>
           </div>
+        </div>
+      </header>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>🔮 Cosmic Security Dashboard</CardTitle>
-              <CardDescription>Whale wisdom security with consciousness awareness</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <CosmicSecurityDashboard />
-            </CardContent>
-          </Card>
-        </TabsContent>
+      {/* Navigation */}
+      <nav className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex space-x-8 overflow-x-auto">
+            {adminSections.map((section) => (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(section.id)}
+                className={`flex items-center space-x-2 py-4 px-2 border-b-2 whitespace-nowrap text-sm font-medium transition-colors ${
+                  activeSection === section.id
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <section.icon className="h-4 w-4" />
+                <span className="hidden sm:inline">{section.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
 
-        <TabsContent value="users">
-          <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
-            <UserManagementComponent onAction={handleUserAction} />
-          </Suspense>
-        </TabsContent>
-
-        <TabsContent value="content">
-          <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
-            <ContentReviewComponent />
-          </Suspense>
-        </TabsContent>
-
-        <TabsContent value="cosmic-security">
-          <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
-            <CosmicSecurityDashboard />
-          </Suspense>
-        </TabsContent>
-
-        <TabsContent value="database">
-          <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
-            <DatabaseMonitorComponent />
-          </Suspense>
-        </TabsContent>
-
-        <TabsContent value="subscribers">
-          <Card>
-            <CardHeader>
-              <CardTitle>Newsletter Subscribers</CardTitle>
-              <CardDescription>Manage your newsletter subscribers</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {statsLoading ? (
-                <div className="space-y-2">
-                  {Array(5).fill(0).map((_, i) => (
-                    <Skeleton key={i} className="h-12 w-full" />
-                  ))}
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 font-bold pb-2 border-b">
-                    <div>Name</div>
-                    <div>Email</div>
-                  </div>
-                  {subscribers?.map((subscriber) => (
-                    <div key={subscriber.id} className="grid grid-cols-2">
-                      <div>{subscriber.name}</div>
-                      <div>{subscriber.email}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="settings">
-          <Card>
-            <CardHeader>
-              <CardTitle>System Settings</CardTitle>
-              <CardDescription>Configure system parameters</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Link href="/admin/settings/security">
-                  <Button className="w-full" variant="outline">
-                    <ShieldCheck className="mr-2 h-4 w-4" />
-                    Security
-                  </Button>
-                </Link>
-                <Link href="/admin/settings/notifications">
-                  <Button className="w-full" variant="outline">
-                    <AlertCircle className="mr-2 h-4 w-4" />
-                    Notifications
-                  </Button>
-                </Link>
-                <Link href="/admin/settings/general">
-                  <Button className="w-full" variant="outline">
-                    <Settings className="mr-2 h-4 w-4" />
-                    General Config
-                  </Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="cosmic-content">
-          <Suspense fallback={<div className="text-center py-8">Loading Cosmic Content Manager...</div>}>
-            <CosmicContentManagerComponent />
-          </Suspense>
-        </TabsContent>
-
-        <TabsContent value="cosmic-security">
-          <Suspense fallback={<div className="text-center py-8">Loading Cosmic Security Dashboard...</div>}>
-            <CosmicSecurityDashboard />
-          </Suspense>
-        </TabsContent>
-      </Tabs>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeComponent}
+      </main>
     </div>
+  );
+}
+
+// Placeholder sections for admin functionality
+function UserManagementSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>User Management</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">User management interface with PostgreSQL integration coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function ContentManagementSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Content Management</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Content management system with multimedia support coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function MediaManagementSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Media Management</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Media library and asset management coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function ShopManagementSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Shop Management</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">E-commerce management and order processing coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function AnalyticsSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Analytics Dashboard</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Advanced analytics and reporting dashboard coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function ConsciousnessSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Consciousness Management</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Whale wisdom and consciousness features coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function QuantumSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Quantum Interface</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Quantum consciousness and advanced features coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function NewsletterSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Newsletter Management</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Newsletter campaigns and subscriber management coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function UploadSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>File Upload Center</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Multimedia upload and processing center coming soon...</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function SettingsSection() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>System Settings</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">System configuration and preferences coming soon...</p>
+      </CardContent>
+    </Card>
   );
 }

@@ -3058,6 +3058,10 @@ app.post("/api/posts/comments/:id/reject", isAdmin, async (req, res) => {
     }
   }, 24 * 60 * 60 * 1000);
 
+  // Admin Portal Routes Integration
+  app.use('/api/admin', adminDashboardRoutes);
+  app.use('/api/content-management', contentManagementRoutes);
+
   // Let Vite handle frontend routes in development mode
   if (process.env.NODE_ENV === 'production') {
     app.get('/*', (req, res) => {
