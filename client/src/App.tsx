@@ -36,7 +36,7 @@ import BlogPostPage from "@/pages/blog/BlogPostPage";
 import CollaborationPage from "@/pages/CollaborationPage";
 import ContactPage from "@/pages/ContactPage";
 import AuthPage from "@/pages/AuthPage";
-import AdminPortalPage from "@/pages/admin/AdminPortalPage";
+import AdminPage from "@/pages/AdminPage";
 import AnalyticsPage from "@/pages/admin/AnalyticsPage";
 import EnhancedAnalyticsPage from "@/pages/admin/EnhancedAnalyticsPage";
 import SecuritySettingsPage from "@/pages/admin/SecuritySettingsPage";
@@ -224,7 +224,7 @@ function AppRouter() {
           <Route path="/login" component={LoginPage}/>
 
           {/* Admin Routes - require admin or super_admin role */}
-          <ProtectedRoute path="/admin" component={AdminPortalPage} requiredRole="admin" />
+          <ProtectedRoute path="/admin" component={AdminPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/analytics" component={AnalyticsPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/enhanced-analytics" component={EnhancedAnalyticsPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/security" component={SecuritySettingsPage} requiredRole="admin" />
@@ -249,8 +249,8 @@ function AppRouter() {
           <ProtectedRoute path="/admin/shop" component={ShopManagementPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/comments" component={CommentsManagementPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/newsletter" component={NewsletterManagementPage} requiredRole="admin" />
-          <ProtectedRoute path="/admin/database" component={AdminPortalPage} requiredRole="super_admin" />
-          <ProtectedRoute path="/admin/settings" component={AdminPortalPage} requiredRole="admin" />
+          <ProtectedRoute path="/admin/database" component={AdminPage} requiredRole="super_admin" />
+          <ProtectedRoute path="/admin/settings" component={AdminPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/media" component={MediaPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/media/gallery" component={GalleryPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/media/video" component={VideoPage} requiredRole="admin" />
