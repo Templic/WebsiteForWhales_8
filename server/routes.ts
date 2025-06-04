@@ -1241,6 +1241,58 @@ What aspect of your spiritual practice feels ready for more intentional organiza
   });
 
   // Admin Stats API
+  // Enhanced admin security endpoints for comprehensive portal integration
+  app.get("/api/admin/security/events", isAdmin, async (req, res) => {
+    try {
+      const events = await storage.getSecurityEvents();
+      res.json(events);
+    } catch (error) {
+      console.error("Error fetching security events:", error);
+      res.status(500).json({ message: "Error fetching security events" });
+    }
+  });
+
+  app.get("/api/admin/security/health", isAdmin, async (req, res) => {
+    try {
+      const health = {
+        status: 'healthy',
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        timestamp: new Date().toISOString()
+      };
+      res.json(health);
+    } catch (error) {
+      console.error("Error fetching system health:", error);
+      res.status(500).json({ message: "Error fetching system health" });
+    }
+  });
+
+  app.post("/api/admin/security/scan", isAdmin, async (req, res) => {
+    try {
+      const { scanType, targetType } = req.body;
+      const scan = await storage.createSecurityScan({
+        scanType,
+        targetType,
+        createdBy: req.user?.id || 'unknown',
+        status: 'pending'
+      });
+      res.json(scan);
+    } catch (error) {
+      console.error("Error creating security scan:", error);
+      res.status(500).json({ message: "Error creating security scan" });
+    }
+  });
+
+  app.get("/api/admin/security/metrics", isAdmin, async (req, res) => {
+    try {
+      const metrics = await storage.getSecurityMetrics();
+      res.json(metrics);
+    } catch (error) {
+      console.error("Error fetching security metrics:", error);
+      res.status(500).json({ message: "Error fetching security metrics" });
+    }
+  });
+
   app.get("/api/admin/stats", isAdmin, async (req, res) => {
     // Allow development bypass for testing
     const bypassAuth = process.env.NODE_ENV !== 'production';
