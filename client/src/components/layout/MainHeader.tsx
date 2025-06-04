@@ -698,10 +698,10 @@ export function MainHeader() {
             }}
           >
             <div className="h-full flex flex-col justify-start overflow-hidden">
-              <nav className="flex-1 p-3 pt-16 space-y-2">
+              <nav className="flex-1 p-2 pt-12 space-y-1 overflow-y-auto">
                 {/* Mobile Primary Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-2">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-2">
+                <div className="border-b border-[#00ebd6]/20 pb-1">
+                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-1">
                     Navigation
                   </h3>
                   
@@ -711,7 +711,7 @@ export function MainHeader() {
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-2 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-sm"
+                        className="flex items-center space-x-1 bg-slate-800/90 rounded p-1.5 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-xs"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
                         <span className="font-medium">{item.name}</span>
