@@ -247,13 +247,25 @@ export function adminRateLimiter(options: Partial<RateLimiterOptions> = {}) {
       return userId ? `admin:${userId}:${req.path}` : `ip:${req.ip}:${req.path}`;
     },
     skip: (req, res) => {
-      // Skip rate limiting for admin dashboard endpoints if user is authenticated admin
-      const isAdminUser = req.session?.user?.role === 'admin' || req.session?.user?.role === 'super_admin';
-      const isDashboardEndpoint = req.path.includes('/admin/stats') || 
-                                  req.path.includes('/admin/security') ||
-                                  req.path.includes('/security/metrics') ||
-                                  req.path.includes('/security/events');
-      return isAdminUser && isDashboardEndpoint;
+      // Skip rate limiting for all admin dashboard endpoints
+      const isAdminPath = req.path.startsWith('/api/admin/') || 
+                         req.path.includes('/admin/stats') || 
+                         req.path.includes('/admin/security') ||
+                         req.path.includes('/security/metrics') ||
+                         req.path.includes('/security/events') ||
+                         req.path.includes('/stats') ||
+                         req.path.includes('/metrics') ||
+                         req.path.includes('/events') ||
+                         req.originalUrl?.includes('admin') ||
+                         req.originalUrl?.includes('security') ||
+                         req.originalUrl?.includes('stats') ||
+                         req.originalUrl?.includes('metrics') ||
+                         req.originalUrl?.includes('events');
+      
+      // Also skip for auth endpoint
+      const isAuthPath = req.path === '/api/auth/user';
+      
+      return isAdminPath || isAuthPath;
     },
     ...options
   });

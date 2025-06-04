@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { ToastProvider } from "@/hooks/toast-context";
 import Layout from "./components/layout";
+import AdminLayout from "./components/admin/AdminLayout";
 import { AuthProvider } from "@/hooks/use-auth";
 import { CartProvider } from "@/hooks/use-cart";
 import { ProtectedRoute } from "@/lib/protected-route";
