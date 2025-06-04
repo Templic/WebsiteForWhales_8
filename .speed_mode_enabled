@@ -1,0 +1,2 @@
+SPEED_MODE_ENABLED=true
+TIMESTAMP=$(date)

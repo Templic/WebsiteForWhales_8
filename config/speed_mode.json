@@ -1,0 +1,22 @@
+{
+  "startupPriority": "quickstart",
+  "deferBackgroundServices": true,
+  "enableCompression": false,
+  "csrfProtection": false,
+  "enableSecurityScans": false,
+  "enableBackgroundTasks": false,
+  "enableDatabaseOptimization": false,
+  "extraLogging": false,
+  "optimizeRendering": true,
+  "minimizeDbOperations": true,
+  "disableVerboseLogging": true,
+  "fastBootMode": true,
+  "cacheStrategy": "aggressive",
+  "skipNonEssentialMiddleware": true,
+  "lazyLoadModules": true,
+  "preloadCriticalAssets": true,
+  "enableServiceWorker": false,
+  "enableConsciousnessTour": false,
+  "enableHolisticSecurity": false,
+  "enableYouTubeCompatibility": false
+}

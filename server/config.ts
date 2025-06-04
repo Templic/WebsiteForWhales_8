@@ -185,8 +185,15 @@ const defaultConfig: ServerConfig = {
  */
 export function loadConfig(): ServerConfig {
   try {
-    // Get startup priority from env var or default to 'full'
-    const startupPriority = (process.env.STARTUP_PRIORITY as StartupPriority) || 'full';
+    // Check for speed mode first
+    let startupPriority: StartupPriority;
+    
+    if (process.env.ENABLE_SPEED_MODE === 'true' || process.env.SPEED_MODE === 'true') {
+      startupPriority = 'quickstart';
+      console.log('🚀 Speed Mode detected - Using quickstart configuration');
+    } else {
+      startupPriority = (process.env.STARTUP_PRIORITY as StartupPriority) || 'full';
+    }
     
     // Apply the startup mode configurations
     let config = { 
@@ -219,12 +226,34 @@ export function loadConfig(): ServerConfig {
       config.port = parseInt(process.env.PORT, 10);
     }
     
-    if (process.env.ENABLE_DB_OPTIMIZATION === 'false') {
+    if (process.env.ENABLE_DB_OPTIMIZATION === 'false' || process.env.ENABLE_DATABASE_OPTIMIZATION === 'false') {
       config.features.enableDatabaseOptimization = false;
     }
     
     if (process.env.ENABLE_SECURITY_SCANS === 'false') {
       config.features.enableSecurityScans = false;
+    }
+    
+    if (process.env.ENABLE_BACKGROUND_TASKS === 'false') {
+      config.features.enableBackgroundTasks = false;
+    }
+    
+    if (process.env.ENABLE_COMPRESSION === 'false') {
+      config.enableCompression = false;
+    }
+    
+    // Speed mode specific overrides
+    if (process.env.SPEED_MODE === 'true' || process.env.ENABLE_SPEED_MODE === 'true') {
+      config.features.enableDatabaseOptimization = false;
+      config.features.enableSecurityScans = false;
+      config.features.enableBackgroundTasks = false;
+      config.features.enableExtraLogging = false;
+      config.enableCompression = false;
+      config.csrfProtection = false;
+      config.deferBackgroundServices = true;
+      config.maintenanceDelay = 300000; // 5 minutes
+      config.backgroundServicesDelay = 120000; // 2 minutes
+      config.securityScanDelay = 900000; // 15 minutes
     }
     
     return config;

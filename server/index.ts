@@ -5,6 +5,10 @@
  * that prioritizes fast startup while still performing all necessary operations.
  */
 
+// Load environment variables first
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import { createServer } from 'http';
 import { log, setupVite } from './vite';
