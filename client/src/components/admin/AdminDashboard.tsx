@@ -88,19 +88,33 @@ export function AdminDashboard() {
   });
 
   // Provide safe defaults for stats to prevent errors
-  const safeStats: AdminStats = stats || {
+  const defaultStats: AdminStats = {
     users: { total: 0, active: 0, newToday: 0 },
     content: { total: 0, published: 0, pending: 0 },
-    security: { events: 0, threats: 0, status: 'secure' },
-    system: { uptime: 100, performance: 85, memory: 60, status: 'healthy' }
+    security: { events: 0, threats: 0, status: 'secure' as const },
+    system: { uptime: 100, performance: 85, memory: 60, status: 'healthy' as const }
+  };
+
+  const safeStats: AdminStats = {
+    users: stats?.users || defaultStats.users,
+    content: stats?.content || defaultStats.content,
+    security: stats?.security || defaultStats.security,
+    system: stats?.system || defaultStats.system
   };
 
   // Safe defaults for security metrics
-  const safeSecurityMetrics = securityMetrics || {
+  const defaultSecurityMetrics = {
     activeProtections: 12,
-    threatLevel: 'low',
+    threatLevel: 'low' as const,
     scanResults: [],
     lastScan: new Date().toISOString()
+  };
+
+  const safeSecurityMetrics = {
+    activeProtections: securityMetrics?.activeProtections || defaultSecurityMetrics.activeProtections,
+    threatLevel: securityMetrics?.threatLevel || defaultSecurityMetrics.threatLevel,
+    scanResults: securityMetrics?.scanResults || defaultSecurityMetrics.scanResults,
+    lastScan: securityMetrics?.lastScan || defaultSecurityMetrics.lastScan
   };
 
   // Security scan mutation
@@ -203,9 +217,9 @@ export function AdminDashboard() {
               <Users className="h-4 w-4 text-purple-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-900">{stats?.users.total || 0}</div>
+              <div className="text-2xl font-bold text-purple-900">{safeStats.users.total}</div>
               <p className="text-xs text-green-600 mt-1">
-                +{stats?.users.newToday || 0} new today
+                +{safeStats.users.newToday} new today
               </p>
             </CardContent>
           </Card>
@@ -216,9 +230,9 @@ export function AdminDashboard() {
               <FileText className="h-4 w-4 text-indigo-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-indigo-900">{stats?.content.total || 0}</div>
+              <div className="text-2xl font-bold text-indigo-900">{safeStats.content.total}</div>
               <p className="text-xs text-blue-600 mt-1">
-                {stats?.content.pending || 0} pending review
+                {safeStats.content.pending} pending review
               </p>
             </CardContent>
           </Card>
@@ -229,9 +243,9 @@ export function AdminDashboard() {
               <Shield className="h-4 w-4 text-blue-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-900">{stats?.security.events || 0}</div>
+              <div className="text-2xl font-bold text-blue-900">{safeStats.security.events}</div>
               <p className="text-xs text-green-600 mt-1">
-                {stats?.security.threats || 0} threats detected
+                {safeStats.security.threats} threats detected
               </p>
             </CardContent>
           </Card>
@@ -242,9 +256,9 @@ export function AdminDashboard() {
               <Activity className="h-4 w-4 text-green-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-900">{stats?.system.performance || 95}%</div>
+              <div className="text-2xl font-bold text-green-900">{safeStats.system.performance}%</div>
               <p className="text-xs text-green-600 mt-1">
-                {Math.round(stats?.system.uptime || 99.9)}% uptime
+                {Math.round(safeStats.system.uptime)}% uptime
               </p>
             </CardContent>
           </Card>
