@@ -421,6 +421,80 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
+  // Create sample blog post from admin portal
+  app.post('/api/admin/create-sample-post', async (req, res) => {
+    try {
+      const { title, content, authorId } = req.body;
+      
+      const newPost = await db.insert(posts).values({
+        title: title || 'Whale Wisdom: Consciousness Expansion through Oceanic Connection',
+        content: content || `# Discovering the Deep Wisdom of Whales
+
+In the vast expanses of our oceans, whales carry ancient wisdom that speaks directly to our consciousness. These magnificent beings demonstrate:
+
+## Sacred Communication
+- Whale songs that traverse entire ocean basins
+- Complex social structures based on empathy
+- Deep emotional intelligence that surpasses human understanding
+
+## Consciousness Lessons
+Through their presence, whales teach us:
+1. **Deep Listening** - The art of truly hearing beyond words
+2. **Community Bonds** - How connection creates strength
+3. **Oceanic Awareness** - Expanding consciousness like the endless sea
+
+*Join us in exploring these profound connections between whale wisdom and human consciousness expansion.*`,
+        authorId: authorId || '1',
+        published: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).returning();
+
+      // Also create a comment for engagement
+      await db.insert(comments).values({
+        postId: newPost[0].id,
+        authorId: '1',
+        content: 'This resonates deeply with my own oceanic meditations. The whale songs truly do carry frequencies of ancient wisdom.',
+        approved: true,
+        createdAt: new Date()
+      });
+
+      res.json({
+        success: true,
+        post: newPost[0],
+        message: 'Sample whale wisdom blog post created and published'
+      });
+    } catch (error) {
+      console.error('Error creating sample post:', error);
+      res.status(500).json({ message: 'Error creating sample content' });
+    }
+  });
+
+  // Update admin portal with content creation capabilities
+  app.post('/api/admin/quick-create-content', async (req, res) => {
+    try {
+      const { type, title, content } = req.body;
+      
+      if (type === 'blog-post') {
+        const newPost = await db.insert(posts).values({
+          title: title || 'New Cosmic Insight',
+          content: content || 'Exploring the depths of consciousness and whale wisdom...',
+          authorId: '1',
+          published: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }).returning();
+
+        res.json({ success: true, content: newPost[0], type: 'blog-post' });
+      } else {
+        res.json({ success: false, message: 'Content type not supported yet' });
+      }
+    } catch (error) {
+      console.error('Error creating quick content:', error);
+      res.status(500).json({ message: 'Error creating content' });
+    }
+  });
+
   // Enhanced database health check endpoint
   app.get('/api/health/database', async (req, res) => {
     try {

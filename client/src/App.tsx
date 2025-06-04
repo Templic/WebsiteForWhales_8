@@ -117,6 +117,7 @@ import { LoginPage } from '@/pages/Login'; //Import added here
 // Convert FC component to match ProtectedRoute's expected type
 import EditButtonPageFC from '@/pages/admin/EditButtonPage';
 const EditButtonPage = () => <EditButtonPageFC />;
+import AdminPortalPage from '@/pages/AdminPortalPage';
 
 // TypeScript Error Management
 import TypeScriptErrorDashboard from "@/pages/admin/TypeScriptErrorDashboard";
@@ -259,6 +260,7 @@ function AppRouter() {
           <ProtectedRoute path="/admin/edit-button" component={EditButtonPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/typescript-errors" component={TypeScriptErrorDashboard} requiredRole="super_admin" />
           <ProtectedRoute path="/admin/deadlinks" component={DeadLinkCheckerPage} requiredRole="admin" />
+          <ProtectedRoute path="/admin-portal" component={AdminPortalPage} requiredRole="admin" />
 
           {/* Resource Pages */}
           <Route path="/resources" component={ResourcesPage} />

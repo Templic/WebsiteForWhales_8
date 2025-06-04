@@ -72,6 +72,7 @@ export default function AdminPortalPage() {
 
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(false);
+  const [createMessage, setCreateMessage] = useState('');
 
   // Query for comprehensive admin data
   const { data: adminData, isLoading, refetch } = useQuery({
@@ -392,8 +393,60 @@ export default function AdminPortalPage() {
               </div>
             )}
 
+            {activeTab === 'content' && (
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold text-white mb-4">Content Management & Blog Integration</h2>
+                
+                {/* Content Creation Section */}
+                <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
+                  <h3 className="text-xl font-semibold text-purple-200 mb-4">Create & Publish Content</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <button
+                      onClick={createSampleBlogPost}
+                      disabled={loading}
+                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 disabled:opacity-50 text-white px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
+                    >
+                      {loading ? 'Creating...' : 'Create Whale Wisdom Blog Post'}
+                    </button>
+                    <button
+                      onClick={() => window.open('/blog', '_blank')}
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
+                    >
+                      View Blog Page
+                    </button>
+                  </div>
+                  
+                  {createMessage && (
+                    <div className="p-4 bg-green-900/30 border border-green-500/30 rounded-lg">
+                      <p className="text-green-200">{createMessage}</p>
+                    </div>
+                  )}
+                  
+                  {/* Current Content Stats */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                    <div className="bg-white/5 backdrop-blur rounded-lg p-3 border border-white/10">
+                      <div className="text-lg font-bold text-white">{stats.posts}</div>
+                      <p className="text-white/60 text-sm">Published Posts</p>
+                    </div>
+                    <div className="bg-white/5 backdrop-blur rounded-lg p-3 border border-white/10">
+                      <div className="text-lg font-bold text-white">{stats.comments}</div>
+                      <p className="text-white/60 text-sm">Comments</p>
+                    </div>
+                    <div className="bg-white/5 backdrop-blur rounded-lg p-3 border border-white/10">
+                      <div className="text-lg font-bold text-white">{stats.newsletters}</div>
+                      <p className="text-white/60 text-sm">Newsletters</p>
+                    </div>
+                    <div className="bg-white/5 backdrop-blur rounded-lg p-3 border border-white/10">
+                      <div className="text-lg font-bold text-white">{stats.contentItems}</div>
+                      <p className="text-white/60 text-sm">Content Items</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Default content for other tabs */}
-            {!['overview', 'users', 'database', 'security'].includes(activeTab) && (
+            {!['overview', 'users', 'database', 'security', 'content'].includes(activeTab) && (
               <div className="space-y-6">
                 <h2 className="text-xl font-bold text-white mb-4">
                   {tabs.find(t => t.id === activeTab)?.name} Management
@@ -418,4 +471,38 @@ export default function AdminPortalPage() {
       </div>
     </div>
   );
+
+  // Function to create sample blog post
+  async function createSampleBlogPost() {
+    setLoading(true);
+    setCreateMessage('');
+    
+    try {
+      const response = await fetch('/api/admin/create-sample-post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: 'Whale Wisdom: Consciousness Expansion through Oceanic Connection',
+          authorId: '1'
+        })
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setCreateMessage('✓ Whale wisdom blog post created and published successfully! Check the blog page to see your new content.');
+        // Refresh the data to show updated stats
+        refetch();
+      } else {
+        setCreateMessage('Failed to create blog post: ' + result.message);
+      }
+    } catch (error) {
+      console.error('Error creating sample post:', error);
+      setCreateMessage('Error creating blog post. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
 }
