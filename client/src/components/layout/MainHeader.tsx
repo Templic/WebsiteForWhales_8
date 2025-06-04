@@ -729,11 +729,11 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Music Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-6">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
+                <div className="border-b border-[#00ebd6]/20 pb-3">
+                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
                     Music
                   </h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3">
                     {musicLinks.map(item => (
                       <Link
                         key={item.path}
@@ -749,11 +749,11 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Social Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-6">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
+                <div className="border-b border-[#00ebd6]/20 pb-3">
+                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
                     Follow Us
                   </h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3">
                     {socialLinks.map(link => (
                       <a
                         key={link.name}
@@ -770,8 +770,8 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Theme Toggle */}
-                <div className="border-b border-[#00ebd6]/20 pb-6">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
+                <div className="border-b border-[#00ebd6]/20 pb-3">
+                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
                     Menu Options
                   </h3>
                   <div className="flex justify-center">
@@ -782,7 +782,7 @@ export function MainHeader() {
 
                 {/* Mobile Search */}
                 <div className="pt-2">
-                  <form onSubmit={handleSearchSubmit} className="mt-4">
+                  <form onSubmit={handleSearchSubmit} className="mt-2">
                     <div className="relative">
                       <input
                         type="text"
@@ -795,11 +795,19 @@ export function MainHeader() {
                     </div>
                     <button
                       type="submit"
-                      className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-md hover:from-cyan-600 hover:to-purple-700 transition-all duration-300"
+                      className="w-full mt-3 px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-md hover:from-cyan-600 hover:to-purple-700 transition-all duration-300"
                     >
                       Search
                     </button>
                   </form>
+                  
+                  {/* Close Menu Button */}
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full mt-3 px-4 py-2 bg-black/40 text-[#e8e6e3] border border-[#00ebd6]/20 rounded-md hover:bg-black/60 hover:border-[#00ebd6]/40 transition-all duration-300"
+                  >
+                    Close Menu
+                  </button>
                   
                   {/* Mobile Navigation Controls */}
                   <div className="flex justify-between mt-4 bg-black/30 rounded-md p-2 border border-white/10">
