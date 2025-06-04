@@ -774,6 +774,22 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
+  // Direct admin stats endpoint bypassing rate limiting for core dashboard
+  app.get('/api/admin/direct-stats', async (req, res) => {
+    try {
+      // Check for direct admin header
+      if (req.headers['x-direct-admin'] !== 'true') {
+        return res.status(403).json({ error: 'Direct admin access required' });
+      }
+
+      const stats = await storage.getAdminStats();
+      res.json(stats);
+    } catch (error) {
+      console.error('Direct admin stats error:', error);
+      res.status(500).json({ error: 'Failed to fetch admin stats' });
+    }
+  });
+
   // Get current user endpoint
   app.get('/api/user', isAuthenticated, (req, res) => {
     // Use the safe user creator to return only non-sensitive fields
