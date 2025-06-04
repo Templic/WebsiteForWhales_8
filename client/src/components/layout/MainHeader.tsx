@@ -652,7 +652,7 @@ export function MainHeader() {
           </div>
 
           {/* Five-pointed star for mobile view - behind everything except page background */}
-          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: 5 }}>
+          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'} z-[5]`}>
             <div className="animate-spin-very-slow animate-pulse" style={{ animationDuration: '25s' }}>
               <SacredGeometry 
                 variant="star" 
