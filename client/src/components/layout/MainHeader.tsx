@@ -166,7 +166,7 @@ export function MainHeader() {
     <header 
       id="main-navigation"
       className={`
-        sticky top-0 z-[51] transition-all duration-300
+        sticky top-0 z-[99999] transition-all duration-300
         ${isScrolled ? 'py-1' : 'py-3'}
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
