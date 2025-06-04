@@ -171,11 +171,10 @@ export function MainHeader() {
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
       style={{
-        background: 'red',
+        background: 'linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95), rgba(88, 28, 135, 0.95))',
         backdropFilter: 'blur(12px)',
         borderBottom: '1px solid rgba(34, 197, 94, 0.3)',
-        minHeight: '60px',
-        zIndex: 9999
+        minHeight: '60px'
       }}
     >
       {/* Background Elements with Sacred Geometry - Centered and sides */}
@@ -669,7 +668,7 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-[70px] bg-[#0a1f3c]/98 backdrop-blur-lg z-[9999] transform transition-transform ease-in-out duration-300
+              fixed inset-0 top-[70px] bg-[#0a1f3c] backdrop-blur-lg z-[60] transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
           >
