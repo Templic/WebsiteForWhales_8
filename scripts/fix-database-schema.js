@@ -3,7 +3,8 @@
  * Adds missing tables and columns for complete admin dashboard connectivity
  */
 
-import { Pool } from 'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL

@@ -3333,6 +3333,9 @@ app.post("/api/posts/comments/:id/reject", isAdmin, async (req, res) => {
   const adminPortalRoutes = await import('./routes/admin-portal.js');
   app.use('/api/admin', adminPortalRoutes.default);
 
+  // Comprehensive API Routes Integration for Complete Database Connectivity
+  app.use(comprehensiveApiRoutes);
+
   // Let Vite handle frontend routes in development mode
   if (process.env.NODE_ENV === 'production') {
     app.get('/*', (req, res) => {
