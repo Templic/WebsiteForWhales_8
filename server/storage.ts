@@ -2989,9 +2989,201 @@ export class PostgresStorage implements IStorage {
       };
     }
   }
+
+  // Admin dashboard methods - TemplicTune migration
+  async getSecurityEvents(): Promise<any[]> {
+    try {
+      // Import security events from schema
+      const { securityEvents } = await import("../shared/schema");
+      
+      const events = await db.select()
+        .from(securityEvents)
+        .orderBy(desc(securityEvents.createdAt))
+        .limit(50);
+      
+      return events;
+    } catch (error) {
+      console.error("Error getting security events:", error);
+      return [];
+    }
+  }
+
+  async getContentStats(): Promise<{
+    totalContent: number;
+    publishedContent: number;
+    draftContent: number;
+    recentActivity: any[];
+  }> {
+    try {
+      const { contentItems } = await import("../shared/schema");
+      
+      // Get total content count
+      const [totalResult] = await db.select({ count: count() }).from(contentItems);
+      const totalContent = totalResult.count;
+
+      // Get published content count
+      const [publishedResult] = await db.select({ count: count() })
+        .from(contentItems)
+        .where(eq(contentItems.status, 'published'));
+      const publishedContent = publishedResult.count;
+
+      // Get draft content count
+      const [draftResult] = await db.select({ count: count() })
+        .from(contentItems)
+        .where(eq(contentItems.status, 'draft'));
+      const draftContent = draftResult.count;
+
+      // Get recent activity
+      const recentActivity = await db.select()
+        .from(contentItems)
+        .orderBy(desc(contentItems.updatedAt))
+        .limit(10);
+
+      return {
+        totalContent,
+        publishedContent,
+        draftContent,
+        recentActivity
+      };
+    } catch (error) {
+      console.error("Error getting content stats:", error);
+      return {
+        totalContent: 0,
+        publishedContent: 0,
+        draftContent: 0,
+        recentActivity: []
+      };
+    }
+  }
+
+  async getMusicStats(): Promise<{
+    totalTracks: number;
+    totalAlbums: number;
+    recentTracks: any[];
+  }> {
+    try {
+      // Define tracks and albums tables inline for this method
+      const tracksTable = pgTable('tracks', {
+        id: serial('id').primaryKey(),
+        title: text('title').notNull(),
+        artist: text('artist').notNull(),
+        audioUrl: text('audio_url').notNull(),
+        published: boolean('published').notNull().default(true),
+        createdAt: timestamp('created_at').notNull().defaultNow(),
+        updatedAt: timestamp('updated_at').notNull().defaultNow()
+      });
+
+      const albumsTable = pgTable('albums', {
+        id: serial('id').primaryKey(),
+        title: text('title').notNull(),
+        artist: text('artist').notNull(),
+        coverImage: text('cover_image'),
+        releaseDate: timestamp('release_date'),
+        description: text('description'),
+        createdAt: timestamp('created_at').notNull().defaultNow(),
+        updatedAt: timestamp('updated_at').notNull().defaultNow()
+      });
+
+      // Get total tracks count
+      const [tracksResult] = await db.select({ count: count() }).from(tracksTable);
+      const totalTracks = tracksResult.count;
+
+      // Get total albums count
+      const [albumsResult] = await db.select({ count: count() }).from(albumsTable);
+      const totalAlbums = albumsResult.count;
+
+      // Get recent tracks
+      const recentTracks = await db.select()
+        .from(tracksTable)
+        .orderBy(desc(tracksTable.createdAt))
+        .limit(5);
+
+      return {
+        totalTracks,
+        totalAlbums,
+        recentTracks
+      };
+    } catch (error) {
+      console.error("Error getting music stats:", error);
+      return {
+        totalTracks: 0,
+        totalAlbums: 0,
+        recentTracks: []
+      };
+    }
+  }
+
+  async getShopStats(): Promise<{
+    totalProducts: number;
+    totalOrders: number;
+    revenue: number;
+    recentOrders: any[];
+  }> {
+    try {
+      // Define tables inline for this method
+      const productsTable = pgTable('products', {
+        id: serial('id').primaryKey(),
+        name: text('name').notNull(),
+        description: text('description'),
+        price: numeric('price', { precision: 10, scale: 2 }).notNull(),
+        imageUrl: text('image_url'),
+        category: text('category'),
+        inStock: boolean('in_stock').notNull().default(true),
+        createdAt: timestamp('created_at').notNull().defaultNow(),
+        updatedAt: timestamp('updated_at').notNull().defaultNow()
+      });
+
+      const ordersTable = pgTable('orders', {
+        id: serial('id').primaryKey(),
+        userId: varchar('user_id', { length: 255 }).references(() => users.id).notNull(),
+        total: numeric('total', { precision: 10, scale: 2 }).notNull(),
+        status: text('status').notNull().default('pending'),
+        shippingAddress: json('shipping_address'),
+        createdAt: timestamp('created_at').notNull().defaultNow(),
+        updatedAt: timestamp('updated_at').notNull().defaultNow()
+      });
+
+      // Get total products count
+      const [productsResult] = await db.select({ count: count() }).from(productsTable);
+      const totalProducts = productsResult.count;
+
+      // Get total orders count
+      const [ordersResult] = await db.select({ count: count() }).from(ordersTable);
+      const totalOrders = ordersResult.count;
+
+      // Calculate revenue (sum of completed orders)
+      const [revenueResult] = await db.select({ 
+        total: sql`COALESCE(SUM(${ordersTable.total}), 0)` 
+      })
+      .from(ordersTable)
+      .where(eq(ordersTable.status, 'completed'));
+      
+      const revenue = Number(revenueResult.total) || 0;
+
+      // Get recent orders
+      const recentOrders = await db.select()
+        .from(ordersTable)
+        .orderBy(desc(ordersTable.createdAt))
+        .limit(10);
+
+      return {
+        totalProducts,
+        totalOrders,
+        revenue,
+        recentOrders
+      };
+    } catch (error) {
+      console.error("Error getting shop stats:", error);
+      return {
+        totalProducts: 0,
+        totalOrders: 0,
+        revenue: 0,
+        recentOrders: []
+      };
+    }
+  }
 }
 
-// Export an instance of PostgresStorage
 export const storage = new PostgresStorage();
 
 // contentItems is already defined in shared/schema.ts so we don't need to define it again

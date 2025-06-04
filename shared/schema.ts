@@ -1299,6 +1299,79 @@ export type InsertScanResult = z.infer<typeof insertScanResultSchema>;
 export type ErrorFixHistory = typeof errorFixHistory.$inferSelect;
 export type InsertErrorFixHistory = z.infer<typeof insertErrorFixHistorySchema>;
 
+// ===================================================================
+// Admin Dashboard Additional Tables - TemplicTune Migration
+// ===================================================================
+
+// System health metrics for monitoring
+export const systemMetrics = pgTable("system_metrics", {
+  id: serial("id").primaryKey(),
+  metricType: varchar("metric_type", { length: 50 }).notNull(),
+  value: numeric("value", { precision: 10, scale: 2 }).notNull(),
+  unit: varchar("unit", { length: 20 }),
+  threshold: numeric("threshold", { precision: 10, scale: 2 }),
+  status: varchar("status", { length: 20 }).notNull().default("normal"),
+  recordedAt: timestamp("recorded_at").defaultNow().notNull(),
+});
+
+// Admin activity logs
+export const adminLogs = pgTable("admin_logs", {
+  id: serial("id").primaryKey(),
+  adminId: varchar("admin_id", { length: 255 }).references(() => users.id).notNull(),
+  action: varchar("action", { length: 100 }).notNull(),
+  resource: varchar("resource", { length: 100 }),
+  resourceId: varchar("resource_id", { length: 255 }),
+  oldValues: json("old_values"),
+  newValues: json("new_values"),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Content workflow states
+export const contentWorkflows = pgTable("content_workflows", {
+  id: serial("id").primaryKey(),
+  contentId: integer("content_id").references(() => contentItems.id).notNull(),
+  currentStage: varchar("current_stage", { length: 50 }).notNull(),
+  status: varchar("status", { length: 30 }).notNull().default("pending"),
+  assignedTo: varchar("assigned_to", { length: 255 }).references(() => users.id),
+  dueDate: timestamp("due_date"),
+  completedAt: timestamp("completed_at"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Insert schemas for new tables
+export const insertSystemMetricSchema = createInsertSchema(systemMetrics).omit({
+  id: true,
+  recordedAt: true,
+});
+
+export const insertAdminLogSchema = createInsertSchema(adminLogs, {
+  oldValues: z.record(z.any()).optional(),
+  newValues: z.record(z.any()).optional(),
+}).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertContentWorkflowSchema = createInsertSchema(contentWorkflows).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types for new tables
+export type SystemMetric = typeof systemMetrics.$inferSelect;
+export type InsertSystemMetric = z.infer<typeof insertSystemMetricSchema>;
+
+export type AdminLog = typeof adminLogs.$inferSelect;
+export type InsertAdminLog = z.infer<typeof insertAdminLogSchema>;
+
+export type ContentWorkflow = typeof contentWorkflows.$inferSelect;
+export type InsertContentWorkflow = z.infer<typeof insertContentWorkflowSchema>;
+
 export type ProjectAnalysis = typeof projectAnalyses.$inferSelect;
 export type InsertProjectAnalysis = z.infer<typeof insertProjectAnalysisSchema>;
 
