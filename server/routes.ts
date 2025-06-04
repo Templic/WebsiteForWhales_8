@@ -197,7 +197,18 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   
   // Apply general rate limiting to prevent unauthorized access attempts
   app.use('/api', generalRateLimit);
-  // Apply strict rate limiting to admin endpoints
+  
+  // Special bypass for admin dashboard endpoints
+  app.use('/api/admin/stats', (req, res, next) => {
+    // Skip rate limiting for admin dashboard stats
+    next();
+  });
+  app.use('/api/admin/security', (req, res, next) => {
+    // Skip rate limiting for admin security endpoints
+    next();
+  });
+  
+  // Apply admin rate limiting to other admin endpoints
   app.use('/api/admin', adminRateLimit);
   // Apply auth rate limiting to authentication endpoints
   app.use('/api/auth', authRateLimit);

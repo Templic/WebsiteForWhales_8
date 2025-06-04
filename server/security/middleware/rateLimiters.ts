@@ -228,16 +228,32 @@ export function authRateLimiter(options: Partial<RateLimiterOptions> = {}) {
 
 /**
  * Administrative endpoint rate limiter
- * 20 requests per 15 minutes
+ * Enhanced for admin portal dashboard functionality
  */
 export function adminRateLimiter(options: Partial<RateLimiterOptions> = {}) {
   return createRateLimiter({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    maxRequests: 20,          // 20 requests per 15 minutes
+    maxRequests: 500,         // Increased for dashboard data fetching
     message: 'Too many admin requests, please try again later',
+    blockDuration: 30 * 60 * 1000, // 30 minute block instead of default
+    blockThreshold: 50,       // Higher threshold for legitimate admin use
+    skipSuccessfulRequests: true, // Don't count successful requests against limit
     keyGenerator: (req) => {
       const userId = req.session?.userId;
+      // Separate rate limiting for authenticated admin users vs IP-based
+      if (userId && req.session?.user?.role === 'admin') {
+        return `admin:${userId}:dashboard`;
+      }
       return userId ? `admin:${userId}:${req.path}` : `ip:${req.ip}:${req.path}`;
+    },
+    skip: (req, res) => {
+      // Skip rate limiting for admin dashboard endpoints if user is authenticated admin
+      const isAdminUser = req.session?.user?.role === 'admin' || req.session?.user?.role === 'super_admin';
+      const isDashboardEndpoint = req.path.includes('/admin/stats') || 
+                                  req.path.includes('/admin/security') ||
+                                  req.path.includes('/security/metrics') ||
+                                  req.path.includes('/security/events');
+      return isAdminUser && isDashboardEndpoint;
     },
     ...options
   });
