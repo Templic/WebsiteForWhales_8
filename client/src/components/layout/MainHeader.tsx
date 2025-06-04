@@ -651,8 +651,8 @@ export function MainHeader() {
             ))}
           </div>
 
-          {/* Five-pointed star for mobile view - behind everything except page background */}
-          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'} z-[5]`}>
+          {/* Five-pointed star for mobile view - behind menu content but above menu background */}
+          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'} z-[120]`}>
             <div className="animate-spin-very-slow animate-pulse" style={{ animationDuration: '25s' }}>
               <SacredGeometry 
                 variant="star" 
@@ -667,12 +667,12 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-[70px] bg-[#0a1f3c]/98 backdrop-blur-lg z-[9999] transform transition-transform ease-in-out duration-300
+              fixed inset-0 top-[70px] bg-[#0a1f3c]/98 backdrop-blur-lg z-[100] transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
           >
-            <div className="h-full flex flex-col justify-start max-h-screen overflow-hidden">
-              <nav className="flex-1 p-4 space-y-4">
+            <div className="h-full flex flex-col justify-start max-h-screen overflow-hidden relative z-[150]">
+              <nav className="flex-1 p-4 space-y-4 relative z-[200]">
                 {/* Mobile Primary Links */}
                 <div className="border-b border-[#00ebd6]/20 pb-4">
                   <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
