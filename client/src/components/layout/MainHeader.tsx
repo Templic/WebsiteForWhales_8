@@ -697,21 +697,21 @@ export function MainHeader() {
               bottom: 0
             }}
           >
-            <div className="h-full flex flex-col justify-start overflow-hidden">
-              <nav className="flex-1 p-2 pt-12 space-y-1 overflow-y-auto">
+            <div className="h-full flex flex-col justify-start">
+              <nav className="flex-1 p-4 pt-16 space-y-4 overflow-y-auto min-h-0">
                 {/* Mobile Primary Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-1">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-1">
+                <div className="border-b border-[#00ebd6]/20 pb-3">
+                  <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
                     Navigation
                   </h3>
                   
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-3">
                     {[...primaryNavItems, ...secondaryNavItems].map((item) => (
                       <Link
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-1 bg-slate-800/90 rounded p-1.5 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-xs"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-4 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-sm"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
                         <span className="font-medium">{item.name}</span>
@@ -722,7 +722,7 @@ export function MainHeader() {
                       <Link 
                         href="/admin" 
                         onClick={() => handleNavigationClick("/admin")}
-                        className="flex items-center space-x-2 bg-pink-900/80 rounded-lg p-3 border border-pink-400/50 hover:border-pink-400/80 text-pink-200 hover:text-pink-100 transition-all duration-300 hover:bg-pink-800/80 col-span-2 shadow-lg"
+                        className="flex items-center space-x-2 bg-pink-900/80 rounded-lg p-4 border border-pink-400/50 hover:border-pink-400/80 text-pink-200 hover:text-pink-100 transition-all duration-300 hover:bg-pink-800/80 col-span-2 shadow-lg text-sm"
                       >
                         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -735,8 +735,8 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Community Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-3">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
+                <div className="border-b border-[#00ebd6]/20 pb-4">
+                  <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
                     Community
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -745,7 +745,7 @@ export function MainHeader() {
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-4 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-sm"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
                         <span className="font-medium">{item.name}</span>
@@ -755,8 +755,8 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Music Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-3">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
+                <div className="border-b border-[#00ebd6]/20 pb-4">
+                  <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
                     Music
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -765,7 +765,7 @@ export function MainHeader() {
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-4 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-sm"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
                         <span className="font-medium">{item.name}</span>
@@ -775,8 +775,8 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Social Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-3">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
+                <div className="border-b border-[#00ebd6]/20 pb-4">
+                  <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
                     Follow Us
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -786,7 +786,7 @@ export function MainHeader() {
                         href={link.path}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-4 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-sm"
                       >
                         <span className="text-cyan-400">{link.icon}</span>
                         <span className="font-medium">{link.name}</span>
@@ -796,32 +796,36 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Theme Toggle */}
-                <div className="border-b border-[#00ebd6]/20 pb-3">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
-                    Menu Options
+                <div className="border-b border-[#00ebd6]/20 pb-4">
+                  <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
+                    Settings
                   </h3>
                   <div className="flex justify-center">
-                    {/* Theme toggle moved to MainLayout */}
-                    <p className="text-sm text-[#e8e6e3]/70">Theme toggle available in top right</p>
+                    <p className="text-sm text-[#e8e6e3]/80 bg-slate-800/50 rounded-lg p-3 border border-cyan-400/30">
+                      Theme toggle available in top right corner
+                    </p>
                   </div>
                 </div>
 
                 {/* Mobile Search */}
-                <div className="pt-2">
-                  <form onSubmit={handleSearchSubmit} className="mt-2">
-                    <div className="relative">
+                <div className="pt-3">
+                  <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
+                    Search
+                  </h3>
+                  <form onSubmit={handleSearchSubmit}>
+                    <div className="relative mb-4">
                       <input
                         type="text"
                         placeholder="Search..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full px-3 py-2 bg-black/30 text-white placeholder:text-gray-400 border border-white/10 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+                        className="w-full px-4 py-3 bg-black/30 text-white placeholder:text-gray-400 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/50 text-sm"
                       />
-                      <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     </div>
                     <button
                       type="submit"
-                      className="w-full mt-3 px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-md hover:from-cyan-600 hover:to-purple-700 transition-all duration-300"
+                      className="w-full px-4 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-300 text-sm font-medium"
                     >
                       Search
                     </button>
