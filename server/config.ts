@@ -185,10 +185,19 @@ const defaultConfig: ServerConfig = {
  */
 export function loadConfig(): ServerConfig {
   try {
-    // Check for speed mode first
+    // Debug environment variables
+    console.log('Environment Debug:');
+    console.log('ENABLE_SPEED_MODE:', process.env.ENABLE_SPEED_MODE);
+    console.log('SPEED_MODE:', process.env.SPEED_MODE);
+    console.log('STARTUP_PRIORITY:', process.env.STARTUP_PRIORITY);
+    
+    // Check for speed mode flag file first
+    const speedModeFile = path.join(__dirname, '..', '.speed_mode_enabled');
     let startupPriority: StartupPriority;
     
-    if (process.env.ENABLE_SPEED_MODE === 'true' || process.env.SPEED_MODE === 'true') {
+    if (fs.existsSync(speedModeFile) || 
+        process.env.ENABLE_SPEED_MODE === 'true' || 
+        process.env.SPEED_MODE === 'true') {
       startupPriority = 'quickstart';
       console.log('🚀 Speed Mode detected - Using quickstart configuration');
     } else {
