@@ -6,6 +6,7 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { AdminDashboard } from '@/components/admin/AdminDashboard';
+import { AdminErrorBoundary } from '@/components/admin/AdminErrorBoundary';
 import { useToast } from '@/hooks/use-toast';
 
 export default function AdminPage() {
@@ -68,5 +69,9 @@ export default function AdminPage() {
     );
   }
 
-  return <AdminDashboard />;
+  return (
+    <AdminErrorBoundary>
+      <AdminDashboard />
+    </AdminErrorBoundary>
+  );
 }
