@@ -445,9 +445,9 @@ Through their presence, whales teach us:
 
 *Join us in exploring these profound connections between whale wisdom and human consciousness expansion.*`,
         authorId: authorId || '1',
+        slug: `whale-wisdom-${Date.now()}`,
         published: true,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        approved: true
       }).returning();
 
       // Also create a comment for engagement
@@ -455,8 +455,7 @@ Through their presence, whales teach us:
         postId: newPost[0].id,
         authorId: '1',
         content: 'This resonates deeply with my own oceanic meditations. The whale songs truly do carry frequencies of ancient wisdom.',
-        approved: true,
-        createdAt: new Date()
+        approved: true
       });
 
       res.json({
