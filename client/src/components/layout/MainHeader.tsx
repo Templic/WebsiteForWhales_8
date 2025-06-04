@@ -369,29 +369,22 @@ export function MainHeader() {
                 </span>
               </Link>
               
-              {/* Mobile menu button container - Isolated for maximum clickability */}
-              <div className="md:hidden" style={{ position: 'absolute', top: '10px', right: '20px', zIndex: 9999 }}>
-                <button
-                  type="button"
-                  className="text-white hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c]/90 to-[#151d3b]/90 p-3 rounded-lg shadow-lg shadow-cyan-500/50 border border-cyan-500/70 flex items-center gap-2 pointer-events-auto touch-manipulation min-h-[48px] min-w-[48px] backdrop-blur-md"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setIsMobileMenuOpen(!isMobileMenuOpen);
-                  }}
-                  onTouchStart={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                  onTouchEnd={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setIsMobileMenuOpen(!isMobileMenuOpen);
-                  }}
-                  aria-expanded={isMobileMenuOpen}
-                  aria-label="Toggle navigation menu"
-                  style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-                >
+            </div>
+
+            {/* Mobile menu button - Fixed positioning for full clickability */}
+            <div className="md:hidden ml-auto relative z-[100]">
+              <button
+                type="button"
+                className="text-white hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c]/90 to-[#151d3b]/90 p-3 rounded-lg shadow-lg shadow-cyan-500/50 border border-cyan-500/70 flex items-center gap-2 pointer-events-auto touch-manipulation min-h-[48px] min-w-[100px] backdrop-blur-md"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsMobileMenuOpen(!isMobileMenuOpen);
+                }}
+                aria-expanded={isMobileMenuOpen}
+                aria-label="Toggle navigation menu"
+                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+              >
                 {isMobileMenuOpen ? (
                   <>
                     <X className="h-6 w-6" aria-hidden="true" />
@@ -403,8 +396,8 @@ export function MainHeader() {
                     <span className="text-sm font-medium">Menu</span>
                   </>
                 )}
-                </button>
-              </div>
+              </button>
+            </div>
 
             {/* Social Icons - Desktop - Centered */}
             <div className="hidden md:flex items-center justify-center space-x-4 absolute left-1/2 -translate-x-1/2">
@@ -964,7 +957,6 @@ export function MainHeader() {
             </linearGradient>
           </defs>
         </svg>
-      </div>
       </div>
     </header>
   );
