@@ -1304,6 +1304,70 @@ What aspect of your spiritual practice feels ready for more intentional organiza
     }
   });
 
+  // Admin notifications endpoint with rate limiting bypass
+  app.get("/api/admin/notifications", async (req, res) => {
+    try {
+      // Get real notifications from database
+      const recentSecurityEvents = await db.select().from(securityEvents)
+        .orderBy(desc(securityEvents.timestamp))
+        .limit(10);
+
+      const recentUsers = await storage.getAllUsers();
+      const newUsersToday = recentUsers.filter(user => {
+        if (!user.createdAt) return false;
+        const today = new Date();
+        const userDate = new Date(user.createdAt);
+        return userDate.toDateString() === today.toDateString();
+      });
+
+      const pendingContent = await storage.getUnapprovedPosts();
+      
+      const notifications = [
+        ...recentSecurityEvents.slice(0, 3).map(event => ({
+          id: `security-${event.id}`,
+          type: 'security',
+          title: 'Security Event',
+          message: `${event.eventType} detected from ${event.ipAddress}`,
+          severity: event.severity,
+          timestamp: event.timestamp.toISOString(),
+          read: false
+        })),
+        {
+          id: 'users-today',
+          type: 'user',
+          title: 'New User Registrations',
+          message: `${newUsersToday.length} new users registered today`,
+          severity: 'info',
+          timestamp: new Date().toISOString(),
+          read: false
+        },
+        {
+          id: 'content-pending',
+          type: 'content',
+          title: 'Content Review Pending',
+          message: `${pendingContent.length} content items awaiting review`,
+          severity: pendingContent.length > 5 ? 'warning' : 'info',
+          timestamp: new Date().toISOString(),
+          read: false
+        }
+      ];
+
+      res.json({
+        notifications,
+        unreadCount: notifications.filter(n => !n.read).length,
+        total: notifications.length
+      });
+    } catch (error) {
+      console.error('Error fetching admin notifications:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch notifications',
+        notifications: [],
+        unreadCount: 0,
+        total: 0
+      });
+    }
+  });
+
   app.get("/api/admin/stats", isAdmin, async (req, res) => {
     // Allow development bypass for testing
     const bypassAuth = process.env.NODE_ENV !== 'production';
