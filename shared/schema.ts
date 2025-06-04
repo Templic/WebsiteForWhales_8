@@ -28,6 +28,36 @@ import { sql } from 'drizzle-orm';
 // Core Application Schema
 // ===================================================================
 
+// Content Type Enum
+export const contentTypeEnum = pgEnum('content_type', [
+  'text',
+  'html',
+  'image',
+  'video',
+  'audio',
+  'document',
+  'json'
+]);
+
+// Content Status Enum
+export const contentStatusEnum = pgEnum('content_status', [
+  'draft',
+  'review',
+  'approved',
+  'published',
+  'archived',
+  'scheduled'
+]);
+
+// Review Status Enum
+export const reviewStatusEnum = pgEnum('review_status', [
+  'pending',
+  'in_progress',
+  'approved',
+  'rejected',
+  'changes_requested'
+]);
+
 // Blog posts and comments tables
 export const posts = pgTable("posts", {
   id: serial("id").primaryKey(),
@@ -896,38 +926,6 @@ export const projectFiles = pgTable('project_files', {
 });
 
 // Content Management System - Enhanced Schema
-
-// Content Type Enum
-export const contentTypeEnum = pgEnum('content_type', [
-  'text',
-  'html',
-  'image',
-  'video',
-  'audio',
-  'document',
-  'json'
-]);
-
-// Content Status Enum
-export const contentStatusEnum = pgEnum('content_status', [
-  'draft',
-  'review',
-  'approved',
-  'published',
-  'archived',
-  'scheduled'
-]);
-
-// Review Status Enum
-export const reviewStatusEnum = pgEnum('review_status', [
-  'pending',
-  'in_progress',
-  'approved',
-  'rejected',
-  'changes_requested'
-]);
-
-// Enhanced Content Schema - removed duplicate
 
 // Content Version History Table
 export const contentHistory = pgTable('content_history', {
