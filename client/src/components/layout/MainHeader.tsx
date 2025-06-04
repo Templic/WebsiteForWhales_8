@@ -740,10 +740,10 @@ export function MainHeader() {
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-1 bg-black/30 rounded-md p-2 border border-[#00ebd6]/10 hover:border-[#00ebd6]/30 text-[#e8e6e3] hover:text-[#00ebd6] transition-colors"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
-                        <span>{item.name}</span>
+                        <span className="font-medium">{item.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -760,10 +760,10 @@ export function MainHeader() {
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-1 bg-black/30 rounded-md p-2 border border-[#00ebd6]/10 hover:border-[#00ebd6]/30 text-[#e8e6e3] hover:text-[#00ebd6] transition-colors"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
-                        <span>{item.name}</span>
+                        <span className="font-medium">{item.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -781,10 +781,10 @@ export function MainHeader() {
                         href={link.path}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-1 bg-black/30 rounded-md p-2 border border-[#00ebd6]/10 hover:border-[#00ebd6]/30 text-[#e8e6e3] hover:text-[#00ebd6] transition-colors"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
                       >
                         <span className="text-cyan-400">{link.icon}</span>
-                        <span>{link.name}</span>
+                        <span className="font-medium">{link.name}</span>
                       </a>
                     ))}
                   </div>
