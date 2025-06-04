@@ -339,7 +339,7 @@ export function MainHeader() {
         <div className="hidden md:block absolute -inset-2 rounded-3xl bg-gradient-to-r from-cyan-500/10 via-purple-500/5 to-cyan-500/10 blur-2xl opacity-40"></div>
         
         {/* Main Content Container */}
-<div className="relative py-2 min-h-[60px]" style={{ zIndex: 100 }}>
+        <div className="relative py-2 min-h-[60px]" style={{ zIndex: 100 }}>
           <div className="flex items-center justify-between w-full h-full">
             {/* Logo - Always visible */}
             <div className="flex items-center min-w-0 flex-shrink-0">
@@ -887,7 +887,6 @@ export function MainHeader() {
             </div>
           </div>
         </div>
-      </div>
       
       {/* Five-pointed star positioned behind content for mobile view */}
       <div className="absolute right-2 top-1/2 transform -translate-y-1/2 md:hidden" style={{ zIndex: 5 }}>
