@@ -371,31 +371,58 @@ export function MainHeader() {
               
             </div>
 
-            {/* Mobile menu button - Fixed positioning for full clickability */}
-            <div className="md:hidden ml-auto relative z-[100]">
+            {/* Mobile menu button - Enhanced for full clickability */}
+            <div className="md:hidden ml-auto relative" style={{ zIndex: 999 }}>
               <button
                 type="button"
-                className="text-white hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c]/90 to-[#151d3b]/90 p-3 rounded-lg shadow-lg shadow-cyan-500/50 border border-cyan-500/70 flex items-center gap-2 pointer-events-auto touch-manipulation min-h-[48px] min-w-[100px] backdrop-blur-md"
+                className="relative text-white hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c]/95 to-[#151d3b]/95 p-4 rounded-lg shadow-lg shadow-cyan-500/50 border border-cyan-500/70 flex items-center justify-center gap-2 min-h-[56px] min-w-[110px] backdrop-blur-md cursor-pointer select-none"
                 onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsMobileMenuOpen(!isMobileMenuOpen);
+                }}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onTouchEnd={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   setIsMobileMenuOpen(!isMobileMenuOpen);
                 }}
                 aria-expanded={isMobileMenuOpen}
                 aria-label="Toggle navigation menu"
-                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                style={{ 
+                  touchAction: 'manipulation', 
+                  WebkitTapHighlightColor: 'transparent',
+                  position: 'relative',
+                  zIndex: 999,
+                  pointerEvents: 'auto'
+                }}
               >
-                {isMobileMenuOpen ? (
-                  <>
-                    <X className="h-6 w-6" aria-hidden="true" />
-                    <span className="text-sm font-medium">Close</span>
-                  </>
-                ) : (
-                  <>
-                    <Menu className="h-6 w-6" aria-hidden="true" />
-                    <span className="text-sm font-medium">Menu</span>
-                  </>
-                )}
+                {/* Ensure click area covers entire button */}
+                <div 
+                  className="absolute inset-0 cursor-pointer"
+                  style={{ 
+                    zIndex: 1,
+                    pointerEvents: 'auto'
+                  }}
+                />
+                
+                {/* Button content */}
+                <div className="relative flex items-center gap-2" style={{ zIndex: 2 }}>
+                  {isMobileMenuOpen ? (
+                    <>
+                      <X className="h-6 w-6 pointer-events-none" aria-hidden="true" />
+                      <span className="text-sm font-medium pointer-events-none">Close</span>
+                    </>
+                  ) : (
+                    <>
+                      <Menu className="h-6 w-6 pointer-events-none" aria-hidden="true" />
+                      <span className="text-sm font-medium pointer-events-none">Menu</span>
+                    </>
+                  )}
+                </div>
               </button>
             </div>
 
