@@ -683,7 +683,7 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-0 bg-slate-900 transform transition-transform ease-in-out duration-300
+              fixed bg-slate-900 transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
             style={{ 
@@ -693,12 +693,13 @@ export function MainHeader() {
               position: 'fixed',
               top: 0,
               left: 0,
-              right: 0,
-              bottom: 0
+              width: '100vw',
+              height: '100vh'
             }}
           >
-            <div className="h-full flex flex-col justify-start">
-              <nav className="flex-1 p-4 pt-16 space-y-4 overflow-y-auto min-h-0">
+            <div className="w-full h-full flex flex-col">
+              <nav className="w-full h-full p-4 pt-16 space-y-3 overflow-y-auto"
+                   style={{ minHeight: '100vh' }}>
                 {/* Mobile Primary Links */}
                 <div className="border-b border-[#00ebd6]/20 pb-3">
                   <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
