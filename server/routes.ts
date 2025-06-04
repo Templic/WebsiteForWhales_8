@@ -1307,31 +1307,20 @@ What aspect of your spiritual practice feels ready for more intentional organiza
   // Admin notifications endpoint with rate limiting bypass
   app.get("/api/admin/notifications", async (req, res) => {
     try {
-      // Get real notifications from database
-      const recentSecurityEvents = await db.select().from(securityEvents)
-        .orderBy(desc(securityEvents.timestamp))
-        .limit(10);
-
+      // Get real notifications from database - using available tables
       const recentUsers = await storage.getAllUsers();
+      const recentPosts = await storage.getAllPosts();
+      const pendingContent = await storage.getUnapprovedPosts();
+      const pendingComments = await storage.getUnapprovedComments();
+      
       const newUsersToday = recentUsers.filter(user => {
         if (!user.createdAt) return false;
         const today = new Date();
         const userDate = new Date(user.createdAt);
         return userDate.toDateString() === today.toDateString();
       });
-
-      const pendingContent = await storage.getUnapprovedPosts();
       
       const notifications = [
-        ...recentSecurityEvents.slice(0, 3).map(event => ({
-          id: `security-${event.id}`,
-          type: 'security',
-          title: 'Security Event',
-          message: `${event.eventType} detected from ${event.ipAddress}`,
-          severity: event.severity,
-          timestamp: event.timestamp.toISOString(),
-          read: false
-        })),
         {
           id: 'users-today',
           type: 'user',

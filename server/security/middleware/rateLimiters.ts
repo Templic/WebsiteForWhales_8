@@ -45,6 +45,18 @@ interface RateLimiterOptions {
 }
 
 /**
+ * Admin bypass function - skips rate limiting for admin endpoints
+ */
+const shouldSkipAdminRateLimit = (req: Request): boolean => {
+  const isAdminEndpoint = req.path.startsWith('/api/admin/');
+  const isNotificationsEndpoint = req.path === '/api/admin/notifications';
+  const isStatsEndpoint = req.path === '/api/admin/stats';
+  const isSecurityEndpoint = req.path.startsWith('/api/admin/security/');
+  
+  return isAdminEndpoint || isNotificationsEndpoint || isStatsEndpoint || isSecurityEndpoint;
+};
+
+/**
  * Default rate limiter options
  */
 const defaultOptions: RateLimiterOptions = {
@@ -70,6 +82,11 @@ export function createRateLimiter(options: Partial<RateLimiterOptions> = {}) {
   const opts = { ...defaultOptions, ...options };
   
   return function rateLimiter(req: Request, res: Response, next: NextFunction) {
+    // Skip rate limiting for admin endpoints
+    if (shouldSkipAdminRateLimit(req)) {
+      return next();
+    }
+    
     // Skip rate limiting if the skip function returns true
     if (opts.skip && opts.skip(req, res)) {
       return next();
