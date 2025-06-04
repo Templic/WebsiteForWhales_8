@@ -683,30 +683,35 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-[70px] bg-slate-900 z-[9999] transform transition-transform ease-in-out duration-300
+              fixed inset-0 top-0 bg-slate-900 transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
             style={{ 
               backgroundColor: 'rgba(15, 23, 42, 0.98)',
               backdropFilter: 'blur(10px)',
-              zIndex: 9999
+              zIndex: 99999,
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0
             }}
           >
-            <div className="h-full flex flex-col justify-start max-h-screen overflow-hidden">
-              <nav className="flex-1 p-4 space-y-4">
+            <div className="h-full flex flex-col justify-start overflow-hidden">
+              <nav className="flex-1 p-3 pt-16 space-y-2">
                 {/* Mobile Primary Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-4">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
+                <div className="border-b border-[#00ebd6]/20 pb-2">
+                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-2">
                     Navigation
                   </h3>
                   
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2">
                     {[...primaryNavItems, ...secondaryNavItems].map((item) => (
                       <Link
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-2 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg text-sm"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
                         <span className="font-medium">{item.name}</span>
