@@ -118,6 +118,7 @@ import { LoginPage } from '@/pages/Login'; //Import added here
 import EditButtonPageFC from '@/pages/admin/EditButtonPage';
 const EditButtonPage = () => <EditButtonPageFC />;
 import AdminPortalPage from '@/pages/AdminPortalPage';
+import SimpleAdminPortal from '@/pages/SimpleAdminPortal';
 
 // TypeScript Error Management
 import TypeScriptErrorDashboard from "@/pages/admin/TypeScriptErrorDashboard";
@@ -261,6 +262,7 @@ function AppRouter() {
           <ProtectedRoute path="/admin/typescript-errors" component={TypeScriptErrorDashboard} requiredRole="super_admin" />
           <ProtectedRoute path="/admin/deadlinks" component={DeadLinkCheckerPage} requiredRole="admin" />
           <ProtectedRoute path="/admin-portal" component={AdminPortalPage} requiredRole="admin" />
+          <Route path="/simple-admin" component={SimpleAdminPortal} />
 
           {/* Resource Pages */}
           <Route path="/resources" component={ResourcesPage} />
