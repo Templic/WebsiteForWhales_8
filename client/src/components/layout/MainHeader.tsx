@@ -368,10 +368,10 @@ export function MainHeader() {
                 </span>
               </Link>
               
-              {/* Mobile menu button - Enhanced visibility with text */}
+              {/* Mobile menu button - Enhanced visibility with text and higher z-index */}
               <button
                 type="button"
-                className="ml-4 md:hidden text-[#e8e6e3] hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c] to-[#151d3b] p-2 pl-3 pr-4 rounded-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/50 flex items-center gap-2"
+                className="ml-4 md:hidden text-[#e8e6e3] hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c] to-[#151d3b] p-2 pl-3 pr-4 rounded-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/50 flex items-center gap-2 relative z-[60] pointer-events-auto touch-manipulation"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-expanded={isMobileMenuOpen}
                 aria-label="Toggle navigation menu"
@@ -667,19 +667,19 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-[70px] bg-[#0a1f3c]/95 backdrop-blur-md z-40 transform transition-transform ease-in-out duration-300
+              fixed inset-0 top-[70px] bg-[#0a1f3c]/95 backdrop-blur-md z-50 transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
           >
-            <div className="h-full overflow-y-auto pt-4 pb-20">
-              <nav className="px-4 space-y-6">
+            <div className="h-full flex flex-col justify-start max-h-screen overflow-hidden">
+              <nav className="flex-1 p-4 space-y-4">
                 {/* Mobile Primary Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-6">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
+                <div className="border-b border-[#00ebd6]/20 pb-4">
+                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
                     Navigation
                   </h3>
                   
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3">
                     {[...primaryNavItems, ...secondaryNavItems].map((item) => (
                       <Link
                         key={item.path}
@@ -709,11 +709,11 @@ export function MainHeader() {
                 </div>
 
                 {/* Mobile Community Links */}
-                <div className="border-b border-[#00ebd6]/20 pb-6">
-                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-4">
+                <div className="border-b border-[#00ebd6]/20 pb-3">
+                  <h3 className="text-xs font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
                     Community
                   </h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3">
                     {communityLinks.map(item => (
                       <Link
                         key={item.path}
