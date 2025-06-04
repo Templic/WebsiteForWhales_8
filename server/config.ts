@@ -199,7 +199,7 @@ export function loadConfig(): ServerConfig {
         process.env.ENABLE_SPEED_MODE === 'true' || 
         process.env.SPEED_MODE === 'true') {
       startupPriority = 'quickstart';
-      console.log('🚀 Speed Mode detected - Using quickstart configuration');
+      console.log('🚀 Ultra Speed Mode detected - Using maximum performance configuration');
     } else {
       startupPriority = (process.env.STARTUP_PRIORITY as StartupPriority) || 'full';
     }

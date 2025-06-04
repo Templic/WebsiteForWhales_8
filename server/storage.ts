@@ -1056,6 +1056,12 @@ export class PostgresStorage implements IStorage {
   }
 
   async initializeSampleData() {
+    // Skip sample data initialization in speed mode
+    if (process.env.SKIP_SAMPLE_DATA === 'true' || process.env.SPEED_MODE === 'true') {
+      console.log("⚡ Speed mode: Skipping sample data initialization for faster startup");
+      return;
+    }
+    
     console.log("Initializing sample data with batch approach...");
     
     // Reusable function to initialize a table with sample data
