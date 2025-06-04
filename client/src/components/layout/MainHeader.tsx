@@ -944,7 +944,6 @@ export function MainHeader() {
           </defs>
         </svg>
       </div>
-        </div>
       </div>
     </header>
   );
