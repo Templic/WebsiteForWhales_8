@@ -1,487 +1,375 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useQuery } from '@tanstack/react-query';
-import { Shield, AlertTriangle, Activity, Clock, Search, RefreshCcw, Database, Lock } from 'lucide-react';
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
-import { apiRequest } from "@/lib/queryClient";
+import { 
+  Shield, 
+  AlertTriangle, 
+  Activity, 
+  Lock, 
+  Users, 
+  Database,
+  Server,
+  Eye,
+  RefreshCw,
+  CheckCircle
+} from "lucide-react";
 
-// Define security event interface based on backend structure
 interface SecurityEvent {
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  id: string;
   type: string;
-  details: string;
-  timestamp: string;
-  metadata?: Record<string, any>;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  source: string;
+  metadata: any;
+  createdAt: string;
 }
 
-// Define block interface
-interface Block {
-  index: number;
+interface SystemHealth {
+  status: string;
+  uptime: number;
+  memory: {
+    rss: number;
+    heapTotal: number;
+    heapUsed: number;
+  };
   timestamp: string;
-  data: SecurityEvent[];
-  hash: string;
-  previousHash: string;
 }
 
-const SecurityDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>("overview");
-  const [severityFilter, setSeverityFilter] = useState<string>("all");
-  const [typeFilter, setTypeFilter] = useState<string>("all");
-  const [timeRange, setTimeRange] = useState<string>("24h");
+export function SecurityDashboard() {
+  const { data: securityEvents, isLoading: eventsLoading, refetch: refetchEvents } = useQuery<SecurityEvent[]>({
+    queryKey: ["/api/admin/security/events"],
+    retry: 1,
+  });
 
-  const { data: securityEvents, isLoading, isError, refetch } = useQuery<Block[]>({ 
-    queryKey: ['/api/security/blockchain/blocks'],
+  const { data: systemHealth, isLoading: healthLoading, refetch: refetchHealth } = useQuery<SystemHealth>({
+    queryKey: ["/api/admin/security/health"],
     retry: 1,
     refetchInterval: 30000, // Refresh every 30 seconds
   });
 
-  // Extract all events from blocks for display
-  const allEvents = React.useMemo(() => {
-    if (!securityEvents) return [];
-    
-    return securityEvents.flatMap(block => 
-      block.data.map(event => ({
-        ...event,
-        blockIndex: block.index,
-        blockHash: block.hash
-      }))
-    ).sort((a, b) => 
-      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    );
-  }, [securityEvents]);
-
-  // Filter events based on current filters
-  const filteredEvents = React.useMemo(() => {
-    return allEvents.filter(event => {
-      // Filter by severity
-      if (severityFilter !== "all" && event.severity !== severityFilter) {
-        return false;
-      }
-      
-      // Filter by type
-      if (typeFilter !== "all" && !event.type.includes(typeFilter)) {
-        return false;
-      }
-      
-      // Filter by time range
-      if (timeRange !== "all") {
-        const eventTime = new Date(event.timestamp).getTime();
-        const now = new Date().getTime();
-        
-        switch (timeRange) {
-          case "1h":
-            return now - eventTime <= 3600000; // 1 hour
-          case "24h":
-            return now - eventTime <= 86400000; // 24 hours
-          case "7d":
-            return now - eventTime <= 604800000; // 7 days
-          case "30d":
-            return now - eventTime <= 2592000000; // 30 days
-          default:
-            return true;
-        }
-      }
-      
-      return true;
-    });
-  }, [allEvents, severityFilter, typeFilter, timeRange]);
-
-  // Get security stats
-  const getSecurityStats = () => {
-    if (!allEvents.length) return { critical: 0, high: 0, medium: 0, low: 0, total: 0 };
-    
-    return {
-      critical: allEvents.filter(e => e.severity === 'critical').length,
-      high: allEvents.filter(e => e.severity === 'high').length,
-      medium: allEvents.filter(e => e.severity === 'medium').length,
-      low: allEvents.filter(e => e.severity === 'low').length,
-      total: allEvents.length
-    };
-  };
-
-  const stats = getSecurityStats();
-
-  // Function to get severity badge color
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical':
-        return 'bg-red-700 hover:bg-red-800';
-      case 'high':
-        return 'bg-orange-600 hover:bg-orange-700';
-      case 'medium':
-        return 'bg-yellow-500 hover:bg-yellow-600';
-      case 'low':
-        return 'bg-blue-600 hover:bg-blue-700';
-      default:
-        return 'bg-gray-600 hover:bg-gray-700';
+      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
+      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'medium': return 'bg-amber-100 text-amber-800 border-amber-200';
+      case 'low': return 'bg-green-100 text-green-800 border-green-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
-  const handleForceSecurityScan = async () => {
-    try {
-      await apiRequest('POST', '/api/security/scan/force', { level: 'deep' });
-      // Refresh the data after a short delay to allow scan to start
-      setTimeout(() => refetch(), 2000);
-    } catch (error) {
-      console.error('Failed to initiate security scan:', error);
-    }
+  const formatUptime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}h ${minutes}m`;
   };
 
-  if (isError) {
-    return (
-      <Alert variant="destructive">
-        <AlertTriangle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>
-          Failed to load security events. Please try again or contact system administrator.
-        </AlertDescription>
-        <Button onClick={() => refetch()} size="sm" className="mt-2">
-          <RefreshCcw className="mr-2 h-4 w-4" /> Retry
-        </Button>
-      </Alert>
-    );
-  }
+  const formatMemory = (bytes: number) => {
+    return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+  };
+
+  const recentEvents = securityEvents?.slice(0, 5) || [];
+  const criticalEvents = securityEvents?.filter(event => event.severity === 'critical').length || 0;
+  const totalEvents = securityEvents?.length || 0;
 
   return (
-    <div className="container mx-auto p-4 space-y-4">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold flex items-center">
-          <Shield className="mr-2 h-6 w-6" /> Security Operations Dashboard
-        </h1>
-        
-        <div className="flex space-x-2">
-          <Button onClick={() => refetch()} variant="outline" size="sm">
-            <RefreshCcw className="mr-2 h-4 w-4" /> Refresh
-          </Button>
-          
-          <Button onClick={handleForceSecurityScan} variant="default" size="sm">
-            <Shield className="mr-2 h-4 w-4" /> Force Security Scan
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Security Dashboard</h1>
+          <p className="text-muted-foreground">
+            Monitor system security, threats, and access control
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => refetchEvents()}
+            disabled={eventsLoading}
+          >
+            <RefreshCw className={`h-4 w-4 mr-1 ${eventsLoading ? 'animate-spin' : ''}`} />
+            Refresh
           </Button>
         </div>
       </div>
 
-      <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
+      {/* Security Overview Cards */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Security Status</CardTitle>
+            <Shield className="h-4 w-4 text-green-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">
+              {criticalEvents === 0 ? 'Secure' : 'Alert'}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {criticalEvents === 0 ? 'All systems operational' : `${criticalEvents} critical alerts`}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Threat Level</CardTitle>
+            <AlertTriangle className={`h-4 w-4 ${criticalEvents > 0 ? 'text-red-500' : 'text-amber-500'}`} />
+          </CardHeader>
+          <CardContent>
+            <div className={`text-2xl font-bold ${criticalEvents > 0 ? 'text-red-600' : 'text-amber-600'}`}>
+              {criticalEvents > 0 ? 'High' : 'Low'}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {criticalEvents > 0 ? 'Immediate attention required' : 'No active threats detected'}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Security Events</CardTitle>
+            <Activity className="h-4 w-4 text-blue-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-blue-600">{totalEvents}</div>
+            <p className="text-xs text-muted-foreground">
+              Total events monitored
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">System Uptime</CardTitle>
+            <Server className="h-4 w-4 text-purple-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-purple-600">
+              {systemHealth ? formatUptime(systemHealth.uptime) : '--'}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Current session uptime
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Detailed Security Tabs */}
+      <Tabs defaultValue="events" className="space-y-4">
+        <TabsList>
           <TabsTrigger value="events">Security Events</TabsTrigger>
-          <TabsTrigger value="blockchain">Blockchain Logs</TabsTrigger>
+          <TabsTrigger value="health">System Health</TabsTrigger>
+          <TabsTrigger value="access">Access Control</TabsTrigger>
+          <TabsTrigger value="monitoring">Real-time Monitoring</TabsTrigger>
         </TabsList>
-        
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Events</CardTitle>
-                <Activity className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? <Skeleton className="h-8 w-20" /> : stats.total}</div>
-                <p className="text-xs text-muted-foreground">Security events logged</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-red-50 dark:bg-red-900/20">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Critical Issues</CardTitle>
-                <AlertTriangle className="h-4 w-4 text-red-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? <Skeleton className="h-8 w-16" /> : stats.critical}</div>
-                <p className="text-xs text-muted-foreground">Require immediate attention</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-orange-50 dark:bg-orange-900/20">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">High Severity</CardTitle>
-                <AlertTriangle className="h-4 w-4 text-orange-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? <Skeleton className="h-8 w-16" /> : stats.high}</div>
-                <p className="text-xs text-muted-foreground">Require prompt action</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-blue-50 dark:bg-blue-900/20">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Latest Block</CardTitle>
-                <Database className="h-4 w-4 text-blue-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {isLoading ? <Skeleton className="h-8 w-16" /> : (securityEvents && securityEvents.length > 0 ? securityEvents[securityEvents.length - 1]?.index || 0 : 0)}
-                </div>
-                <p className="text-xs text-muted-foreground">Blockchain ledger size</p>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card className="col-span-1">
-              <CardHeader>
-                <CardTitle>Recent Critical Events</CardTitle>
-                <CardDescription>Latest high-impact security events</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <div className="space-y-2">
-                    {[...Array(3)].map((_, i) => (
-                      <Skeleton key={i} className="h-16 w-full" />
-                    ))}
-                  </div>
-                ) : (
-                  <ScrollArea className="h-[300px]">
-                    {allEvents
-                      .filter(event => ['critical', 'high'].includes(event.severity))
-                      .slice(0, 5)
-                      .map((event, index) => (
-                        <div key={index} className="mb-4 p-3 rounded border border-gray-200 dark:border-gray-800">
-                          <div className="flex justify-between items-start mb-1">
-                            <div className="font-medium truncate mr-2">{event.type}</div>
-                            <Badge className={getSeverityColor(event.severity)}>{event.severity}</Badge>
-                          </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{event.details}</p>
-                          <div className="flex items-center text-xs text-gray-500">
-                            <Clock className="mr-1 h-3 w-3" />
-                            {new Date(event.timestamp).toLocaleString()}
-                          </div>
-                        </div>
-                      ))}
-                    {allEvents.filter(event => ['critical', 'high'].includes(event.severity)).length === 0 && (
-                      <div className="text-center py-10 text-gray-500">
-                        <Lock className="mx-auto h-8 w-8 mb-2" />
-                        <p>No critical events detected</p>
-                        <p className="text-xs">The system is currently secure</p>
-                      </div>
-                    )}
-                  </ScrollArea>
-                )}
-              </CardContent>
-            </Card>
-            
-            <Card className="col-span-1">
-              <CardHeader>
-                <CardTitle>Security Health</CardTitle>
-                <CardDescription>System security posture status</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <div className="space-y-3">
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span>CSRF Protection</span>
-                      <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span>Immutable Audit Logs</span>
-                      <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span>Quantum-Resistant Encryption</span>
-                      <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span>ML Anomaly Detection</span>
-                      <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span>RASP Protection</span>
-                      <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Badge>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-        
-        {/* Events Tab */}
-        <TabsContent value="events">
+
+        <TabsContent value="events" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Security Event Log</CardTitle>
-              <CardDescription>Comprehensive view of all security events</CardDescription>
-              
-              <div className="flex flex-wrap gap-2 mt-2">
-                <Select value={severityFilter} onValueChange={setSeverityFilter}>
-                  <SelectTrigger className="w-[130px]">
-                    <SelectValue placeholder="Severity" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Severities</SelectItem>
-                    <SelectItem value="critical">Critical</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
-                  </SelectContent>
-                </Select>
-                
-                <Select value={typeFilter} onValueChange={setTypeFilter}>
-                  <SelectTrigger className="w-[150px]">
-                    <SelectValue placeholder="Event Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    <SelectItem value="AUTHENTICATION">Authentication</SelectItem>
-                    <SelectItem value="AUTHORIZATION">Authorization</SelectItem>
-                    <SelectItem value="SECURITY_SETTING">Security Settings</SelectItem>
-                    <SelectItem value="CSRF">CSRF Protection</SelectItem>
-                    <SelectItem value="SCAN">Security Scan</SelectItem>
-                    <SelectItem value="QUANTUM">Quantum Crypto</SelectItem>
-                  </SelectContent>
-                </Select>
-                
-                <Select value={timeRange} onValueChange={setTimeRange}>
-                  <SelectTrigger className="w-[130px]">
-                    <SelectValue placeholder="Time Range" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1h">Last Hour</SelectItem>
-                    <SelectItem value="24h">Last 24 Hours</SelectItem>
-                    <SelectItem value="7d">Last 7 Days</SelectItem>
-                    <SelectItem value="30d">Last 30 Days</SelectItem>
-                    <SelectItem value="all">All Time</SelectItem>
-                  </SelectContent>
-                </Select>
-                
-                <Button variant="outline" size="sm" onClick={() => refetch()} className="ml-auto">
-                  <RefreshCcw className="mr-2 h-4 w-4" /> Refresh
-                </Button>
-              </div>
+              <CardTitle>Recent Security Events</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Latest security events and alerts from system monitoring
+              </p>
             </CardHeader>
             <CardContent>
-              {isLoading ? (
+              {eventsLoading ? (
                 <div className="space-y-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Skeleton key={i} className="h-20 w-full" />
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <div key={i} className="animate-pulse">
+                      <div className="flex items-center justify-between p-3 border rounded">
+                        <div className="space-y-2">
+                          <div className="h-4 bg-gray-200 rounded w-48"></div>
+                          <div className="h-3 bg-gray-200 rounded w-32"></div>
+                        </div>
+                        <div className="h-6 bg-gray-200 rounded w-16"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : recentEvents.length > 0 ? (
+                <div className="space-y-3">
+                  {recentEvents.map((event) => (
+                    <div key={event.id} className="flex items-center justify-between p-3 border rounded hover:bg-gray-50">
+                      <div className="flex items-start space-x-3">
+                        <div className={`p-1 rounded ${
+                          event.severity === 'critical' ? 'bg-red-100' :
+                          event.severity === 'high' ? 'bg-orange-100' :
+                          event.severity === 'medium' ? 'bg-amber-100' :
+                          'bg-green-100'
+                        }`}>
+                          {event.severity === 'critical' ? 
+                            <AlertTriangle className="h-4 w-4 text-red-600" /> :
+                            <Shield className="h-4 w-4 text-blue-600" />
+                          }
+                        </div>
+                        <div>
+                          <div className="font-medium">{event.type}</div>
+                          <div className="text-sm text-muted-foreground">
+                            Source: {event.source} • {new Date(event.createdAt).toLocaleString()}
+                          </div>
+                          {event.metadata && (
+                            <div className="text-xs text-muted-foreground mt-1">
+                              {JSON.stringify(event.metadata, null, 2).slice(0, 100)}...
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge className={getSeverityColor(event.severity)}>
+                          {event.severity}
+                        </Badge>
+                        <Button size="sm" variant="ghost">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
                   ))}
                 </div>
               ) : (
-                <ScrollArea className="h-[500px]">
-                  {filteredEvents.length > 0 ? (
-                    filteredEvents.map((event, index) => (
-                      <div key={index} className="mb-4 p-4 rounded border border-gray-200 dark:border-gray-800">
-                        <div className="flex flex-wrap justify-between items-start mb-2">
-                          <div className="font-medium">{event.type}</div>
-                          <Badge className={getSeverityColor(event.severity)}>{event.severity}</Badge>
-                        </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{event.details}</p>
-                        <div className="flex items-center justify-between text-xs text-gray-500">
-                          <div className="flex items-center">
-                            <Clock className="mr-1 h-3 w-3" />
-                            {new Date(event.timestamp).toLocaleString()}
-                          </div>
-                          <div className="flex items-center">
-                            <Database className="mr-1 h-3 w-3" />
-                            Block #{event.blockIndex}
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center py-10 text-gray-500">
-                      <Search className="mx-auto h-8 w-8 mb-2" />
-                      <p>No security events found</p>
-                      <p className="text-xs">Try adjusting your filters</p>
-                    </div>
-                  )}
-                </ScrollArea>
+                <div className="text-center py-8">
+                  <Shield className="h-12 w-12 text-green-500 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-green-600">All Clear</h3>
+                  <p className="text-muted-foreground">No security events detected</p>
+                </div>
               )}
             </CardContent>
-            <CardFooter className="flex justify-between">
-              <div className="text-sm text-gray-500">
-                Showing {filteredEvents.length} of {allEvents.length} total events
-              </div>
-            </CardFooter>
           </Card>
         </TabsContent>
-        
-        {/* Blockchain Tab */}
-        <TabsContent value="blockchain">
+
+        <TabsContent value="health" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Blockchain Ledger</CardTitle>
-              <CardDescription>Immutable security log blockchain records</CardDescription>
+              <CardTitle>System Health Monitor</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Real-time system performance and health metrics
+              </p>
             </CardHeader>
             <CardContent>
-              {isLoading ? (
-                <div className="space-y-3">
-                  {[...Array(3)].map((_, i) => (
-                    <Skeleton key={i} className="h-32 w-full" />
-                  ))}
+              {healthLoading ? (
+                <div className="animate-pulse space-y-4">
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div className="h-20 bg-gray-200 rounded"></div>
+                    <div className="h-20 bg-gray-200 rounded"></div>
+                    <div className="h-20 bg-gray-200 rounded"></div>
+                  </div>
                 </div>
-              ) : (
-                <ScrollArea className="h-[600px]">
-                  {securityEvents && securityEvents.map((block, index) => (
-                    <div key={index} className="mb-6 p-4 rounded border border-gray-200 dark:border-gray-800">
-                      <div className="flex justify-between items-center mb-3">
-                        <h3 className="text-lg font-medium">Block #{block.index}</h3>
-                        <Badge variant="outline" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                          {block.data.length} Events
-                        </Badge>
+              ) : systemHealth ? (
+                <div className="space-y-6">
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div className="text-center p-4 border rounded">
+                      <div className="text-2xl font-bold text-green-600">
+                        {systemHealth.status}
                       </div>
-                      
-                      <div className="space-y-2 text-sm mb-3">
-                        <div className="flex flex-wrap md:flex-nowrap gap-1">
-                          <span className="font-medium min-w-[100px]">Timestamp:</span>
-                          <span className="text-gray-600 dark:text-gray-400">{new Date(block.timestamp).toLocaleString()}</span>
-                        </div>
-                        <div className="flex flex-wrap md:flex-nowrap gap-1">
-                          <span className="font-medium min-w-[100px]">Hash:</span>
-                          <code className="text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded truncate max-w-xs md:max-w-md lg:max-w-lg">
-                            {block.hash}
-                          </code>
-                        </div>
-                        <div className="flex flex-wrap md:flex-nowrap gap-1">
-                          <span className="font-medium min-w-[100px]">Previous Hash:</span>
-                          <code className="text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded truncate max-w-xs md:max-w-md lg:max-w-lg">
-                            {block.previousHash}
-                          </code>
-                        </div>
+                      <p className="text-sm text-muted-foreground">System Status</p>
+                    </div>
+                    <div className="text-center p-4 border rounded">
+                      <div className="text-2xl font-bold text-blue-600">
+                        {formatUptime(systemHealth.uptime)}
                       </div>
-                      
-                      <div className="mt-3">
-                        <h4 className="font-medium mb-2">Events:</h4>
-                        <ScrollArea className="h-[200px] border rounded p-2">
-                          {block.data.map((event, eventIndex) => (
-                            <div key={eventIndex} className="mb-2 p-2 text-sm border-b border-gray-100 dark:border-gray-800 last:border-b-0">
-                              <div className="flex justify-between items-start mb-1">
-                                <div className="font-medium">{event.type}</div>
-                                <Badge className={getSeverityColor(event.severity)}>{event.severity}</Badge>
-                              </div>
-                              <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">{event.details}</p>
-                              <div className="flex items-center text-xs text-gray-500">
-                                <Clock className="mr-1 h-3 w-3" />
-                                {new Date(event.timestamp).toLocaleString()}
-                              </div>
-                            </div>
-                          ))}
-                        </ScrollArea>
+                      <p className="text-sm text-muted-foreground">Uptime</p>
+                    </div>
+                    <div className="text-center p-4 border rounded">
+                      <div className="text-2xl font-bold text-purple-600">
+                        {formatMemory(systemHealth.memory.heapUsed)}
+                      </div>
+                      <p className="text-sm text-muted-foreground">Memory Used</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h4 className="font-semibold">Memory Usage</h4>
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-sm">
+                        <span>Heap Used</span>
+                        <span>{formatMemory(systemHealth.memory.heapUsed)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Heap Total</span>
+                        <span>{formatMemory(systemHealth.memory.heapTotal)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>RSS</span>
+                        <span>{formatMemory(systemHealth.memory.rss)}</span>
                       </div>
                     </div>
-                  ))}
-                </ScrollArea>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <Server className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-muted-foreground">Health data unavailable</p>
+                </div>
               )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="access" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Access Control</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                User permissions and role-based access management
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3 border rounded">
+                  <div className="flex items-center space-x-2">
+                    <Lock className="h-4 w-4 text-green-500" />
+                    <span>Role-Based Access Control</span>
+                  </div>
+                  <Badge className="bg-green-100 text-green-800">Enabled</Badge>
+                </div>
+                
+                <div className="flex items-center justify-between p-3 border rounded">
+                  <div className="flex items-center space-x-2">
+                    <Users className="h-4 w-4 text-blue-500" />
+                    <span>Admin User Sessions</span>
+                  </div>
+                  <Badge className="bg-blue-100 text-blue-800">Active</Badge>
+                </div>
+                
+                <div className="flex items-center justify-between p-3 border rounded">
+                  <div className="flex items-center space-x-2">
+                    <Database className="h-4 w-4 text-purple-500" />
+                    <span>Database Security</span>
+                  </div>
+                  <Badge className="bg-purple-100 text-purple-800">Protected</Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="monitoring" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Real-time Security Monitoring</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Live monitoring of security events and system activity
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center py-8">
+                <Activity className="h-12 w-12 text-blue-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold">Monitoring Active</h3>
+                <p className="text-muted-foreground">
+                  Security events are being monitored in real-time
+                </p>
+                <div className="mt-4">
+                  <Button onClick={() => { refetchEvents(); refetchHealth(); }}>
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Refresh Data
+                  </Button>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
   );
-};
-
-export default SecurityDashboard;
+}

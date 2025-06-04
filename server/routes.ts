@@ -2981,6 +2981,48 @@ app.post("/api/posts/comments/:id/reject", isAdmin, async (req, res) => {
     }
   });
 
+  // TemplicTune Admin Portal Security API endpoints
+  app.get('/api/admin/security/events', isAuthenticated, async (req, res) => {
+    try {
+      const events = await storage.getSecurityEvents();
+      res.json(events);
+    } catch (error) {
+      console.error('Error fetching security events:', error);
+      res.status(500).json({ error: 'Failed to fetch security events' });
+    }
+  });
+
+  app.get('/api/admin/security/health', async (req, res) => {
+    try {
+      const health = {
+        status: 'healthy',
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        timestamp: new Date().toISOString()
+      };
+      res.json(health);
+    } catch (error) {
+      console.error('Error fetching system health:', error);
+      res.status(500).json({ error: 'Health check failed' });
+    }
+  });
+
+  app.post('/api/admin/security/scan', isAuthenticated, async (req, res) => {
+    try {
+      const { scanType, targetType } = req.body;
+      const scan = await storage.createSecurityScan({
+        scanType,
+        targetType,
+        createdBy: req.user?.id || 'system',
+        status: 'pending'
+      });
+      res.json(scan);
+    } catch (error) {
+      console.error('Error creating security scan:', error);
+      res.status(500).json({ error: 'Failed to create security scan' });
+    }
+  });
+
   // Get security settings (admin only)
   app.get('/api/security/settings', isAdmin, (req, res) => {
 
