@@ -5,7 +5,7 @@
 
 import React, { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { DirectAdminPortal } from '@/components/admin/DirectAdminPortal';
+import AdminPortalPage from './AdminPortalPage';
 import { AdminErrorBoundary } from '@/components/admin/AdminErrorBoundary';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useToast } from '@/hooks/use-toast';
@@ -70,5 +70,5 @@ export default function AdminPage() {
     );
   }
 
-  return <DirectAdminPortal />;
+  return <AdminPortalPage />;
 }
