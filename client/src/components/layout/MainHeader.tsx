@@ -683,13 +683,13 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-[70px] bg-[#0a1f3c]/95 backdrop-blur-lg z-[100] transform transition-transform ease-in-out duration-300
+              fixed inset-0 top-[70px] bg-slate-900 z-[9999] transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
             style={{ 
-              backgroundColor: 'rgba(10, 31, 60, 0.98)',
-              backdropFilter: 'blur(20px)',
-              zIndex: 100
+              backgroundColor: 'rgba(15, 23, 42, 0.98)',
+              backdropFilter: 'blur(10px)',
+              zIndex: 9999
             }}
           >
             <div className="h-full flex flex-col justify-start max-h-screen overflow-hidden">
@@ -706,10 +706,10 @@ export function MainHeader() {
                         key={item.path}
                         href={item.path}
                         onClick={() => handleNavigationClick(item.path)}
-                        className="flex items-center space-x-1 bg-black/30 rounded-md p-2 border border-[#00ebd6]/10 hover:border-[#00ebd6]/30 text-[#e8e6e3] hover:text-[#00ebd6] transition-colors"
+                        className="flex items-center space-x-2 bg-slate-800/90 rounded-lg p-3 border border-cyan-400/40 hover:border-cyan-400/70 text-white hover:text-cyan-300 transition-all duration-300 hover:bg-slate-700/90 shadow-lg"
                       >
                         <span className="text-cyan-400">{item.icon}</span>
-                        <span>{item.name}</span>
+                        <span className="font-medium">{item.name}</span>
                       </Link>
                     ))}
 
@@ -717,7 +717,7 @@ export function MainHeader() {
                       <Link 
                         href="/admin" 
                         onClick={() => handleNavigationClick("/admin")}
-                        className="flex items-center space-x-1 bg-black/30 rounded-md p-2 border border-pink-500/20 hover:border-pink-500/40 text-[#fe0064] transition-colors col-span-2"
+                        className="flex items-center space-x-2 bg-pink-900/80 rounded-lg p-3 border border-pink-400/50 hover:border-pink-400/80 text-pink-200 hover:text-pink-100 transition-all duration-300 hover:bg-pink-800/80 col-span-2 shadow-lg"
                       >
                         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -825,7 +825,7 @@ export function MainHeader() {
                   {/* Close Menu Button */}
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full mt-3 px-4 py-2 bg-black/40 text-[#e8e6e3] border border-[#00ebd6]/20 rounded-md hover:bg-black/60 hover:border-[#00ebd6]/40 transition-all duration-300"
+                    className="w-full mt-4 px-4 py-3 bg-red-900/80 text-red-100 border border-red-400/50 rounded-lg hover:bg-red-800/80 hover:border-red-400/80 transition-all duration-300 font-medium shadow-lg"
                   >
                     Close Menu
                   </button>
