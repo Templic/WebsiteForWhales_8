@@ -411,14 +411,33 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  // Admin portal direct access (temporary for testing PostgreSQL integration)
-  app.get('/api/admin/dashboard', async (req, res) => {
+  // Admin stats endpoint with existing database structure
+  app.get('/api/admin/stats', async (req, res) => {
     try {
-      const dashboardData = await storage.getAdminDashboardData();
-      res.json(dashboardData);
+      // Get basic stats from existing database tables
+      const users = await storage.getAllUsers();
+      const totalUsers = users?.length || 0;
+      
+      // Mock data for missing features until database is updated
+      const stats = {
+        totalUsers,
+        totalPosts: 0,
+        totalOrders: 0,
+        totalRevenue: 0,
+        recentActivity: [],
+        systemHealth: {
+          database: 'healthy',
+          apiResponse: 150,
+          memoryUsage: 45,
+          diskUsage: 30,
+          lastChecked: new Date().toISOString()
+        }
+      };
+      
+      res.json(stats);
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-      res.status(500).json({ error: 'Failed to fetch dashboard data' });
+      console.error('Error fetching admin stats:', error);
+      res.status(500).json({ error: 'Failed to fetch admin stats' });
     }
   });
 

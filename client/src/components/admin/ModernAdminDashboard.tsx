@@ -5,6 +5,22 @@
  */
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+// Type definitions for admin stats
+interface AdminStats {
+  totalUsers: number;
+  totalPosts: number;
+  totalOrders: number;
+  totalRevenue: number;
+  recentActivity: any[];
+  systemHealth: {
+    database: string;
+    apiResponse: number;
+    memoryUsage: number;
+    diskUsage: number;
+    lastChecked: string;
+  };
+}
 import {
   LayoutDashboard,
   Upload,
@@ -76,8 +92,8 @@ export function ModernAdminDashboard() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const queryClient = useQueryClient();
 
-  // Fetch dashboard stats
-  const { data: stats = {}, isLoading: statsLoading } = useQuery({
+  // Fetch dashboard stats with proper typing
+  const { data: stats, isLoading: statsLoading } = useQuery<AdminStats>({
     queryKey: ['/api/admin/stats'],
     retry: 2,
     staleTime: 5 * 60 * 1000,
@@ -113,7 +129,7 @@ export function ModernAdminDashboard() {
             <div>
               <p className="text-purple-100 text-sm">Total Users</p>
               <p className="text-2xl font-bold">
-                {statsLoading ? '...' : (stats.totalUsers || 0)}
+                {statsLoading ? '...' : (stats?.totalUsers || 0)}
               </p>
             </div>
             <Users className="h-8 w-8 text-purple-200" />

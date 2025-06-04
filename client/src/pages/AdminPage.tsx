@@ -1,11 +1,11 @@
 /**
- * AdminPage.tsx - Updated to use ModernAdminDashboard
+ * AdminPage.tsx - Updated to use StableAdminDashboard
  * 
- * Redirects to the modern cosmic-themed admin dashboard
- * following TemplicTune deprecation process
+ * Uses stable implementation with proper error handling
+ * and null checking for undefined data
  */
-import { ModernAdminDashboard } from "@/components/admin/ModernAdminDashboard";
+import { StableAdminDashboard } from "@/components/admin/StableAdminDashboard";
 
 export default function AdminPage() {
-  return <ModernAdminDashboard />;
+  return <StableAdminDashboard />;
 }
