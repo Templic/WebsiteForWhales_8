@@ -48,6 +48,7 @@ import RoleManagementPage from "@/pages/admin/RoleManagementPage";
 import UserActivityPage from "@/pages/admin/UserActivityPage";
 import ContentSchedulerPage from "@/pages/admin/ContentSchedulerPage";
 import PasswordRecoveryPage from "@/pages/PasswordRecoveryPage";
+import WhaleArtPage from "@/pages/WhaleArtPage";
 import UserPortal from "@/pages/user-portal";
 import SitemapPage from "@/pages/SitemapPage";
 import TermsOfService from "@/pages/TermsOfService";
@@ -162,6 +163,7 @@ function AppRouter() {
           <Route path="/engage" component={EngagePage} />
           <Route path="/newsletter" component={NewsletterPage} />
           <Route path="/collaboration" component={CollaborationPage} />
+          <Route path="/whale-art" component={WhaleArtPage} />
           <Route path="/search" component={SearchPage} />
           {/* Community Pages */}
           <Route path="/community" component={WhaleWisdomCommunity} />

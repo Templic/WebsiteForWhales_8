@@ -371,7 +371,7 @@ export function MainHeader() {
               {/* Mobile menu button - Enhanced visibility with text and higher z-index */}
               <button
                 type="button"
-                className="ml-4 md:hidden text-[#e8e6e3] hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c] to-[#151d3b] p-2 pl-3 pr-4 rounded-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/50 flex items-center gap-2 relative z-[60] pointer-events-auto touch-manipulation"
+                className="ml-4 md:hidden text-[#e8e6e3] hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c] to-[#151d3b] p-2 pl-3 pr-4 rounded-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/50 flex items-center gap-2 relative z-[10001] pointer-events-auto touch-manipulation"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-expanded={isMobileMenuOpen}
                 aria-label="Toggle navigation menu"
@@ -667,7 +667,7 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-[70px] bg-[#0a1f3c]/95 backdrop-blur-md z-50 transform transition-transform ease-in-out duration-300
+              fixed inset-0 top-[70px] bg-[#0a1f3c]/98 backdrop-blur-lg z-[9999] transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
           >
