@@ -166,7 +166,7 @@ export function MainHeader() {
     <header 
       id="main-navigation"
       className={`
-        sticky top-0 z-[99999] transition-all duration-300
+        sticky top-0 z-50 transition-all duration-300
         ${isScrolled ? 'py-1' : 'py-3'}
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
@@ -323,7 +323,7 @@ export function MainHeader() {
       </div>
       
       {/* Header Content with Enhanced Cosmic Background */}
-      <div className="max-w-6xl mx-auto px-4 relative z-50">
+      <div className="max-w-6xl mx-auto px-4 relative z-50 block">
         {/* Primary Cosmic Background - Always Visible */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-lg border border-cyan-400/30 shadow-2xl shadow-cyan-500/20"></div>
         
@@ -339,9 +339,9 @@ export function MainHeader() {
         
         {/* Main Content Container */}
         <div className="relative z-20 py-2">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center">
+          <div className="flex items-center justify-between w-full">
+            {/* Logo - Always visible */}
+            <div className="flex items-center min-w-0 flex-shrink-0">
               <Link 
                 href="/" 
                 className="flex items-center space-x-2 group"
