@@ -178,10 +178,10 @@ export function MainHeader() {
       }}
     >
       {/* Background Elements with Sacred Geometry - Centered and sides */}
-      <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none" style={{ zIndex: 1 }}>
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
-        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
+        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 2 }}>
           <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
             <SacredGeometry 
               variant="merkaba" 
@@ -339,7 +339,7 @@ export function MainHeader() {
         <div className="hidden md:block absolute -inset-2 rounded-3xl bg-gradient-to-r from-cyan-500/10 via-purple-500/5 to-cyan-500/10 blur-2xl opacity-40"></div>
         
         {/* Main Content Container */}
-        <div className="relative z-20 py-2 min-h-[60px]">
+<div className="relative py-2 min-h-[60px]" style={{ zIndex: 100 }}>
           <div className="flex items-center justify-between w-full h-full">
             {/* Logo - Always visible */}
             <div className="flex items-center min-w-0 flex-shrink-0">
@@ -369,28 +369,29 @@ export function MainHeader() {
                 </span>
               </Link>
               
-              {/* Mobile menu button - Enhanced visibility with text and higher z-index */}
-              <button
-                type="button"
-                className="ml-4 md:hidden text-[#e8e6e3] hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c] to-[#151d3b] p-3 rounded-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/50 flex items-center gap-2 relative z-[70] pointer-events-auto touch-manipulation min-h-[48px] min-w-[48px]"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setIsMobileMenuOpen(!isMobileMenuOpen);
-                }}
-                onTouchStart={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-                onTouchEnd={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setIsMobileMenuOpen(!isMobileMenuOpen);
-                }}
-                aria-expanded={isMobileMenuOpen}
-                aria-label="Toggle navigation menu"
-                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-              >
+              {/* Mobile menu button container - Isolated for maximum clickability */}
+              <div className="md:hidden" style={{ position: 'absolute', top: '10px', right: '20px', zIndex: 9999 }}>
+                <button
+                  type="button"
+                  className="text-[#e8e6e3] hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c] to-[#151d3b] p-3 rounded-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/50 flex items-center gap-2 pointer-events-auto touch-manipulation min-h-[48px] min-w-[48px]"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsMobileMenuOpen(!isMobileMenuOpen);
+                  }}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsMobileMenuOpen(!isMobileMenuOpen);
+                  }}
+                  aria-expanded={isMobileMenuOpen}
+                  aria-label="Toggle navigation menu"
+                  style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                >
                 {isMobileMenuOpen ? (
                   <>
                     <X className="h-6 w-6" aria-hidden="true" />
@@ -402,8 +403,8 @@ export function MainHeader() {
                     <span className="text-sm font-medium">Menu</span>
                   </>
                 )}
-              </button>
-            </div>
+                </button>
+              </div>
 
             {/* Social Icons - Desktop - Centered */}
             <div className="hidden md:flex items-center justify-center space-x-4 absolute left-1/2 -translate-x-1/2">
@@ -938,6 +939,8 @@ export function MainHeader() {
             </linearGradient>
           </defs>
         </svg>
+      </div>
+        </div>
       </div>
     </header>
   );
