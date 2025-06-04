@@ -87,35 +87,38 @@ export function AdminDashboard() {
     refetchInterval: 30000,
   });
 
-  // Provide safe defaults for stats to prevent errors
-  const defaultStats: AdminStats = {
-    users: { total: 0, active: 0, newToday: 0 },
-    content: { total: 0, published: 0, pending: 0 },
-    security: { events: 0, threats: 0, status: 'secure' as const },
-    system: { uptime: 100, performance: 85, memory: 60, status: 'healthy' as const }
-  };
+  // Create immutable safe stats object to prevent undefined errors
+  const safeStats: AdminStats = React.useMemo(() => ({
+    users: {
+      total: stats?.users?.total ?? 0,
+      active: stats?.users?.active ?? 0,
+      newToday: stats?.users?.newToday ?? 0
+    },
+    content: {
+      total: stats?.content?.total ?? 0,
+      published: stats?.content?.published ?? 0,
+      pending: stats?.content?.pending ?? 0
+    },
+    security: {
+      events: stats?.security?.events ?? 0,
+      threats: stats?.security?.threats ?? 0,
+      status: stats?.security?.status ?? 'secure'
+    },
+    system: {
+      uptime: stats?.system?.uptime ?? 100,
+      performance: stats?.system?.performance ?? 85,
+      memory: stats?.system?.memory ?? 60,
+      status: stats?.system?.status ?? 'healthy'
+    }
+  }), [stats]);
 
-  const safeStats: AdminStats = {
-    users: stats?.users || defaultStats.users,
-    content: stats?.content || defaultStats.content,
-    security: stats?.security || defaultStats.security,
-    system: stats?.system || defaultStats.system
-  };
-
-  // Safe defaults for security metrics
-  const defaultSecurityMetrics = {
-    activeProtections: 12,
-    threatLevel: 'low' as const,
-    scanResults: [],
-    lastScan: new Date().toISOString()
-  };
-
-  const safeSecurityMetrics = {
-    activeProtections: securityMetrics?.activeProtections || defaultSecurityMetrics.activeProtections,
-    threatLevel: securityMetrics?.threatLevel || defaultSecurityMetrics.threatLevel,
-    scanResults: securityMetrics?.scanResults || defaultSecurityMetrics.scanResults,
-    lastScan: securityMetrics?.lastScan || defaultSecurityMetrics.lastScan
-  };
+  // Create immutable safe security metrics
+  const safeSecurityMetrics = React.useMemo(() => ({
+    activeProtections: securityMetrics?.activeProtections ?? 70,
+    threatLevel: securityMetrics?.threatLevel ?? 'low',
+    scanResults: securityMetrics?.scanResults ?? [],
+    lastScan: securityMetrics?.lastScan ?? new Date().toISOString()
+  }), [securityMetrics]);
 
   // Security scan mutation
   const scanMutation = useMutation({
@@ -332,23 +335,23 @@ export function AdminDashboard() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>CPU Usage</span>
-                      <span>{stats?.system.performance || 95}%</span>
+                      <span>{safeStats.system.performance}%</span>
                     </div>
-                    <Progress value={stats?.system.performance || 95} className="h-2" />
+                    <Progress value={safeStats.system.performance} className="h-2" />
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>Memory Usage</span>
-                      <span>{stats?.system.memory || 45}%</span>
+                      <span>{safeStats.system.memory}%</span>
                     </div>
-                    <Progress value={stats?.system.memory || 45} className="h-2" />
+                    <Progress value={safeStats.system.memory} className="h-2" />
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>Uptime</span>
-                      <span>{Math.round(stats?.system.uptime || 99.9)}%</span>
+                      <span>{Math.round(safeStats.system.uptime)}%</span>
                     </div>
-                    <Progress value={Math.round(stats?.system.uptime || 99.9)} className="h-2" />
+                    <Progress value={Math.round(safeStats.system.uptime)} className="h-2" />
                   </div>
                 </CardContent>
               </Card>
