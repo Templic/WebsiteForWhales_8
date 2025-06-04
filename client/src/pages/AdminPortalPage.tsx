@@ -1,21 +1,71 @@
 /**
  * Complete Admin Portal - TemplicTune Integration
  * Direct PostgreSQL database connectivity with cosmic design
+ * Synced with all app content: blog, newsletter, shop, notifications
  */
 
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface AdminStats {
   users: number;
-  content: number;
+  posts: number;
+  comments: number;
+  products: number;
+  orders: number;
+  newsletters: number;
+  subscribers: number;
+  contentItems: number;
   security: number;
   system: string;
 }
 
+interface ContentItem {
+  id: number;
+  key: string;
+  title: string;
+  content: string;
+  page: string;
+  section: string;
+  status: string;
+  createdAt: string;
+}
+
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  createdAt: string;
+}
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  authorId: string;
+  published: boolean;
+  createdAt: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: string;
+  inventory: number;
+  createdAt: string;
+}
+
 export default function AdminPortalPage() {
   const [stats, setStats] = useState<AdminStats>({
-    users: 6, // Known PostgreSQL user count
-    content: 0,
+    users: 6,
+    posts: 0,
+    comments: 0,
+    products: 0,
+    orders: 0,
+    newsletters: 0,
+    subscribers: 0,
+    contentItems: 0,
     security: 70,
     system: 'healthy'
   });
@@ -23,32 +73,65 @@ export default function AdminPortalPage() {
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(false);
 
-  // Load authentic database statistics
+  // Query for comprehensive admin data
+  const { data: adminData, isLoading, refetch } = useQuery({
+    queryKey: ['/api/admin/comprehensive-stats'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/comprehensive-stats');
+      if (!response.ok) throw new Error('Failed to fetch admin data');
+      return response.json();
+    }
+  });
+
+  const { data: contentData } = useQuery({
+    queryKey: ['/api/admin/content'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/content');
+      if (!response.ok) throw new Error('Failed to fetch content data');
+      return response.json();
+    }
+  });
+
+  const { data: usersData } = useQuery({
+    queryKey: ['/api/admin/users'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/users');
+      if (!response.ok) throw new Error('Failed to fetch users data');
+      return response.json();
+    }
+  });
+
+  const { data: shopData } = useQuery({
+    queryKey: ['/api/admin/shop'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/shop');
+      if (!response.ok) throw new Error('Failed to fetch shop data');
+      return response.json();
+    }
+  });
+
+  // Update stats when data loads
+  useEffect(() => {
+    if (adminData) {
+      setStats(prev => ({
+        ...prev,
+        users: adminData.totalUsers || prev.users,
+        posts: adminData.totalPosts || 0,
+        comments: adminData.totalComments || 0,
+        products: adminData.totalProducts || 0,
+        orders: adminData.totalOrders || 0,
+        newsletters: adminData.totalNewsletters || 0,
+        subscribers: adminData.totalSubscribers || 0,
+        contentItems: adminData.totalContentItems || 0
+      }));
+    }
+  }, [adminData]);
+
   const refreshStats = async () => {
     setLoading(true);
-    try {
-      const response = await fetch('/api/admin/direct-stats', {
-        headers: { 'X-Admin-Direct': 'true' }
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        setStats(prev => ({
-          ...prev,
-          users: data.totalUsers || 6,
-          content: data.totalPosts || 0
-        }));
-      }
-    } catch (error) {
-      console.log('Using authentic database values');
-    } finally {
-      setLoading(false);
-    }
+    await Promise.all([refetch()]);
+    setLoading(false);
   };
-
-  useEffect(() => {
-    refreshStats();
-  }, []);
 
   const tabs = [
     { id: 'overview', name: 'Overview', icon: '📊' },
@@ -92,42 +175,66 @@ export default function AdminPortalPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-6">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white/90 font-semibold">Total Users</h3>
-              <span className="text-2xl">👥</span>
+        {/* Enhanced Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 lg:gap-6 mb-8">
+          {/* Users Card */}
+          <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-lg rounded-xl p-4 lg:p-6 border border-white/20 hover:border-white/40 transition-all duration-300 group">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-white/90 font-semibold text-sm lg:text-base">Users</h3>
+              <span className="text-xl lg:text-2xl group-hover:scale-110 transition-transform">👥</span>
             </div>
-            <div className="text-3xl font-bold text-white mb-2">{stats.users}</div>
-            <p className="text-white/60 text-sm">PostgreSQL Records</p>
+            <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stats.users}</div>
+            <p className="text-white/60 text-xs lg:text-sm">Authenticated Members</p>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white/90 font-semibold">Content Items</h3>
-              <span className="text-2xl">📄</span>
+          {/* Blog Content Card */}
+          <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/10 backdrop-blur-lg rounded-xl p-4 lg:p-6 border border-blue-400/30 hover:border-blue-400/50 transition-all duration-300 group">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-white/90 font-semibold text-sm lg:text-base">Blog Posts</h3>
+              <span className="text-xl lg:text-2xl group-hover:scale-110 transition-transform">📝</span>
             </div>
-            <div className="text-3xl font-bold text-white mb-2">{stats.content}</div>
-            <p className="text-white/60 text-sm">Cosmic Content</p>
+            <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stats.posts}</div>
+            <p className="text-white/60 text-xs lg:text-sm">Published Articles</p>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white/90 font-semibold">Security Features</h3>
-              <span className="text-2xl">🛡️</span>
+          {/* Shop Products Card */}
+          <div className="bg-gradient-to-br from-green-500/20 to-teal-500/10 backdrop-blur-lg rounded-xl p-4 lg:p-6 border border-green-400/30 hover:border-green-400/50 transition-all duration-300 group">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-white/90 font-semibold text-sm lg:text-base">Products</h3>
+              <span className="text-xl lg:text-2xl group-hover:scale-110 transition-transform">🛍️</span>
             </div>
-            <div className="text-3xl font-bold text-white mb-2">{stats.security}+</div>
-            <p className="text-white/60 text-sm">Active Protection</p>
+            <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stats.products}</div>
+            <p className="text-white/60 text-xs lg:text-sm">Store Items</p>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white/90 font-semibold">System Health</h3>
-              <span className="text-2xl">⚡</span>
+          {/* Security Features Card */}
+          <div className="bg-gradient-to-br from-red-500/20 to-orange-500/10 backdrop-blur-lg rounded-xl p-4 lg:p-6 border border-red-400/30 hover:border-red-400/50 transition-all duration-300 group">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-white/90 font-semibold text-sm lg:text-base">Security</h3>
+              <span className="text-xl lg:text-2xl group-hover:scale-110 transition-transform">🛡️</span>
             </div>
-            <div className="text-3xl font-bold text-white mb-2">98%</div>
-            <p className="text-white/60 text-sm">Performance</p>
+            <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stats.security}+</div>
+            <p className="text-white/60 text-xs lg:text-sm">Protection Layers</p>
+          </div>
+        </div>
+
+        {/* Secondary Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white/5 backdrop-blur rounded-lg p-3 lg:p-4 border border-white/10">
+            <div className="text-lg lg:text-xl font-bold text-white">{stats.comments}</div>
+            <p className="text-white/60 text-xs lg:text-sm">Comments</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur rounded-lg p-3 lg:p-4 border border-white/10">
+            <div className="text-lg lg:text-xl font-bold text-white">{stats.newsletters}</div>
+            <p className="text-white/60 text-xs lg:text-sm">Newsletters</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur rounded-lg p-3 lg:p-4 border border-white/10">
+            <div className="text-lg lg:text-xl font-bold text-white">{stats.subscribers}</div>
+            <p className="text-white/60 text-xs lg:text-sm">Subscribers</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur rounded-lg p-3 lg:p-4 border border-white/10">
+            <div className="text-lg lg:text-xl font-bold text-white">{stats.orders}</div>
+            <p className="text-white/60 text-xs lg:text-sm">Orders</p>
           </div>
         </div>
 

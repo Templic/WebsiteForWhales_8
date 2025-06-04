@@ -323,6 +323,104 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  // Comprehensive admin statistics endpoint
+  app.get('/api/admin/comprehensive-stats', async (req, res) => {
+    try {
+      const [
+        usersResult,
+        postsResult,
+        commentsResult
+      ] = await Promise.all([
+        db.select({ count: sql`count(*)` }).from(users),
+        db.select({ count: sql`count(*)` }).from(posts),
+        db.select({ count: sql`count(*)` }).from(comments)
+      ]);
+
+      res.json({
+        totalUsers: parseInt(usersResult[0]?.count?.toString() || '0'),
+        totalPosts: parseInt(postsResult[0]?.count?.toString() || '0'),
+        totalComments: parseInt(commentsResult[0]?.count?.toString() || '0'),
+        totalProducts: 0, // Placeholder for future shop integration
+        totalOrders: 0, // Placeholder for future shop integration
+        totalNewsletters: 0, // Placeholder for future newsletter integration
+        totalSubscribers: 0, // Placeholder for future newsletter integration
+        totalContentItems: 0, // Placeholder for future content management
+        systemHealth: 'healthy',
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error('Error fetching comprehensive stats:', error);
+      res.status(500).json({ message: 'Error fetching comprehensive statistics' });
+    }
+  });
+
+  // Admin content management endpoint
+  app.get('/api/admin/content', async (req, res) => {
+    try {
+      const [recentPosts, recentComments] = await Promise.all([
+        db.select().from(posts).orderBy(sql`${posts.createdAt} DESC`).limit(10),
+        db.select().from(comments).orderBy(sql`${comments.createdAt} DESC`).limit(10)
+      ]);
+
+      res.json({
+        recentPosts: recentPosts,
+        recentComments: recentComments,
+        totalPosts: recentPosts.length,
+        totalComments: recentComments.length
+      });
+    } catch (error) {
+      console.error('Error fetching content data:', error);
+      res.status(500).json({ message: 'Error fetching content data' });
+    }
+  });
+
+  // Admin users management endpoint
+  app.get('/api/admin/users', async (req, res) => {
+    try {
+      const allUsers = await db.select().from(users).orderBy(sql`${users.createdAt} DESC`).limit(20);
+
+      const safeUsers = allUsers.map(user => ({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin,
+        isBanned: user.isBanned
+      }));
+
+      const adminUsers = allUsers.filter(user => user.role === 'admin');
+
+      res.json({
+        users: safeUsers,
+        admins: adminUsers.length,
+        total: allUsers.length
+      });
+    } catch (error) {
+      console.error('Error fetching users data:', error);
+      res.status(500).json({ message: 'Error fetching users data' });
+    }
+  });
+
+  // Admin shop management endpoint
+  app.get('/api/admin/shop', async (req, res) => {
+    try {
+      // Placeholder data for shop functionality
+      res.json({
+        products: [],
+        recentOrders: [],
+        lowStockItems: [],
+        totalProducts: 0,
+        totalOrders: 0,
+        totalRevenue: 0,
+        message: 'Shop integration ready for implementation'
+      });
+    } catch (error) {
+      console.error('Error fetching shop data:', error);
+      res.status(500).json({ message: 'Error fetching shop data' });
+    }
+  });
+
   // Enhanced database health check endpoint
   app.get('/api/health/database', async (req, res) => {
     try {
