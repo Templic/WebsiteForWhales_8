@@ -683,9 +683,14 @@ export function MainHeader() {
           {/* Mobile Menu */}
           <div
             className={`
-              fixed inset-0 top-[70px] bg-[#0a1f3c] backdrop-blur-lg z-[60] transform transition-transform ease-in-out duration-300
+              fixed inset-0 top-[70px] bg-[#0a1f3c]/95 backdrop-blur-lg z-[100] transform transition-transform ease-in-out duration-300
               ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}
+            style={{ 
+              backgroundColor: 'rgba(10, 31, 60, 0.98)',
+              backdropFilter: 'blur(20px)',
+              zIndex: 100
+            }}
           >
             <div className="h-full flex flex-col justify-start max-h-screen overflow-hidden">
               <nav className="flex-1 p-4 space-y-4">
@@ -939,7 +944,7 @@ export function MainHeader() {
           </defs>
         </svg>
       </div>
-      </div>
+        </div>
       </div>
     </header>
   );
