@@ -181,7 +181,7 @@ export function MainHeader() {
       <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none" style={{ zIndex: 1 }}>
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
-        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 2 }}>
+        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 30 }}>
           <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
             <SacredGeometry 
               variant="merkaba" 
@@ -207,7 +207,7 @@ export function MainHeader() {
         </div>
         
         {/* Right circle foreground - first set */}
-        <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
+        <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 30 }}>
           <div className="animate-spin-very-slow" style={{ animationDuration: '15s' }}>
             <SacredGeometry 
               variant="merkaba" 
