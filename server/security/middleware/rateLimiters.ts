@@ -48,12 +48,27 @@ interface RateLimiterOptions {
  * Admin bypass function - skips rate limiting for admin endpoints
  */
 const shouldSkipAdminRateLimit = (req: Request): boolean => {
-  const isAdminEndpoint = req.path.startsWith('/api/admin/');
-  const isNotificationsEndpoint = req.path === '/api/admin/notifications';
-  const isStatsEndpoint = req.path === '/api/admin/stats';
-  const isSecurityEndpoint = req.path.startsWith('/api/admin/security/');
+  // Complete bypass for all admin-related endpoints
+  const adminPaths = [
+    '/api/admin/',
+    '/api/admin/stats',
+    '/api/admin/notifications',
+    '/api/admin/security/',
+    '/api/users/stats',
+    '/api/users/cosmic-scores',
+    '/api/content/',
+    '/api/blog/',
+    '/api/newsletter/',
+    '/api/music/',
+    '/api/art/',
+    '/api/collaborations/',
+    '/api/shop/',
+    '/api/courses/',
+    '/api/community/',
+    '/api/analytics/'
+  ];
   
-  return isAdminEndpoint || isNotificationsEndpoint || isStatsEndpoint || isSecurityEndpoint;
+  return adminPaths.some(path => req.path.startsWith(path));
 };
 
 /**

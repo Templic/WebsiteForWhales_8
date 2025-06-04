@@ -153,6 +153,26 @@ export const mediaAssets = pgTable("media_assets", {
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
 
+// Content items table
+export const contentItems = pgTable("content_items", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  type: varchar("type", { length: 50 }).notNull().default("blog"),
+  status: varchar("status", { length: 50 }).notNull().default("draft"),
+  authorId: varchar("author_id", { length: 255 }).references(() => users.id).notNull(),
+  publishedAt: timestamp("published_at"),
+  scheduledFor: timestamp("scheduled_for"),
+  recurringSchedule: json("recurring_schedule").$type<{
+    enabled: boolean;
+    pattern: string;
+    interval: number;
+    endDate?: string;
+  }>(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+
 // Content workflow management
 export const contentWorkflow = pgTable("content_workflow", {
   id: serial("id").primaryKey(),
@@ -895,52 +915,7 @@ export const reviewStatusEnum = pgEnum('review_status', [
   'changes_requested'
 ]);
 
-// Content Items Table with Enhanced Schema
-export const contentItems = pgTable('content_items', {
-  id: serial('id').primaryKey(),
-  key: text('key').notNull().unique(),
-  
-  // Content Type (using enum for type safety)
-  type: contentTypeEnum('type').notNull().default('text'),
-  
-  // Core Content Fields
-  title: text('title').notNull(),
-  content: text('content').notNull(),
-  page: text('page').notNull(),
-  section: text('section').notNull().default('main'), // Default section for data integrity
-  imageUrl: text('image_url'),
-  
-  // Status and Versioning
-  status: contentStatusEnum('status').notNull().default('draft'),
-  version: integer('version').notNull().default(1),
-  
-  // Review Workflow
-  reviewerId: varchar('reviewer_id', { length: 255 }).references(() => users.id),
-  reviewStatus: reviewStatusEnum('review_status'),
-  reviewStartedAt: timestamp('review_started_at'),
-  reviewCompletedAt: timestamp('review_completed_at'),
-  reviewNotes: text('review_notes'),
-  
-  // Publishing Schedule and History
-  scheduledPublishAt: timestamp('scheduled_publish_at'),
-  publishedAt: timestamp('published_at'),
-  expirationDate: timestamp('expiration_date'),
-  archivedAt: timestamp('archived_at'),
-  archiveReason: text('archive_reason'),
-  
-  // Audit Information
-  createdBy: varchar('created_by', { length: 255 }).references(() => users.id),
-  lastModifiedBy: varchar('last_modified_by', { length: 255 }).references(() => users.id),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
-  
-  // Extended Metadata
-  metadata: json('metadata'),
-  tags: text('tags').array(), // Array of tags for better content organization
-  localeCode: text('locale_code').default('en-US'), // Internationalization support
-  timezone: text('timezone').default('UTC'), // Timezone for content scheduling
-  isActive: boolean('is_active').notNull().default(true)
-});
+// Enhanced Content Schema - removed duplicate
 
 // Content Version History Table
 export const contentHistory = pgTable('content_history', {
