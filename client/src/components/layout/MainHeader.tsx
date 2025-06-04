@@ -166,15 +166,16 @@ export function MainHeader() {
     <header 
       id="main-navigation"
       className={`
-        sticky top-0 z-50 transition-all duration-300 block w-full
+        fixed top-0 left-0 right-0 z-50 transition-all duration-300 block w-full
         ${isScrolled ? 'py-1' : 'py-3'}
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
       style={{
-        background: 'linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95), rgba(88, 28, 135, 0.95))',
+        background: 'red',
         backdropFilter: 'blur(12px)',
         borderBottom: '1px solid rgba(34, 197, 94, 0.3)',
-        minHeight: '60px'
+        minHeight: '60px',
+        zIndex: 9999
       }}
     >
       {/* Background Elements with Sacred Geometry - Centered and sides */}
