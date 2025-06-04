@@ -187,32 +187,40 @@ export const mediaAssets = pgTable("media_assets", {
 export const contentItems = pgTable("content_items", {
   id: serial("id").primaryKey(),
   key: text("key").notNull().unique(),
+  type: contentTypeEnum("type").notNull().default("text"),
   title: text("title").notNull(),
   content: text("content").notNull(),
-  type: contentTypeEnum("type").notNull().default("text"),
-  status: contentStatusEnum("status").notNull().default("draft"),
   page: text("page").notNull(),
   section: text("section").notNull().default("main"),
   imageUrl: text("image_url"),
+  status: contentStatusEnum("status").notNull().default("draft"),
   version: integer("version").notNull().default(1),
-  tags: text("tags").array(),
-  localeCode: text("locale_code").default("en-US"),
-  isActive: boolean("is_active").notNull().default(true),
-  authorId: varchar("author_id", { length: 255 }).references(() => users.id),
-  createdBy: varchar("created_by", { length: 255 }).references(() => users.id),
-  lastModifiedBy: varchar("last_modified_by", { length: 255 }).references(() => users.id),
   reviewerId: varchar("reviewer_id", { length: 255 }).references(() => users.id),
   reviewStatus: reviewStatusEnum("review_status"),
+  reviewStartedAt: timestamp("review_started_at"),
+  reviewCompletedAt: timestamp("review_completed_at"),
+  reviewNotes: text("review_notes"),
+  scheduledPublishAt: timestamp("scheduled_publish_at"),
   publishedAt: timestamp("published_at"),
-  scheduledFor: timestamp("scheduled_for"),
+  expirationDate: timestamp("expiration_date"),
+  archivedAt: timestamp("archived_at"),
+  archiveReason: text("archive_reason"),
+  createdBy: varchar("created_by", { length: 255 }).references(() => users.id),
+  lastModifiedBy: varchar("last_modified_by", { length: 255 }).references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  metadata: json("metadata"),
+  tags: text("tags").array(),
+  localeCode: text("locale_code").default("en-US"),
+  timezone: text("timezone"),
+  isActive: boolean("is_active").notNull().default(true),
   recurringSchedule: json("recurring_schedule").$type<{
     enabled: boolean;
     pattern: string;
     interval: number;
     endDate?: string;
   }>(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow()
+  scheduledFor: timestamp("scheduled_for")
 });
 
 // Content workflow management

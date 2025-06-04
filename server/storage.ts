@@ -1884,37 +1884,54 @@ export class PostgresStorage implements IStorage {
 
   async getContentItemByKey(key: string): Promise<ContentItem | null> {
     try {
-      // Using a more selective approach to only select columns that exist in the database
-      // This prevents errors from columns that might be defined in schema but not yet migrated
-      const [contentItem] = await db.select({
-        id: contentItems.id,
-        key: contentItems.key,
-        type: contentItems.type,
-        title: contentItems.title,
-        content: contentItems.content,
-        page: contentItems.page,
-        section: contentItems.section,
-        imageUrl: contentItems.imageUrl,
-        status: contentItems.status,
-        version: contentItems.version,
-        reviewerId: contentItems.reviewerId,
-        reviewStatus: contentItems.reviewStatus,
-        reviewStartedAt: contentItems.reviewStartedAt,
-        reviewCompletedAt: contentItems.reviewCompletedAt,
-        reviewNotes: contentItems.reviewNotes,
-        scheduledPublishAt: contentItems.scheduledPublishAt,
-        expirationDate: contentItems.expirationDate,
-        lastModifiedBy: contentItems.lastModifiedBy,
-        createdAt: contentItems.createdAt,
-        updatedAt: contentItems.updatedAt,
-        metadata: contentItems.metadata
-        // Intentionally excluding fields that might not exist in the table yet:
-        // createdBy, tags, localeCode, isActive
-      })
-      .from(contentItems)
-      .where(eq(contentItems.key, key));
+      // Direct pool query to bypass Drizzle ORM issues
+      const { pool } = await import('./db.js');
+      const client = await pool.connect();
       
-      return contentItem || null;
+      try {
+        const result = await client.query('SELECT * FROM content_items WHERE key = $1 LIMIT 1', [key]);
+        
+        if (result.rows && result.rows.length > 0) {
+          const row = result.rows[0];
+          return {
+            id: row.id,
+            key: row.key,
+            type: row.type,
+            title: row.title,
+            content: row.content,
+            page: row.page,
+            section: row.section,
+            imageUrl: row.image_url,
+            status: row.status,
+            version: row.version,
+            reviewerId: row.reviewer_id,
+            reviewStatus: row.review_status,
+            reviewStartedAt: row.review_started_at,
+            reviewCompletedAt: row.review_completed_at,
+            reviewNotes: row.review_notes,
+            scheduledPublishAt: row.scheduled_publish_at,
+            publishedAt: row.published_at,
+            expirationDate: row.expiration_date,
+            archivedAt: row.archived_at,
+            archiveReason: row.archive_reason,
+            createdBy: row.created_by,
+            lastModifiedBy: row.last_modified_by,
+            createdAt: row.created_at,
+            updatedAt: row.updated_at,
+            metadata: row.metadata,
+            tags: row.tags,
+            localeCode: row.locale_code,
+            timezone: row.timezone,
+            isActive: row.is_active,
+            recurringSchedule: row.recurring_schedule,
+            scheduledFor: row.scheduled_for
+          } as ContentItem;
+        }
+        
+        return null;
+      } finally {
+        client.release();
+      }
     } catch (error) {
       console.error(`Error fetching content item by key "${key}":`, error);
       throw error;
