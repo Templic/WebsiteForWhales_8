@@ -887,7 +887,7 @@ export function MainHeader() {
             </div>
           </div>
         </div>
-      
+      </div>
       {/* Five-pointed star positioned behind content for mobile view */}
       <div className="absolute right-2 top-1/2 transform -translate-y-1/2 md:hidden" style={{ zIndex: 5 }}>
         <SacredGeometry 
@@ -939,7 +939,7 @@ export function MainHeader() {
           </defs>
         </svg>
       </div>
-        </div>
+      </div>
       </div>
     </header>
   );
