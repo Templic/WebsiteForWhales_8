@@ -3062,40 +3062,21 @@ export class PostgresStorage implements IStorage {
     recentTracks: any[];
   }> {
     try {
-      // Define tracks and albums tables inline for this method
-      const tracksTable = pgTable('tracks', {
-        id: serial('id').primaryKey(),
-        title: text('title').notNull(),
-        artist: text('artist').notNull(),
-        audioUrl: text('audio_url').notNull(),
-        published: boolean('published').notNull().default(true),
-        createdAt: timestamp('created_at').notNull().defaultNow(),
-        updatedAt: timestamp('updated_at').notNull().defaultNow()
-      });
-
-      const albumsTable = pgTable('albums', {
-        id: serial('id').primaryKey(),
-        title: text('title').notNull(),
-        artist: text('artist').notNull(),
-        coverImage: text('cover_image'),
-        releaseDate: timestamp('release_date'),
-        description: text('description'),
-        createdAt: timestamp('created_at').notNull().defaultNow(),
-        updatedAt: timestamp('updated_at').notNull().defaultNow()
-      });
+      // Import tracks and albums from schema
+      const { tracks, albums } = await import("../shared/schema");
 
       // Get total tracks count
-      const [tracksResult] = await db.select({ count: count() }).from(tracksTable);
+      const [tracksResult] = await db.select({ count: count() }).from(tracks);
       const totalTracks = tracksResult.count;
 
       // Get total albums count
-      const [albumsResult] = await db.select({ count: count() }).from(albumsTable);
+      const [albumsResult] = await db.select({ count: count() }).from(albums);
       const totalAlbums = albumsResult.count;
 
       // Get recent tracks
       const recentTracks = await db.select()
-        .from(tracksTable)
-        .orderBy(desc(tracksTable.createdAt))
+        .from(tracks)
+        .orderBy(desc(tracks.createdAt))
         .limit(5);
 
       return {
@@ -3120,50 +3101,30 @@ export class PostgresStorage implements IStorage {
     recentOrders: any[];
   }> {
     try {
-      // Define tables inline for this method
-      const productsTable = pgTable('products', {
-        id: serial('id').primaryKey(),
-        name: text('name').notNull(),
-        description: text('description'),
-        price: numeric('price', { precision: 10, scale: 2 }).notNull(),
-        imageUrl: text('image_url'),
-        category: text('category'),
-        inStock: boolean('in_stock').notNull().default(true),
-        createdAt: timestamp('created_at').notNull().defaultNow(),
-        updatedAt: timestamp('updated_at').notNull().defaultNow()
-      });
-
-      const ordersTable = pgTable('orders', {
-        id: serial('id').primaryKey(),
-        userId: varchar('user_id', { length: 255 }).references(() => users.id).notNull(),
-        total: numeric('total', { precision: 10, scale: 2 }).notNull(),
-        status: text('status').notNull().default('pending'),
-        shippingAddress: json('shipping_address'),
-        createdAt: timestamp('created_at').notNull().defaultNow(),
-        updatedAt: timestamp('updated_at').notNull().defaultNow()
-      });
+      // Import products and orders from schema
+      const { products, orders } = await import("../shared/schema");
 
       // Get total products count
-      const [productsResult] = await db.select({ count: count() }).from(productsTable);
+      const [productsResult] = await db.select({ count: count() }).from(products);
       const totalProducts = productsResult.count;
 
       // Get total orders count
-      const [ordersResult] = await db.select({ count: count() }).from(ordersTable);
+      const [ordersResult] = await db.select({ count: count() }).from(orders);
       const totalOrders = ordersResult.count;
 
       // Calculate revenue (sum of completed orders)
       const [revenueResult] = await db.select({ 
-        total: sql`COALESCE(SUM(${ordersTable.total}), 0)` 
+        total: sql`COALESCE(SUM(${orders.total}), 0)` 
       })
-      .from(ordersTable)
-      .where(eq(ordersTable.status, 'completed'));
+      .from(orders)
+      .where(eq(orders.status, 'completed'));
       
       const revenue = Number(revenueResult.total) || 0;
 
       // Get recent orders
       const recentOrders = await db.select()
-        .from(ordersTable)
-        .orderBy(desc(ordersTable.createdAt))
+        .from(orders)
+        .orderBy(desc(orders.createdAt))
         .limit(10);
 
       return {
