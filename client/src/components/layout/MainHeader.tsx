@@ -326,7 +326,7 @@ export function MainHeader() {
       {/* Header Content with Enhanced Cosmic Background */}
       <div className="max-w-6xl mx-auto px-4 relative z-50 block">
         {/* Primary Cosmic Background - Always Visible */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-lg border border-cyan-400/30 shadow-2xl shadow-cyan-500/20 min-h-[60px]"></div>
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-slate-900/75 via-blue-900/75 to-purple-900/75 backdrop-blur-lg border border-cyan-400/30 shadow-2xl shadow-cyan-500/20 min-h-[60px]"></div>
         
         {/* Secondary Gradient Overlay */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#050f28]/80 to-[#0a1f3c]/80"></div>
@@ -373,7 +373,7 @@ export function MainHeader() {
               <div className="md:hidden" style={{ position: 'absolute', top: '10px', right: '20px', zIndex: 9999 }}>
                 <button
                   type="button"
-                  className="text-[#e8e6e3] hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c] to-[#151d3b] p-3 rounded-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/50 flex items-center gap-2 pointer-events-auto touch-manipulation min-h-[48px] min-w-[48px]"
+                  className="text-white hover:text-[#00ebd6] transition-colors bg-gradient-to-r from-[#0a1f3c]/90 to-[#151d3b]/90 p-3 rounded-lg shadow-lg shadow-cyan-500/50 border border-cyan-500/70 flex items-center gap-2 pointer-events-auto touch-manipulation min-h-[48px] min-w-[48px] backdrop-blur-md"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -668,7 +668,7 @@ export function MainHeader() {
           </div>
 
           {/* Five-pointed star for mobile view - behind menu content but above menu background */}
-          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-20' : 'opacity-0'} z-[5]`}>
+          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-20' : 'opacity-0'} z-[45]`}>
             <div className="animate-spin-very-slow animate-pulse" style={{ animationDuration: '25s' }}>
               <SacredGeometry 
                 variant="star" 
@@ -698,8 +698,19 @@ export function MainHeader() {
             }}
           >
             <div className="w-full h-full flex flex-col">
-              <nav className="w-full h-full p-4 pt-16 space-y-3 overflow-y-auto"
-                   style={{ minHeight: '100vh' }}>
+              {/* Top Close Button */}
+              <div className="flex justify-end p-4 pt-6">
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-4 py-2 bg-cyan-600/80 text-white rounded-lg hover:bg-cyan-700/80 transition-all duration-300 border border-cyan-500/50 hover:border-cyan-400/70 text-sm font-medium flex items-center space-x-2 shadow-lg"
+                >
+                  <X className="w-4 h-4" />
+                  <span>Close</span>
+                </button>
+              </div>
+              
+              <nav className="flex-1 p-4 pt-2 space-y-3 overflow-y-auto"
+                   style={{ minHeight: 'calc(100vh - 80px)' }}>
                 {/* Mobile Primary Links */}
                 <div className="border-b border-[#00ebd6]/20 pb-3">
                   <h3 className="text-sm font-semibold text-[#00ebd6] uppercase tracking-wider mb-3">
