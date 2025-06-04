@@ -82,7 +82,61 @@ export const sessions = pgTable("sessions", {
   expire: timestamp("expire").notNull(),
 });
 
+// Admin audit logs for complete activity tracking
+export const adminLogs = pgTable("admin_logs", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id", { length: 255 }).references(() => users.id).notNull(),
+  action: varchar("action", { length: 100 }).notNull(),
+  resource: varchar("resource", { length: 255 }).notNull(),
+  resourceId: varchar("resource_id", { length: 255 }),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  metadata: json("metadata"),
+  result: varchar("result", { length: 50 }).notNull().default("success"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
 
+// Security events logging for threat monitoring
+export const securityEvents = pgTable("security_events", {
+  id: serial("id").primaryKey(),
+  type: varchar("type", { length: 100 }).notNull(),
+  severity: varchar("severity", { length: 20 }).notNull(),
+  source: varchar("source", { length: 100 }).notNull(),
+  description: text("description"),
+  metadata: json("metadata"),
+  userId: varchar("user_id", { length: 255 }).references(() => users.id),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  status: varchar("status", { length: 50 }).notNull().default("open"),
+  resolvedAt: timestamp("resolved_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+
+// Security scans tracking
+export const securityScans = pgTable("security_scans", {
+  id: serial("id").primaryKey(),
+  scanType: varchar("scan_type", { length: 100 }).notNull(),
+  targetType: varchar("target_type", { length: 100 }).notNull(),
+  status: varchar("status", { length: 50 }).notNull().default("pending"),
+  results: json("results"),
+  findings: json("findings"),
+  riskLevel: varchar("risk_level", { length: 20 }),
+  createdBy: varchar("created_by", { length: 255 }).references(() => users.id).notNull(),
+  startedAt: timestamp("started_at").defaultNow().notNull(),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+
+// System health monitoring
+export const systemHealth = pgTable("system_health", {
+  id: serial("id").primaryKey(),
+  component: varchar("component", { length: 100 }).notNull(),
+  status: varchar("status", { length: 50 }).notNull(),
+  metrics: json("metrics"),
+  alertLevel: varchar("alert_level", { length: 20 }).notNull().default("info"),
+  message: text("message"),
+  checkedAt: timestamp("checked_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
 
 // Media assets management
 export const mediaAssets = pgTable("media_assets", {
@@ -94,6 +148,8 @@ export const mediaAssets = pgTable("media_assets", {
   url: text("url"),
   altText: text("alt_text"),
   tags: text("tags").array(),
+  securityScanId: integer("security_scan_id").references(() => securityScans.id),
+  uploadedBy: varchar("uploaded_by", { length: 255 }).references(() => users.id),
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
 
@@ -172,8 +228,8 @@ export const mfaConfigurations = pgTable("mfa_configurations", {
   updatedAt: timestamp("updated_at").defaultNow()
 });
 
-// Security events and threat monitoring
-export const securityEvents = pgTable("security_events", {
+// Security events legacy table (keeping for backward compatibility)
+export const legacySecurityEvents = pgTable("legacy_security_events", {
   id: serial("id").primaryKey(),
   userId: varchar("user_id", { length: 255 }).references(() => users.id),
   eventType: varchar("event_type", { length: 100 }).notNull(),
@@ -1314,8 +1370,8 @@ export const systemMetrics = pgTable("system_metrics", {
   recordedAt: timestamp("recorded_at").defaultNow().notNull(),
 });
 
-// Admin activity logs
-export const adminLogs = pgTable("admin_logs", {
+// Legacy admin activity logs (renamed to avoid conflict)
+export const legacyAdminLogs = pgTable("legacy_admin_logs", {
   id: serial("id").primaryKey(),
   adminId: varchar("admin_id", { length: 255 }).references(() => users.id).notNull(),
   action: varchar("action", { length: 100 }).notNull(),
@@ -1480,8 +1536,8 @@ export const securitySettings = pgTable("security_settings", {
 
 // Enhanced security events table (Phase 4) - replaced basic version with cosmic consciousness features
 
-// Security scans table
-export const securityScans = pgTable("security_scans", {
+// Legacy security scans table (renamed to avoid conflict)
+export const legacySecurityScans = pgTable("legacy_security_scans", {
   id: serial("id").primaryKey(),
   scanTypes: text("scan_types").array().notNull(),
   startTime: timestamp("start_time").notNull().defaultNow(),
@@ -1941,6 +1997,61 @@ export const albumsRelations = relations(albums, ({ many }) => ({
   tracks: many(tracks),
 }));
 */
+
+// ===================================================================
+// Admin Portal Core Types and Schemas
+// ===================================================================
+
+// Admin portal security types
+export type SecuritySeverity = 'low' | 'medium' | 'high' | 'critical';
+export type SecurityEventType = 'authentication' | 'authorization' | 'data_access' | 'system_change' | 'security_scan' | 'threat_detection';
+export type AdminActionType = 'create' | 'read' | 'update' | 'delete' | 'auth' | 'security' | 'system';
+
+// Admin portal insert schemas
+export const insertAdminLog = createInsertSchema(adminLogs);
+export const insertSecurityEvent = createInsertSchema(securityEvents);
+export const insertSecurityScan = createInsertSchema(securityScans);
+export const insertSystemHealth = createInsertSchema(systemHealth);
+
+// Admin portal select types
+export type AdminLog = typeof adminLogs.$inferSelect;
+export type SecurityEvent = typeof securityEvents.$inferSelect;
+export type SecurityScan = typeof securityScans.$inferSelect;
+export type SystemHealth = typeof systemHealth.$inferSelect;
+
+// Enhanced admin portal interfaces
+export interface AdminStats {
+  users: {
+    total: number;
+    active: number;
+    newToday: number;
+  };
+  content: {
+    total: number;
+    published: number;
+    pending: number;
+  };
+  security: {
+    events: number;
+    threats: number;
+    status: 'secure' | 'warning' | 'critical';
+  };
+  system: {
+    uptime: number;
+    performance: number;
+    memory: number;
+    status: 'healthy' | 'degraded' | 'critical';
+  };
+}
+
+export interface SecurityMetrics {
+  activeProtections: number;
+  totalFeatures: number;
+  threatLevel: SecuritySeverity;
+  eventCount: number;
+  scanResults: SecurityScan[];
+  systemHealth: SystemHealth[];
+}
 
 // ===================================================================
 // Theme System Insert Schemas and Types
