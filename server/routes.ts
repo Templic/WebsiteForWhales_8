@@ -48,6 +48,7 @@ import { verifyApiSecurity } from './security/apiSecurityVerification';
 import { enhancedCsrfProtection } from './security/middleware/enhancedCsrfProtection';
 import typescriptErrorRoutes from './routes/typescript-error-routes';
 import adminDashboardRoutes from './routes/admin-dashboard';
+import comprehensiveApiRoutes from './routes/comprehensiveApiRoutes';
 import contentManagementRoutes from './routes/content-management';
 import typescriptErrorSimpleRoutes from './routes/typescript-error-simple-routes';
 import { holisticYouTubeSecurityMiddleware, youTubeCSRFExemption, youTubeRateLimitExemption } from './middleware/holistic-youtube-security';
