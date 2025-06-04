@@ -166,14 +166,15 @@ export function MainHeader() {
     <header 
       id="main-navigation"
       className={`
-        sticky top-0 z-50 transition-all duration-300
+        sticky top-0 z-50 transition-all duration-300 block w-full
         ${isScrolled ? 'py-1' : 'py-3'}
         ${autoHideNav ? 'transition-transform duration-300' : ''}
       `}
       style={{
-        background: 'linear-gradient(to right, rgba(15, 23, 42, 0.3), rgba(30, 58, 138, 0.3), rgba(88, 28, 135, 0.3))',
+        background: 'linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95), rgba(88, 28, 135, 0.95))',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(34, 197, 94, 0.3)'
+        borderBottom: '1px solid rgba(34, 197, 94, 0.3)',
+        minHeight: '60px'
       }}
     >
       {/* Background Elements with Sacred Geometry - Centered and sides */}
@@ -325,7 +326,7 @@ export function MainHeader() {
       {/* Header Content with Enhanced Cosmic Background */}
       <div className="max-w-6xl mx-auto px-4 relative z-50 block">
         {/* Primary Cosmic Background - Always Visible */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-lg border border-cyan-400/30 shadow-2xl shadow-cyan-500/20"></div>
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-lg border border-cyan-400/30 shadow-2xl shadow-cyan-500/20 min-h-[60px]"></div>
         
         {/* Secondary Gradient Overlay */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#050f28]/80 to-[#0a1f3c]/80"></div>
@@ -338,8 +339,8 @@ export function MainHeader() {
         <div className="hidden md:block absolute -inset-2 rounded-3xl bg-gradient-to-r from-cyan-500/10 via-purple-500/5 to-cyan-500/10 blur-2xl opacity-40"></div>
         
         {/* Main Content Container */}
-        <div className="relative z-20 py-2">
-          <div className="flex items-center justify-between w-full">
+        <div className="relative z-20 py-2 min-h-[60px]">
+          <div className="flex items-center justify-between w-full h-full">
             {/* Logo - Always visible */}
             <div className="flex items-center min-w-0 flex-shrink-0">
               <Link 
@@ -652,7 +653,7 @@ export function MainHeader() {
           </div>
 
           {/* Five-pointed star for mobile view - behind menu content but above menu background */}
-          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-20' : 'opacity-0'} z-[9998]`}>
+          <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-20' : 'opacity-0'} z-[5]`}>
             <div className="animate-spin-very-slow animate-pulse" style={{ animationDuration: '25s' }}>
               <SacredGeometry 
                 variant="star" 
