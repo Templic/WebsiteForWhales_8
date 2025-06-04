@@ -153,14 +153,26 @@ export const mediaAssets = pgTable("media_assets", {
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
 
-// Content items table
+// Content items table - updated to match actual database structure
 export const contentItems = pgTable("content_items", {
   id: serial("id").primaryKey(),
+  key: text("key").notNull().unique(),
   title: text("title").notNull(),
   content: text("content").notNull(),
-  type: varchar("type", { length: 50 }).notNull().default("blog"),
-  status: varchar("status", { length: 50 }).notNull().default("draft"),
-  authorId: varchar("author_id", { length: 255 }).references(() => users.id).notNull(),
+  type: contentTypeEnum("type").notNull().default("text"),
+  status: contentStatusEnum("status").notNull().default("draft"),
+  page: text("page").notNull(),
+  section: text("section").notNull().default("main"),
+  imageUrl: text("image_url"),
+  version: integer("version").notNull().default(1),
+  tags: text("tags").array(),
+  localeCode: text("locale_code").default("en-US"),
+  isActive: boolean("is_active").notNull().default(true),
+  authorId: varchar("author_id", { length: 255 }).references(() => users.id),
+  createdBy: varchar("created_by", { length: 255 }).references(() => users.id),
+  lastModifiedBy: varchar("last_modified_by", { length: 255 }).references(() => users.id),
+  reviewerId: varchar("reviewer_id", { length: 255 }).references(() => users.id),
+  reviewStatus: reviewStatusEnum("review_status"),
   publishedAt: timestamp("published_at"),
   scheduledFor: timestamp("scheduled_for"),
   recurringSchedule: json("recurring_schedule").$type<{
