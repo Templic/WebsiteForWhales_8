@@ -10,8 +10,17 @@ import "./styles/mobile-styles.css";
 import "./styles/responsive-demo.css";
 import "./styles/geometric-text-container.css";
 import "./styles/shape-contour-helpers.css";
+import "./styles/browser-compatibility.css";
 import { OrientationProvider } from "./contexts/OrientationContext";
 import { ThemeProvider } from "./components/ui/ThemeProvider";
+
+// Initialize browser compatibility system
+import { browserCompatibility } from "./utils/browserCompatibility";
+import { performanceMonitoring } from "./utils/performanceMonitoring";
+
+// Initialize browser optimizations early
+browserCompatibility.getBrowserInfo();
+performanceMonitoring.startMonitoring();
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");
