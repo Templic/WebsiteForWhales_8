@@ -1,0 +1,424 @@
+/**
+ * Browser Compatibility CSS
+ * Comprehensive cross-browser optimizations for Chrome, Firefox, Safari, Edge, Opera
+ * Covers mobile and desktop specific issues and performance optimizations
+ */
+
+/* CSS Custom Properties Fallbacks */
+:root {
+  --vh: 1vh; /* Safari viewport height fix */
+  --device-pixel-ratio: 1;
+  --max-touch-points: 0;
+  
+  /* Browser-specific performance optimizations */
+  --scroll-behavior: smooth;
+  --webkit-overflow-scrolling: touch;
+  --overscroll-behavior: contain;
+}
+
+/* Base browser optimizations */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* Remove iOS tap highlight */
+  -webkit-touch-callout: none; /* Disable iOS callout */
+}
+
+html {
+  /* Cross-browser scroll behavior */
+  scroll-behavior: var(--scroll-behavior);
+  -webkit-text-size-adjust: 100%; /* Prevent iOS text size adjustment */
+  -ms-text-size-adjust: 100%; /* Prevent IE text size adjustment */
+  text-size-adjust: 100%;
+  
+  /* Firefox-specific optimizations */
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  
+  /* Edge-specific optimizations */
+  -ms-overflow-style: scrollbar;
+}
+
+body {
+  /* Mobile touch optimization */
+  touch-action: manipulation;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  
+  /* Prevent rubber band scrolling on iOS */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Safari-specific fixes */
+.browser-safari {
+  /* Fix Safari viewport units */
+  --vh: 1vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.browser-safari input[type="date"],
+.browser-safari input[type="time"],
+.browser-safari input[type="datetime-local"] {
+  /* Safari date input styling */
+  -webkit-appearance: none;
+  appearance: none;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.browser-safari .sticky-element {
+  /* Fix Safari sticky positioning */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Firefox-specific optimizations */
+.browser-firefox {
+  /* Firefox scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+
+.browser-firefox *::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.browser-firefox input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.browser-firefox input[type="number"]::-webkit-outer-spin-button,
+.browser-firefox input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Chrome/Chromium-specific optimizations */
+.browser-chrome,
+.browser-edge {
+  /* Chromium-based browser optimizations */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.browser-chrome ::-webkit-scrollbar,
+.browser-edge ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.browser-chrome ::-webkit-scrollbar-track,
+.browser-edge ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.browser-chrome ::-webkit-scrollbar-thumb,
+.browser-edge ::-webkit-scrollbar-thumb {
+  background: rgba(155, 155, 155, 0.5);
+  border-radius: 4px;
+}
+
+.browser-chrome ::-webkit-scrollbar-thumb:hover,
+.browser-edge ::-webkit-scrollbar-thumb:hover {
+  background: rgba(155, 155, 155, 0.7);
+}
+
+/* Opera-specific optimizations */
+.browser-opera {
+  /* Opera-specific fixes */
+  -o-transform: translateZ(0);
+}
+
+/* Mobile-specific optimizations */
+.is-mobile {
+  /* Disable hover effects on mobile */
+  pointer-events: auto;
+}
+
+.is-mobile *:hover {
+  /* Prevent hover states on mobile */
+  pointer-events: none;
+}
+
+.is-mobile input,
+.is-mobile select,
+.is-mobile textarea {
+  /* Prevent zoom on input focus (iOS) */
+  font-size: 16px;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+}
+
+.is-mobile .parallax-element {
+  /* Disable parallax on mobile for performance */
+  transform: none !important;
+  -webkit-transform: none !important;
+}
+
+/* Touch device optimizations */
+.has-touch {
+  /* Optimize for touch interactions */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.has-touch button,
+.has-touch [role="button"],
+.has-touch .clickable {
+  /* Touch target sizing */
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .high-dpi-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Memory-based performance classes */
+.memory-low .complex-animation {
+  /* Disable complex animations on low-memory devices */
+  animation: none !important;
+  transition: none !important;
+}
+
+.memory-low .heavy-shadow {
+  /* Reduce shadows on low-memory devices */
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.memory-low .gradient-background {
+  /* Simplify gradients on low-memory devices */
+  background: var(--fallback-color, #f0f0f0) !important;
+}
+
+/* Animation performance classes */
+.animation-basic * {
+  /* Basic animations only */
+  animation-duration: 0.2s !important;
+  transition-duration: 0.2s !important;
+}
+
+.animation-enhanced * {
+  /* Enhanced animations */
+  animation-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.animation-premium * {
+  /* Premium animations for high-performance devices */
+  animation-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .browser-safari {
+    /* Safari dark mode scrollbar */
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+  
+  .browser-firefox {
+    /* Firefox dark mode scrollbar */
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+}
+
+/* Print optimizations */
+@media print {
+  * {
+    /* Optimize for printing across all browsers */
+    color: black !important;
+    background: white !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break-before {
+    page-break-before: always;
+  }
+  
+  .print-break-after {
+    page-break-after: always;
+  }
+}
+
+/* Input autofill styling (cross-browser) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--input-text-color, #000);
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px var(--input-bg-color, #fff);
+}
+
+/* Focus management for accessibility */
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+.focus-visible {
+  outline: 2px solid var(--focus-color, #0066cc);
+  outline-offset: 2px;
+}
+
+/* Loading states optimization */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.browser-safari .loading-skeleton {
+  /* Safari loading animation optimization */
+  -webkit-animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@-webkit-keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Form validation styling (cross-browser) */
+input:invalid {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+}
+
+input:valid {
+  border-color: #27ae60;
+  box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2);
+}
+
+/* Browser engine specific optimizations */
+.engine-webkit {
+  /* WebKit-based browsers (Safari, old Chrome) */
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+}
+
+.engine-blink {
+  /* Blink-based browsers (Chrome, Edge, Opera) */
+  will-change: auto;
+  contain: layout style paint;
+}
+
+.engine-gecko {
+  /* Gecko-based browsers (Firefox) */
+  -moz-transform: translateZ(0);
+  -moz-backface-visibility: hidden;
+}
+
+/* Network-aware optimizations */
+@media (max-width: 768px) and (max-resolution: 150dpi) {
+  .high-quality-image {
+    /* Use lower quality images on low-DPI mobile */
+    image-rendering: auto;
+  }
+}
+
+/* Container query fallbacks for older browsers */
+@supports not (container-type: inline-size) {
+  .container-responsive {
+    /* Fallback for browsers without container queries */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* Grid fallbacks for older browsers */
+@supports not (display: grid) {
+  .grid-layout {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .grid-item {
+    flex: 1 1 300px;
+    margin: 10px;
+  }
+}
+
+/* Flexbox gap fallbacks */
+@supports not (gap: 1rem) {
+  .flex-gap > * + * {
+    margin-left: 1rem;
+  }
+  
+  .flex-gap-vertical > * + * {
+    margin-top: 1rem;
+  }
+}
+
+/* Custom scrollbar for all browsers */
+.custom-scrollbar {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb, #ccc) var(--scrollbar-track, transparent);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  /* WebKit browsers */
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--scrollbar-track, transparent);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, #ccc);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover, #999);
+}
