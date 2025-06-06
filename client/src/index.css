@@ -19,9 +19,21 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes pentagon-rotate-120s {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .sacred-animate {
   animation: sacred-rotate 120s linear infinite;
   transform-origin: center;
+}
+
+/* High specificity pentagon animation */
+.pentagon-container {
+  animation: pentagon-rotate-120s 120s linear infinite !important;
+  transform-origin: center !important;
+  will-change: transform !important;
 }
 
 /* Theme Variables */

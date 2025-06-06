@@ -211,13 +211,7 @@ export function MainFooter() {
     >
       {/* Sacred Geometry Background Elements - Optimized Pentagon */}
       <div className="absolute top-0 left-1/4 transform -translate-x-1/2 opacity-15">
-        <div 
-          style={{ 
-            animation: 'sacred-rotate 120s linear infinite',
-            transformOrigin: 'center',
-            willChange: 'transform'
-          }}
-        >
+        <div className="pentagon-container">
           <SacredGeometry variant="pentagon" size={300} animated={false} intensity="subtle" />
         </div>
       </div>
