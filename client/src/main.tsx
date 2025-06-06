@@ -17,10 +17,14 @@ import { ThemeProvider } from "./components/ui/ThemeProvider";
 // Initialize browser compatibility system
 import { browserCompatibility } from "./utils/browserCompatibility";
 import { performanceMonitoring } from "./utils/performanceMonitoring";
+import { animationOptimizer } from "./utils/animationOptimizer";
 
 // Initialize browser optimizations early
 browserCompatibility.getBrowserInfo();
 performanceMonitoring.startMonitoring();
+
+// Fix fast spinning animations immediately
+animationOptimizer.optimizeExistingAnimations();
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");

@@ -1,320 +1,231 @@
 /**
- * Optimized Sacred Geometry Visualizer
- * Fixes critical memory leaks and performance bottlenecks identified in audit
+ * Optimized Sacred Geometry Component
+ * Fixed animation speeds and browser compatibility for all major browsers
  */
 
-import React, { useRef, useEffect, useState, useCallback, memo } from 'react';
-import * as THREE from 'three';
-import { useThreeJSCleanup, useInstancedParticles } from '@/hooks/useThreeJSCleanup';
-
-type GeometryPattern = "flowerOfLife" | "metatronsCube" | "merkaba" | "sriYantra" | "fibonacciSpiral" | "torus" | "vesicaPiscis" | "pentagram" | "platonic";
-type ColorScheme = "cosmic" | "ocean" | "sunset" | "aurora" | "forest";
+import React, { useEffect, useRef, useState } from 'react';
+import { useBrowserOptimization } from '../../hooks/useBrowserOptimization';
 
 interface OptimizedSacredGeometryProps {
-  pattern?: GeometryPattern;
-  colorScheme?: ColorScheme;
+  variant: 'flower-of-life' | 'sri-yantra' | 'metatron-cube' | 'pentagon-star' | 'hexagon' | 'vesica-piscis' | 'golden-spiral' | 'merkaba' | 'dodecahedron' | 'icosahedron' | 'seed-of-life';
+  size?: number;
+  color?: string;
+  animated?: boolean;
   className?: string;
-  autoRotate?: boolean;
-  particleCount?: number;
+  opacity?: number;
 }
 
-const colorSchemes = {
-  cosmic: [0x9b87f5, 0x33c3f0, 0xfbbf24, 0xf59e0b, 0x8b5cf6],
-  ocean: [0x0891b2, 0x06b6d4, 0x67e8f9, 0x22d3ee, 0x0e7490],
-  sunset: [0xf97316, 0xea580c, 0xfbbf24, 0xf59e0b, 0xdc2626],
-  aurora: [0x10b981, 0x059669, 0x34d399, 0x6ee7b7, 0xa7f3d0],
-  forest: [0x16a34a, 0x15803d, 0x22c55e, 0x4ade80, 0x86efac]
-};
-
-export const OptimizedSacredGeometry = memo<OptimizedSacredGeometryProps>(({
-  pattern = "flowerOfLife",
-  colorScheme = "cosmic",
-  className = "",
-  autoRotate = true,
-  particleCount = 500
+export const OptimizedSacredGeometry: React.FC<OptimizedSacredGeometryProps> = ({
+  variant,
+  size = 120,
+  color = 'rgba(124, 58, 237, 0.3)',
+  animated = true,
+  className = '',
+  opacity = 0.3
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const geometryRef = useRef<THREE.Object3D | null>(null);
-  const controlsRef = useRef<any | null>(null);
-  const animationFrameRef = useRef<number | null>(null);
-  const instancedParticlesRef = useRef<THREE.InstancedMesh | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [shouldAnimate, setShouldAnimate] = useState(animated);
   
-  const [isLoading, setIsLoading] = useState(true);
-  const cleanup = useThreeJSCleanup();
-  const createInstancedParticles = useInstancedParticles();
+  const {
+    shouldEnableFeature,
+    prefersReducedMotion,
+    browserName,
+    config
+  } = useBrowserOptimization();
 
-  const initializeScene = useCallback(() => {
-    if (!containerRef.current) return;
+  useEffect(() => {
+    // Respect user preferences and browser capabilities
+    const enableAnimation = animated && 
+                           shouldEnableFeature('advanced-animations') && 
+                           !prefersReducedMotion;
+    setShouldAnimate(enableAnimation);
+  }, [animated, shouldEnableFeature, prefersReducedMotion]);
 
-    const width = containerRef.current.clientWidth;
-    const height = containerRef.current.clientHeight;
-
-    // Scene setup
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000511);
-    sceneRef.current = scene;
-
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    camera.position.z = 10;
-    cameraRef.current = camera;
-
-    // Renderer setup with optimized settings
-    const renderer = new THREE.WebGLRenderer({ 
-      antialias: true, 
-      alpha: true,
-      powerPreference: "high-performance"
-    });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
-    renderer.setClearColor(0x000000, 0);
-    rendererRef.current = renderer;
-
-    // Add optimized lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
-
-    containerRef.current.appendChild(renderer.domElement);
-    setIsLoading(false);
-  }, []);
-
-  const createGeometry = useCallback(() => {
-    if (!sceneRef.current) return;
-
-    // Clean existing geometry
-    if (geometryRef.current) {
-      sceneRef.current.remove(geometryRef.current);
-      if (geometryRef.current instanceof THREE.Mesh) {
-        geometryRef.current.geometry.dispose();
-        if (Array.isArray(geometryRef.current.material)) {
-          geometryRef.current.material.forEach(mat => mat.dispose());
-        } else {
-          geometryRef.current.material.dispose();
-        }
-      }
-    }
-
-    const colors = colorSchemes[colorScheme];
-    let newGeometry: THREE.Object3D;
-
-    switch (pattern) {
-      case "flowerOfLife":
-        newGeometry = createFlowerOfLife(colors);
-        break;
-      case "metatronsCube":
-        newGeometry = createMetatronsCube(colors);
-        break;
-      case "merkaba":
-        newGeometry = createMerkaba(colors);
-        break;
-      case "torus":
-        newGeometry = createTorus(colors);
-        break;
+  // Get optimized animation duration based on browser
+  const getAnimationDuration = () => {
+    if (!shouldAnimate) return 'none';
+    
+    switch (browserName) {
+      case 'safari':
+        return '300s'; // Very slow for Safari mobile performance
+      case 'firefox': 
+        return '240s'; // Slower for Firefox compatibility
       default:
-        newGeometry = createFlowerOfLife(colors);
+        return '180s'; // Default slow rotation
     }
+  };
 
-    geometryRef.current = newGeometry;
-    sceneRef.current.add(newGeometry);
-  }, [pattern, colorScheme]);
-
-  const createFlowerOfLife = useCallback((colors: number[]) => {
-    const group = new THREE.Group();
+  const renderGeometry = () => {
+    const center = size / 2;
+    const radius = size * 0.35;
     
-    for (let i = 0; i < 7; i++) {
-      const geometry = new THREE.RingGeometry(1, 1.1, 32);
-      const material = new THREE.MeshBasicMaterial({ 
-        color: colors[i % colors.length],
-        transparent: true,
-        opacity: 0.7,
-        side: THREE.DoubleSide
-      });
-      const ring = new THREE.Mesh(geometry, material);
-      
-      if (i === 0) {
-        ring.position.set(0, 0, 0);
-      } else {
-        const angle = (i - 1) * Math.PI / 3;
-        ring.position.set(Math.cos(angle) * 2, Math.sin(angle) * 2, 0);
-      }
-      
-      group.add(ring);
+    switch (variant) {
+      case 'flower-of-life':
+        return (
+          <g>
+            {/* Center circle */}
+            <circle cx={center} cy={center} r={radius * 0.4} fill="none" stroke={color} strokeWidth="1"/>
+            {/* Surrounding circles */}
+            {Array.from({ length: 6 }, (_, i) => {
+              const angle = (Math.PI / 3) * i;
+              const x = center + radius * 0.4 * Math.cos(angle);
+              const y = center + radius * 0.4 * Math.sin(angle);
+              return (
+                <circle key={i} cx={x} cy={y} r={radius * 0.4} fill="none" stroke={color} strokeWidth="1"/>
+              );
+            })}
+          </g>
+        );
+
+      case 'sri-yantra':
+        return (
+          <g>
+            {/* Interlocking triangles */}
+            <polygon 
+              points={`${center},${center - radius} ${center - radius * 0.866},${center + radius * 0.5} ${center + radius * 0.866},${center + radius * 0.5}`}
+              fill="none" stroke={color} strokeWidth="1"
+            />
+            <polygon 
+              points={`${center},${center + radius} ${center - radius * 0.866},${center - radius * 0.5} ${center + radius * 0.866},${center - radius * 0.5}`}
+              fill="none" stroke={color} strokeWidth="1"
+            />
+          </g>
+        );
+
+      case 'metatron-cube':
+        return (
+          <g>
+            {/* Draw 13 circles and connecting lines */}
+            <circle cx={center} cy={center} r="2" fill={color}/>
+            {Array.from({ length: 6 }, (_, i) => {
+              const angle = (Math.PI / 3) * i;
+              const x = center + radius * 0.6 * Math.cos(angle);
+              const y = center + radius * 0.6 * Math.sin(angle);
+              return (
+                <g key={i}>
+                  <circle cx={x} cy={y} r="2" fill={color}/>
+                  <line x1={center} y1={center} x2={x} y2={y} stroke={color} strokeWidth="1"/>
+                </g>
+              );
+            })}
+          </g>
+        );
+
+      case 'pentagon-star':
+        const starPoints = Array.from({ length: 5 }, (_, i) => {
+          const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+          return `${center + radius * Math.cos(angle)},${center + radius * Math.sin(angle)}`;
+        });
+        return (
+          <polygon 
+            points={`${starPoints[0]} ${starPoints[2]} ${starPoints[4]} ${starPoints[1]} ${starPoints[3]}`}
+            fill="none" stroke={color} strokeWidth="1"
+          />
+        );
+
+      case 'hexagon':
+        const hexPoints = Array.from({ length: 6 }, (_, i) => {
+          const angle = (Math.PI / 3) * i;
+          return `${center + radius * Math.cos(angle)},${center + radius * Math.sin(angle)}`;
+        }).join(' ');
+        return (
+          <polygon points={hexPoints} fill="none" stroke={color} strokeWidth="1"/>
+        );
+
+      case 'merkaba':
+        return (
+          <g>
+            <polygon 
+              points={`${center},${center - radius} ${center - radius * 0.866},${center + radius * 0.5} ${center + radius * 0.866},${center + radius * 0.5}`}
+              fill="none" stroke={color} strokeWidth="1"
+            />
+            <polygon 
+              points={`${center},${center + radius} ${center - radius * 0.866},${center - radius * 0.5} ${center + radius * 0.866},${center - radius * 0.5}`}
+              fill="none" stroke={color} strokeWidth="1"
+            />
+          </g>
+        );
+
+      case 'seed-of-life':
+        return (
+          <g>
+            <circle cx={center} cy={center} r={radius * 0.5} fill="none" stroke={color} strokeWidth="1"/>
+            {Array.from({ length: 6 }, (_, i) => {
+              const angle = (Math.PI / 3) * i;
+              const x = center + radius * 0.5 * Math.cos(angle);
+              const y = center + radius * 0.5 * Math.sin(angle);
+              return (
+                <circle key={i} cx={x} cy={y} r={radius * 0.5} fill="none" stroke={color} strokeWidth="1"/>
+              );
+            })}
+          </g>
+        );
+
+      default:
+        return (
+          <circle cx={center} cy={center} r={radius} fill="none" stroke={color} strokeWidth="1"/>
+        );
     }
-    
-    return group;
-  }, []);
-
-  const createMetatronsCube = useCallback((colors: number[]) => {
-    const group = new THREE.Group();
-    
-    // Central sphere
-    const centralGeometry = new THREE.SphereGeometry(0.3, 16, 16);
-    const centralMaterial = new THREE.MeshLambertMaterial({ color: colors[0] });
-    const centralSphere = new THREE.Mesh(centralGeometry, centralMaterial);
-    group.add(centralSphere);
-    
-    // Surrounding spheres
-    for (let i = 0; i < 6; i++) {
-      const angle = (i * Math.PI) / 3;
-      const x = Math.cos(angle) * 2;
-      const y = Math.sin(angle) * 2;
-      
-      const geometry = new THREE.SphereGeometry(0.2, 12, 12);
-      const material = new THREE.MeshLambertMaterial({ 
-        color: colors[(i + 1) % colors.length] 
-      });
-      const sphere = new THREE.Mesh(geometry, material);
-      sphere.position.set(x, y, 0);
-      group.add(sphere);
-    }
-    
-    return group;
-  }, []);
-
-  const createMerkaba = useCallback((colors: number[]) => {
-    const group = new THREE.Group();
-    
-    const tetraGeometry = new THREE.TetrahedronGeometry(2);
-    
-    const tetra1 = new THREE.Mesh(
-      tetraGeometry,
-      new THREE.MeshLambertMaterial({ 
-        color: colors[0],
-        transparent: true,
-        opacity: 0.7,
-        wireframe: true
-      })
-    );
-    
-    const tetra2 = new THREE.Mesh(
-      tetraGeometry,
-      new THREE.MeshLambertMaterial({ 
-        color: colors[1],
-        transparent: true,
-        opacity: 0.7,
-        wireframe: true
-      })
-    );
-    
-    tetra2.rotation.y = Math.PI;
-    
-    group.add(tetra1);
-    group.add(tetra2);
-    
-    return group;
-  }, []);
-
-  const createTorus = useCallback((colors: number[]) => {
-    const group = new THREE.Group();
-    
-    const geometry = new THREE.TorusGeometry(2, 0.5, 16, 100);
-    const material = new THREE.MeshLambertMaterial({ 
-      color: colors[0],
-      transparent: true,
-      opacity: 0.8
-    });
-    const torus = new THREE.Mesh(geometry, material);
-    group.add(torus);
-    
-    return group;
-  }, []);
-
-  const createParticles = useCallback(() => {
-    if (!sceneRef.current) return;
-
-    // Remove existing particles
-    if (instancedParticlesRef.current) {
-      sceneRef.current.remove(instancedParticlesRef.current);
-      instancedParticlesRef.current.geometry.dispose();
-      instancedParticlesRef.current.material.dispose();
-    }
-
-    // Create new instanced particles
-    const particles = createInstancedParticles(
-      sceneRef.current,
-      particleCount,
-      colorSchemes[colorScheme]
-    );
-    instancedParticlesRef.current = particles;
-  }, [createInstancedParticles, particleCount, colorScheme]);
-
-  const animate = useCallback(() => {
-    if (!rendererRef.current || !sceneRef.current || !cameraRef.current) return;
-
-    if (autoRotate && geometryRef.current) {
-      geometryRef.current.rotation.x += 0.005;
-      geometryRef.current.rotation.y += 0.01;
-    }
-
-    if (instancedParticlesRef.current) {
-      instancedParticlesRef.current.rotation.x += 0.001;
-      instancedParticlesRef.current.rotation.y += 0.002;
-    }
-
-    rendererRef.current.render(sceneRef.current, cameraRef.current);
-    animationFrameRef.current = requestAnimationFrame(animate);
-  }, [autoRotate]);
-
-  const handleResize = useCallback(() => {
-    if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
-
-    const width = containerRef.current.clientWidth;
-    const height = containerRef.current.clientHeight;
-
-    cameraRef.current.aspect = width / height;
-    cameraRef.current.updateProjectionMatrix();
-    rendererRef.current.setSize(width, height);
-  }, []);
-
-  // Initialize scene
-  useEffect(() => {
-    initializeScene();
-    
-    const resizeHandler = () => handleResize();
-    window.addEventListener('resize', resizeHandler);
-
-    return () => {
-      window.removeEventListener('resize', resizeHandler);
-      cleanup({
-        containerRef,
-        rendererRef,
-        sceneRef,
-        cameraRef,
-        geometryRef,
-        controlsRef,
-        animationFrameRef
-      });
-    };
-  }, [initializeScene, handleResize, cleanup]);
-
-  // Update geometry when pattern changes
-  useEffect(() => {
-    if (!isLoading) {
-      createGeometry();
-      createParticles();
-      animate();
-    }
-  }, [pattern, colorScheme, isLoading, createGeometry, createParticles, animate]);
+  };
 
   return (
-    <div 
-      ref={containerRef} 
-      className={`relative w-full h-64 bg-gradient-to-br from-slate-900 to-purple-900 rounded-lg overflow-hidden ${className}`}
+    <svg
+      ref={svgRef}
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      className={`sacred-geometry-optimized ${className}`}
+      style={{
+        opacity,
+        animation: shouldAnimate ? `gentle-rotate ${getAnimationDuration()} linear infinite` : 'none',
+        transformOrigin: 'center',
+        willChange: shouldAnimate ? 'transform' : 'auto'
+      }}
     >
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-cyan-300 animate-pulse">Loading Sacred Geometry...</div>
-        </div>
-      )}
-    </div>
+      {renderGeometry()}
+      
+      <defs>
+        <style>
+          {`
+            @keyframes gentle-rotate {
+              from {
+                transform: rotate(0deg);
+              }
+              to {
+                transform: rotate(360deg);
+              }
+            }
+            
+            .sacred-geometry-optimized {
+              filter: drop-shadow(0 0 4px ${color});
+              transition: opacity 0.3s ease;
+            }
+            
+            /* Browser-specific optimizations */
+            .browser-safari .sacred-geometry-optimized {
+              transform: translateZ(0);
+              backface-visibility: hidden;
+            }
+            
+            .browser-firefox .sacred-geometry-optimized {
+              image-rendering: auto;
+            }
+            
+            /* Reduced motion support */
+            @media (prefers-reduced-motion: reduce) {
+              .sacred-geometry-optimized {
+                animation: none !important;
+              }
+            }
+            
+            /* Performance optimization for low-memory devices */
+            .memory-low .sacred-geometry-optimized {
+              animation: none !important;
+              filter: none;
+            }
+          `}
+        </style>
+      </defs>
+    </svg>
   );
-});
-
-OptimizedSacredGeometry.displayName = 'OptimizedSacredGeometry';
+};
