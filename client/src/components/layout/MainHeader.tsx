@@ -182,81 +182,69 @@ export function MainHeader() {
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
         <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 30 }}>
-          <div className="header-star-animation">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={90} 
-              animated={false} 
-              intensity="medium" 
-              className="text-cyan-300" 
-            />
-          </div>
+          <SacredGeometry 
+            variant="merkaba" 
+            size={90} 
+            animated={true} 
+            intensity="medium" 
+            className="text-cyan-300" 
+          />
         </div>
 
         {/* Left circle background/shadow - first set */}
         <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <div className="header-star-animation">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={100} 
-              animated={false} 
-              intensity="subtle" 
-              className="text-purple-400" 
-            />
-          </div>
+          <SacredGeometry 
+            variant="merkaba" 
+            size={100} 
+            animated={true} 
+            intensity="subtle" 
+            className="text-purple-400" 
+          />
         </div>
         
         {/* Right circle foreground - first set */}
         <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 30 }}>
-          <div className="header-star-animation">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={90} 
-              animated={false} 
-              intensity="medium" 
-              className="text-cyan-300" 
-            />
-          </div>
+          <SacredGeometry 
+            variant="merkaba" 
+            size={90} 
+            animated={true} 
+            intensity="medium" 
+            className="text-cyan-300" 
+          />
         </div>
         
         {/* Right circle background/shadow - first set */}
         <div className="absolute top-[52%] right-[7%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
-          <div className="header-star-animation">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={100} 
-              animated={false} 
-              intensity="subtle" 
-              className="text-purple-400" 
-            />
-          </div>
+          <SacredGeometry 
+            variant="merkaba" 
+            size={100} 
+            animated={true} 
+            intensity="subtle" 
+            className="text-purple-400" 
+          />
         </div>
         
         {/* SECOND SET - Slightly below and toward center - behind navigation */}
         {/* Left circle foreground - second set */}
         <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-0">
-          <div className="header-star-animation">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={75} 
-              animated={false} 
-              intensity="medium" 
-              className="text-cyan-300" 
-            />
-          </div>
+          <SacredGeometry 
+            variant="merkaba" 
+            size={75} 
+            animated={true} 
+            intensity="medium" 
+            className="text-cyan-300" 
+          />
         </div>
 
         {/* Left circle background/shadow - second set */}
         <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm z-0">
-          <div className="header-star-animation">
-            <SacredGeometry 
-              variant="merkaba" 
-              size={85} 
-              animated={false} 
-              intensity="subtle" 
-              className="text-purple-400" 
-            />
-          </div>
+          <SacredGeometry 
+            variant="merkaba" 
+            size={85} 
+            animated={true} 
+            intensity="subtle" 
+            className="text-purple-400" 
+          />
         </div>
         
         {/* Right circle foreground - second set */}
