@@ -506,17 +506,42 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       ctx.fillText(text, x, y);
     }
 
-    // Animation loop
+    // Animation loop with browser-optimized speeds
     const animateLoop = () => {
       if (animate) {
-        // Much slower rotation speed - approximately 1 full rotation per minute
-        rotationRef.current += 0.0001; 
+        // Extremely slow rotation - approximately 1 full rotation every 3-5 minutes
+        // Speed varies by browser for optimal performance
+        const baseSpeed = 0.00002; // Base very slow speed
+        const browserMultiplier = getBrowserOptimizedSpeed();
+        rotationRef.current += baseSpeed * browserMultiplier;
         drawPattern(rotationRef.current);
         animationRef.current = requestAnimationFrame(animateLoop);
       } else {
         drawPattern(0);
       }
     };
+
+    // Get browser-optimized animation speed
+    function getBrowserOptimizedSpeed(): number {
+      const userAgent = navigator.userAgent.toLowerCase();
+      
+      // Detect mobile devices first
+      const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      if (isMobile) {
+        return 0.3; // Much slower on mobile
+      }
+      
+      // Browser-specific optimizations
+      if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+        return 0.4; // Slower for Safari
+      } else if (userAgent.includes('firefox')) {
+        return 0.6; // Medium speed for Firefox
+      } else if (userAgent.includes('chrome') || userAgent.includes('edge')) {
+        return 0.8; // Slightly faster for Chrome/Edge
+      }
+      
+      return 0.5; // Default conservative speed
+    }
 
     animateLoop();
 

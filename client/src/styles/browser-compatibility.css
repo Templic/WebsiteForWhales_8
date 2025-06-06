@@ -98,6 +98,130 @@ body {
   margin: 0;
 }
 
+/* Sacred Geometry Animation Fixes - Browser Optimized */
+@keyframes gentle-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slow-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reverse-rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes cosmic-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fix fast spinning sacred geometry animations with browser-specific durations */
+.animate-spin-very-slow,
+.slow-rotate,
+.gentle-rotate {
+  animation: gentle-rotate 180s linear infinite;
+}
+
+.reverse-rotate {
+  animation: reverse-rotate 240s linear infinite;
+}
+
+.cosmic-rotate {
+  animation: cosmic-rotate 200s linear infinite;
+}
+
+/* Browser-specific animation optimizations */
+.browser-safari .animate-spin-very-slow,
+.browser-safari .slow-rotate,
+.browser-safari .gentle-rotate {
+  animation: gentle-rotate 300s linear infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.browser-safari.is-mobile .animate-spin-very-slow,
+.browser-safari.is-mobile .slow-rotate,
+.browser-safari.is-mobile .gentle-rotate {
+  animation: none !important;
+  will-change: auto;
+}
+
+.browser-firefox .animate-spin-very-slow,
+.browser-firefox .slow-rotate,
+.browser-firefox .gentle-rotate {
+  animation: gentle-rotate 240s linear infinite;
+  image-rendering: auto;
+}
+
+.browser-chrome .animate-spin-very-slow,
+.browser-chrome .slow-rotate,
+.browser-chrome .gentle-rotate,
+.browser-edge .animate-spin-very-slow,
+.browser-edge .slow-rotate,
+.browser-edge .gentle-rotate {
+  animation: gentle-rotate 180s linear infinite;
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Mobile device optimizations */
+.is-mobile .animate-spin-very-slow,
+.is-mobile .slow-rotate,
+.is-mobile .gentle-rotate,
+.is-mobile .reverse-rotate,
+.is-mobile .cosmic-rotate {
+  animation-duration: 360s !important;
+}
+
+.is-mobile.memory-low .animate-spin-very-slow,
+.is-mobile.memory-low .slow-rotate,
+.is-mobile.memory-low .gentle-rotate,
+.is-mobile.memory-low .reverse-rotate,
+.is-mobile.memory-low .cosmic-rotate {
+  animation: none !important;
+}
+
+/* Reduced motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-very-slow,
+  .slow-rotate,
+  .gentle-rotate,
+  .reverse-rotate,
+  .cosmic-rotate {
+    animation: none !important;
+  }
+}
+
+/* Performance-based animation control */
+.memory-low .animate-spin-very-slow,
+.memory-low .slow-rotate,
+.memory-low .gentle-rotate,
+.memory-low .reverse-rotate,
+.memory-low .cosmic-rotate {
+  animation: none !important;
+  filter: none;
+}
+
 /* Chrome/Chromium-specific optimizations */
 .browser-chrome,
 .browser-edge {
