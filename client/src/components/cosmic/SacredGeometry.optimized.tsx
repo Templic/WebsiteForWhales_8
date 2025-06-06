@@ -203,15 +203,14 @@ const SacredGeometry = memo(({
     );
   }, [glowEffect, type, glowIntensity]);
   
-  // Animation transformation
+  // Animation transformation - using unified CSS animation system
   const animationStyle = useMemo(() => {
     if (!animate) return {};
     
     return {
-      transform: `rotate(${rotation + (animationPhase * (180 / Math.PI))}deg) scale(${1 + Math.sin(animationPhase) * 0.05})`,
-      transition: 'transform 0.1s ease-out'
+      transform: `rotate(${rotation}deg)`,
     };
-  }, [animate, rotation, animationPhase]);
+  }, [animate, rotation]);
   
   return (
     <svg
@@ -219,7 +218,7 @@ const SacredGeometry = memo(({
       width={actualSize}
       height={actualSize}
       viewBox={`0 0 ${actualSize} ${actualSize}`}
-      className={`sacred-geometry ${className}`}
+      className={`sacred-geometry ${animate ? 'sacred-geometry-animated' : ''} ${className}`}
       style={{
         opacity,
         ...style,
