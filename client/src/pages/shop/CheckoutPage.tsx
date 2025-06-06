@@ -362,26 +362,36 @@ export default function CheckoutPage() {
     <div className="min-h-screen relative bg-[#050f28] text-[#e8e6e3]">
       <CosmicBackground opacity={0.3} color="purple" nebulaEffect={true} />
       
-      {/* Sacred geometry elements in page margins */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      {/* Sacred geometry elements in page margins - fixed layering */}
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden" style={{ mixBlendMode: 'multiply' }}>
         {/* Left margin sacred geometry - one at top, one at bottom */}
-        <div className="absolute top-40 left-5 opacity-20 hidden md:block">
+        <div className="absolute top-40 left-5 opacity-15 hidden md:block">
           <SacredGeometry variant="flower-of-life" size={120} animated={false} />
         </div>
-        <div className="absolute bottom-40 left-5 opacity-20 hidden md:block">
+        <div className="absolute bottom-40 left-5 opacity-15 hidden md:block">
           <SacredGeometry variant="metatron-cube" size={120} animated={true} />
         </div>
         
         {/* Right margin sacred geometry - one at top, one at bottom */}
-        <div className="absolute top-40 right-5 opacity-20 hidden md:block">
+        <div className="absolute top-40 right-5 opacity-15 hidden md:block">
           <SacredGeometry variant="seed-of-life" size={120} animated={true} />
         </div>
-        <div className="absolute bottom-40 right-5 opacity-20 hidden md:block">
+        <div className="absolute bottom-40 right-5 opacity-15 hidden md:block">
           <SacredGeometry variant="sri-yantra" size={120} animated={true} />
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Sample Text Warning Banner */}
+        <Alert className="mb-6 border-amber-500/50 bg-amber-900/20">
+          <AlertCircle className="h-4 w-4 text-amber-400" />
+          <AlertTitle className="text-amber-400">Development Notice</AlertTitle>
+          <AlertDescription className="text-amber-200">
+            This checkout page contains sample terms of service and privacy policy text for demonstration purposes. 
+            These should be replaced with actual legal documents before production use.
+          </AlertDescription>
+        </Alert>
+
         <div className="mb-8">
           <h1 className="text-2xl font-bold cosmic-gradient-text">Cosmic Checkout</h1>
           <p className="text-gray-300">Complete your cosmic journey purchase</p>
