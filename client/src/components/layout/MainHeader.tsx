@@ -181,7 +181,7 @@ export function MainHeader() {
       <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none" style={{ zIndex: 1 }}>
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
-        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 30 }}>
+        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block -z-10 opacity-40" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={90} 
@@ -192,7 +192,7 @@ export function MainHeader() {
         </div>
 
         {/* Left circle background/shadow - first set */}
-        <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
+        <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block -z-20 opacity-20 blur-sm" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={100} 
@@ -203,7 +203,7 @@ export function MainHeader() {
         </div>
         
         {/* Right circle foreground - first set */}
-        <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block" style={{ zIndex: 30 }}>
+        <div className="absolute top-1/2 right-[8%] transform translate-x-1/2 -translate-y-1/2 hidden md:block -z-10 opacity-40" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={90} 
@@ -214,7 +214,7 @@ export function MainHeader() {
         </div>
         
         {/* Right circle background/shadow - first set */}
-        <div className="absolute top-[52%] right-[7%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-10 opacity-50 blur-sm">
+        <div className="absolute top-[52%] right-[7%] transform translate-x-1/2 -translate-y-1/2 hidden md:block -z-20 opacity-20 blur-sm" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={100} 
@@ -226,7 +226,7 @@ export function MainHeader() {
         
         {/* SECOND SET - Slightly below and toward center - behind navigation */}
         {/* Left circle foreground - second set */}
-        <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block z-0">
+        <div className="absolute top-[60%] left-[12%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block -z-10 opacity-30" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={75} 
@@ -237,7 +237,7 @@ export function MainHeader() {
         </div>
 
         {/* Left circle background/shadow - second set */}
-        <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm z-0">
+        <div className="absolute top-[62%] left-[11%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block -z-20 opacity-15 blur-sm" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={85} 
@@ -248,7 +248,7 @@ export function MainHeader() {
         </div>
         
         {/* Right circle foreground - second set */}
-        <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-0">
+        <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block -z-10 opacity-30" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={75} 
@@ -259,7 +259,7 @@ export function MainHeader() {
         </div>
         
         {/* Right circle background/shadow - second set */}
-        <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm z-0">
+        <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block -z-20 opacity-15 blur-sm" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={85} 
@@ -269,7 +269,7 @@ export function MainHeader() {
           />
         </div>
       
-        <div className="absolute -top-14 -right-14 opacity-40 transform rotate-45">
+        <div className="absolute -top-14 -right-14 opacity-25 transform rotate-45 -z-30" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={80} 
@@ -278,7 +278,7 @@ export function MainHeader() {
             className="text-cyan-400" 
           />
         </div>
-        <div className="absolute -bottom-10 -left-10 opacity-30">
+        <div className="absolute -bottom-10 -left-10 opacity-20 -z-30" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="hexagon" 
             size={70} 
@@ -287,7 +287,7 @@ export function MainHeader() {
             className="text-purple-400" 
           />
         </div>
-        <div className="absolute top-1/2 -translate-y-1/2 -right-8 opacity-20">
+        <div className="absolute top-1/2 -translate-y-1/2 -right-8 opacity-15 -z-30" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="tetrahedron" 
             size={50} 
@@ -296,7 +296,7 @@ export function MainHeader() {
             className="text-cyan-300" 
           />
         </div>
-        <div className="absolute top-1/2 -translate-y-1/2 -left-8 opacity-20">
+        <div className="absolute top-1/2 -translate-y-1/2 -left-8 opacity-15 -z-30" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="octahedron" 
             size={50} 
@@ -506,48 +506,53 @@ export function MainHeader() {
             
             <div className="flex flex-col space-y-1 items-center">
               {/* First Row - Staggered from left - improved centering */}
-              <div className="flex justify-center">
+              <div className="flex justify-center items-center">
                 {primaryNavItems.map((item, index) => (
-                  <motion.div 
-                    key={item.path}
-                    className="relative mx-2 md:mx-3 lg:mx-5"
-                    initial="initial"
-                    whileHover="hover"
-                    custom={index}
-                  >
-                    <Link
-                      href={item.path}
-                      onClick={() => handleNavigationClick(item.path)}
-                      className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
-                    >
-                      <div className="absolute -left-1 -top-1 opacity-50">
-                        <SacredGeometry 
-                          variant={index % 2 === 0 ? "hexagon" : "triangle"} 
-                          size={16} 
-                          intensity="subtle" 
-                          className={index % 2 === 0 ? "text-cyan-300" : "text-purple-300"} 
-                        />
-                      </div>
-                      {item.icon}
-                      {item.name}
-                    </Link>
+                  <React.Fragment key={item.path}>
                     <motion.div 
-                      className={`absolute inset-0 rounded-md opacity-0 bg-gradient-to-r ${
-                        item.glowColor === 'cyan' 
-                          ? 'from-cyan-500/20 to-cyan-500/5' 
-                          : 'from-purple-500/20 to-purple-500/5'
-                      } -z-10`}
-                      variants={navItemVariants}
-                      transition={{ delay: index * 0.05 }}
-                      animate={{ opacity: [0, 0.2, 0], transition: { duration: 2, repeat: Infinity } }}
-                    />
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400/0 via-cyan-400 to-cyan-400/0 transform origin-left"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.div>
+                      className="relative mx-2 md:mx-3 lg:mx-4"
+                      initial="initial"
+                      whileHover="hover"
+                      custom={index}
+                    >
+                      <Link
+                        href={item.path}
+                        onClick={() => handleNavigationClick(item.path)}
+                        className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
+                      >
+                        <div className="absolute -left-1 -top-1 opacity-25 -z-40" style={{ mixBlendMode: 'multiply' }}>
+                          <SacredGeometry 
+                            variant={index % 2 === 0 ? "hexagon" : "triangle"} 
+                            size={16} 
+                            intensity="subtle" 
+                            className={index % 2 === 0 ? "text-cyan-300" : "text-purple-300"} 
+                          />
+                        </div>
+                        {item.icon}
+                        {item.name}
+                      </Link>
+                      <motion.div 
+                        className={`absolute inset-0 rounded-md opacity-0 bg-gradient-to-r ${
+                          item.glowColor === 'cyan' 
+                            ? 'from-cyan-500/20 to-cyan-500/5' 
+                            : 'from-purple-500/20 to-purple-500/5'
+                        } -z-10`}
+                        variants={navItemVariants}
+                        transition={{ delay: index * 0.05 }}
+                        animate={{ opacity: [0, 0.2, 0], transition: { duration: 2, repeat: Infinity } }}
+                      />
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400/0 via-cyan-400 to-cyan-400/0 transform origin-left"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                    {/* Vertical separator between navigation items */}
+                    {index < primaryNavItems.length - 1 && (
+                      <div className="h-4 w-px bg-gradient-to-b from-cyan-400/30 via-purple-400/40 to-cyan-400/30 mx-1"></div>
+                    )}
+                  </React.Fragment>
                 ))}
               </div>
               
@@ -566,7 +571,7 @@ export function MainHeader() {
                       onClick={() => handleNavigationClick(item.path)}
                       className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
                     >
-                      <div className="absolute -left-1 -top-1 opacity-50">
+                      <div className="absolute -left-1 -top-1 opacity-25 -z-40" style={{ mixBlendMode: 'multiply' }}>
                         <SacredGeometry 
                           variant={index % 2 === 0 ? "tetrahedron" : "pentagon"} 
                           size={16} 
