@@ -46,9 +46,9 @@ class DeviceGeometryController {
 
     if (isActualMobile) {
       if (isSmallScreen) {
-        recommendedRotationSpeed = 480; // 8 minutes for small phones
+        recommendedRotationSpeed = 360; // 6 minutes for small phones (slightly faster)
       } else {
-        recommendedRotationSpeed = 360; // 6 minutes for larger phones
+        recommendedRotationSpeed = 300; // 5 minutes for larger phones (slightly faster)
       }
     } else if (isTouch && isMobile) {
       recommendedRotationSpeed = 240; // 4 minutes for tablets

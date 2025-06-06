@@ -357,14 +357,14 @@ export default function HomePage() {
           </div>
 
           {/* Additional Links Section */}
-          <div className="flex flex-wrap justify-center gap-6 mb-16">
-            <div className="w-[200px]">
-              <SimpleInvertedTriangle className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
+            <div className="w-full">
+              <SimpleInvertedTriangle className="w-full max-w-[350px] mx-auto">
                 <h3>New Music</h3>
                 <p>Experience our latest sonic creations and explore new sound journeys.</p>
                 <button 
                   onClick={() => window.location.href = '/music'} 
-                  className="bg-green-500 hover:bg-green-700 text-white rounded"
+                  className="bg-green-500 hover:bg-green-700 text-white rounded px-4 py-2 mt-4"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-music" 
@@ -376,13 +376,13 @@ export default function HomePage() {
               </SimpleInvertedTriangle>
             </div>
             
-            <div className="w-[200px]">
-              <SimpleInvertedTriangle className="w-full">
+            <div className="w-full">
+              <SimpleInvertedTriangle className="w-full max-w-[350px] mx-auto">
                 <h3>Tour Dates</h3>
                 <p>Find out when and where you can experience our cosmic performances live.</p>
                 <button 
                   onClick={() => window.location.href = '/tour'} 
-                  className="bg-amber-500 hover:bg-amber-700 text-white rounded"
+                  className="bg-amber-500 hover:bg-amber-700 text-white rounded px-4 py-2 mt-4"
                 >
                   <DynamicContent 
                     contentKey="home-journey-button-tour" 

@@ -146,8 +146,8 @@ export default function AboutPage() {
         </div>
 
         {/* Harmonizing & Resonating section */}
-        <div className="mb-16 shadow-glow-cosmic mt-10 pt-4">
-          <h2 className="cosmic-heading-responsive font-bold text-[#00ebd6] mb-8 text-center">Harmonizing With Others</h2>
+        <div className="mb-12 shadow-glow-cosmic mt-8 pt-4">
+          <h2 className="cosmic-heading-responsive font-bold text-[#00ebd6] mb-6 text-center">Harmonizing With Others</h2>
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="bg-[rgba(10,50,92,0.6)] p-6 rounded-xl border border-[rgba(0,235,214,0.3)] backdrop-blur-sm relative overflow-hidden">
               <div className="absolute top-0 right-0 opacity-10">
@@ -186,8 +186,8 @@ export default function AboutPage() {
         </div>
         
         {/* Artistic Journey image section */}
-        <div className="mb-16 mt-10 cosmic-fade-in">
-          <h2 className="cosmic-heading-responsive font-bold text-[#00ebd6] mb-8 text-center">Artistic Journey</h2>
+        <div className="mb-12 mt-8 cosmic-fade-in">
+          <h2 className="cosmic-heading-responsive font-bold text-[#00ebd6] mb-6 text-center">Artistic Journey</h2>
           <div className="relative rounded-xl overflow-hidden shadow-lg max-w-3xl mx-auto">
             <img
               src="/images/dale-with-flowers-and-staff.jpg"
@@ -203,8 +203,8 @@ export default function AboutPage() {
         </div>
 
         {/* Sound Philosophy section with responsive shape cards */}
-        <div className="mb-16 mt-16">
-          <h2 className="cosmic-heading-responsive font-bold text-[#00ebd6] mb-8 text-center">Sound Philosophy</h2>
+        <div className="mb-12 mt-8">
+          <h2 className="cosmic-heading-responsive font-bold text-[#00ebd6] mb-6 text-center">Sound Philosophy</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="w-full">
               <SimpleHexagon className="w-full max-w-[280px] mx-auto">
