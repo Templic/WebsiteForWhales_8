@@ -275,7 +275,7 @@ svg[aria-hidden="true"] {
 
 .cosmic-theme-toggle:hover::before {
   opacity: 0.3;
-  animation: theme-toggle-rotate 3s linear infinite;
+  animation: theme-toggle-rotate 120s linear infinite;
 }
 
 @keyframes theme-toggle-rotate {
