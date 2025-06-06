@@ -191,9 +191,7 @@ const CosmicShape: React.FC<CosmicShapeProps> = ({
     const viewBoxSize = size;
 
     const animationClasses = animate
-      ? effectiveShape.type === 'starburst'
-        ? 'cosmic-sparkle'
-        : 'cosmic-pulse'
+      ? 'sacred-geometry-animated'
       : '';
 
     const animationStyle = animate

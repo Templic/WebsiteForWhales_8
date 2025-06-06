@@ -389,8 +389,8 @@ export function MainFooter() {
 
             {/* Small sacred geometry element */}
             <div className="flex justify-center mt-4 opacity-30">
-              <div style={{ animation: 'simple-rotate 120s linear infinite' }}>
-                <SacredGeometry variant="pentagon" size={60} animated={false} intensity="subtle" />
+              <div className="sacred-geometry-animated">
+                <SacredGeometry variant="pentagon" size={60} animated={true} intensity="subtle" />
               </div>
             </div>
           </div>
