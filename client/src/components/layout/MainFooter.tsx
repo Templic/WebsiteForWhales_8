@@ -390,7 +390,7 @@ export function MainFooter() {
             {/* Small sacred geometry element */}
             <div className="flex justify-center mt-4 opacity-30">
               <div className="sacred-geometry-animated">
-                <SacredGeometry variant="pentagon" size={60} animated={true} intensity="subtle" />
+                <SacredGeometry variant="pentagon" size={60} animated={false} intensity="subtle" />
               </div>
             </div>
           </div>

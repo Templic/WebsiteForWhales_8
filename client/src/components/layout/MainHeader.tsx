@@ -286,40 +286,48 @@ export function MainHeader() {
         </div>
       
         <div className="absolute -top-14 -right-14 opacity-40 transform rotate-45">
-          <SacredGeometry 
-            variant="merkaba" 
-            size={80} 
-            animated={true} 
-            intensity="medium" 
-            className="text-cyan-400" 
-          />
+          <div className="sacred-geometry-animated">
+            <SacredGeometry 
+              variant="merkaba" 
+              size={80} 
+              animated={false} 
+              intensity="medium" 
+              className="text-cyan-400" 
+            />
+          </div>
         </div>
         <div className="absolute -bottom-10 -left-10 opacity-30">
-          <SacredGeometry 
-            variant="hexagon" 
-            size={70} 
-            animated={true} 
-            intensity="medium" 
-            className="text-purple-400" 
-          />
+          <div className="sacred-geometry-animated">
+            <SacredGeometry 
+              variant="hexagon" 
+              size={70} 
+              animated={false} 
+              intensity="medium" 
+              className="text-purple-400" 
+            />
+          </div>
         </div>
         <div className="absolute top-1/2 -translate-y-1/2 -right-8 opacity-20">
-          <SacredGeometry 
-            variant="tetrahedron" 
-            size={50} 
-            animated={true} 
-            intensity="subtle" 
-            className="text-cyan-300" 
-          />
+          <div className="sacred-geometry-animated">
+            <SacredGeometry 
+              variant="tetrahedron" 
+              size={50} 
+              animated={false} 
+              intensity="subtle" 
+              className="text-cyan-300" 
+            />
+          </div>
         </div>
         <div className="absolute top-1/2 -translate-y-1/2 -left-8 opacity-20">
-          <SacredGeometry 
-            variant="octahedron" 
-            size={50} 
-            animated={true} 
-            intensity="subtle" 
-            className="text-purple-300" 
-          />
+          <div className="sacred-geometry-animated">
+            <SacredGeometry 
+              variant="octahedron" 
+              size={50} 
+              animated={false} 
+              intensity="subtle" 
+              className="text-purple-300" 
+            />
+          </div>
         </div>
       </div>
       
