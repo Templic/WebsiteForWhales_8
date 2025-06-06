@@ -37,16 +37,16 @@ export default function CommunityPage() {
       {/* Sacred geometry background elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-20 left-10 opacity-20 hidden lg:block">
-          <SacredGeometry variant="merkaba" size={100} animated={true} />
+          <SacredGeometry variant="merkaba" size={100} animated={false} />
         </div>
         <div className="absolute bottom-20 right-10 opacity-20 hidden lg:block">
-          <SacredGeometry variant="flower-of-life" size={120} animated={true} />
+          <SacredGeometry variant="flower-of-life" size={120} animated={false} />
         </div>
         <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 opacity-10">
-          <SacredGeometry variant="hexagon" size={150} animated={true} />
+          <SacredGeometry variant="hexagon" size={150} animated={false} />
         </div>
         <div className="absolute top-1/3 right-1/4 opacity-15 hidden md:block">
-          <SacredGeometry variant="octahedron" size={80} animated={true} />
+          <SacredGeometry variant="octahedron" size={80} animated={false} />
         </div>
       </div>
 

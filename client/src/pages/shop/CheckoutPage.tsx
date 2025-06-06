@@ -366,18 +366,18 @@ export default function CheckoutPage() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Left margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 left-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="flower-of-life" size={120} animated={true} />
+          <SacredGeometry variant="flower-of-life" size={120} animated={false} />
         </div>
         <div className="absolute bottom-40 left-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="metatron-cube" size={120} animated={true} />
+          <SacredGeometry variant="metatron-cube" size={120} animated={false} />
         </div>
         
         {/* Right margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 right-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="seed-of-life" size={120} animated={true} />
+          <SacredGeometry variant="seed-of-life" size={120} animated={false} />
         </div>
         <div className="absolute bottom-40 right-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="sri-yantra" size={120} animated={true} />
+          <SacredGeometry variant="sri-yantra" size={120} animated={false} />
         </div>
       </div>
 

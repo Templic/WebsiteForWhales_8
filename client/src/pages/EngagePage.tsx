@@ -284,15 +284,15 @@ export default function EngagePage() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Left margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 left-5 opacity-10 hidden md:block">
-          <SacredGeometry variant="merkaba" size={120} animated={true} />
+          <SacredGeometry variant="merkaba" size={120} animated={false} />
         </div>
         <div className="absolute bottom-40 left-5 opacity-10 hidden md:block">
-          <SacredGeometry variant="dodecahedron" size={120} animated={true} />
+          <SacredGeometry variant="dodecahedron" size={120} animated={false} />
         </div>
 
         {/* Right margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 right-5 opacity-10 hidden md:block">
-          <SacredGeometry variant="icosahedron" size={120} animated={true} />
+          <SacredGeometry variant="icosahedron" size={120} animated={false} />
         </div>
       </div>
 
@@ -321,7 +321,7 @@ export default function EngagePage() {
 
             {/* Sacred geometry element on bottom right */}
             <div className="absolute -bottom-6 -right-6 opacity-30">
-              <SacredGeometry variant="hexagon" size={120} animated={true} intensity="subtle" />
+              <SacredGeometry variant="hexagon" size={120} animated={false} intensity="subtle" />
             </div>
           </section>
 
