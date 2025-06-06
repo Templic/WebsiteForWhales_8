@@ -656,7 +656,8 @@ export default function CheckoutPage() {
                       type="button" 
                       variant="outline" 
                       onClick={() => setActiveTab('shipping')}
-                      className="cosmic-hover-glow"
+                      className="cosmic-hover-glow relative z-50"
+                      style={{ zIndex: 9999 }}
                     >
                       <ArrowLeft className="h-4 w-4 mr-2" />
                       Back to Shipping

@@ -32,10 +32,18 @@
     min-width: var(--mobile-touch-target);
   }
   
-  /* Scale down sacred geometry elements */
+  /* Scale down sacred geometry elements with fixed rotation */
   .mobile-portrait .sacred-geometry-container {
-    transform: scale(0.9);
+    transform: scale(0.9) rotate(0deg);
     margin: 0 auto;
+    transform-origin: center center;
+    will-change: transform;
+  }
+  
+  /* Fix purple shape rotation issue on mobile */
+  .mobile-portrait .sacred-geometry-container svg {
+    transform-origin: center center;
+    animation-play-state: running;
   }
 
   /* Adjust grid layouts for mobile portrait */
@@ -80,10 +88,18 @@
     margin-bottom: 0.5rem;
   }
   
-  /* Optimize sacred geometry for landscape */
+  /* Optimize sacred geometry for landscape with rotation fix */
   .mobile-landscape .sacred-geometry-container {
-    transform: scale(0.75);
+    transform: scale(0.75) rotate(0deg);
     margin: 0 auto;
+    transform-origin: center center;
+    will-change: transform;
+  }
+  
+  /* Fix purple shape rotation issue on mobile landscape */
+  .mobile-landscape .sacred-geometry-container svg {
+    transform-origin: center center;
+    animation-play-state: running;
   }
   
   /* Make horizontal layouts more compact */
@@ -248,7 +264,7 @@
   padding: 1rem;
 }
 
-/* Enhanced accessibility for mobile touch targets */
+/* Enhanced accessibility for mobile touch targets with top-layer positioning */
 @media (max-width: 767px) {
   .button, 
   .nav-link,
@@ -262,5 +278,46 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 9999;
   }
+  
+  /* Ensure all interactive elements are accessible */
+  nav, 
+  .navigation,
+  .nav-menu,
+  .header-navigation,
+  .mobile-menu {
+    z-index: 9999 !important;
+    position: relative;
+  }
+  
+  /* Fix for mobile navigation containers */
+  .mobile-nav-container,
+  .navigation-container {
+    z-index: 9999 !important;
+    position: relative;
+  }
+}
+
+/* Universal button accessibility fix for all screen sizes */
+button,
+.button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+.clickable {
+  position: relative;
+  z-index: 50;
+  pointer-events: auto;
+}
+
+/* High priority interactive elements */
+.header-button,
+.nav-button,
+.menu-button,
+.action-button {
+  z-index: 9999 !important;
+  position: relative;
+  pointer-events: auto;
 }

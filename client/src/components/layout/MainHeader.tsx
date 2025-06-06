@@ -177,11 +177,11 @@ export function MainHeader() {
         minHeight: '60px'
       }}
     >
-      {/* Background Elements with Sacred Geometry - Centered and sides */}
-      <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none" style={{ zIndex: 1 }}>
+      {/* Background Elements with Sacred Geometry - Behind all interactive elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1 }}>
         {/* FIRST SET - Sacred geometry circles on outer edges */}
         {/* Left circle foreground - first set */}
-        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block -z-10 opacity-40" style={{ mixBlendMode: 'multiply' }}>
+        <div className="absolute top-1/2 left-[8%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-30" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={90} 
@@ -192,7 +192,7 @@ export function MainHeader() {
         </div>
 
         {/* Left circle background/shadow - first set */}
-        <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block -z-20 opacity-20 blur-sm" style={{ mixBlendMode: 'multiply' }}>
+        <div className="absolute top-[52%] left-[7%] transform -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-15 blur-sm" style={{ mixBlendMode: 'multiply' }}>
           <SacredGeometry 
             variant="merkaba" 
             size={100} 
@@ -322,9 +322,9 @@ export function MainHeader() {
         {/* Additional Desktop Enhancement */}
         <div className="hidden md:block absolute -inset-2 rounded-3xl bg-gradient-to-r from-cyan-500/10 via-purple-500/5 to-cyan-500/10 blur-2xl opacity-40"></div>
         
-        {/* Main Content Container */}
-        <div className="relative py-2 min-h-[60px]" style={{ zIndex: 100 }}>
-          <div className="flex items-center justify-between w-full h-full">
+        {/* Main Content Container - Highest z-index for all interactive elements */}
+        <div className="relative py-2 min-h-[60px] z-50">
+          <div className="flex items-center justify-between w-full h-full z-50">
             {/* Logo - Always visible */}
             <div className="flex items-center min-w-0 flex-shrink-0">
               <Link 
