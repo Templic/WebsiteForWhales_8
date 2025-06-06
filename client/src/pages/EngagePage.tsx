@@ -401,7 +401,7 @@ export default function EngagePage() {
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
-                        <SacredGeometry variant="octagon" size={60} animated={false} />
+                        <SacredGeometry variant="octagon" size={60} animated={true} />
                       </div>
 
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Cosmic Social Channels</h4>
@@ -440,7 +440,7 @@ export default function EngagePage() {
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
-                        <SacredGeometry variant="octagon" size={60} animated={false} />
+                        <SacredGeometry variant="octagon" size={60} animated={true} />
                       </div>
 
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Ethereal Sounds & Words</h4>
@@ -484,7 +484,7 @@ export default function EngagePage() {
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
-                        <SacredGeometry variant="octagon" size={60} animated={false} />
+                        <SacredGeometry variant="octagon" size={60} animated={true} />
                       </div>
 
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Celestial Productions</h4>
@@ -515,7 +515,7 @@ export default function EngagePage() {
                     <div className="relative z-10 p-4 sm:p-6 py-8 flex flex-col items-center w-full">
                       {/* Sacred geometry hidden on mobile for performance */}
                       <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
-                        <SacredGeometry variant="octagon" size={60} animated={false} />
+                        <SacredGeometry variant="octagon" size={60} animated={true} />
                       </div>
 
                       <h4 className="text-lg font-bold mb-4 text-[#00ebd6] text-center">Universal Connections</h4>

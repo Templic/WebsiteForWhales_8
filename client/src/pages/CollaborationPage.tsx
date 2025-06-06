@@ -79,7 +79,7 @@ export default function CollaborationPage() {
             
             {/* Sacred geometry in the corner */}
             <div className="absolute -top-6 -left-6 opacity-10 hidden md:block">
-              <SacredGeometry variant="octagon" size={80} animated={false} />
+              <SacredGeometry variant="octagon" size={80} animated={true} />
             </div>
             
             {/* Further reduced padding and adjusted font sizes to ensure proper fit within geometric shape */}
@@ -290,7 +290,7 @@ export default function CollaborationPage() {
               
               {/* Sacred geometry elements on image corners */}
               <div className="absolute top-5 right-5 opacity-30">
-                <SacredGeometry variant="octagon" size={60} animated={false} intensity="subtle" />
+                <SacredGeometry variant="octagon" size={60} animated={true} intensity="subtle" />
               </div>
               <div className="absolute bottom-5 left-5 opacity-30">
                 <SacredGeometry variant="merkaba" size={60} animated={true} intensity="subtle" />
