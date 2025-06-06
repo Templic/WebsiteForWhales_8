@@ -87,13 +87,14 @@ export default function StripeElements({ clientSecret, onSubmit }: StripeElement
           </div>
         </div>
 
-        {/* Submit button */}
+        {/* Submit button with top-layer accessibility */}
         <button
           type="submit"
           disabled={isProcessing}
-          className={`w-full py-2 px-4 rounded-md text-white font-medium ${
+          className={`w-full py-2 px-4 rounded-md text-white font-medium relative z-50 ${
             isProcessing ? 'bg-indigo-400' : 'bg-indigo-600 hover:bg-indigo-700'
           }`}
+          style={{ zIndex: 9999, position: 'relative' }}
         >
           {isProcessing ? 'Processing...' : 'Pay Now (Development Mode)'}
         </button>

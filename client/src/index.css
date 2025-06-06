@@ -10,6 +10,7 @@
 @import './styles/cosmic-containers.css';
 @import './styles/shape-contour-helpers.css';
 @import './styles/shape-divider.css';
+@import './styles/accessibility-fixes.css';
 
 /* Theme Variables */
 :root {

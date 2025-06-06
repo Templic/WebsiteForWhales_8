@@ -1,0 +1,273 @@
+/**
+ * Comprehensive Accessibility and Z-Index Fixes
+ * 
+ * This CSS file ensures all interactive elements remain in the top-most accessible layer
+ * across the entire application, fixing the recurring blog detachment and button
+ * accessibility issues.
+ */
+
+/* ==================== GLOBAL INTERACTIVE ELEMENT FIXES ==================== */
+
+/* All buttons and interactive elements must be in the top accessible layer */
+button,
+.button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.btn,
+.clickable,
+a[href],
+.link,
+.nav-link {
+  position: relative !important;
+  z-index: 50 !important;
+  pointer-events: auto !important;
+}
+
+/* High priority navigation and action buttons */
+.header-button,
+.nav-button,
+.menu-button,
+.action-button,
+.primary-button,
+.submit-button,
+.payment-button,
+.checkout-button {
+  z-index: 9999 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+}
+
+/* Navigation containers must be accessible */
+nav,
+.navigation,
+.nav-menu,
+.header-navigation,
+.main-navigation,
+.mobile-menu,
+.dropdown-menu,
+.menu-container {
+  z-index: 9999 !important;
+  position: relative !important;
+}
+
+/* Form elements accessibility */
+form,
+.form,
+.form-container,
+input,
+select,
+textarea,
+.input-group {
+  position: relative !important;
+  z-index: 40 !important;
+}
+
+/* Modal and overlay elements */
+.modal,
+.overlay,
+.popup,
+.dialog,
+.alert,
+.toast,
+.notification {
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+
+/* ==================== SACRED GEOMETRY LAYERING FIXES ==================== */
+
+/* Sacred geometry elements must be in background layers */
+.sacred-geometry,
+.sacred-geometry-container,
+.cosmic-background,
+.geometric-shape,
+.background-effect {
+  z-index: -10 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+  mix-blend-mode: multiply !important;
+}
+
+/* Background visual effects */
+.haze-effect,
+.glow-effect,
+.cosmic-glow,
+.particle-effect,
+.animation-background {
+  z-index: -20 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
+/* ==================== MOBILE SPECIFIC FIXES ==================== */
+
+@media (max-width: 768px) {
+  /* Mobile touch targets must be accessible */
+  button,
+  .button,
+  a,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    z-index: 9999 !important;
+    position: relative !important;
+  }
+  
+  /* Mobile navigation priority */
+  .mobile-nav,
+  .hamburger-menu,
+  .mobile-menu-toggle {
+    z-index: 10001 !important;
+    position: relative !important;
+  }
+}
+
+/* ==================== BLOG AND CONTENT FIXES ==================== */
+
+/* Blog content must be accessible */
+.blog-container,
+.blog-post,
+.content-container,
+.article,
+.post {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Blog navigation and buttons */
+.blog-nav,
+.blog-button,
+.read-more,
+.blog-link {
+  z-index: 9999 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+}
+
+/* ==================== SHOP AND CHECKOUT FIXES ==================== */
+
+/* Shopping cart and checkout buttons */
+.cart-button,
+.add-to-cart,
+.checkout-button,
+.payment-button,
+.place-order,
+.buy-now {
+  z-index: 9999 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+}
+
+/* Product interaction elements */
+.product-card,
+.product-button,
+.quantity-selector,
+.size-selector,
+.color-selector {
+  position: relative !important;
+  z-index: 30 !important;
+}
+
+/* ==================== HEADER AND FOOTER FIXES ==================== */
+
+/* Main header elements */
+.main-header,
+.header-container,
+.logo,
+.site-logo {
+  z-index: 9999 !important;
+  position: relative !important;
+}
+
+/* Footer elements */
+.main-footer,
+.footer-container,
+.footer-nav,
+.footer-button {
+  position: relative !important;
+  z-index: 30 !important;
+}
+
+/* ==================== ANIMATION AND ROTATION FIXES ==================== */
+
+/* Sacred geometry rotation fixes for mobile */
+@media (max-width: 768px) {
+  .sacred-geometry-container {
+    transform-origin: center center !important;
+    will-change: transform !important;
+  }
+  
+  .sacred-geometry-container svg {
+    transform-origin: center center !important;
+    animation-play-state: running !important;
+  }
+  
+  /* Fix purple shape rotation issue */
+  .sacred-geometry svg[class*="purple"] {
+    transform: rotate(0deg) !important;
+    transform-origin: center center !important;
+  }
+}
+
+/* ==================== COSMIC BUTTON ENHANCEMENTS ==================== */
+
+/* Cosmic buttons get enhanced layering */
+.cosmic-button,
+.cosmic-hover-glow,
+.cosmic-gradient-button {
+  z-index: 9999 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure cosmic effects don't interfere with buttons */
+.cosmic-button::before,
+.cosmic-button::after,
+.cosmic-hover-glow::before,
+.cosmic-hover-glow::after {
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+/* ==================== EMERGENCY OVERRIDES ==================== */
+
+/* Last resort accessibility fixes */
+.force-accessible {
+  z-index: 99999 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+}
+
+/* Force background elements to stay in background */
+.force-background {
+  z-index: -50 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
+/* ==================== PRINT AND SCREEN READER COMPATIBILITY ==================== */
+
+@media print {
+  /* Ensure content is accessible in print */
+  .sacred-geometry,
+  .background-effect,
+  .animation-background {
+    display: none !important;
+  }
+}
+
+/* Screen reader accessibility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
