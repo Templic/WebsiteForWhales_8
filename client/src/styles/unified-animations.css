@@ -95,11 +95,7 @@
   will-change: transform;
 }
 
-.footer-merkaba-animation {
-  animation: sacred-geometry-rotate 120s linear infinite;
-  transform-origin: center center;
-  will-change: transform;
-}
+/* Removed footer-merkaba-animation to respect animated={false} prop */
 
 /* Consolidated utility classes */
 .cosmic-pulse {
@@ -137,17 +133,20 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* OVERRIDE ALL FAST ANIMATIONS - FORCE UNIFIED SYSTEM */
-svg[class*="sacred"],
-.sacred-geometry,
-.sacred-geometry-shape,
-.shape-wrapper svg,
-[data-shape] svg,
-.cosmic-shape svg,
+/* OVERRIDE ALL FAST ANIMATIONS - FORCE UNIFIED SYSTEM (ONLY FOR ANIMATED SHAPES) */
 svg.sacred-geometry-animated,
 canvas.sacred-geometry-animated,
-.SacredGeometry,
-[class*="SacredGeometry"] {
+.sacred-geometry-animated,
+.SacredGeometry.sacred-geometry-animated,
+[class*="SacredGeometry"].sacred-geometry-animated {
+  animation: sacred-geometry-rotate 120s linear infinite !important;
+  transform-origin: center center !important;
+}
+
+/* Override specific fast animation classes that should always animate */
+.shape-wrapper svg,
+[data-shape] svg,
+.cosmic-shape svg {
   animation: sacred-geometry-rotate 120s linear infinite !important;
   transform-origin: center center !important;
 }
