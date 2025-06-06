@@ -358,7 +358,7 @@ export default function EngagePage() {
               />
 
               <div className="absolute -bottom-8 right-4 opacity-10 z-0 hidden md:block">
-                <SacredGeometry variant="octagon" size={60} animated={false} intensity="subtle" />
+                <SacredGeometry variant="octagon" size={60} animated={true} intensity="subtle" />
               </div>
             </div>
           </section>
@@ -368,10 +368,10 @@ export default function EngagePage() {
             {/* Background with sacred geometry */}
             <div className="absolute inset-0 bg-[rgba(10,50,92,0.6)]">
               <div className="absolute top-0 left-0 opacity-10">
-                <SacredGeometry variant="octagon" size={160} animated={false} />
+                <SacredGeometry variant="octagon" size={160} animated={true} />
               </div>
               <div className="absolute bottom-0 right-0 opacity-10">
-                <SacredGeometry variant="octagon" size={160} animated={false} />
+                <SacredGeometry variant="octagon" size={160} animated={true} />
               </div>
             </div>
 

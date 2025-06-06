@@ -82,8 +82,8 @@ export default function NewsletterPage() {
               <div className="absolute top-10 right-10 opacity-30">
                 <SacredGeometry variant="merkaba" size={120} animated={true} intensity="medium" />
               </div>
-              <div className="absolute bottom-10 left-10 opacity-30 animate-spin-very-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
-                <SacredGeometry variant="octagon" size={100} animated={false} intensity="medium" />
+              <div className="absolute bottom-10 left-10 opacity-30">
+                <SacredGeometry variant="octagon" size={100} animated={true} intensity="medium" />
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function NewsletterPage() {
             <div className="relative z-10 px-4 py-6 md:px-8 lg:px-12 mx-auto max-w-4xl">
               {/* Sacred geometry hidden on mobile for performance */}
               <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
-                <SacredGeometry variant="octagon" size={80} animated={false} />
+                <SacredGeometry variant="octagon" size={80} animated={true} />
               </div>
               <div className="absolute -top-6 -left-6 opacity-10 hidden md:block">
                 <SacredGeometry variant="merkaba" size={70} animated={true} />
@@ -155,7 +155,7 @@ export default function NewsletterPage() {
             <div className="relative z-10 p-8">
               {/* Sacred geometry hidden on mobile for performance */}
               <div className="absolute -top-6 -left-6 opacity-10 hidden md:block">
-                <SacredGeometry variant="octagon" size={80} animated={false} />
+                <SacredGeometry variant="octagon" size={80} animated={true} />
               </div>
               
               <h2 className="text-2xl font-bold text-[#00ebd6] mb-6 text-center">Subscribe to Our Cosmic Newsletter</h2>
@@ -208,7 +208,7 @@ export default function NewsletterPage() {
             <div className="relative z-10 p-8">
               {/* Sacred geometry in the corner */}
               <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
-                <SacredGeometry variant="octagon" size={80} animated={false} />
+                <SacredGeometry variant="octagon" size={80} animated={true} />
               </div>
               
               <div className="max-w-[80%] mx-auto">

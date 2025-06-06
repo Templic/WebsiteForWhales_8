@@ -377,7 +377,7 @@ export default function CheckoutPage() {
           <SacredGeometry variant="seed-of-life" size={120} animated={true} />
         </div>
         <div className="absolute bottom-40 right-5 opacity-20 hidden md:block">
-          <SacredGeometry variant="sri-yantra" size={120} animated={false} />
+          <SacredGeometry variant="sri-yantra" size={120} animated={true} />
         </div>
       </div>
 
