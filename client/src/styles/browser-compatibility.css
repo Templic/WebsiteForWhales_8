@@ -139,22 +139,22 @@ body {
 .animate-spin-very-slow,
 .slow-rotate,
 .gentle-rotate {
-  animation: gentle-rotate 180s linear infinite;
+  animation: gentle-rotate 120s linear infinite;
 }
 
 .reverse-rotate {
-  animation: reverse-rotate 240s linear infinite;
+  animation: reverse-rotate 150s linear infinite;
 }
 
 .cosmic-rotate {
-  animation: cosmic-rotate 200s linear infinite;
+  animation: cosmic-rotate 180s linear infinite;
 }
 
 /* Browser-specific animation optimizations */
 .browser-safari .animate-spin-very-slow,
 .browser-safari .slow-rotate,
 .browser-safari .gentle-rotate {
-  animation: gentle-rotate 300s linear infinite;
+  animation: gentle-rotate 180s linear infinite;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
@@ -162,14 +162,14 @@ body {
 .browser-safari.is-mobile .animate-spin-very-slow,
 .browser-safari.is-mobile .slow-rotate,
 .browser-safari.is-mobile .gentle-rotate {
-  animation: none !important;
+  animation: gentle-rotate 240s linear infinite;
   will-change: auto;
 }
 
 .browser-firefox .animate-spin-very-slow,
 .browser-firefox .slow-rotate,
 .browser-firefox .gentle-rotate {
-  animation: gentle-rotate 240s linear infinite;
+  animation: gentle-rotate 150s linear infinite;
   image-rendering: auto;
 }
 
@@ -179,7 +179,7 @@ body {
 .browser-edge .animate-spin-very-slow,
 .browser-edge .slow-rotate,
 .browser-edge .gentle-rotate {
-  animation: gentle-rotate 180s linear infinite;
+  animation: gentle-rotate 120s linear infinite;
   will-change: transform;
   contain: layout style paint;
 }
@@ -190,7 +190,7 @@ body {
 .is-mobile .gentle-rotate,
 .is-mobile .reverse-rotate,
 .is-mobile .cosmic-rotate {
-  animation-duration: 360s !important;
+  animation-duration: 200s !important;
 }
 
 .is-mobile.memory-low .animate-spin-very-slow,
@@ -198,7 +198,7 @@ body {
 .is-mobile.memory-low .gentle-rotate,
 .is-mobile.memory-low .reverse-rotate,
 .is-mobile.memory-low .cosmic-rotate {
-  animation: none !important;
+  animation-duration: 300s !important;
 }
 
 /* Reduced motion compliance */
