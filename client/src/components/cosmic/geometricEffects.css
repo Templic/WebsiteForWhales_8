@@ -191,7 +191,7 @@
   filter: blur(15px);
   opacity: 0.7;
   z-index: -1;
-  animation: pulse-glow 3s ease-in-out infinite;
+  /* Removed pulse-glow animation - conflicts with sacred geometry rotation */
 }
 
 /* Wavy cosmic texture for geometric shapes */
@@ -224,10 +224,7 @@
   }
 }
 
-/* Add wavy animation to geometric shapes when hovered */
-.cosmic-shape-hover:hover::before {
-  animation: cosmic-wave 120s linear infinite;
-}
+/* Removed cosmic-wave animation - using clean sacred-animate class from index.css */
 
 /* Octagon shape */
 .clip-path-octagon {

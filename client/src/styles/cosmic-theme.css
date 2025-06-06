@@ -1,19 +1,11 @@
-/* Rotating geometry animation */
-@keyframes rotateGeometry {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Removed rotateGeometry animation - using clean sacred-animate class from index.css */
 
 .geometric-section[data-background-style="animated"]::before {
   content: '';
   position: absolute;
   inset: -20%;
   background: radial-gradient(circle at center, rgba(0, 235, 214, 0.1) 0%, transparent 70%);
-  animation: rotateGeometry 20s linear infinite;
+  /* Removed animation - conflicts with sacred geometry rotation */
   pointer-events: none;
 }
 

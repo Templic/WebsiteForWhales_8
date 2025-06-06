@@ -106,32 +106,7 @@
   animation: cosmic-pulse-cyan 4s ease-in-out infinite;
 }
 
-/* Geometric Rotation */
-@keyframes slow-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.slow-rotate {
-  animation: slow-rotate var(--rotation-duration, 60s) linear infinite;
-}
-
-@keyframes reverse-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-
-.reverse-rotate {
-  animation: reverse-rotate var(--rotation-duration, 45s) linear infinite;
-}
+/* Removed all rotation animations - using clean sacred-animate class from index.css */
 
 /* Cosmic Glow Breathing */
 @keyframes glow-breathe {
@@ -238,19 +213,7 @@
   animation: gradient-shift 10s ease infinite;
 }
 
-/* Specific animation for geometric nav elements */
-@keyframes nav-geometry-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.nav-geometry {
-  animation: nav-geometry-rotate 45s linear infinite;
-}
+/* Removed nav-geometry-rotate - using clean sacred-animate class from index.css */
 
 /* Hover effects for nav items */
 .nav-item {
