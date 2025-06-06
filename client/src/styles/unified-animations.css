@@ -1,0 +1,73 @@
+/**
+ * Unified Sacred Geometry Animations
+ * Single source of truth for all geometric shape animations
+ * Replaces the previous 12 conflicting CSS files
+ */
+
+/* Core Sacred Geometry Rotation */
+@keyframes sacred-geometry-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Unified animation classes with consistent timing */
+.sacred-geometry-animated {
+  animation: sacred-geometry-rotate 120s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.sacred-geometry-fast {
+  animation: sacred-geometry-rotate 60s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.sacred-geometry-slow {
+  animation: sacred-geometry-rotate 180s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Specific shape animations for header and footer */
+.header-star-animation {
+  animation: sacred-geometry-rotate 120s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.footer-pentagon-animation {
+  animation: sacred-geometry-rotate 120s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.footer-merkaba-animation {
+  animation: sacred-geometry-rotate 120s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .sacred-geometry-animated,
+  .sacred-geometry-fast,
+  .sacred-geometry-slow,
+  .header-star-animation,
+  .footer-pentagon-animation,
+  .footer-merkaba-animation {
+    animation: none;
+  }
+}
+
+/* Browser-specific optimizations */
+@supports (transform: rotate3d(0, 0, 1, 0deg)) {
+  .sacred-geometry-animated,
+  .sacred-geometry-fast,
+  .sacred-geometry-slow,
+  .header-star-animation,
+  .footer-pentagon-animation,
+  .footer-merkaba-animation {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
