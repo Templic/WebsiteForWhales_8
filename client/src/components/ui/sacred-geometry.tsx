@@ -48,12 +48,12 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
   } as React.CSSProperties;
 
   // Animation class based on the animated prop
-  const animationClass = animated ? 'animate-spin-very-slow' : '';
+  const animationClass = animated ? 'gentle-rotate' : '';
 
   // Helper function to create SVG with consistent props
   const createSvg = (children: React.ReactNode) => (
     <svg
-      className={cn('stroke-current', animationClass, className)}
+      className={cn('stroke-current sacred-geometry-shape', animationClass, className)}
       style={svgStyle}
       width={sizeValue}
       height={sizeValue}
