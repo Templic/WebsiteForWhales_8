@@ -211,12 +211,12 @@ export function MainFooter() {
     >
       {/* Sacred Geometry Background Elements */}
       <div className="absolute top-0 left-1/4 transform -translate-x-1/2 opacity-15">
-        <div className="gentle-rotate">
+        <div className="sacred-animate">
           <SacredGeometry variant="dodecahedron" size={300} animated={false} intensity="subtle" />
         </div>
       </div>
       <div className="absolute bottom-20 right-0 transform translate-x-1/3 opacity-15">
-        <div className="reverse-rotate">
+        <div className="sacred-animate">
           <SacredGeometry variant="merkaba" size={240} animated={false} intensity="subtle" />
         </div>
       </div>

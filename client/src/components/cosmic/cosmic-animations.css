@@ -38,47 +38,11 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Subtle rotation - much slower and more gentle */
-@keyframes subtleRotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+/* Removed subtleRotate - using clean sacred-animate class from index.css */
 
-.cosmic-rotate {
-  animation: subtleRotate 120s linear infinite;
-}
+/* Removed cosmic-rotate - using clean sacred-animate class */
 
-/* Slow sacred geometry rotation */
-@keyframes slow-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.slow-rotate {
-  animation: slow-rotate var(--rotation-duration, 180s) linear infinite;
-}
-
-/* Reverse rotation for specific shapes */
-@keyframes reverse-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-
-.reverse-rotate {
-  animation: reverse-rotate var(--rotation-duration, 240s) linear infinite;
-}
+/* Removed all rotation animations - using clean sacred-animate class */
 
 /* Sparkle effect */
 @keyframes sparkle {
