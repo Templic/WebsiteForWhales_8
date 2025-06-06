@@ -420,7 +420,7 @@
 /* Second wave */
 .cosmic-ocean-texture .wave2,
 .cosmic-ocean-texture::after {
-  animation: transverse-wave2 15s linear infinite;
+  animation: transverse-wave2 120s linear infinite;
   animation-delay: -5s;
   opacity: 0.1;
 }
@@ -539,7 +539,7 @@
     rgba(0, 235, 214, 0.03) 20%,
     rgba(0, 235, 214, 0.03) 40%,
     rgba(0, 235, 214, 0.0) 60%);
-  animation: cosmic-wave 15s linear infinite;
+  animation: cosmic-wave 120s linear infinite;
   z-index: 0;
   pointer-events: none;
 }
