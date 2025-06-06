@@ -261,7 +261,7 @@ export function MainHeader() {
         
         {/* Right circle foreground - second set */}
         <div className="absolute top-[60%] right-[12%] transform translate-x-1/2 -translate-y-1/2 hidden md:block z-0">
-          <div className="sacred-animate">
+          <div className="header-star-animation">
             <SacredGeometry 
               variant="merkaba" 
               size={75} 
@@ -274,7 +274,7 @@ export function MainHeader() {
         
         {/* Right circle background/shadow - second set */}
         <div className="absolute top-[62%] right-[11%] transform translate-x-1/2 -translate-y-1/2 hidden md:block opacity-50 blur-sm z-0">
-          <div className="sacred-animate">
+          <div className="header-star-animation">
             <SacredGeometry 
               variant="merkaba" 
               size={85} 
