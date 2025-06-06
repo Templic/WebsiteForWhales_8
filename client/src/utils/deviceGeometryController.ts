@@ -80,11 +80,18 @@ class DeviceGeometryController {
       .cosmic-shape-animated,
       .sacred-shape-animated,
       .header-star-animation,
-      .sacred-geometry-shape {
+      .sacred-geometry-shape,
+      .slow-rotate,
+      svg[class*="sacred-geometry"],
+      svg[class*="cosmic-shape"],
+      .merkaba-animation,
+      .pentagon-animation,
+      .star-animation {
         animation-duration: ${rotationSpeed}s !important;
         animation-timing-function: linear !important;
         animation-iteration-count: infinite !important;
         animation-play-state: running !important;
+        animation-name: sacred-geometry-rotate !important;
       }
       
       /* Override any existing fast animations */
@@ -92,12 +99,36 @@ class DeviceGeometryController {
         animation-duration: ${Math.max(rotationSpeed * 0.75, 120)}s !important;
       }
       
-      /* Ensure proper transform origin */
+      /* Ensure proper transform origin for ALL shapes */
       .sacred-geometry-animated,
       .cosmic-shape-animated,
-      .sacred-shape-animated {
+      .sacred-shape-animated,
+      .slow-rotate,
+      svg[class*="sacred-geometry"],
+      svg[class*="cosmic-shape"],
+      .merkaba-animation,
+      .pentagon-animation,
+      .star-animation {
         transform-origin: center center !important;
         will-change: transform !important;
+      }
+      
+      /* Force disable any conflicting CSS animations */
+      .sacred-geometry-container svg,
+      .sacred-geometry-container .sacred-geometry-shape {
+        animation-duration: ${rotationSpeed}s !important;
+        animation-timing-function: linear !important;
+        transform-origin: center center !important;
+      }
+      
+      /* Browser-specific fixes for consistent mobile behavior */
+      @supports (-webkit-transform: rotate(0deg)) {
+        .sacred-geometry-animated,
+        .cosmic-shape-animated,
+        .sacred-shape-animated {
+          -webkit-animation-duration: ${rotationSpeed}s !important;
+          -webkit-transform-origin: center center !important;
+        }
       }
     `;
 

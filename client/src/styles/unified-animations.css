@@ -115,6 +115,27 @@
   will-change: transform;
 }
 
+/* Browser-specific prefixes for maximum compatibility */
+@supports (-webkit-animation: none) {
+  .sacred-geometry-animated,
+  .cosmic-shape-animated,
+  .sacred-shape-animated,
+  .header-star-animation {
+    -webkit-animation: sacred-geometry-rotate 120s linear infinite;
+    -webkit-transform-origin: center center;
+  }
+}
+
+@supports (-moz-animation: none) {
+  .sacred-geometry-animated,
+  .cosmic-shape-animated,
+  .sacred-shape-animated,
+  .header-star-animation {
+    -moz-animation: sacred-geometry-rotate 120s linear infinite;
+    -moz-transform-origin: center center;
+  }
+}
+
 /* Specific shape animations for header and footer */
 .header-star-animation {
   animation: sacred-geometry-rotate 120s linear infinite;
