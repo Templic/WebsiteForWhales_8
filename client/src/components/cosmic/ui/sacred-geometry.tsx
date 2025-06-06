@@ -674,7 +674,7 @@ export function CircleContainer({
   )
 }
 
-// CSS for the component
+// CSS for the component - using unified 120s animation system
 const styles = `
   @keyframes gentle-rotate {
     from {

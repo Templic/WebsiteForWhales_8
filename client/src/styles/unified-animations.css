@@ -137,6 +137,38 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* OVERRIDE ALL FAST ANIMATIONS - FORCE UNIFIED SYSTEM */
+svg[class*="sacred"],
+.sacred-geometry,
+.sacred-geometry-shape,
+.shape-wrapper svg,
+[data-shape] svg,
+.cosmic-shape svg,
+svg.sacred-geometry-animated,
+canvas.sacred-geometry-animated,
+.SacredGeometry,
+[class*="SacredGeometry"] {
+  animation: sacred-geometry-rotate 120s linear infinite !important;
+  transform-origin: center center !important;
+}
+
+/* Disable all conflicting animations */
+svg[class*="sacred"][style*="animation"],
+.sacred-geometry[style*="animation"],
+.sacred-geometry-shape[style*="animation"],
+svg[style*="animation:"],
+canvas[style*="animation:"] {
+  animation: sacred-geometry-rotate 120s linear infinite !important;
+}
+
+/* Override specific fast animation classes */
+.gentle-rotate,
+.reverse-rotate,
+.cosmic-rotate,
+.fast-rotate {
+  animation: sacred-geometry-rotate 120s linear infinite !important;
+}
+
 /* Performance optimizations */
 @media (prefers-reduced-motion: reduce) {
   .sacred-geometry-animated,
@@ -144,8 +176,14 @@
   .sacred-geometry-slow,
   .header-star-animation,
   .footer-pentagon-animation,
-  .footer-merkaba-animation {
-    animation: none;
+  .footer-merkaba-animation,
+  svg[class*="sacred"],
+  .sacred-geometry,
+  .sacred-geometry-shape,
+  .shape-wrapper svg,
+  [data-shape] svg,
+  .cosmic-shape svg {
+    animation: none !important;
   }
 }
 
