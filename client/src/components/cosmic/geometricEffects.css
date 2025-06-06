@@ -226,7 +226,7 @@
 
 /* Add wavy animation to geometric shapes when hovered */
 .cosmic-shape-hover:hover::before {
-  animation: cosmic-wave 15s linear infinite;
+  animation: cosmic-wave 120s linear infinite;
 }
 
 /* Octagon shape */

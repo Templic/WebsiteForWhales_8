@@ -277,10 +277,10 @@ svg[aria-hidden="true"] {
 
 .cosmic-theme-toggle:hover::before {
   opacity: 0.3;
-  animation: rotate 3s linear infinite;
+  animation: theme-toggle-rotate 3s linear infinite;
 }
 
-@keyframes rotate {
+@keyframes theme-toggle-rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
