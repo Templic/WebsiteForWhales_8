@@ -18,6 +18,7 @@ import { ThemeProvider } from "./components/ui/ThemeProvider";
 import { browserCompatibility } from "./utils/browserCompatibility";
 import { performanceMonitoring } from "./utils/performanceMonitoring";
 import { animationOptimizer } from "./utils/animationOptimizer";
+import deviceGeometryController from "./utils/deviceGeometryController";
 
 // Initialize browser optimizations early
 browserCompatibility.getBrowserInfo();
@@ -25,6 +26,9 @@ performanceMonitoring.startMonitoring();
 
 // Fix fast spinning animations immediately
 animationOptimizer.optimizeExistingAnimations();
+
+// Initialize device-specific geometry controls for mobile fix
+deviceGeometryController.logDeviceInfo();
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");

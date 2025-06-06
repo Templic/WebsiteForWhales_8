@@ -298,6 +298,51 @@
     z-index: 9999 !important;
     position: relative;
   }
+  
+  /* CRITICAL: Device-specific geometry rotation controls for actual mobile phones */
+  .sacred-geometry-animated,
+  .cosmic-shape-animated,
+  .sacred-shape-animated,
+  .header-star-animation,
+  .sacred-geometry-shape {
+    animation-duration: 240s !important; /* 4 minutes per rotation for mobile */
+    animation-timing-function: linear !important;
+    animation-play-state: running !important;
+  }
+  
+  /* Override fast animations */
+  .sacred-geometry-fast {
+    animation-duration: 180s !important; /* Still slower than desktop */
+  }
+}
+
+/* Actual touch device detection - even slower for real phones */
+@media (hover: none) and (pointer: coarse) {
+  .sacred-geometry-animated,
+  .cosmic-shape-animated,
+  .sacred-shape-animated,
+  .header-star-animation,
+  .sacred-geometry-shape {
+    animation-duration: 360s !important; /* 6 minutes per rotation */
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
+  }
+  
+  /* Force disable any fast animations on touch devices */
+  .sacred-geometry-fast {
+    animation-duration: 240s !important;
+  }
+}
+
+/* Ultra-conservative for very small phones */
+@media (max-width: 480px) {
+  .sacred-geometry-animated,
+  .cosmic-shape-animated,
+  .sacred-shape-animated,
+  .header-star-animation,
+  .sacred-geometry-shape {
+    animation-duration: 480s !important; /* 8 minutes per rotation */
+  }
 }
 
 /* Universal button accessibility fix for all screen sizes */

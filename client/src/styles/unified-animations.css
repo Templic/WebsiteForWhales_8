@@ -74,6 +74,39 @@
   will-change: transform;
 }
 
+/* Mobile Device Performance Optimization */
+@media (max-width: 768px) {
+  /* Slow down ALL geometry rotations on mobile devices */
+  .sacred-geometry-animated,
+  .cosmic-shape-animated,
+  .sacred-shape-animated,
+  .header-star-animation {
+    animation-duration: 240s !important; /* Double the duration for mobile */
+    animation-timing-function: linear !important;
+  }
+  
+  /* Even slower for older mobile devices */
+  @media (max-width: 480px) {
+    .sacred-geometry-animated,
+    .cosmic-shape-animated,
+    .sacred-shape-animated,
+    .header-star-animation {
+      animation-duration: 300s !important; /* Triple duration for smaller devices */
+    }
+  }
+}
+
+/* Touch device detection - further slow down for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .sacred-geometry-animated,
+  .cosmic-shape-animated,
+  .sacred-shape-animated,
+  .header-star-animation {
+    animation-duration: 360s !important; /* Very slow for actual touch devices */
+    animation-timing-function: linear !important;
+  }
+}
+
 /* Universal shape animation class - applies to ALL shapes */
 .cosmic-shape-animated,
 .sacred-shape-animated {
