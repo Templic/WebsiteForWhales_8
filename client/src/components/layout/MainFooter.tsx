@@ -209,14 +209,26 @@ export function MainFooter() {
       className="relative bg-gradient-to-b from-[#050f28] to-[#0a1f3c] mt-16 border-t border-[#00ebd6]/50 overflow-hidden"
       role="contentinfo"
     >
-      {/* Sacred Geometry Background Elements */}
+      {/* Sacred Geometry Background Elements - Optimized Pentagon */}
       <div className="absolute top-0 left-1/4 transform -translate-x-1/2 opacity-15">
-        <div className="sacred-animate">
-          <SacredGeometry variant="dodecahedron" size={300} animated={false} intensity="subtle" />
+        <div 
+          style={{ 
+            animation: 'sacred-rotate 120s linear infinite',
+            transformOrigin: 'center',
+            willChange: 'transform'
+          }}
+        >
+          <SacredGeometry variant="pentagon" size={300} animated={false} intensity="subtle" />
         </div>
       </div>
       <div className="absolute bottom-20 right-0 transform translate-x-1/3 opacity-15">
-        <div className="sacred-animate">
+        <div 
+          style={{ 
+            animation: 'sacred-rotate 120s linear infinite',
+            transformOrigin: 'center',
+            willChange: 'transform'
+          }}
+        >
           <SacredGeometry variant="merkaba" size={240} animated={false} intensity="subtle" />
         </div>
       </div>

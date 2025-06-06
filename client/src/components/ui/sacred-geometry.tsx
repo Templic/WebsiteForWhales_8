@@ -48,7 +48,7 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
   } as React.CSSProperties;
 
   // Animation class based on the animated prop
-  const animationClass = animated ? 'gentle-rotate' : '';
+  const animationClass = animated ? 'sacred-animate' : '';
 
   // Helper function to create SVG with consistent props
   const createSvg = (children: React.ReactNode) => (
