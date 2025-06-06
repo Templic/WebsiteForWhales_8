@@ -89,11 +89,7 @@
   will-change: transform;
 }
 
-.footer-pentagon-animation {
-  animation: sacred-geometry-rotate 120s linear infinite;
-  transform-origin: center center;
-  will-change: transform;
-}
+/* Removed footer-pentagon-animation to respect animated prop */
 
 /* Removed footer-merkaba-animation to respect animated={false} prop */
 
@@ -174,8 +170,6 @@ canvas[style*="animation:"] {
   .sacred-geometry-fast,
   .sacred-geometry-slow,
   .header-star-animation,
-  .footer-pentagon-animation,
-
   svg[class*="sacred"],
   .sacred-geometry,
   .sacred-geometry-shape,

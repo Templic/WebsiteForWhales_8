@@ -133,9 +133,7 @@ export default function BlogPage() {
             </div>
           </div>
           <div className="absolute -bottom-10 -left-4 opacity-20 hidden md:block">
-            <div className="animate-spin-very-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
-              <SacredGeometry variant="merkaba" size={80} animated={false} intensity="medium" />
-            </div>
+            <SacredGeometry variant="merkaba" size={80} animated={true} intensity="medium" />
           </div>
         </div>
         

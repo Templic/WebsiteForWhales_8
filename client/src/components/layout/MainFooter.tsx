@@ -211,9 +211,7 @@ export function MainFooter() {
     >
       {/* Sacred Geometry Background Elements - Unified Animation System */}
       <div className="absolute top-0 left-1/4 transform -translate-x-1/2 opacity-15">
-        <div className="footer-pentagon-animation">
-          <SacredGeometry variant="pentagon" size={300} animated={false} intensity="subtle" />
-        </div>
+        <SacredGeometry variant="pentagon" size={300} animated={true} intensity="subtle" />
       </div>
       <div className="absolute bottom-20 right-0 transform translate-x-1/3 opacity-15">
         <SacredGeometry variant="merkaba" size={240} animated={true} intensity="subtle" />
