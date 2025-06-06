@@ -284,15 +284,15 @@ export default function EngagePage() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Left margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 left-5 opacity-10 hidden md:block">
-          <SacredGeometry variant="merkaba" size={120} animated={false} />
+          <SacredGeometry variant="merkaba" size={120} animated={true} />
         </div>
         <div className="absolute bottom-40 left-5 opacity-10 hidden md:block">
-          <SacredGeometry variant="dodecahedron" size={120} animated={false} />
+          <SacredGeometry variant="dodecahedron" size={120} animated={true} />
         </div>
 
         {/* Right margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 right-5 opacity-10 hidden md:block">
-          <SacredGeometry variant="icosahedron" size={120} animated={false} />
+          <SacredGeometry variant="icosahedron" size={120} animated={true} />
         </div>
       </div>
 
@@ -335,10 +335,10 @@ export default function EngagePage() {
           <div className="relative py-12 sm:py-16 flex justify-center">
             <div className="sacred-geometry-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 z-0">
               <div className="hidden sm:block">
-                <SacredGeometry variant="merkaba" size={160} animated={false} intensity="subtle" />
+                <SacredGeometry variant="merkaba" size={160} animated={true} intensity="subtle" />
               </div>
               <div className="block sm:hidden">
-                <SacredGeometry variant="merkaba" size={120} animated={false} intensity="subtle" />
+                <SacredGeometry variant="merkaba" size={120} animated={true} intensity="subtle" />
               </div>
             </div>
           </div>
@@ -348,7 +348,7 @@ export default function EngagePage() {
             <div className="relative">
               {/* Reduced the number of sacred geometry elements and fixed LSP errors */}
               <div className="absolute -top-8 left-4 opacity-10 z-0 hidden md:block">
-                <SacredGeometry variant="pentagon" size={60} animated={false} intensity="subtle" />
+                <SacredGeometry variant="pentagon" size={60} animated={true} intensity="subtle" />
               </div>
 
               <img 
