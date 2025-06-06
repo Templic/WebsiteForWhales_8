@@ -209,9 +209,15 @@ export function MainFooter() {
       className="relative bg-gradient-to-b from-[#050f28] to-[#0a1f3c] mt-16 border-t border-[#00ebd6]/50 overflow-hidden"
       role="contentinfo"
     >
-      {/* Sacred Geometry Background Elements - Optimized Pentagon */}
+      {/* Sacred Geometry Background Elements - Direct Pentagon Animation */}
       <div className="absolute top-0 left-1/4 transform -translate-x-1/2 opacity-15">
-        <div className="pentagon-container">
+        <div 
+          style={{ 
+            animation: 'pentagon-rotate-120s 120s linear infinite',
+            transformOrigin: 'center center',
+            willChange: 'transform'
+          }}
+        >
           <SacredGeometry variant="pentagon" size={300} animated={false} intensity="subtle" />
         </div>
       </div>
