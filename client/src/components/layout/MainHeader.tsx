@@ -8,7 +8,7 @@
  * Latest Update: Added sacred geometry elements and improved staggered navigation
  */
 
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { 
@@ -557,48 +557,53 @@ export function MainHeader() {
               </div>
               
               {/* Second Row - Staggered from right with different shapes - improved centering */}
-              <div className="flex justify-center">
+              <div className="flex justify-center items-center">
                 {secondaryNavItems.map((item, index) => (
-                  <motion.div 
-                    key={item.path}
-                    className="relative mx-2 md:mx-3 lg:mx-5"
-                    initial="initial"
-                    whileHover="hover"
-                    custom={index}
-                  >
-                    <Link
-                      href={item.path}
-                      onClick={() => handleNavigationClick(item.path)}
-                      className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
-                    >
-                      <div className="absolute -left-1 -top-1 opacity-25 -z-40" style={{ mixBlendMode: 'multiply' }}>
-                        <SacredGeometry 
-                          variant={index % 2 === 0 ? "tetrahedron" : "pentagon"} 
-                          size={16} 
-                          intensity="subtle" 
-                          className={index % 2 === 0 ? "text-purple-300" : "text-cyan-300"} 
-                        />
-                      </div>
-                      {item.icon}
-                      {item.name}
-                    </Link>
+                  <React.Fragment key={item.path}>
                     <motion.div 
-                      className={`absolute inset-0 rounded-md opacity-0 bg-gradient-to-r ${
-                        item.glowColor === 'cyan' 
-                          ? 'from-cyan-500/20 to-cyan-500/5' 
-                          : 'from-purple-500/20 to-purple-500/5'
-                      } -z-10`}
-                      variants={navItemVariants}
-                      transition={{ delay: index * 0.05 }}
-                      animate={{ opacity: [0, 0.2, 0], transition: { duration: 2, repeat: Infinity, delay: index * 0.3 } }}
-                    />
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400/0 via-purple-400 to-purple-400/0 transform origin-left"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.div>
+                      className="relative mx-2 md:mx-3 lg:mx-4"
+                      initial="initial"
+                      whileHover="hover"
+                      custom={index}
+                    >
+                      <Link
+                        href={item.path}
+                        onClick={() => handleNavigationClick(item.path)}
+                        className="px-3 py-1 text-[#e8e6e3] font-medium text-sm tracking-wide flex items-center relative"
+                      >
+                        <div className="absolute -left-1 -top-1 opacity-25 -z-40" style={{ mixBlendMode: 'multiply' }}>
+                          <SacredGeometry 
+                            variant={index % 2 === 0 ? "tetrahedron" : "pentagon"} 
+                            size={16} 
+                            intensity="subtle" 
+                            className={index % 2 === 0 ? "text-purple-300" : "text-cyan-300"} 
+                          />
+                        </div>
+                        {item.icon}
+                        {item.name}
+                      </Link>
+                      <motion.div 
+                        className={`absolute inset-0 rounded-md opacity-0 bg-gradient-to-r ${
+                          item.glowColor === 'cyan' 
+                            ? 'from-cyan-500/20 to-cyan-500/5' 
+                            : 'from-purple-500/20 to-purple-500/5'
+                        } -z-10`}
+                        variants={navItemVariants}
+                        transition={{ delay: index * 0.05 }}
+                        animate={{ opacity: [0, 0.2, 0], transition: { duration: 2, repeat: Infinity, delay: index * 0.3 } }}
+                      />
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400/0 via-purple-400 to-purple-400/0 transform origin-left"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                    {/* Vertical separator between navigation items */}
+                    {index < secondaryNavItems.length - 1 && (
+                      <div className="h-4 w-px bg-gradient-to-b from-purple-400/30 via-cyan-400/40 to-purple-400/30 mx-1"></div>
+                    )}
+                  </React.Fragment>
                 ))}
 
                 {/* Admin link if user is admin */}

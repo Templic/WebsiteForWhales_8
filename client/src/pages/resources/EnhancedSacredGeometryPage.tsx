@@ -110,6 +110,71 @@ export default function EnhancedSacredGeometryPage() {
       effectiveness: 85,
       consciousnessLevel: 86,
       usageCount: 1789
+    },
+    {
+      id: '7',
+      name: 'Fibonacci Spiral',
+      type: 'fibonacci-spiral',
+      description: 'Golden ratio spiral found throughout nature, representing perfect growth and expansion.',
+      spiritualMeaning: 'Natural growth, divine proportion, and evolutionary consciousness.',
+      whaleConnection: 'Mirrors spiral patterns in whale shells and oceanic currents.',
+      meditationBenefit: 'Promotes natural growth and evolutionary spiritual development.',
+      resonanceFrequency: '528 Hz (Love Frequency)',
+      effectiveness: 93,
+      consciousnessLevel: 89,
+      usageCount: 2341
+    },
+    {
+      id: '8',
+      name: 'Platonic Solids',
+      type: 'platonic-solids',
+      description: 'Five perfect three-dimensional forms representing the elements and cosmic structure.',
+      spiritualMeaning: 'Elemental balance, cosmic order, and geometric perfection.',
+      whaleConnection: 'Resonates with whale song harmonic structures and deep ocean acoustics.',
+      meditationBenefit: 'Balances elemental energies and enhances structural consciousness.',
+      resonanceFrequency: '639 Hz (Heart Chakra)',
+      effectiveness: 90,
+      consciousnessLevel: 94,
+      usageCount: 1567
+    },
+    {
+      id: '9',
+      name: 'Tree of Life',
+      type: 'tree-of-life',
+      description: 'Kabbalistic diagram representing the path of spiritual ascension and divine emanation.',
+      spiritualMeaning: 'Spiritual ascension, divine emanation, and cosmic consciousness mapping.',
+      whaleConnection: 'Aligns with whale pod hierarchies and ancient cetacean wisdom networks.',
+      meditationBenefit: 'Guides spiritual ascension and enhances divine connection.',
+      resonanceFrequency: '285 Hz (Healing)',
+      effectiveness: 88,
+      consciousnessLevel: 96,
+      usageCount: 1432
+    },
+    {
+      id: '10',
+      name: 'Icosahedron',
+      type: 'icosahedron',
+      description: 'Twenty-faced polyhedron representing water element and emotional flow.',
+      spiritualMeaning: 'Emotional balance, fluid consciousness, and adaptive wisdom.',
+      whaleConnection: 'Perfectly matches whale emotional intelligence and oceanic consciousness.',
+      meditationBenefit: 'Enhances emotional intelligence and fluid spiritual awareness.',
+      resonanceFrequency: '174 Hz (Pain Relief)',
+      effectiveness: 84,
+      consciousnessLevel: 82,
+      usageCount: 1198
+    },
+    {
+      id: '11',
+      name: 'Dodecahedron',
+      type: 'dodecahedron',
+      description: 'Twelve-faced polyhedron representing the universe and cosmic consciousness.',
+      spiritualMeaning: 'Universal consciousness, cosmic awareness, and divine completeness.',
+      whaleConnection: 'Echoes whale migration patterns across the twelve oceanic regions.',
+      meditationBenefit: 'Expands universal consciousness and cosmic awareness.',
+      resonanceFrequency: '111 Hz (Cell Regeneration)',
+      effectiveness: 92,
+      consciousnessLevel: 98,
+      usageCount: 987
     }
   ];
 
@@ -152,6 +217,11 @@ export default function EnhancedSacredGeometryPage() {
       case 'merkaba': return '⭐';
       case 'torus': return '🌀';
       case 'vesica-piscis': return '🌊';
+      case 'fibonacci-spiral': return '🌪️';
+      case 'platonic-solids': return '💎';
+      case 'tree-of-life': return '🌳';
+      case 'icosahedron': return '💧';
+      case 'dodecahedron': return '🌌';
       default: return '🔯';
     }
   };
