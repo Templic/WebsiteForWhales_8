@@ -38,7 +38,7 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Subtle rotation */
+/* Subtle rotation - much slower and more gentle */
 @keyframes subtleRotate {
   0% {
     transform: rotate(0deg);
@@ -49,7 +49,35 @@
 }
 
 .cosmic-rotate {
-  animation: subtleRotate 30s linear infinite;
+  animation: subtleRotate 120s linear infinite;
+}
+
+/* Slow sacred geometry rotation */
+@keyframes slow-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.slow-rotate {
+  animation: slow-rotate var(--rotation-duration, 180s) linear infinite;
+}
+
+/* Reverse rotation for specific shapes */
+@keyframes reverse-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.reverse-rotate {
+  animation: reverse-rotate var(--rotation-duration, 240s) linear infinite;
 }
 
 /* Sparkle effect */

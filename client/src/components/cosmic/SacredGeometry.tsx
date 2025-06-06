@@ -7,7 +7,11 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils';
+
+// Simple className utility
+const cn = (...classes: (string | undefined | false)[]): string => {
+  return classes.filter(Boolean).join(' ');
+};
 
 interface SacredGeometryProps {
   type: 'flower-of-life' | 'sri-yantra' | 'metatron-cube' | 'pentagon-star' | 'hexagon' | 'vesica-piscis' | 'golden-spiral';
@@ -459,7 +463,7 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
       
       // Draw quarter circles for each rectangle
       for (let i = 0; i < maxIterations; i++) {
-        let centerX, centerY, startAngle, endAngle;
+        let centerX = cx, centerY = cy, startAngle = 0, endAngle = 0;
         
         if (i % 4 === 0) {
           centerX = cx + currentSize / 2;
@@ -483,7 +487,9 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
           endAngle = Math.PI * 3/2;
         }
         
-        ctx.arc(centerX, centerY, currentSize, startAngle, endAngle, false);
+        if (centerX !== undefined && centerY !== undefined && startAngle !== undefined && endAngle !== undefined) {
+          ctx.arc(centerX, centerY, currentSize, startAngle, endAngle, false);
+        }
         currentSize = currentSize / phi;
       }
       
@@ -501,17 +507,18 @@ const SacredGeometry: React.FC<SacredGeometryProps> = ({
     }
 
     // Animation loop
-    const animate = () => {
+    const animateLoop = () => {
       if (animate) {
-        rotationRef.current += 0.001; // Adjust rotation speed
+        // Much slower rotation speed - approximately 1 full rotation per minute
+        rotationRef.current += 0.0001; 
         drawPattern(rotationRef.current);
-        animationRef.current = requestAnimationFrame(animate);
+        animationRef.current = requestAnimationFrame(animateLoop);
       } else {
         drawPattern(0);
       }
     };
 
-    animate();
+    animateLoop();
 
     return () => {
       if (animationRef.current) {
