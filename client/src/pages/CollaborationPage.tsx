@@ -307,7 +307,7 @@ export default function CollaborationPage() {
           
           {/* Sacred geometry elements */}
           <div className="absolute -top-6 -right-6 opacity-10 hidden md:block">
-            <SacredGeometry variant="hexagon" size={80} animated={false} />
+            <SacredGeometry variant="hexagon" size={80} animated={true} />
           </div>
           
           <div className="relative z-10 p-8 text-center">
