@@ -13,6 +13,17 @@
 @import './styles/shape-contour-helpers.css';
 @import './styles/shape-divider.css';
 
+/* Clean Sacred Geometry Animation - Single Source */
+@keyframes sacred-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.sacred-animate {
+  animation: sacred-rotate 120s linear infinite;
+  transform-origin: center;
+}
+
 /* Theme Variables */
 :root {
   /* Cosmic Light theme - Soothing off-white palette */

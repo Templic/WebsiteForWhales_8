@@ -689,7 +689,7 @@ export function MainHeader() {
 
           {/* Five-pointed star for mobile view - behind menu content but above menu background */}
           <div className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-20' : 'opacity-0'} z-[45]`}>
-            <div className="gentle-rotate animate-pulse">
+            <div className="animate-pulse" style={{ animation: 'simple-rotate 120s linear infinite' }}>
               <SacredGeometry 
                 variant="star" 
                 size={180} 
@@ -935,22 +935,22 @@ export function MainHeader() {
         </div>
       </div>
       {/* Five-pointed star positioned behind content for mobile view */}
-      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 md:hidden" style={{ zIndex: 5 }}>
+      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 md:hidden" style={{ zIndex: 5, animation: 'simple-rotate 120s linear infinite' }}>
         <SacredGeometry 
           variant="star" 
           size={110} 
-          animated={true} 
+          animated={false} 
           intensity="medium" 
           className="text-cyan-300" 
         />
       </div>
 
       {/* Media query based five-pointed star (fallback for very small screens) */}
-      <div className="absolute right-[-20px] top-1/2 transform -translate-y-1/2 md:hidden max-[340px]:hidden" style={{ zIndex: 3 }}>
+      <div className="absolute right-[-20px] top-1/2 transform -translate-y-1/2 md:hidden max-[340px]:hidden" style={{ zIndex: 3, animation: 'simple-rotate 120s linear infinite' }}>
         <SacredGeometry 
           variant="star" 
           size={110} 
-          animated={true} 
+          animated={false} 
           intensity="medium" 
           className="text-cyan-300" 
         />
