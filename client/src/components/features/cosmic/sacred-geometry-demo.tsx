@@ -271,8 +271,6 @@ function SacredGeometryDemoSecondOriginal() {
           <CircleContainer
             className="w-full h-full"
             glowColor="rgba(20, 184, 166, 0.5)"
-            rotateSpeed={120}
-            maxLines={3}
           >
             <h3 className="text-lg font-bold mb-2">Circle</h3>
             <p className="text-sm">{textContent[currentText]}</p>

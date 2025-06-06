@@ -576,19 +576,14 @@ export function StarburstContainer({
   )
 }
 
-interface CircleContainerProps extends EnhancedGeometryContainerProps {
-  rotateSpeed?: number
-}
-
 export function CircleContainer({
   children,
   className,
   glowColor = "rgba(0, 230, 230, 0.5)",
-  rotateSpeed = 60,
   maxContentWidth = "85%",
   textAlign = "center",
   responsive = true
-}: CircleContainerProps) {
+}: EnhancedGeometryContainerProps) {
   // Add responsive class if enabled
   const responsiveClassName = responsive ? "geometric-shape-container" : "";
   
@@ -614,10 +609,7 @@ export function CircleContainer({
           width="100%"
           height="100%"
           viewBox="0 0 100 100"
-          className="opacity-20"
-          style={{
-            animation: `rotate ${rotateSpeed}s linear infinite`,
-          }}
+          className="opacity-20 sacred-geometry-shape"
         >
           <circle
             cx="50"
@@ -684,13 +676,55 @@ export function CircleContainer({
 
 // CSS for the component
 const styles = `
-  @keyframes rotate {
+  @keyframes gentle-rotate {
     from {
       transform: rotate(0deg);
     }
     to {
       transform: rotate(360deg);
     }
+  }
+
+  @keyframes reverse-rotate {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes cosmic-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Apply slow rotation to sacred geometry shapes */
+  .sacred-geometry-shape svg,
+  .shape-wrapper svg {
+    animation: gentle-rotate 120s linear infinite;
+  }
+
+  /* Browser-specific optimizations */
+  .browser-safari .sacred-geometry-shape svg,
+  .browser-safari .shape-wrapper svg {
+    animation: gentle-rotate 180s linear infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .browser-firefox .sacred-geometry-shape svg,
+  .browser-firefox .shape-wrapper svg {
+    animation: gentle-rotate 150s linear infinite;
+  }
+
+  .is-mobile .sacred-geometry-shape svg,
+  .is-mobile .shape-wrapper svg {
+    animation: gentle-rotate 200s linear infinite;
   }
 
   .hide-scrollbar::-webkit-scrollbar {
@@ -700,6 +734,14 @@ const styles = `
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Reduced motion compliance */
+  @media (prefers-reduced-motion: reduce) {
+    .sacred-geometry-shape svg,
+    .shape-wrapper svg {
+      animation: none !important;
+    }
   }
 `
 

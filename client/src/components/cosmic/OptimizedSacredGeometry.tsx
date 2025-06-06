@@ -174,10 +174,9 @@ export const OptimizedSacredGeometry: React.FC<OptimizedSacredGeometryProps> = (
       width={size}
       height={size}
       viewBox={`0 0 ${size} ${size}`}
-      className={`sacred-geometry-optimized ${className}`}
+      className={`sacred-geometry-optimized ${className} ${shouldAnimate ? 'gentle-rotate' : ''}`}
       style={{
         opacity,
-        animation: shouldAnimate ? `gentle-rotate ${getAnimationDuration()} linear infinite` : 'none',
         transformOrigin: 'center',
         willChange: shouldAnimate ? 'transform' : 'auto'
       }}
