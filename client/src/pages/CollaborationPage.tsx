@@ -55,9 +55,7 @@ export default function CollaborationPage() {
           
           {/* Sacred geometry elements in header */}
           <div className="absolute -top-14 -right-10 opacity-20 hidden md:block">
-            <div className="animate-spin-very-slow" style={{ animationDuration: '30s' }}>
-              <SacredGeometry variant="merkaba" size={100} animated={false} intensity="medium" />
-            </div>
+            <SacredGeometry variant="merkaba" size={100} animated={true} intensity="medium" />
           </div>
           <div className="absolute -bottom-10 -left-10 opacity-20 hidden md:block">
             <div className="animate-spin-very-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
@@ -121,7 +119,7 @@ export default function CollaborationPage() {
             
             {/* Sacred geometry in the corner */}
             <div className="absolute -bottom-6 -right-6 opacity-10 hidden md:block">
-              <SacredGeometry variant="merkaba" size={80} animated={false} />
+              <SacredGeometry variant="merkaba" size={80} animated={true} />
             </div>
             
             {/* Further reduced padding and adjusted font sizes to ensure proper fit within geometric shape */}
@@ -169,7 +167,7 @@ export default function CollaborationPage() {
               <h2 className="text-3xl font-bold text-[#00ebd6] text-center cosmic-glow">Connect With Our Content</h2>
               {/* Sacred geometry in title */}
               <div className="absolute -top-8 right-1/4 opacity-20 hidden md:block">
-                <SacredGeometry variant="star" size={40} animated={false} />
+                <SacredGeometry variant="star" size={40} animated={true} />
               </div>
             </div>
             
@@ -295,7 +293,7 @@ export default function CollaborationPage() {
                 <SacredGeometry variant="octagon" size={60} animated={false} intensity="subtle" />
               </div>
               <div className="absolute bottom-5 left-5 opacity-30">
-                <SacredGeometry variant="merkaba" size={60} animated={false} intensity="subtle" />
+                <SacredGeometry variant="merkaba" size={60} animated={true} intensity="subtle" />
               </div>
             </div>
           </div>

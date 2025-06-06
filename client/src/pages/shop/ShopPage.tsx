@@ -332,7 +332,7 @@ const ShopPage: React.FC = () => {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Left margin sacred geometry - one at top, one at bottom */}
         <div className="absolute top-40 left-5 opacity-30 hidden md:block">
-          <SacredGeometry variant="merkaba" size={120} animated={false} />
+          <SacredGeometry variant="merkaba" size={120} animated={true} />
         </div>
         <div className="absolute bottom-40 left-5 opacity-30 hidden md:block">
           <SacredGeometry variant="dodecahedron" size={120} animated={false} />

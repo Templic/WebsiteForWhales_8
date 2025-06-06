@@ -79,8 +79,8 @@ export default function NewsletterPage() {
               <div className="absolute inset-0 clip-path-octagon bg-gradient-to-tr from-[rgba(0,235,214,0.2)] to-transparent mix-blend-overlay"></div>
               
               {/* Sacred geometry overlay */}
-              <div className="absolute top-10 right-10 opacity-30 animate-spin-very-slow" style={{ animationDuration: '30s' }}>
-                <SacredGeometry variant="merkaba" size={120} animated={false} intensity="medium" />
+              <div className="absolute top-10 right-10 opacity-30">
+                <SacredGeometry variant="merkaba" size={120} animated={true} intensity="medium" />
               </div>
               <div className="absolute bottom-10 left-10 opacity-30 animate-spin-very-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
                 <SacredGeometry variant="octagon" size={100} animated={false} intensity="medium" />
@@ -100,7 +100,7 @@ export default function NewsletterPage() {
                 <SacredGeometry variant="octagon" size={80} animated={false} />
               </div>
               <div className="absolute -top-6 -left-6 opacity-10 hidden md:block">
-                <SacredGeometry variant="merkaba" size={70} animated={false} />
+                <SacredGeometry variant="merkaba" size={70} animated={true} />
               </div>
               
               {/* Reduced font size for better containment */}
