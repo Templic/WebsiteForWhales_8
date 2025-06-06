@@ -216,9 +216,7 @@ export function MainFooter() {
         </div>
       </div>
       <div className="absolute bottom-20 right-0 transform translate-x-1/3 opacity-15">
-        <div className="footer-merkaba-animation">
-          <SacredGeometry variant="merkaba" size={240} animated={false} intensity="subtle" />
-        </div>
+        <SacredGeometry variant="merkaba" size={240} animated={true} intensity="subtle" />
       </div>
       <div className="absolute left-0 bottom-0 opacity-10">
         <FlowerOfLifePattern className="w-full h-full" aria-hidden="true" />

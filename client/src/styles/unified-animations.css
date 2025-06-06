@@ -175,7 +175,7 @@ canvas[style*="animation:"] {
   .sacred-geometry-slow,
   .header-star-animation,
   .footer-pentagon-animation,
-  .footer-merkaba-animation,
+
   svg[class*="sacred"],
   .sacred-geometry,
   .sacred-geometry-shape,
@@ -192,8 +192,7 @@ canvas[style*="animation:"] {
   .sacred-geometry-fast,
   .sacred-geometry-slow,
   .header-star-animation,
-  .footer-pentagon-animation,
-  .footer-merkaba-animation {
+  .footer-pentagon-animation {
     transform: rotate3d(0, 0, 1, 0deg);
   }
 }
