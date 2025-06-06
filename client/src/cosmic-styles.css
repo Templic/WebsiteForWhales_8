@@ -158,19 +158,19 @@ body.filter-orange {
   100% { background-position: 200% 0; }
 }
 
-/* NEBULA MODE Animations - Balanced flow */
+/* NEBULA MODE Animations - Balanced flow without rotation conflicts */
 @keyframes nebula-flow {
   0% { 
     opacity: 0.7; 
-    transform: scale(1) rotate(0deg);
+    transform: scale(1);
   }
   50% { 
     opacity: 0.9; 
-    transform: scale(1.02) rotate(1deg);
+    transform: scale(1.02);
   }
   100% { 
     opacity: 0.7; 
-    transform: scale(1) rotate(0deg);
+    transform: scale(1);
   }
 }
 
