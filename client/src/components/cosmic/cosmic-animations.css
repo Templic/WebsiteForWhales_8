@@ -38,11 +38,8 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Removed subtleRotate - using clean sacred-animate class from index.css */
-
-/* Removed cosmic-rotate - using clean sacred-animate class */
-
-/* Removed all rotation animations - using clean sacred-animate class */
+/* All rotation animations now consolidated in unified-animations.css */
+/* Using sacred-geometry-rotate keyframe for all shape animations */
 
 /* Sparkle effect */
 @keyframes sparkle {

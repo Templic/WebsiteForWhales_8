@@ -703,29 +703,8 @@ const styles = `
     }
   }
 
-  /* Apply slow rotation to sacred geometry shapes */
-  .sacred-geometry-shape svg,
-  .shape-wrapper svg {
-    animation: gentle-rotate 120s linear infinite;
-  }
-
-  /* Browser-specific optimizations */
-  .browser-safari .sacred-geometry-shape svg,
-  .browser-safari .shape-wrapper svg {
-    animation: gentle-rotate 180s linear infinite;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  .browser-firefox .sacred-geometry-shape svg,
-  .browser-firefox .shape-wrapper svg {
-    animation: gentle-rotate 150s linear infinite;
-  }
-
-  .is-mobile .sacred-geometry-shape svg,
-  .is-mobile .shape-wrapper svg {
-    animation: gentle-rotate 200s linear infinite;
-  }
+  /* Using unified animation system - no inline SVG animations */
+  /* All shape animations now handled by unified-animations.css */
 
   .hide-scrollbar::-webkit-scrollbar {
     display: none;

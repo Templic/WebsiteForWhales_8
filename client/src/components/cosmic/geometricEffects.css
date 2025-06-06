@@ -191,7 +191,7 @@
   filter: blur(15px);
   opacity: 0.7;
   z-index: -1;
-  /* Removed pulse-glow animation - conflicts with sacred geometry rotation */
+  /* Using static glow - all animations consolidated in unified-animations.css */
 }
 
 /* Wavy cosmic texture for geometric shapes */
