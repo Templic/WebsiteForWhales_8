@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation, Router } from "wouter";
-// import { lazy } from 'react';
+import { useEffect } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { ToastProvider } from "@/hooks/toast-context";
@@ -9,7 +9,6 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { CartProvider } from "@/hooks/use-cart";
 import { ProtectedRoute } from "@/lib/protected-route";
 import NotFound from "./pages/not-found";
-import { useEffect } from "react";
 import { initializeGA, trackPageView } from "@/lib/analytics";
 import { ErrorBoundary } from "react-error-boundary";
 import StarBackground from "@/components/cosmic/StarBackground";
