@@ -1,0 +1,276 @@
+/* Consolidated Cosmic Styles - Merged from multiple CSS files
+ * Eliminates duplication and reduces bundle size
+ */
+
+/* ============================================
+   COSMIC COLOR VARIABLES & THEME
+   ============================================ */
+:root {
+  --cosmic-cyan: #00ebd6;
+  --cosmic-purple: #7c3aed;
+  --cosmic-red: #e15554;
+  --cosmic-orange: #fb923c;
+  --cosmic-dark: #050215;
+  --cosmic-darker: #030110;
+  
+  /* Extended cosmic palette */
+  --cosmic-blue: #3b82f6;
+  --cosmic-green: #10b981;
+  --cosmic-yellow: #f59e0b;
+  --cosmic-pink: #ec4899;
+  
+  /* Cosmic gradients */
+  --cosmic-gradient-primary: linear-gradient(135deg, var(--cosmic-cyan) 0%, var(--cosmic-purple) 100%);
+  --cosmic-gradient-secondary: linear-gradient(135deg, var(--cosmic-orange) 0%, var(--cosmic-red) 100%);
+  --cosmic-gradient-accent: radial-gradient(circle at center, rgba(0, 235, 214, 0.1) 0%, transparent 70%);
+}
+
+/* ============================================
+   ACCESSIBILITY COLOR FILTERS
+   ============================================ */
+body.filter-blue {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="blue-filter"><feColorMatrix type="matrix" values="0.8 0 0 0 0 0 0.8 0 0 0 0 0 1.2 0 0 0 0 0 1 0"/></filter></svg>#blue-filter');
+}
+
+body.filter-yellow {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="yellow-filter"><feColorMatrix type="matrix" values="1.2 0 0 0 0 0 1.2 0 0 0 0 0 0.8 0 0 0 0 0 1 0"/></filter></svg>#yellow-filter');
+}
+
+body.filter-green {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="green-filter"><feColorMatrix type="matrix" values="0.8 0 0 0 0 0 1.2 0 0 0 0 0 0.8 0 0 0 0 0 1 0"/></filter></svg>#green-filter');
+}
+
+body.filter-red {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="red-filter"><feColorMatrix type="matrix" values="1.2 0 0 0 0 0 0.8 0 0 0 0 0 0.8 0 0 0 0 0 1 0"/></filter></svg>#red-filter');
+}
+
+body.filter-purple {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="purple-filter"><feColorMatrix type="matrix" values="1.0 0 0 0 0.1 0 0.8 0 0 0.1 0 0 1.2 0 0.1 0 0 0 1 0"/></filter></svg>#purple-filter');
+}
+
+body.filter-orange {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="orange-filter"><feColorMatrix type="matrix" values="1.2 0 0 0 0.1 0 1.0 0 0 0.05 0 0 0.8 0 0 0 0 0 1 0"/></filter></svg>#orange-filter');
+}
+
+/* ============================================
+   COSMIC GLOW EFFECTS
+   ============================================ */
+.cosmic-glow-cyan {
+  box-shadow: 0 0 10px 2px rgba(0, 235, 214, 0.3),
+              0 0 20px 5px rgba(0, 235, 214, 0.1);
+}
+
+.cosmic-glow-purple {
+  box-shadow: 0 0 10px 2px rgba(124, 58, 237, 0.3),
+              0 0 20px 5px rgba(124, 58, 237, 0.1);
+}
+
+.cosmic-glow-orange {
+  box-shadow: 0 0 10px 2px rgba(251, 146, 60, 0.3),
+              0 0 20px 5px rgba(251, 146, 60, 0.1);
+}
+
+.cosmic-glow-red {
+  box-shadow: 0 0 10px 2px rgba(225, 85, 84, 0.3),
+              0 0 20px 5px rgba(225, 85, 84, 0.1);
+}
+
+/* ============================================
+   GEOMETRIC SECTIONS & SHAPES
+   ============================================ */
+.geometric-section {
+  position: relative;
+  padding: 3rem 2rem;
+  overflow: hidden;
+}
+
+.geometric-section[data-background-style="animated"]::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: var(--cosmic-gradient-accent);
+  pointer-events: none;
+}
+
+/* Sacred geometry animations */
+.sacred-animate {
+  animation: rotateGeometry 120s linear infinite;
+}
+
+@keyframes rotateGeometry {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   UNIFIED ANIMATIONS
+   ============================================ */
+@keyframes cosmicPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes cosmicFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes cosmicGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(0, 235, 214, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(0, 235, 214, 0.6); }
+}
+
+.cosmic-pulse { animation: cosmicPulse 3s ease-in-out infinite; }
+.cosmic-float { animation: cosmicFloat 4s ease-in-out infinite; }
+.cosmic-glow-animate { animation: cosmicGlow 2s ease-in-out infinite; }
+
+/* ============================================
+   RESPONSIVE CONTAINERS
+   ============================================ */
+.cosmic-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cosmic-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.cosmic-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* ============================================
+   COSMIC TYPOGRAPHY
+   ============================================ */
+@font-face {
+  font-family: 'Nebula';
+  src: url('/fonts/Nebula-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nebula';
+  src: url('/fonts/Nebula-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-nebula {
+  font-family: 'Nebula', system-ui, -apple-system, sans-serif;
+}
+
+.cosmic-heading {
+  background: var(--cosmic-gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 640px) {
+  .cosmic-container { padding: 0 0.5rem; }
+  .cosmic-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .cosmic-flex { flex-direction: column; }
+  
+  .geometric-section {
+    padding: 2rem 1rem;
+  }
+  
+  .geometric-section h2 {
+    font-size: 1.75rem;
+  }
+  
+  .geometric-section p {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .cosmic-grid { grid-template-columns: repeat(2, 1fr); }
+  
+  .geometric-section {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .cosmic-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+.cosmic-optimized {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.cosmic-lazy-load {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.cosmic-lazy-load.loaded {
+  opacity: 1;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.cosmic-hidden { display: none !important; }
+.cosmic-visible { display: block !important; }
+.cosmic-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cosmic-bg: var(--cosmic-dark);
+    --cosmic-text: var(--cosmic-cyan);
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .cosmic-glow-cyan,
+  .cosmic-glow-purple,
+  .cosmic-glow-orange,
+  .cosmic-glow-red {
+    box-shadow: none;
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .sacred-animate,
+  .cosmic-pulse,
+  .cosmic-float,
+  .cosmic-glow-animate {
+    animation: none;
+  }
+}
