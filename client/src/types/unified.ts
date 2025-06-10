@@ -1,8 +1,38 @@
-
 // ========================================
 // UNIFIED TYPE DEFINITIONS
 // Consolidated from multiple type files
 // ========================================
+
+// Unified types for the application
+export interface BaseComponent {
+  id: string;
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export interface CosmicProps extends BaseComponent {
+  variant?: 'primary' | 'secondary' | 'cosmic';
+  glow?: boolean;
+}
+
+export interface ApiResponse<T = any> {
+  data: T;
+  status: number;
+  message?: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  role: 'admin' | 'user';
+}
+
+export interface ThemeConfig {
+  primary: string;
+  secondary: string;
+  accent: string;
+  background: string;
+}
 
 // Base Types
 export interface BaseEntity {
@@ -130,14 +160,6 @@ export interface SacredGeometry {
   size: number;
 }
 
-// API Response Types
-export interface ApiResponse<T = any> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-}
-
 export interface PaginatedResponse<T> extends ApiResponse<T[]> {
   pagination: {
     page: number;
@@ -163,14 +185,6 @@ export interface ValidationRule {
 }
 
 // Component Props Types
-export interface CosmicComponentProps {
-  className?: string;
-  children?: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'cosmic';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  animated?: boolean;
-}
-
 export interface NavigationItem {
   label: string;
   href: string;
@@ -178,20 +192,6 @@ export interface NavigationItem {
   children?: NavigationItem[];
   requiresAuth?: boolean;
   roles?: string[];
-}
-
-// Theme Types
-export interface ThemeConfig {
-  primary: string;
-  secondary: string;
-  background: string;
-  text: string;
-  accent: string;
-  cosmic: {
-    glow: string;
-    pulse: string;
-    gradient: string[];
-  };
 }
 
 // Error Types

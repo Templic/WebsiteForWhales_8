@@ -2,7 +2,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const glob = require('glob');
+const path = require('path');
 
 function removeUnusedImports(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -60,9 +60,27 @@ function removeUnusedImports(filePath) {
 }
 
 // Process all files
-const files = glob.sync('client/src/**/*.{ts,tsx}', {
-  ignore: ['**/*.test.*', '**/*.stories.*']
-});
+function getFiles(dir) {
+  const files = [];
+  try {
+    const items = fs.readdirSync(dir, { withFileTypes: true });
+    
+    for (const item of items) {
+      const fullPath = path.join(dir, item.name);
+      if (item.isDirectory()) {
+        files.push(...getFiles(fullPath));
+      } else if (item.isFile() && /\.(ts|tsx)$/.test(item.name) && 
+                 !item.name.includes('.test.') && !item.name.includes('.stories.')) {
+        files.push(fullPath);
+      }
+    }
+  } catch (error) {
+    // Skip if directory doesn't exist
+  }
+  return files;
+}
+
+const files = getFiles('client/src');
 
 let cleaned = 0;
 files.forEach(file => {

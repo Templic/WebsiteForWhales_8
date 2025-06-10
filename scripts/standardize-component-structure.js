@@ -3,7 +3,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 
 function standardizeComponent(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -44,7 +43,26 @@ function standardizeComponent(filePath) {
   return result;
 }
 
-const componentFiles = glob.sync('client/src/components/**/*.{tsx,ts}');
+function getComponentFiles(dir) {
+  const files = [];
+  try {
+    const items = fs.readdirSync(dir, { withFileTypes: true });
+    
+    for (const item of items) {
+      const fullPath = path.join(dir, item.name);
+      if (item.isDirectory()) {
+        files.push(...getComponentFiles(fullPath));
+      } else if (item.isFile() && /\.(tsx|ts)$/.test(item.name)) {
+        files.push(fullPath);
+      }
+    }
+  } catch (error) {
+    // Skip if directory doesn't exist
+  }
+  return files;
+}
+
+const componentFiles = getComponentFiles('client/src/components');
 
 let standardized = 0;
 componentFiles.forEach(file => {

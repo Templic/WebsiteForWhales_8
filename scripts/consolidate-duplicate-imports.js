@@ -3,7 +3,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 
 function cleanDuplicateImports(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -32,9 +31,22 @@ function cleanDuplicateImports(filePath) {
 }
 
 // Process all TypeScript/JSX files
-const files = glob.sync('**/*.{ts,tsx,js,jsx}', {
-  ignore: ['node_modules/**', 'dist/**', 'build/**']
-});
+function getFiles(dir) {
+  const files = [];
+  const items = fs.readdirSync(dir, { withFileTypes: true });
+  
+  for (const item of items) {
+    const fullPath = path.join(dir, item.name);
+    if (item.isDirectory() && !['node_modules', 'dist', 'build', '.git'].includes(item.name)) {
+      files.push(...getFiles(fullPath));
+    } else if (item.isFile() && /\.(ts|tsx|js|jsx)$/.test(item.name)) {
+      files.push(fullPath);
+    }
+  }
+  return files;
+}
+
+const files = getFiles('.');
 
 let cleaned = 0;
 for (const file of files) {
