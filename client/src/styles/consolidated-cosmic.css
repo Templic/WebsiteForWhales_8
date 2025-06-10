@@ -178,37 +178,201 @@ body.filter-orange {
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   UNIFIED RESPONSIVE SYSTEM
    ============================================ */
-@media (max-width: 640px) {
-  .cosmic-container { padding: 0 0.5rem; }
-  .cosmic-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .cosmic-flex { flex-direction: column; }
+
+/* Unified breakpoint variables */
+:root {
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
   
-  .geometric-section {
-    padding: 2rem 1rem;
-  }
+  /* Container max-widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
   
-  .geometric-section h2 {
-    font-size: 1.75rem;
-  }
+  /* Responsive spacing scale */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1vw, 0.75rem);
+  --space-md: clamp(0.75rem, 1.5vw, 1rem);
+  --space-lg: clamp(1rem, 2vw, 1.5rem);
+  --space-xl: clamp(1.5rem, 3vw, 2rem);
+  --space-2xl: clamp(2rem, 4vw, 3rem);
+  --space-3xl: clamp(3rem, 6vw, 4rem);
   
-  .geometric-section p {
-    font-size: 1rem;
-    padding: 0 1rem;
+  /* Responsive typography scale */
+  --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 1.75vw, 1rem);
+  --text-base: clamp(1rem, 2vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 2.25vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 3vw, 2rem);
+  --text-3xl: clamp(2rem, 4vw, 2.5rem);
+  --text-4xl: clamp(2.5rem, 5vw, 3rem);
+  
+  /* Touch target sizes */
+  --touch-target-min: 44px;
+  --touch-target-comfortable: 48px;
+}
+
+/* ============================================
+   RESPONSIVE CONTAINERS
+   ============================================ */
+.cosmic-container {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.cosmic-grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+/* Container queries for component-level responsiveness */
+@container (min-width: 768px) {
+  .cosmic-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 641px) and (max-width: 1024px) {
-  .cosmic-grid { grid-template-columns: repeat(2, 1fr); }
-  
-  .geometric-section {
-    padding: 3rem 2rem;
+@container (min-width: 1024px) {
+  .cosmic-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (min-width: 1025px) {
-  .cosmic-grid { grid-template-columns: repeat(3, 1fr); }
+/* ============================================
+   UNIFIED TRANSFORM SYSTEM
+   ============================================ */
+.cosmic-transform-base {
+  transform: translateZ(0); /* GPU acceleration */
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.cosmic-scale-responsive {
+  transform: scale(clamp(0.8, 1vw, 1.2));
+}
+
+.cosmic-geometry-mobile {
+  transform: scale(clamp(0.7, 2vw, 1)) translateZ(0);
+}
+
+/* ============================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================ */
+.cosmic-heading {
+  font-size: var(--text-3xl);
+  line-height: clamp(1.1, 1.5vw, 1.3);
+  background: var(--cosmic-gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cosmic-text-responsive {
+  font-size: var(--text-base);
+  line-height: clamp(1.4, 0.5vw, 1.6);
+}
+
+/* ============================================
+   TOUCH-FRIENDLY INTERACTIONS
+   ============================================ */
+.cosmic-button {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: clamp(0.25rem, 0.5vw, 0.5rem);
+  touch-action: manipulation;
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cosmic-nav-item {
+  min-height: var(--touch-target-comfortable);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* ============================================
+   GEOMETRIC SECTIONS - RESPONSIVE
+   ============================================ */
+.geometric-section {
+  padding: var(--space-2xl) var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.geometric-section h2 {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-lg);
+}
+
+.geometric-section p {
+  font-size: var(--text-base);
+  padding: 0 var(--space-md);
+  line-height: clamp(1.4, 0.5vw, 1.6);
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+.cosmic-optimized {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.cosmic-animation {
+  animation-duration: clamp(0.2s, 0.5vw, 0.8s);
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.cosmic-gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* ============================================
+   LEGACY BROWSER FALLBACKS
+   ============================================ */
+@supports not (container-type: inline-size) {
+  .cosmic-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md, 1rem);
+  }
+  
+  .cosmic-grid > * {
+    flex: 1 1 300px;
+  }
+}
+
+@supports not (width: clamp(1rem, 2vw, 2rem)) {
+  .cosmic-container {
+    padding: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .cosmic-container {
+      padding: 1.5rem;
+    }
+  }
 }
 
 /* ============================================
