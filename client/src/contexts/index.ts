@@ -9,6 +9,6 @@ export { OrientationProvider } from './OrientationContext';
 export { ThemeProvider } from './ThemeContext';
 
 // Re-export commonly used context providers from hooks
-export { AuthProvider } from '@/hooks/use-auth';
-export { CartProvider } from '@/hooks/use-cart';
-export { ToastProvider } from '@/hooks/toast-context';
+export { AuthProvider } from '../hooks/use-auth';
+export { CartProvider } from '../hooks/use-cart';
+export { ToastProvider } from '../hooks/toast-context';
