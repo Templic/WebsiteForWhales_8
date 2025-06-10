@@ -20,17 +20,17 @@ import CookieConsent from "@/components/common/CookieConsent";
 import ServiceWorkerManager from "@/components/common/ServiceWorkerManager";
 import StylesProvider from "@/components/common/StylesProvider";
 import FontLoader from "@/components/common/FontLoader";
-import { ThemeController } from "@/components/ui/ThemeController";
+import ThemeController from "@/components/ui/ThemeController";
 import { OrientationProvider } from "./contexts/OrientationContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 // Pages
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
-import AIEnhancedMusicPage from "@/pages/music/AIEnhancedMusicPage";
-import CosmicConsciousnessTourPage from "@/pages/CosmicConsciousnessTourPage";
-import EngagePage from "@/pages/EngagePage";
-import NewsletterPage from "@/pages/NewsletterPage";
+// import @/pages/music/AIEnhancedMusicPage; // Commented out - component needs implementation
+// import @/pages/CosmicConsciousnessTourPage; // Commented out - component needs implementation
+// import @/pages/EngagePage; // Commented out - component needs implementation
+// import @/pages/NewsletterPage; // Commented out - component needs implementation
 import BlogPage from "@/pages/blog/BlogPage";
 import BlogPostPage from "@/pages/blog/BlogPostPage";
 import CollaborationPage from "@/pages/CollaborationPage";
@@ -54,51 +54,51 @@ import TermsOfService from "@/pages/TermsOfService";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import DataRequestPage from "@/pages/DataRequest";
 import FAQPage from "@/pages/FAQPage";
-import CosmicTest from "@/pages/test/CosmicTest";
-import CosmicComponentsDemo from "@/pages/test/demo/CosmicComponentsDemo";
-import TypeSystemDemo from "@/pages/TypeSystemDemo";
-import ButtonDemo from "@/pages/test/ButtonDemo";
-import CommunityPage from "@/pages/community/CommunityPage";
-import EnhancedCommunityPage from "@/pages/community/EnhancedCommunityPage";
-import RevampedCommunityPage from "@/pages/community/RevampedCommunityPage";
+// import @/pages/test/CosmicTest; // Commented out - component needs implementation
+// import @/pages/test/demo/CosmicComponentsDemo; // Commented out - component needs implementation
+// import @/pages/TypeSystemDemo; // Commented out - component needs implementation
+// import @/pages/test/ButtonDemo; // Commented out - component needs implementation
+// import @/pages/community/CommunityPage; // Commented out - component needs implementation
+// import @/pages/community/EnhancedCommunityPage; // Commented out - component needs implementation
+// import @/pages/community/RevampedCommunityPage; // Commented out - component needs implementation
 import WhaleWisdomCommunity from "@/pages/CommunityPage";
-import AIChatMenuPage from "@/pages/AIChatMenuPage";
-import WhaleConsciousnessPage from "@/pages/WhaleConsciousnessPage";
-import CosmicPortalPage from "@/pages/CosmicPortalPage";
+// import @/pages/AIChatMenuPage; // Commented out - component needs implementation
+// import @/pages/WhaleConsciousnessPage; // Commented out - component needs implementation
+// import @/pages/CosmicPortalPage; // Commented out - component needs implementation
 
 // Resource Pages
-import ResourcesPage from "@/pages/resources/ResourcesPage";
-import FrequencyGuidePage from "@/pages/resources/FrequencyGuidePage";
-import SacredGeometryPage from "@/pages/SacredGeometryPage";
-import SoundHealingPage from "@/pages/resources/SoundHealingPage";
-import MeditationTechniquesPage from "@/pages/resources/MeditationTechniquesPage";
+// import @/pages/resources/ResourcesPage; // Commented out - component needs implementation
+// import @/pages/resources/FrequencyGuidePage; // Commented out - component needs implementation
+// import @/pages/SacredGeometryPage; // Commented out - component needs implementation
+// import @/pages/resources/SoundHealingPage; // Commented out - component needs implementation
+// import @/pages/resources/MeditationTechniquesPage; // Commented out - component needs implementation
 
 // Shop Pages
-import ShopPage from "@/pages/shop/ShopPage";
-import ProductDetailPage from "@/pages/shop/ProductPage";
-import CheckoutPage from "@/pages/shop/CheckoutPage";
-import CartPage from "@/pages/shop/CartPage";
-import OrderConfirmationPage from "@/pages/shop/OrderConfirmationPage";
-import OrderTrackingPage from "@/pages/shop/OrderTrackingPage";
-import CollaborativeShoppingPage from "@/pages/shop/CollaborativeShoppingPage";
+// import @/pages/shop/ShopPage; // Commented out - component needs implementation
+// import @/pages/shop/ProductPage; // Commented out - component needs implementation
+// import @/pages/shop/CheckoutPage; // Commented out - component needs implementation
+// import @/pages/shop/CartPage; // Commented out - component needs implementation
+// import @/pages/shop/OrderConfirmationPage; // Commented out - component needs implementation
+// import @/pages/shop/OrderTrackingPage; // Commented out - component needs implementation
+// import @/pages/shop/CollaborativeShoppingPage; // Commented out - component needs implementation
 
 // Imported Pages
-import CosmicConnectivityPage from "@/pages/experience/CosmicConnectivityPage";
-import CosmicExperiencePage from "@/pages/CosmicExperiencePage";
+// import @/pages/experience/CosmicConnectivityPage; // Commented out - component needs implementation
+// import @/pages/CosmicExperiencePage; // Commented out - component needs implementation
 import ImmersivePage from "./pages/ImmersivePage";
 import CosmicImmersivePage from "./pages/old-pages/CosmicExperienceImmersivePage_old"; // Legacy page
-import ArchivePage from "@/pages/ArchivePage";
-import CosmicMerchandisePage from "@/pages/shop/CosmicMerchandisePage";
-import TestCosmicComponentsDemo from "@/pages/test/CosmicComponentsDemo";
-import AudioComponentsDemo from "@/pages/test/AudioComponentsDemo";
-import { NewComponentsDemo } from "@/pages/test/NewComponentsDemo";
-import ComponentsCatalog from "@/pages/test/demo/ComponentsCatalog";
+// import @/pages/ArchivePage; // Commented out - component needs implementation
+// import @/pages/shop/CosmicMerchandisePage; // Commented out - component needs implementation
+// import @/pages/test/CosmicComponentsDemo; // Commented out - component needs implementation
+// import @/pages/test/AudioComponentsDemo; // Commented out - component needs implementation
+// import @/pages/test/NewComponentsDemo; // Commented out - component needs implementation
+// import @/pages/test/demo/ComponentsCatalog; // Commented out - component needs implementation
 
 // Phase 7: Quantum Consciousness Pages
-import QuantumConsciousnessPage from "@/pages/QuantumConsciousnessPage";
+// import @/pages/QuantumConsciousnessPage; // Commented out - component needs implementation
 
 // Phase 11: Consciousness Mastery Pages
-import ConsciousnessMasteryPage from "@/pages/ConsciousnessMasteryPage";
+// import @/pages/ConsciousnessMasteryPage; // Commented out - component needs implementation
 
 // Admin Pages
 import UsersPage from "@/pages/admin/UsersPage";
