@@ -158,46 +158,46 @@ function AppRouter() {
           <Route path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/contact" component={ContactPage} />
-          <Route path="/tour" component={CosmicConsciousnessTourPage} />
-          <Route path="/engage" component={EngagePage} />
-          <Route path="/newsletter" component={NewsletterPage} />
+          {/* <Route path="/tour" component={CosmicConsciousnessTourPage} /> */}
+          {/* <Route path="/engage" component={EngagePage} /> */}
+          {/* <Route path="/newsletter" component={NewsletterPage} /> */}
           <Route path="/collaboration" component={CollaborationPage} />
           <Route path="/whale-art" component={WhaleArtPage} />
           <Route path="/search" component={SearchPage} />
           {/* Community Pages */}
           <Route path="/community" component={WhaleWisdomCommunity} />
-          <Route path="/community/revamped" component={RevampedCommunityPage} />
-          <Route path="/community/legacy" component={CommunityPage} />
-          <Route path="/enhanced-community" component={EnhancedCommunityPage} />
+          {/* <Route path="/community/revamped" component={RevampedCommunityPage} /> */}
+          {/* <Route path="/community/legacy" component={CommunityPage} /> */}
+          {/* <Route path="/enhanced-community" component={EnhancedCommunityPage} /> */}
           
           {/* AI Chat & Consciousness */}
-          <Route path="/whale-consciousness" component={WhaleConsciousnessPage} />
-          <Route path="/ai-chat" component={AIChatMenuPage} />
-          <Route path="/cosmic-portal" component={CosmicPortalPage} />
+          {/* <Route path="/whale-consciousness" component={WhaleConsciousnessPage} /> */}
+          {/* <Route path="/ai-chat" component={AIChatMenuPage} /> */}
+          {/* <Route path="/cosmic-portal" component={CosmicPortalPage} /> */}
 
           {/* Music & Experience */}
-          <Route path="/music" component={AIEnhancedMusicPage} />
-          <Route path="/music-release" component={AIEnhancedMusicPage} />
-          <Route path="/archived-music" component={AIEnhancedMusicPage} />
-          <Route path="/music-archive" component={AIEnhancedMusicPage} />
+          {/* <Route path="/music" component={AIEnhancedMusicPage} /> */}
+          {/* <Route path="/music-release" component={AIEnhancedMusicPage} /> */}
+          {/* <Route path="/archived-music" component={AIEnhancedMusicPage} /> */}
+          {/* <Route path="/music-archive" component={AIEnhancedMusicPage} /> */}
           <Route path="/music/search" component={MusicSearchPage} />
           {/* Experience Routes */}
-          <Route path="/cosmic-connectivity" component={CosmicConnectivityPage} />
-          <Route path="/experience/cosmic-connectivity" component={CosmicConnectivityPage} />
-          <Route path="/cosmic-experience" component={CosmicExperiencePage} />
+          {/* <Route path="/cosmic-connectivity" component={CosmicConnectivityPage} /> */}
+          {/* <Route path="/experience/cosmic-connectivity" component={CosmicConnectivityPage} /> */}
+          {/* <Route path="/cosmic-experience" component={CosmicExperiencePage} /> */}
           <Route path="/cosmic-immersive" component={CosmicImmersivePage} />
           <Route path="/cosmic-immersive-experience" component={CosmicImmersivePage} />
           <Route path="/cosmic-experience-immersive" component={CosmicImmersivePage} />
           
           {/* Phase 7: Quantum Consciousness */}
-          <Route path="/quantum-consciousness" component={QuantumConsciousnessPage} />
-          <Route path="/whale-communication" component={QuantumConsciousnessPage} />
-          <Route path="/consciousness-evolution" component={QuantumConsciousnessPage} />
+          {/* <Route path="/quantum-consciousness" component={QuantumConsciousnessPage} /> */}
+          {/* <Route path="/whale-communication" component={QuantumConsciousnessPage} /> */}
+          {/* <Route path="/consciousness-evolution" component={QuantumConsciousnessPage} /> */}
           
           {/* Phase 11: Consciousness Mastery */}
-          <Route path="/consciousness-mastery" component={ConsciousnessMasteryPage} />
-          <Route path="/whale-wisdom" component={ConsciousnessMasteryPage} />
-          <Route path="/reality-manifestation" component={ConsciousnessMasteryPage} />
+          {/* <Route path="/consciousness-mastery" component={ConsciousnessMasteryPage} /> */}
+          {/* <Route path="/whale-wisdom" component={ConsciousnessMasteryPage} /> */}
+          {/* <Route path="/reality-manifestation" component={ConsciousnessMasteryPage} /> */}
           {/* Archived Page - /archive */}
           {/* <Route path="/archive" component={ArchivePage} /> */}
 
@@ -206,18 +206,18 @@ function AppRouter() {
           <Route path="/blog/:slug" component={BlogPostPage} />
 
           {/* Shop Routes */}
-          <Route path="/shop" component={ShopPage} />
-          <Route path="/shop/product/:productId" component={ProductDetailPage} />
+          {/* <Route path="/shop" component={ShopPage} /> */}
+          {/* <Route path="/shop/product/:productId" component={ProductDetailPage} /> */}
           <Route path="/shop/search" component={ShopSearchPage} />
-          <Route path="/cart" component={CartPage} />
-          <Route path="/shop/cart" component={CartPage} />
-          <Route path="/checkout" component={CheckoutPage} />
-          <Route path="/shop/checkout" component={CheckoutPage} />
-          <Route path="/shop/order/:orderId" component={OrderConfirmationPage} />
-          <Route path="/shop/track-order" component={OrderTrackingPage} />
-          <Route path="/collaborative-shopping" component={CollaborativeShoppingPage} />
-          <Route path="/shop/collaborative" component={CollaborativeShoppingPage} />
-          <Route path="/shop/collaborative/room/:roomId" component={CollaborativeShoppingPage} />
+          {/* <Route path="/cart" component={CartPage} /> */}
+          {/* <Route path="/shop/cart" component={CartPage} /> */}
+          {/* <Route path="/checkout" component={CheckoutPage} /> */}
+          {/* <Route path="/shop/checkout" component={CheckoutPage} /> */}
+          {/* <Route path="/shop/order/:orderId" component={OrderConfirmationPage} /> */}
+          {/* <Route path="/shop/track-order" component={OrderTrackingPage} /> */}
+          {/* <Route path="/collaborative-shopping" component={CollaborativeShoppingPage} /> */}
+          {/* <Route path="/shop/collaborative" component={CollaborativeShoppingPage} /> */}
+          {/* <Route path="/shop/collaborative/room/:roomId" component={CollaborativeShoppingPage} /> */}
           {/* Cosmic Shop is now integrated into the main ShopPage */}
 
           {/* User Account */}
@@ -238,14 +238,8 @@ function AppRouter() {
           <ProtectedRoute path="/admin/users/roles" component={RoleManagementPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/users/activity" component={UserActivityPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/posts" component={PostsPage} requiredRole="admin" />
-          <ProtectedRoute path="/admin/posts/new" component={() => import("./pages/admin/PostEditPage").then(module => {
-            const PostEditPage = module.default;
-            return <PostEditPage />;
-          })} requiredRole="admin" />
-          <ProtectedRoute path="/admin/posts/edit/:id" component={() => import("./pages/admin/PostEditPage").then(module => {
-            const PostEditPage = module.default;
-            return <PostEditPage />;
-          })} requiredRole="admin" />
+          {/* <ProtectedRoute path="/admin/posts/new" component={PostEditPage} requiredRole="admin" /> */}
+          {/* <ProtectedRoute path="/admin/posts/edit/:id" component={PostEditPage} requiredRole="admin" /> */}
           <ProtectedRoute path="/admin/music" component={AdminMusicPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/content" component={ContentManagementPage} requiredRole="admin" />
           <ProtectedRoute path="/admin/content-workflow" component={ContentWorkflowPage} requiredRole="admin" />
@@ -266,12 +260,12 @@ function AppRouter() {
           <Route path="/simple-admin" component={SimpleAdminPortal} />
 
           {/* Resource Pages */}
-          <Route path="/resources" component={ResourcesPage} />
-          <Route path="/resources/frequency-guide" component={FrequencyGuidePage} />
-          <Route path="/sacred-geometry" component={SacredGeometryPage} />
-          <Route path="/resources/sacred-geometry" component={SacredGeometryPage} />
-          <Route path="/resources/sound-healing" component={SoundHealingPage} />
-          <Route path="/resources/meditation" component={MeditationTechniquesPage} />
+          {/* <Route path="/resources" component={ResourcesPage} /> */}
+          {/* <Route path="/resources/frequency-guide" component={FrequencyGuidePage} /> */}
+          {/* <Route path="/sacred-geometry" component={SacredGeometryPage} /> */}
+          {/* <Route path="/resources/sacred-geometry" component={SacredGeometryPage} /> */}
+          {/* <Route path="/resources/sound-healing" component={SoundHealingPage} /> */}
+          {/* <Route path="/resources/meditation" component={MeditationTechniquesPage} /> */}
           
           {/* Theme Management */}
           <Route path="/themes" component={ThemePage} />
@@ -285,30 +279,25 @@ function AppRouter() {
           <Route path="/data-request" component={DataRequestPage} />
           
           {/* AI Chat */}
-          <Route path="/chat" component={CosmicPortalPage} />
-          <Route path="/ai-assistant" component={CosmicPortalPage} />
-          <Route path="/taskade" component={CosmicPortalPage} />
+          {/* <Route path="/chat" component={CosmicPortalPage} /> */}
+          {/* <Route path="/ai-assistant" component={CosmicPortalPage} /> */}
+          {/* <Route path="/taskade" component={CosmicPortalPage} /> */}
 
           {/* Demo Pages */}
-          <Route path="/components" component={ComponentsCatalog} />
-          <Route path="/test/cosmic" component={TestCosmicComponentsDemo} />
-          <Route path="/cosmic-components" component={CosmicComponentsDemo} />
-          <Route path="/test/audio" component={AudioComponentsDemo} />
-          <Route path="/test/new" component={NewComponentsDemo} />
-          <Route path="/cosmic-test" component={CosmicTest} />
-          <Route path="/type-system-demo" component={TypeSystemDemo} />
+          {/* <Route path="/components" component={ComponentsCatalog} /> */}
+          {/* <Route path="/test/cosmic" component={TestCosmicComponentsDemo} /> */}
+          {/* <Route path="/cosmic-components" component={CosmicComponentsDemo} /> */}
+          {/* <Route path="/test/audio" component={AudioComponentsDemo} /> */}
+          {/* <Route path="/test/new" component={NewComponentsDemo} /> */}
+          {/* <Route path="/cosmic-test" component={CosmicTest} /> */}
+          {/* <Route path="/type-system-demo" component={TypeSystemDemo} /> */}
           <Route path="/dynamic-content-demo" component={DynamicContentDemo} />
           <Route path="/content-ai-demo" component={ContentAIDemo} />
           <Route path="/content-recommendations-demo" component={ContentRecommendationsDemo} />
           <Route path="/performance" component={PerformanceDemoPage} />
           <Route path="/responsive-demo" component={ResponsiveDemo} />
           <Route path="/responsive-demo2" component={ResponsiveDemo2} />
-          <Route path="/test/binaural-beat-performance" component={
-            () => import('./pages/tests/binaural-beat-performance-test').then(module => {
-              const Page = module.default;
-              return <Page />;
-            })
-          } />
+          {/* <Route path="/test/binaural-beat-performance" component={BinauralBeatPerformanceTest} /> */}
           {/* Security Testing Pages */}
           <Route path="/security-test" component={SecurityTestPage} />
           <Route path="/security-dashboard" component={SecurityDashboardPage} />
@@ -355,25 +344,21 @@ function App() {
                 {/* Add OrientationProvider for responsive orientation handling */}
                 <OrientationProvider>
                 {/* Add StylesProvider to optimize CSS-in-JS rendering */}
-                <StylesProvider
-                  extractCritical={true}
-                  optimizeSheets={true}
-                  injectIntoHead={true}
-                  deduplicate={true}
-                  delayNonCritical={100}
-                >
+                <StylesProvider>
                 <ErrorBoundary FallbackComponent={ErrorFallback}>
                   <StarBackground starCount={150} />
                   
                   {/* Add ThemeController - a wrapper that safely uses the theme context */}
-                  <ThemeController />
+                  <ThemeController><div /></ThemeController>
                   
                   <AppRouter />
                   <ChatWidget />
                   {/* Temporarily disable Taskade widget to prevent overlapping AI assistant buttons */}
                   {/* <TaskadeWidget /> */}
                   <CookieConsent />
-                  <ToastProvider />
+                  <ToastProvider>
+                    <div />
+                  </ToastProvider>
                   {/* Add Font optimization */}
                   <FontLoader
                     fonts={[
@@ -391,11 +376,7 @@ function App() {
                     addBodyClass={true}
                   />
                   {/* Service Worker for offline capabilities */}
-                  <ServiceWorkerManager 
-                    registerOnMount={true}
-                    showUpdateNotification={true} 
-                    showOfflineNotification={true}
-                  />
+                  <ServiceWorkerManager />
                 </ErrorBoundary>
                 </StylesProvider>
                 </OrientationProvider>
