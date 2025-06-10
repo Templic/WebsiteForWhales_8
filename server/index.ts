@@ -33,6 +33,8 @@ import { AdvancedAPIValidation } from './security/advanced/apiValidation_new';
 import { RASPCore } from './security/advanced/rasp/RASPCore';
 import { SecurityMonitor } from './security/advanced/monitoring/SecurityMonitor';
 import { initJwtSecrets } from './security/jwt';
+import { initializeAuditSearch } from './audit/searchOptimization.js';
+import { scheduleRetentionPolicies } from './audit/retentionManager.js';
 
 // Start time tracking
 const startTime = Date.now();
@@ -356,6 +358,13 @@ function initializeNonCriticalServices() {
     }, config.backgroundServicesDelay);
   }
 
+  // Initialize audit system (deferred for better startup performance)
+  setTimeout(() => {
+    log('Initializing audit system...', 'server');
+    initializeAuditSearch().catch(console.error);
+    scheduleRetentionPolicies();
+  }, 5000); // Initialize after 5 seconds
+
   // Initialize security scans (if enabled)
   if (config.features.enableSecurityScans) {
     setTimeout(() => {
@@ -388,6 +397,11 @@ async function initializeAllServices() {
     log('Initializing background services...', 'server');
     await initBackgroundServices();
   }
+
+  // Initialize audit system
+  log('Initializing audit system...', 'server');
+  await initializeAuditSearch();
+  scheduleRetentionPolicies();
 
   // Initialize security scans
   if (config.features.enableSecurityScans) {

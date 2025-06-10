@@ -44,6 +44,7 @@ import { publicRouter, authenticatedRouter, adminRouter } from './routes/secureA
 import auditSecurityRoutes from './routes/auditSecurityRoutes';
 import secureApiRoutes from './routes/secure-api';
 import { verifyApiSecurity } from './security/apiSecurityVerification';
+import auditAPIRoutes from './routes/auditAPI.js';
 // Import CSRF protection middleware
 import { enhancedCsrfProtection } from './security/middleware/enhancedCsrfProtection';
 import typescriptErrorRoutes from './routes/typescript-error-routes';
@@ -697,6 +698,9 @@ Through their presence, whales teach us:
 
   // Use simplified TypeScript error management routes for better performance
   app.use('/api/typescript-simple', typescriptErrorSimpleRoutes);
+
+  // Use audit system API routes with admin protection
+  app.use('/api/audit', isAuthenticated, isAdmin, auditAPIRoutes);
 
   // Use secure API routes with comprehensive security checks
   app.use('/api/secure/public', publicRouter);
