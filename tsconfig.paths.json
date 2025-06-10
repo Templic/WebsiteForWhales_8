@@ -2,17 +2,19 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./client/src/*"],
       "@server/*": ["./server/*"],
       "@client/*": ["./client/src/*"],
       "@shared/*": ["./shared/*"],
-      "@components/*": ["./src/components/*", "./client/src/components/*", "./components/*"],
-      "@utils/*": ["./server/utils/*", "./client/src/utils/*", "./utils/*"],
-      "@lib/*": ["./server/lib/*", "./client/src/lib/*", "./lib/*"],
+      "@components/*": ["./client/src/components/*"],
+      "@utils/*": ["./client/src/utils/*"],
+      "@lib/*": ["./client/src/lib/*"],
+      "@hooks/*": ["./client/src/hooks/*"],
+      "@contexts/*": ["./client/src/contexts/*"],
+      "@pages/*": ["./client/src/pages/*"],
       "@middleware/*": ["./server/middleware/*"],
       "@routes/*": ["./server/routes/*"],
-      "@types/*": ["./shared/types/*", "./server/types/*"],
-      "@hooks/*": ["./client/src/hooks/*"]
+      "@types/*": ["./shared/types/*", "./server/types/*"]
     }
   }
 }
